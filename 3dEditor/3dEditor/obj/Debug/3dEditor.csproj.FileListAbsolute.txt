@@ -1,0 +1,14 @@
+D:\__diplomka RayTracer2\3dEditor\3dEditor\bin\Debug\3dEditor.exe
+D:\__diplomka RayTracer2\3dEditor\3dEditor\bin\Debug\3dEditor.pdb
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Debug\ResolveAssemblyReference.cache
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Debug\_3dEditor.Editor.resources
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Debug\_3dEditor.Properties.Resources.resources
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Debug\3dEditor.csproj.GenerateResource.Cache
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Debug\3dEditor.exe
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Debug\3dEditor.pdb
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Debug\_3dEditor.MDIParent1.resources
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Debug\_3dEditor.WndProperties.resources
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Debug\_3dEditor.WndScene.resources
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Debug\_3dEditor.WndBoard.resources
+D:\__diplomka RayTracer2\3dEditor\3dEditor\bin\Debug\EditorLib.dll
+D:\__diplomka RayTracer2\3dEditor\3dEditor\bin\Debug\EditorLib.pdb
