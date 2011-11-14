@@ -1,0 +1,14 @@
+D:\__diplomka RayTracer2\3dEditor\3dEditor\bin\Release\3dEditor.exe
+D:\__diplomka RayTracer2\3dEditor\3dEditor\bin\Release\3dEditor.pdb
+D:\__diplomka RayTracer2\3dEditor\3dEditor\bin\Release\EditorLib.dll
+D:\__diplomka RayTracer2\3dEditor\3dEditor\bin\Release\EditorLib.pdb
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Release\ResolveAssemblyReference.cache
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Release\_3dEditor.Editor.resources
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Release\_3dEditor.WndBoard.resources
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Release\_3dEditor.MDIParent1.resources
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Release\_3dEditor.Properties.Resources.resources
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Release\_3dEditor.WndProperties.resources
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Release\_3dEditor.WndScene.resources
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Release\3dEditor.csproj.GenerateResource.Cache
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Release\3dEditor.exe
+D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Release\3dEditor.pdb

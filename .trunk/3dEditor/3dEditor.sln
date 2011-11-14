@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3dEditor", "3dEditor\3dEditor.csproj", "{A58244ED-5CFD-4972-BDD5-B7B579DADD30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorLib", "EditorLib\EditorLib.csproj", "{910F9DBC-754D-47AE-BAB4-F24EC4268ACF}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A58244ED-5CFD-4972-BDD5-B7B579DADD30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A58244ED-5CFD-4972-BDD5-B7B579DADD30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A58244ED-5CFD-4972-BDD5-B7B579DADD30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A58244ED-5CFD-4972-BDD5-B7B579DADD30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{910F9DBC-754D-47AE-BAB4-F24EC4268ACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{910F9DBC-754D-47AE-BAB4-F24EC4268ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{910F9DBC-754D-47AE-BAB4-F24EC4268ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{910F9DBC-754D-47AE-BAB4-F24EC4268ACF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
