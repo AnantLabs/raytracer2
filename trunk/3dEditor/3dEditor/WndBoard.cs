@@ -358,6 +358,11 @@ namespace _3dEditor
             this.Reset(x, y, z);
         }
 
+        /// <summary>
+        /// zmena hodnoty numericUpDown prekresli editor podle daneho otoceni
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void onValNumChange(object sender, EventArgs e)
         {
             this.Reset((double)this.numericUpDown1.Value, (double)this.numericUpDown2.Value, (double)this.numericUpDown3.Value);
