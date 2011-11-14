@@ -335,7 +335,7 @@ namespace _3dEditor
         }
 
         /// <summary>
-        /// zjisti, zda jsou dva body blizko sobe
+        /// zjisti, zda jsou dva body blizko sobe zahrnujic X i Y souradnice
         /// </summary>
         /// <param name="p1">bod 1</param>
         /// <param name="p2">bod 2</param>
