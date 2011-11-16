@@ -3,6 +3,8 @@
 
 = Project RayTracer2 =
 
+Author: [http://raytracer2.googlecode.com/files/facebook-logo.jpg Ondra Bahounek]
+
 <wiki:gadget url="http://www.ohloh.net/p/587292/widgets/project_basic_stats.xml" height="220" border="1"/>
 
 This project is a continuation of bachelor's work.
@@ -20,6 +22,4 @@ Main topics of study:
 
 
 
-<wiki:gadget url="http://www.ohloh.net/p/587292/widgets/project_languages.xml" border="1" width="340" height="200" border="0"/>
-
-<wiki:gadget url="http://raytracer2.googlecode.com/files/facebook_gadget1.xml" />
+<wiki:gadget url="http://www.ohloh.net/p/587292/widgets/project_languages2.xml" border="1" width="340" height="200" border="0"/>
