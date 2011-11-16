@@ -3,7 +3,7 @@
 
 = Project RayTracer2 =
 
-Author: Ondra Bahounek 
+Author: [http://code.google.com/p/raytracer2/wiki/AboutAuthor Ondra Bahounek]
 
 [http://www.facebook.com/ondra.bahounek http://raytracer2.googlecode.com/files/facebook-logo.jpg]
 
