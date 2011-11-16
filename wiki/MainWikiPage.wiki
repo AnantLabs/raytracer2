@@ -21,3 +21,6 @@ Main topics of study:
 
 
 <wiki:gadget url="http://www.ohloh.net/p/587292/widgets/project_languages.xml" border="1" width="340" height="200" border="0"/>
+
+
+<wiki:gadget url="http://raytracer2.googlecode.com/files/facebook_gadget.xml" />
