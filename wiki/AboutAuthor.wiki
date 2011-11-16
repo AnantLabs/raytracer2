@@ -1,7 +1,7 @@
 #summary One-sentence summary of this page.
 #labels Featured
 
-= About Author =
+= About author =
 
 [http://raytracer2.googlecode.com/files/Ondra.png]
 
@@ -13,7 +13,7 @@
 
 [http://www.facebook.com/ondra.bahounek http://raytracer2.googlecode.com/files/facebook-logo.jpg]
 
-== Interests ==
+== Interests: ==
   * Computer graphics
   * Mobile technology
   * Web development
