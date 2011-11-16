@@ -1,0 +1,19 @@
+#summary One-sentence summary of this page.
+#labels Featured
+
+= About Author =
+
+[http://raytracer2.googlecode.com/files/Ondra.png]
+
+
+  * *Name: Ondrej Bahounek
+----
+  * Country: Czech Republic
+  * Email: stamperes@gmail.com*
+
+[http://www.facebook.com/ondra.bahounek http://raytracer2.googlecode.com/files/facebook-logo.jpg]
+
+== Interests ==
+  * Computer graphics
+  * Mobile technology
+  * Web development
