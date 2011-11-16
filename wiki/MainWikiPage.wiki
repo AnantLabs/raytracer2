@@ -17,4 +17,4 @@ Main topics of study:
   * soft shadows
   * animation
 
-<script src="http://www.gmodules.com/ig/ifr?url=http://blogoscoped.com/homepage/randomimage.xml&amp;up_url=http%3A%2F%2Fraytracer2.googlecode.com%2Ffiles%2F&amp;synd=open&amp;w=332&amp;h=217&amp;title=Random+Project+Images&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"></script>
+<wiki:gadget url="http://www.gmodules.com/ig/ifr?url=http://blogoscoped.com/homepage/randomimage.xml&amp;up_url=http%3A%2F%2Fraytracer2.googlecode.com%2Ffiles%2F&amp;synd=open&amp;w=332&amp;h=217&amp;title=Random+Project+Images&amp;border=%23ffffff%7C3px%2C1px+solid+%23999999&amp;output=js"/>
