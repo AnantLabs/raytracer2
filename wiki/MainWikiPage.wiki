@@ -12,7 +12,7 @@ This project is a continuation of bachelor's work.
 Main topics of study:
   * raytracer
   * dropped shadows
-  * illumination methods
+  * illumination models
   * antialiasing
   * soft shadows
   * animation
