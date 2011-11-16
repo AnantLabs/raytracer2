@@ -1,15 +1,18 @@
 #summary One-sentence summary of this page.
 #labels Phase-Requirements,Featured
 
-= project RayTracer2 =
-
-Add your content here.
+= Project RayTracer2 =
 
 http://raytracer2.googlecode.com/files/LOGO.png
 
+This project is a continuation of bachelor's work.
+
 = Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Main topics of study:
+  * raytracer
+  * dropped shadows
+  * illumination methods
+  * antialiasing
+  * soft shadows
+  * animation
