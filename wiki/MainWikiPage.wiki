@@ -10,9 +10,9 @@ Author: [http://code.google.com/p/raytracer2/wiki/AboutAuthor Ondra Bahounek]
 <g:plusone size="medium"></g:plusone>
 
 
-== This project is a continuation of bachelor's work. ==
+=== This project is a continuation of bachelor's work. ===
 
-= Details =
+== Details ==
 
 Main topics of study:
   * 3D Editor
