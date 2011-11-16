@@ -10,7 +10,8 @@ This project is a continuation of bachelor's work.
 = Details =
 
 Main topics of study:
-  * raytracer
+  * 3D Editor
+  * raytracing
   * dropped shadows
   * illumination models
   * antialiasing
