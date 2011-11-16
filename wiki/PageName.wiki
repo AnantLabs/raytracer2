@@ -5,7 +5,7 @@
 [http://raytracer2.googlecode.com/files/Ondra.png]
 
 
-  **Name: Ondrej Bahounek*
+  * Name: Ondrej Bahounek*
 ----
   * *Country: Czech Republic*
   * *Email: stamperes@gmail.com*
