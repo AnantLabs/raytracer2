@@ -5,10 +5,10 @@
 [http://raytracer2.googlecode.com/files/Ondra.png]
 
 
-Name: Ondrej Bahounek
-Nationality: Czech
-Email: stamperes@gmail.com
-Web: [http://www.facebook.com/ondra.bahounek http://raytracer2.googlecode.com/files/facebook-logo.jpg]
+*Name: Ondrej Bahounek
+*Nationality: Czech
+*Email: stamperes@gmail.com
+*Web: [http://www.facebook.com/ondra.bahounek http://raytracer2.googlecode.com/files/facebook-logo.jpg]
 
 
 = Details =
