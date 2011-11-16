@@ -1,0 +1,19 @@
+#summary One-sentence summary of this page.
+
+= About Author =
+
+[http://raytracer2.googlecode.com/files/Ondra.png]
+
+
+Name: Ondrej Bahounek
+Nationality: Czech
+Email: stamperes@gmail.com
+Web: [http://www.facebook.com/ondra.bahounek http://raytracer2.googlecode.com/files/facebook-logo.jpg]
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
