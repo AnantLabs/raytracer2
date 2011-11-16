@@ -3,7 +3,7 @@
 
 = Project RayTracer2 =
 
-http://raytracer2.googlecode.com/files/logo_150.png
+http://raytracer2.googlecode.com/files/LOGO_150.png
 
 This project is a continuation of bachelor's work.
 
