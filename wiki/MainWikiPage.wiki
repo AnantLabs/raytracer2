@@ -9,9 +9,8 @@ Author: Ondra Bahounek
 
 <g:plusone size="medium"></g:plusone>
 
-<wiki:gadget url="http://www.ohloh.net/p/587292/widgets/project_basic_stats.xml" height="220" border="1"/>
 
-This project is a continuation of bachelor's work.
+== This project is a continuation of bachelor's work. ==
 
 = Details =
 
@@ -25,5 +24,6 @@ Main topics of study:
   * animation
 
 ----
+<wiki:gadget url="http://www.ohloh.net/p/587292/widgets/project_basic_stats.xml" height="220" border="1"/>
 
 <wiki:gadget url="http://www.ohloh.net/p/587292/widgets/project_languages.xml" border="1" width="340" height="200" border="0"/>
