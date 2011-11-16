@@ -8,7 +8,7 @@
   * Name: Ondrej Bahounek*
 ----
   * Country: Czech Republic
-  * *Email: stamperes@gmail.com*
+  * Email: stamperes@gmail.com*
 
 [http://www.facebook.com/ondra.bahounek http://raytracer2.googlecode.com/files/facebook-logo.jpg]
 
