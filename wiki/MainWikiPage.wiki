@@ -31,4 +31,4 @@ Main topics of study:
 
 <wiki:gadget url="http://www.ohloh.net/p/587292/widgets/project_languages.xml" border="1" width="340" height="200" border="0"/>
 
-<wiki:gadget url="http://google-code-project-hosting-gadgets.googlecode.com/svn/trunk/examples/issueupdates_example.xml" up_projectName="http://raytracer2.googlecode.com/svn/trunk/" />
+<wiki:gadget url="http://google-code-project-hosting-gadgets.googlecode.com/svn/trunk/examples/issueupdates_example.xml" up_projectName="up_path=http://raytracer2.googlecode.com/svn/trunk/" />
