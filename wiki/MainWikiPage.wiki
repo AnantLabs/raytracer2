@@ -5,7 +5,7 @@
 
 Author: [http://code.google.com/p/raytracer2/wiki/AboutAuthor Ondra Bahounek]
 
-[http://www.facebook.com/ondra.bahounek http://raytracer2.googlecode.com/files/facebook-logo.jpg]
+Project leader: Mgr. Eduard Bartl, Ph.D.
 
 <g:plusone size="medium"></g:plusone>
 
