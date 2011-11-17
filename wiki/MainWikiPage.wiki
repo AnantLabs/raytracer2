@@ -16,12 +16,14 @@
 
 Main topics of study:
   * 3D Editor
-  * raytracing
-  * dropped shadows
-  * illumination models
-  * antialiasing
-  * soft shadows
-  * animation
+  * Raytracing
+  * Dropped shadows
+  * Soft shadows
+  * Illumination models
+  * Phong shading
+  * Antialiasing
+  * Animation
+  * Spheres, Cubes, Planes, Cylinders
 
 <g:plusone size="medium"></g:plusone>
 ----
