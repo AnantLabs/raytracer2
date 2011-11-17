@@ -48,6 +48,14 @@ namespace EditorLib
             return point;
         }
 
+        public void MultiplyByMatrix(Matrix3D matrix)
+        {
+            Point3D newPoint = matrix * this;
+            this.X = newPoint.X;
+            this.Y = newPoint.Y;
+            this.Z = newPoint.Z;
+        }
+
         /// <summary>
         /// vzdalenost od pocatku
         /// </summary>

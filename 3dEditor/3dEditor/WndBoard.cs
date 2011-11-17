@@ -43,9 +43,11 @@ namespace _3dEditor
         List<Line3D> _linesList;
         List<Line3D> _grid;
 
+        List<DrawingObject> _objectsToDraw;
         Point _centerPoint;
         Pen _penAxis;
         Pen _penGrid;
+        Pen _penObject;
         Font _fontAxis;
         
         Matrix3D _matrix;
@@ -60,26 +62,39 @@ namespace _3dEditor
             _g = this.pictureBoard.CreateGraphics();
             _penAxis = new Pen(Color.Black, 3.0f);
             _penGrid = new Pen(Color.DarkCyan, 2.0f);
+            _penObject = new Pen(Color.Chocolate, 1.5f);
             _fontAxis = new Font(Font.FontFamily, 10, FontStyle.Italic);
 
             
 
             this.MouseWheel += new MouseEventHandler(onBoard_MouseWheel);
             _grid = new List<Line3D>((int)Math.Pow(_GRID_SIZE_INIT + 1, 3));
+            _objectsToDraw = new List<DrawingObject>(30);
 
             Reset();
         }
 
         private void Reset()
         {
-            this.Reset(_INIT_DEGX, _INIT_DEGY, _INIT_DEGZ);
+            this.Reset(_INIT_DEGX, _INIT_DEGY, _INIT_DEGZ, _ZOOM_INIT, _SCALE_INIT);
         }
 
+        /// <summary>
+        /// resetuje, ale ponecha hodnoty scale a zoom
+        /// </summary>
+        /// <param name="degreesX"></param>
+        /// <param name="degreesY"></param>
+        /// <param name="degreesZ"></param>
         private void Reset(double degreesX, double degreesY, double degreesZ)
         {
+            this.Reset(degreesX, degreesY, degreesZ, _zoom, _scale);
+        }
+        private void Reset(double degreesX, double degreesY, double degreesZ, int zoom, int scale)
+        {
+            _objectsToDraw.Clear();
             _isDragging = false;
-            _scale = _SCALE_INIT;
-            _zoom = _ZOOM_INIT;
+            _scale = scale;
+            _zoom = zoom;
 
             this.numericUpDown1.Value = (int)degreesX;
             this.numericUpDown2.Value = (int)degreesY;
@@ -98,12 +113,8 @@ namespace _3dEditor
             Line3D l2 = new Line3D(_axisC3, _axisY3);
             Line3D l3 = new Line3D(_axisC3, _axisZ3);
 
-            _pointsList = new List<Point3D>(10);
-            _linesList = new List<Line3D>(10);
             _grid = EditHelper.FillGrid(_GRID_SIZE_INIT-1);
-
-            //_linesList.Add(l1); _linesList.Add(l2); _linesList.Add(l3);
-
+            
             _centerPoint = new Point(this.pictureBoard.Width / 2, this.pictureBoard.Height / 2);
             _matrix = new Matrix3D();
 
@@ -116,9 +127,22 @@ namespace _3dEditor
             _axisZ3 = _matrix.Transform2NewPoint(_axisZ3);
             _matrixForever = _matrix;
 
+            //
+            //  ROTACE VSECH OBJEKTU V EDITORU
+            //
             _grid = _matrix.Transform2NewLines(_grid);
+            foreach (DrawingObject obj in _objectsToDraw)
+            {
+                obj.Rotate(_matrix);
+            }
+
             this.toolStripComboBox1.SelectedIndex = _GRID_SIZE_INIT - 2;      // init nastaveni typu mrizky
+
+            _objectsToDraw.Add(new DrawingCube(1, 2, -2));
+            _objectsToDraw.Add(new DrawingSphere(new Point3D(0, 0, 0), 1));
+            _objectsToDraw.Add(new DrawingSphere(new Point3D(2, 1, 0), 2));
             this._matrix = EditorLib.Matrix3D.Identity;
+            pictureBoard.Focus();
             Redraw();
         }
 
@@ -152,8 +176,9 @@ namespace _3dEditor
             _editorBmp = new Bitmap(pictureBoard.Width, pictureBoard.Height);
             g = Graphics.FromImage(_editorBmp);
 
-            
 
+            // ================================ DRAWING:
+            // =========================================
             // vykresli vsechny primky
             //
             if (toolBtnGrid.Checked)
@@ -162,6 +187,28 @@ namespace _3dEditor
             // osy:
             if (toolBtnAxes.Checked)
                 DrawAxes(g);
+
+            // objekty:
+            PointF a, b;
+            foreach (DrawingObject obj in _objectsToDraw)
+            {
+                foreach (Line3D l in obj.Lines)
+                {
+                    a = l.A.To2D(_scale, _zoom, _centerPoint);
+                    b = l.B.To2D(_scale, _zoom, _centerPoint);
+                    g.DrawLine(_penObject, a, b);
+                }
+
+                if (obj.GetType() == typeof(DrawingSphere))
+                {
+                    DrawingSphere sph = (DrawingSphere)obj;
+                    a = sph.Center.To2D(_scale, _zoom, _centerPoint);
+                    
+                    float rad = ((float)sph.Radius * _scale) / _scale *_zoom;
+
+                    g.DrawEllipse(_penObject, a.X - rad, a.Y - rad, rad * 2, rad * 2);
+                }
+            }
 
             pictureBoard.Image = _editorBmp;
 
@@ -270,8 +317,10 @@ namespace _3dEditor
             _matrix = _matrix * matr;
             _matrixForever = _matrixForever * _matrix;
 
-            _linesList = _matrix.Transform2NewLines(_linesList);
-
+            foreach (DrawingObject obj in _objectsToDraw)
+            {
+                obj.Rotate(_matrix);
+            }
             if (toolBtnGrid.Checked)
                 _grid = _matrix.Transform2NewLines(_grid);
 
@@ -290,6 +339,7 @@ namespace _3dEditor
 
         private void onPicMouseDown(object sender, MouseEventArgs e)
         {
+            pictureBoard.Focus();
             this._isDragging = true;
             this._lastMousePoint = e.Location;
         }

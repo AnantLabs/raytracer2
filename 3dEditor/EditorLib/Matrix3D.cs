@@ -126,6 +126,11 @@ namespace EditorLib
             return newPoint;
 
         }
+        public void TransformPoint(Point3D point)
+        {
+            point.MultiplyByMatrix(this);
+        }
+
         /// <summary>
         /// Prevede seznam bodu pres transformacni matici <code>Matrix</code>
         /// </summary>
@@ -145,6 +150,16 @@ namespace EditorLib
             }
             return newPoints;
         }
+        public void TransformPoints(Point3D[] points)
+        {
+            if (points == null)
+                throw new ArgumentNullException();
+
+            foreach (Point3D p in points)
+            {
+                this.TransformPoint(p);
+            }
+        }
 
         /// <summary>
         /// Prevede seznam bodu pres transformacni matici <code>Matrix</code>
@@ -158,12 +173,24 @@ namespace EditorLib
             List<Point3D> newPointList = new List<Point3D>(newPoints);
             return newPointList;
         }
+        public void TransformPoints(List<Point3D> points)
+        {
+            foreach (Point3D p in points)
+            {
+                this.TransformPoint(p);
+            }
+        }
 
         public Line3D Transform2NewLine(Line3D line)
         {
             Point3D a = Transform2NewPoint(line.A);
             Point3D b = Transform2NewPoint(line.B);
             return new Line3D(a, b);
+        }
+        public void TransformLine(Line3D line)
+        {
+            this.TransformPoint(line.A);
+            this.TransformPoint(line.B);
         }
 
         public List<Line3D> Transform2NewLines(List<Line3D> lines)
@@ -175,9 +202,14 @@ namespace EditorLib
                 newLines.Add(newLine);
             }
             return newLines;
-
         }
-
+        public void TransformLines(List<Line3D> lines)
+        {
+            foreach (Line3D l in lines)
+            {
+                this.TransformLine(l);
+            }
+        }
         
     }
 }
