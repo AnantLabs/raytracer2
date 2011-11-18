@@ -30,5 +30,3 @@ Main topics of study:
 <wiki:gadget url="http://www.ohloh.net/p/587292/widgets/project_basic_stats.xml" height="220" border="1"/>
 
 <wiki:gadget url="http://www.ohloh.net/p/587292/widgets/project_languages.xml" border="1" width="340" height="200" border="0"/>
-
-<wiki:gadget url="http://raytracer2.googlecode.com/files/datetime_v2.xml"up_color="grey" up_dateFormat="wdm" up_firstDay="0" up_clocks=%5B%5D up_mainClock="" up_mainClockTimeZoneOffset="" up_mainClockDSTOffset="" up_24hourClock="true" up_showWorldClocks="true" up_useServerTime="false" synd="open" w="320" h="160" title="__MSG_title__" lang="cs" country="ALL"/>
