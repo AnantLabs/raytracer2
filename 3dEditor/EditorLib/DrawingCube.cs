@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using RayTracerLib;
+
 namespace EditorLib
 {
     /// <summary>
@@ -11,6 +13,11 @@ namespace EditorLib
     /// </summary>
     public class DrawingCube : DrawingObject
     {
+        /// <summary>
+        /// Associated object from Raytracer World to be represented in editor
+        /// </summary>
+        public Cube ModelObject { get; private set; }
+
         public Point3D Center
         {
             get { return Points[0]; }
@@ -61,8 +68,65 @@ namespace EditorLib
             Lines.Add(new Line3D(lower2, upper2));
             Lines.Add(new Line3D(lower3, upper3));
             Lines.Add(new Line3D(lower4, upper4));
-            
-
         }
+
+        public void SetModelObject(Cube cube)
+        {
+            throw new NotImplementedException();
+        } 
+
+        /// <summary>
+        /// vrati 6 ctveric pro polygony
+        /// </summary>
+        /// <returns></returns>
+        public List<Point3D[]> GetQuarts()
+        {
+            List<Point3D[]> list = new List<Point3D[]>();
+
+            Point3D[] sez1 = new Point3D[4];
+            sez1[0] = Points[1];
+            sez1[1] = Points[2];
+            sez1[2] = Points[4];
+            sez1[3] = Points[3];
+            list.Add(sez1);
+
+            Point3D[] sez2 = new Point3D[4];
+            sez2[0] = Points[5];
+            sez2[1] = Points[6];
+            sez2[2] = Points[8];
+            sez2[3] = Points[7];
+            list.Add(sez2);
+
+            Point3D[] sez3 = new Point3D[4];
+            sez3[0] = Points[1];
+            sez3[1] = Points[2];
+            sez3[2] = Points[6];
+            sez3[3] = Points[5];
+            list.Add(sez3);
+
+            Point3D[] sez4 = new Point3D[4];
+            sez4[0] = Points[3];
+            sez4[1] = Points[4];
+            sez4[2] = Points[8];
+            sez4[3] = Points[7];
+            list.Add(sez4);
+
+            Point3D[] sez5 = new Point3D[4];
+            sez5[0] = Points[1];
+            sez5[1] = Points[3];
+            sez5[2] = Points[7];
+            sez5[3] = Points[5];
+            list.Add(sez5);
+
+            Point3D[] sez6 = new Point3D[4];
+            sez6[0] = Points[2];
+            sez6[1] = Points[4];
+            sez6[2] = Points[8];
+            sez6[3] = Points[6];
+            list.Add(sez6);
+
+            return list;
+        }
+
     }
 }

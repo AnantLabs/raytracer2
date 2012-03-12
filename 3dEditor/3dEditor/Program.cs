@@ -15,7 +15,7 @@ namespace _3dEditor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Editor());
+            Application.Run(new ParentEditor());
             //Application.Run(new MDIParent1());
         }
     }

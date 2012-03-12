@@ -66,6 +66,15 @@ namespace EditorLib
         {
             return Matrix3D.Identity;
         }
+
+        /// <summary>
+        /// matice:
+        /// 1  0         0
+        /// 0  cos(rad)  sin(rad)
+        /// 0  -sin(rad) cos(rad)
+        /// </summary>
+        /// <param name="radians"></param>
+        /// <returns></returns>
         public static Matrix3D NewRotateAroundX(double radians)
         {
             Matrix3D matrix = new Matrix3D();
@@ -76,6 +85,14 @@ namespace EditorLib
             return matrix;
         }
 
+        /// <summary>
+        /// matice:
+        /// cos(rad)  0  -sin(rad)
+        /// 0         1  0
+        /// sin(rad)  0  cos(rad)
+        /// </summary>
+        /// <param name="radians"></param>
+        /// <returns></returns>
         public static Matrix3D NewRotateAroundY(double radians)
         {
             Matrix3D matrix = new Matrix3D();
@@ -86,6 +103,14 @@ namespace EditorLib
             return matrix;
         }
 
+        /// <summary>
+        /// matice:
+        /// cos(rad)  sin(rad) 0
+        /// -sin(rad) cos(rad) 0
+        /// 0         0        1 
+        /// </summary>
+        /// <param name="radians"></param>
+        /// <returns></returns>
         public static Matrix3D NewRotateAroundZ(double radians)
         {
             Matrix3D matrix = new Matrix3D();
@@ -124,8 +149,8 @@ namespace EditorLib
         {
             Point3D newPoint = this * point;
             return newPoint;
-
         }
+
         public void TransformPoint(Point3D point)
         {
             point.MultiplyByMatrix(this);
@@ -209,6 +234,68 @@ namespace EditorLib
             {
                 this.TransformLine(l);
             }
+        }
+
+        /// OPERACE POSUNUTI - TRANSLACE:
+        /// vektor posunuti: [Px, Py]
+        /// matice:
+        /// 1 0 Px
+        /// 0 1 Py
+        /// 0 0 1
+        public static Point3D Posunuti(Point3D point3D, double Px, double Py, double Pz)
+        {
+            //Matrix3D matrix = new Matrix3D(
+            //    new Point3D(1, 0, 0),
+            //    new Point3D(0, 1, 0),
+            //    new Point3D(Px, Py, Pz));
+
+            //double x = point3D.X * matrix.Matrix[0, 0] +
+            //        point3D.Y * matrix.Matrix[0, 1] +
+            //        point3D.Z * matrix.Matrix[0, 2];
+
+            //double y = point3D.X * matrix.Matrix[1, 0] +
+            //        point3D.Y * matrix.Matrix[1, 1] +
+            //        point3D.Z * matrix.Matrix[1, 2];
+
+            //double z = point3D.X * matrix.Matrix[2, 0] +
+            //        point3D.Y * matrix.Matrix[2, 1] +
+            //        point3D.Z * matrix.Matrix[2, 2];
+
+            Point3D newP3d = new Point3D(point3D.X + Px, point3D.Y + Py, point3D.Z + Pz);
+            return newP3d;
+        }
+
+
+        /// OPERACE POSUNUTI - TRANSLACE:
+        /// vektor posunuti: [Px, Py]
+        /// matice:
+        /// 1 0 Px
+        /// 0 1 Py
+        /// 0 0 1
+        public static Matrix3D PosunutiNewMatrix(double Px, double Py, double Pz)
+        {
+            Matrix3D matrix =new Matrix3D();
+            matrix = new Matrix3D(
+                new Point3D(1, 0, 0),
+                new Point3D(0, 1, 0),
+                new Point3D(Px, Py, Pz));
+
+            return matrix;
+        }
+
+        /// SCALING / zmena meritka
+        /// matice:
+        /// Sx 0 0
+        /// 0 Sy 0
+        /// 0 0 Sz
+        public static Matrix3D ScalingNewMatrix(double Sx, double Sy, double Sz)
+        {
+            Matrix3D matrix = new Matrix3D(
+                new Point3D(Sx, 0, 0), 
+                new Point3D(0, Sy, 0), 
+                new Point3D(0, 0, Sz));
+
+            return matrix;
         }
         
     }

@@ -9,14 +9,18 @@ using System.Windows.Forms;
 using System.Threading;
 
 using EditorLib;
+using System.Drawing.Drawing2D;
 
 namespace _3dEditor
 {
     
     public partial class WndBoard : Form
     {
+        EditHelper _editHelp;
         Graphics _g;
         Bitmap _editorBmp;
+
+        DrawingObject _isSelected;
 
         Point3D _axisC3, _axisX3, _axisY3, _axisZ3;
         bool _isDragging;
@@ -48,8 +52,11 @@ namespace _3dEditor
         Pen _penAxis;
         Pen _penGrid;
         Pen _penObject;
+        Pen _penSelectedObject;
         Font _fontAxis;
-        
+
+
+
         Matrix3D _matrix;
         /// <summary>
         /// Matice pocitana od zacatku
@@ -63,8 +70,9 @@ namespace _3dEditor
             _penAxis = new Pen(Color.Black, 3.0f);
             _penGrid = new Pen(Color.DarkCyan, 2.0f);
             _penObject = new Pen(Color.Chocolate, 1.5f);
+            _penSelectedObject = new Pen(Color.Chocolate, 2.5f);
             _fontAxis = new Font(Font.FontFamily, 10, FontStyle.Italic);
-
+            _editHelp = new EditHelper();
             
 
             this.MouseWheel += new MouseEventHandler(onBoard_MouseWheel);
@@ -77,6 +85,7 @@ namespace _3dEditor
         private void Reset()
         {
             this.Reset(_INIT_DEGX, _INIT_DEGY, _INIT_DEGZ, _ZOOM_INIT, _SCALE_INIT);
+            
         }
 
         /// <summary>
@@ -127,6 +136,17 @@ namespace _3dEditor
             _axisZ3 = _matrix.Transform2NewPoint(_axisZ3);
             _matrixForever = _matrix;
 
+            
+
+            this.toolStripComboBox1.SelectedIndex = _GRID_SIZE_INIT - 2;      // init nastaveni typu mrizky
+
+            _objectsToDraw.Clear();
+            _objectsToDraw.Add(new DrawingCube(1, 1, -2));
+            //_objectsToDraw.Add(new DrawingSphere(new Point3D(1, 2, 1), 1));
+            //_objectsToDraw.Add(new DrawingCylinder(new Point3D(1, 2, 1), 1, 3));
+            //_objectsToDraw.Add(new DrawingPlane(20, 0.5f, 45, 0, 0, null));
+            //_objectsToDraw.Add(new DrawingSphere(new Point3D(2, 1, 0), 2));
+
             //
             //  ROTACE VSECH OBJEKTU V EDITORU
             //
@@ -136,11 +156,6 @@ namespace _3dEditor
                 obj.Rotate(_matrix);
             }
 
-            this.toolStripComboBox1.SelectedIndex = _GRID_SIZE_INIT - 2;      // init nastaveni typu mrizky
-
-            _objectsToDraw.Add(new DrawingCube(1, 2, -2));
-            _objectsToDraw.Add(new DrawingSphere(new Point3D(0, 0, 0), 1));
-            _objectsToDraw.Add(new DrawingSphere(new Point3D(2, 1, 0), 2));
             this._matrix = EditorLib.Matrix3D.Identity;
             pictureBoard.Focus();
             Redraw();
@@ -172,7 +187,8 @@ namespace _3dEditor
         }
         private void Redraw(Graphics g)
         {
-            
+            _editHelp.ClearAllClickableObjects();
+
             _editorBmp = new Bitmap(pictureBoard.Width, pictureBoard.Height);
             g = Graphics.FromImage(_editorBmp);
 
@@ -192,21 +208,169 @@ namespace _3dEditor
             PointF a, b;
             foreach (DrawingObject obj in _objectsToDraw)
             {
-                foreach (Line3D l in obj.Lines)
+                //foreach (Line3D l in obj.Lines)
+                //{
+                //    a = l.A.To2D(_scale, _zoom, _centerPoint);
+                //    b = l.B.To2D(_scale, _zoom, _centerPoint);
+                //    g.DrawLine(_penObject, a, b);
+                //}
+
+                if (obj == _isSelected)
                 {
-                    a = l.A.To2D(_scale, _zoom, _centerPoint);
-                    b = l.B.To2D(_scale, _zoom, _centerPoint);
-                    g.DrawLine(_penObject, a, b);
+                    int aaa = 1;
                 }
 
-                if (obj.GetType() == typeof(DrawingSphere))
+                if (obj.GetType() == typeof(DrawingSphere)) // ================= SPHERE
                 {
                     DrawingSphere sph = (DrawingSphere)obj;
-                    a = sph.Center.To2D(_scale, _zoom, _centerPoint);
-                    
-                    float rad = ((float)sph.Radius * _scale) / _scale *_zoom;
+                    EditorObject editorObject = new EditorObject(sph);
+                    GraphicsPath path;
 
-                    g.DrawEllipse(_penObject, a.X - rad, a.Y - rad, rad * 2, rad * 2);
+                    foreach (Line3D l in sph.Lines)
+                    {
+                        a = l.A.To2D(_scale, _zoom, _centerPoint);
+                        b = l.B.To2D(_scale, _zoom, _centerPoint);
+                        g.DrawLine(_penObject, a, b);
+                    }
+
+                    a = sph.Center.To2D(_scale, _zoom, _centerPoint);
+                    float rad = ((float)sph.Radius * _scale) / _scale *_zoom;
+                    float xOhnisko = rad;
+
+                    List<Point3D[]> quarts = sph.GetQuartets();
+                    foreach (Point3D[] arr in quarts)
+                    {
+                        PointF[] pfArr = new PointF[arr.Length];
+                        for (int j = 0; j < arr.Length; j++)
+                        {
+                            pfArr[j] = arr[j].To2D(_scale, _zoom, _centerPoint);
+                        }
+                        g.DrawClosedCurve(_penObject, pfArr, 0.9F, System.Drawing.Drawing2D.FillMode.Winding);
+                        // pridame ohraniceni cestou
+                        path = new GraphicsPath();
+                        path.AddClosedCurve(pfArr, 0.9F);
+                        editorObject.AddPath(path);
+                        _editHelp.AddClickableObject(editorObject);
+                    }
+                }
+
+                else if (obj.GetType() == typeof(DrawingPlane)) // ================= PLANE
+                {
+                    DrawingPlane plane = (DrawingPlane)obj;
+                    EditorObject editorObject = new EditorObject(plane);
+                    GraphicsPath path = new GraphicsPath();
+
+                    foreach (Line3D l in plane.Lines)
+                    {
+                        a = l.A.To2D(_scale, _zoom, _centerPoint);
+                        b = l.B.To2D(_scale, _zoom, _centerPoint);
+                        g.DrawLine(_penObject, a, b);
+                    }
+
+                    Line3D l1 = plane.Lines[0];
+                    Line3D l2 = plane.Lines[plane.Lines.Count/2 - 1];
+                    PointF[] pfArr = new PointF[4];
+                    pfArr[0] = l1.A.To2D(_scale, _zoom, _centerPoint);
+                    pfArr[1] = l1.B.To2D(_scale, _zoom, _centerPoint);
+                    pfArr[2] = l2.B.To2D(_scale, _zoom, _centerPoint);
+                    pfArr[3] = l2.A.To2D(_scale, _zoom, _centerPoint);
+                    path.AddPolygon(pfArr);
+                    editorObject.AddPath(path);
+                    _editHelp.AddClickableObject(editorObject);
+                }
+
+                else if (obj.GetType() == typeof(DrawingCube))
+                {
+                    DrawingCube cube = (DrawingCube)obj;
+                    EditorObject editorObject = new EditorObject(cube);
+                    GraphicsPath path = new GraphicsPath();
+
+                    foreach (Line3D l in cube.Lines)
+                    {
+                        a = l.A.To2D(_scale, _zoom, _centerPoint);
+                        b = l.B.To2D(_scale, _zoom, _centerPoint);
+                        g.DrawLine(_penObject, a, b);
+                    }
+
+                    List<Point3D[]> quarts = cube.GetQuarts();
+                    foreach (Point3D[] arr in quarts)
+                    {
+                        PointF[] pfArr = new PointF[arr.Length];
+                        for (int j = 0; j < arr.Length; j++)
+                        {
+                            pfArr[j] = arr[j].To2D(_scale, _zoom, _centerPoint);
+                        }
+                        // pridame ohraniceni cestou
+                        path = new GraphicsPath();
+                        path.AddPolygon(pfArr);
+                        editorObject.AddPath(path);
+                    }
+                    _editHelp.AddClickableObject(editorObject);
+                }
+
+                else if (obj.GetType() == typeof(DrawingCylinder)) // =============== CYLINDER
+                {
+                    DrawingCylinder cyl = (DrawingCylinder)obj;
+                    EditorObject editorObject = new EditorObject(cyl);
+                    GraphicsPath path;
+
+                    foreach (Line3D l in cyl.Lines)
+                    {
+                        a = l.A.To2D(_scale, _zoom, _centerPoint);
+                        b = l.B.To2D(_scale, _zoom, _centerPoint);
+                        g.DrawLine(_penObject, a, b);
+                    }
+
+                    List<Point3D[]> quarts = cyl.GetQuartets();
+                    foreach (Point3D[] arr in quarts)
+                    {
+                        PointF[] pfArr = new PointF[arr.Length];
+                        for (int j = 0; j < arr.Length; j++)
+                        {
+                            pfArr[j] = arr[j].To2D(_scale, _zoom, _centerPoint);
+                        }
+                        // pridame ohraniceni cestou
+                        path = new GraphicsPath();
+                        path.AddClosedCurve(pfArr, 0.9F);
+                        editorObject.AddPath(path);
+
+                        g.DrawClosedCurve(_penObject, pfArr, 0.9F, System.Drawing.Drawing2D.FillMode.Winding);
+                    }
+
+                    Point3D[] bottomPts = quarts[0];
+                    Point3D[] upperPts = quarts[quarts.Count - 1];
+                    Point3D[] poly1 = new Point3D[4];
+                    poly1[0] = bottomPts[0];
+                    poly1[1] = bottomPts[2];
+                    poly1[2] = upperPts[2];
+                    poly1[3] = upperPts[0];
+                    PointF[] poly1F = new PointF[poly1.Length];
+                    for (int j = 0; j < poly1.Length; j++)
+                    {
+                        poly1F[j] = poly1[j].To2D(_scale, _zoom, _centerPoint);
+                    }
+
+                    Point3D[] poly2 = new Point3D[4];
+                    poly2[0] = bottomPts[1];
+                    poly2[1] = bottomPts[3];
+                    poly2[2] = upperPts[3];
+                    poly2[3] = upperPts[1];
+                    PointF[] poly2F = new PointF[poly2.Length];
+                    for (int j = 0; j < poly2.Length; j++)
+                    {
+                        poly2F[j] = poly2[j].To2D(_scale, _zoom, _centerPoint);
+                    }
+
+                    g.DrawPolygon(_penObject, poly1F);
+                    g.DrawPolygon(_penObject, poly2F);
+                    path = new GraphicsPath();
+                    path.AddPolygon(poly1F);
+                    editorObject.AddPath(path);
+                    path = new GraphicsPath();
+                    path.AddPolygon(poly2F);
+                    editorObject.AddPath(path);
+
+                    _editHelp.AddClickableObject(editorObject);
                 }
             }
 
@@ -231,8 +395,6 @@ namespace _3dEditor
 
         private void DrawAxes(Graphics g)
         {
-            
-
 
             PointF c = _axisC3.To2D(_scale, _zoom, _centerPoint);
             PointF x = _axisX3.To2D(_scale, _zoom, _centerPoint);
@@ -260,6 +422,14 @@ namespace _3dEditor
                 b = l.B.To2D(_scale, _zoom, _centerPoint);
                 g.DrawLine(_penGrid, a, b);
             }
+        }
+
+        private void DrawEllipse(Graphics g, List<Point3D> points3d)
+        {
+            PointF a = points3d[0].To2D(_scale, _zoom, _centerPoint);
+            PointF b = points3d[1].To2D(_scale, _zoom, _centerPoint);
+
+            //g.DrawEllipse(Pens.Gold, uperLeftX, upperLeftY, Width, Height);
         }
 
         private void onPicMouseMove(object sender, MouseEventArgs e)
@@ -339,6 +509,14 @@ namespace _3dEditor
 
         private void onPicMouseDown(object sender, MouseEventArgs e)
         {
+            List<DrawingObject> drawingList = _editHelp.GetClickableObj(e.Location);
+            if (drawingList.Count > 0)
+            {
+                _isSelected = drawingList[0];   // vybereme prvni ze seznamu
+                labelClick.Text = "Clicked";
+            }
+            else
+                labelClick.Text = "---";
             pictureBoard.Focus();
             this._isDragging = true;
             this._lastMousePoint = e.Location;
@@ -418,7 +596,21 @@ namespace _3dEditor
             this.Reset((double)this.numericUpDown1.Value, (double)this.numericUpDown2.Value, (double)this.numericUpDown3.Value);
         }
 
-        
+        private void button2_Click(object sender, EventArgs e)
+        {
+            foreach (DrawingObject obj in _objectsToDraw)
+            {
+                if (obj.GetType() == typeof(DrawingCube))
+                {
+                    DrawingCube cube = (DrawingCube)obj;
+                    foreach (Point3D p in cube.Points)
+                    {
+                        p.Posunuti(0.2, 0, -0.1);
+                    }
+                }
+            }
+        }
+
+
     }
-    
 }

@@ -3,3 +3,9 @@ D:\__diplomka RayTracer2\3dEditor\EditorLib\bin\Debug\EditorLib.dll
 D:\__diplomka RayTracer2\3dEditor\EditorLib\bin\Debug\EditorLib.pdb
 D:\__diplomka RayTracer2\3dEditor\EditorLib\obj\Debug\EditorLib.dll
 D:\__diplomka RayTracer2\3dEditor\EditorLib\obj\Debug\EditorLib.pdb
+D:\__diplomka RayTracer2\3dEditor\EditorLib\bin\Debug\RayTracerLib.dll
+D:\__diplomka RayTracer2\3dEditor\EditorLib\bin\Debug\Splicer.dll
+D:\__diplomka RayTracer2\3dEditor\EditorLib\bin\Debug\DirectShowLib-2005.dll
+D:\__diplomka RayTracer2\3dEditor\EditorLib\bin\Debug\RayTracerLib.pdb
+D:\__diplomka RayTracer2\3dEditor\EditorLib\bin\Debug\Splicer.pdb
+D:\__diplomka RayTracer2\3dEditor\EditorLib\bin\Debug\DirectShowLib-2005.pdb

@@ -53,10 +53,17 @@
     <Compile Include="DrawingSphere.cs" />
     <Compile Include="EditHelper.cs" />
     <Compile Include="EditorMath.cs" />
+    <Compile Include="EditorObject.cs" />
     <Compile Include="Line3D.cs" />
     <Compile Include="Matrix3D.cs" />
     <Compile Include="Point3D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RayTracerLib\RayTracerLib.csproj">
+      <Project>{1276C07D-7BA3-466C-8D0E-3B4342F3583E}</Project>
+      <Name>RayTracerLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
