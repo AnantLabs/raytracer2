@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="RayTracerLib.Animation">
+    <Position X="9.25" Y="2.75" Width="2.5" />
+    <NestedTypes>
+      <Class Name="RayTracerLib.Animation.Elipse" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Animation.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>gAAAAEAGAACAQQQEAAAEKIRAQECmMQAEAAkwAIIAGQA=</HashCode>
+      <FileName>Animation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RayTracerLib.Box" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAgAAEAAAAAAQAAAAQBAAAEAAAAAAIAIA=</HashCode>
+      <FileName>Box.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RayTracerLib.Camera" Collapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAgAAAQgEACAACAAQAAQAAAAAAIAIAUQAAAI=</HashCode>
+      <FileName>Camera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RayTracerLib.Colour" Collapsed="true">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAIAAAAAEYAAAAAAAAAAAQAAAAAAASAEAAQA=</HashCode>
+      <FileName>Colour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RayTracerLib.Cube" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAIAAggAkAAAAAEAAAAAAAAAAAAJAAABIAYA=</HashCode>
+      <FileName>Cube.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RayTracerLib.Cylinder" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAIAAAgAkAAAAAAAAAAAAAAAAAAAAAESIAYA=</HashCode>
+      <FileName>Cylinder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RayTracerLib.DefaultShape" Collapsed="true">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAIAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>DefaultShape.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RayTracerLib.Light">
+    <Position X="5.25" Y="3" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAABAEAAAIwAAEEAAAAAAAAIAAAAIBQAgQgEgAAAA=</HashCode>
+      <FileName>Light.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RayTracerLib.Material">
+    <Position X="7.75" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAIAIAAAAAEAAAAAAAAAAAAgAAQAAAAAAAAgBQgACA=</HashCode>
+      <FileName>Material.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RayTracerLib.MyMath" Collapsed="true">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgQAAABAAAAAAAAAAAAIoAAAAAAAAAAACAAEAQAAAA=</HashCode>
+      <FileName>MyMath.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RayTracerLib.OneThreadAnimation" Collapsed="true">
+    <Position X="15.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAQEAGAACgQQREAAgEKIRAQACmMQAEAAkwAIIAGQA=</HashCode>
+      <FileName>OneThreadAnimation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RayTracerLib.Plane" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>cAAAAAB4AIAAAAAEAABAAAAAAAAIAAAIAAAABgAAAMA=</HashCode>
+      <FileName>Plane.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RayTracerLib.RayTracing">
+    <Position X="17.5" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAIAEQAABAAAAACgAAECAAIBACAgAAEAAAECAI=</HashCode>
+      <FileName>RayTracing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RayTracerLib.Renderer">
+    <Position X="11.75" Y="2.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ACCAYAACAACAACxCAAiAKYRAAAAAAAAEAAAAAAIAAQA=</HashCode>
+      <FileName>Renderer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RayTracerLib.Scene">
+    <Position X="14.5" Y="3.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AACCAAAAAgIAAkgEAAC2AxAAgAAAEAAACQBAAAAAAAA=</HashCode>
+      <FileName>Scene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RayTracerLib.SolidPoint" BaseTypeListCollapsed="true">
+    <Position X="15" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEAEAAAAAAAAAAQAAAAACAAAAAAIAAAAQAAAgAAEAAA=</HashCode>
+      <FileName>SolidPoint.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RayTracerLib.Sphere" Collapsed="true">
+    <Position X="9.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAEAAAAAAAAAAAAAAAAAAAAAAgAAYA=</HashCode>
+      <FileName>Sphere.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RayTracerLib.Vektor" Collapsed="true">
+    <Position X="20.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAIAAAQAAAAAoAAEcAECAIAAAAAAAAAAAACACEAQYiE=</HashCode>
+      <FileName>Vektor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="RayTracerLib.AnimationType">
+    <Position X="12" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAABAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Animation.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
