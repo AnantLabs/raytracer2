@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace EditorLib
 {
@@ -10,10 +11,16 @@ namespace EditorLib
         public int MagnifCoef { get; set; }
         public int Zoom { get; set; }
 
+        /// <summary>
+        /// seznam objektu, na ktere je mozne kliknout
+        /// </summary>
+        private List<EditorObject> ClickableObjects { get; set; }
+
         public EditHelper()
         {
             MagnifCoef = 150;
             Zoom = 10;
+            ClickableObjects = new List<EditorObject>();
         }
 
         /// <summary>
@@ -92,7 +99,41 @@ namespace EditorLib
                     return true;
             }
             return true;
+        }
 
+        /// <summary>
+        /// odebere vsechny klikatelne objekty ze seznamu
+        /// </summary>
+        public void ClearAllClickableObjects()
+        {
+            this.ClickableObjects.Clear();
+        }
+
+        /// <summary>
+        /// prida novy klikatelny objekt do seznamu
+        /// </summary>
+        /// <param name="editorObject"></param>
+        public void AddClickableObject(EditorObject editorObject)
+        {
+            this.ClickableObjects.Add(editorObject);
+        }
+
+        /// <summary>
+        /// vrati objekt, ktery obsahuje dany bod
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public List<DrawingObject> GetClickableObj(Point point)
+        {
+            List<DrawingObject> clickedList = new List<DrawingObject>();
+            foreach (EditorObject obj in ClickableObjects)
+            {
+                if (obj.IsContained(point))
+                {
+                    clickedList.Add(obj.AssociatedObject);
+                }
+            }
+            return clickedList;
         }
     }
 }

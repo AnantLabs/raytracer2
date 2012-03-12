@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using RayTracerLib;
+
 namespace EditorLib
 {
     public abstract class DrawingObject
     {
+        
         /// <summary>
         /// All currently transformed points of the object
         /// </summary>
@@ -33,6 +36,6 @@ namespace EditorLib
 
         public void Scale(double scale) { }
 
-
+        
     }
 }

@@ -88,6 +88,30 @@ namespace EditorLib
         {
             return "[" + X + ";" + Y + ";" + Z + "]";
         }
-        
+
+
+        public void Otoceni(double xRad, double yRad, double zRad)
+        {
+            Matrix3D matrix = Matrix3D.NewRotateByRads(xRad, yRad, zRad);
+            Point3D p = matrix * this;
+            X = p.X;
+            Y = p.Y;
+            Z = p.Z;
+        }
+        public void Posunuti(double Px, double Py, double Pz)
+        {
+            Point3D p = Matrix3D.Posunuti(this, Px, Py, Pz);
+            X = p.X;
+            Y = p.Y;
+            Z = p.Z;
+        }
+
+
+        public void Scale(double Sx, double Sy, double Sz)
+        {
+            Matrix3D m = Matrix3D.ScalingNewMatrix(Sx, Sy, Sz);
+            this.MultiplyByMatrix(m);
+        }
+       
     }
 }
