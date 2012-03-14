@@ -7,9 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Drawing.Drawing2D;
 
 using EditorLib;
-using System.Drawing.Drawing2D;
+using RayTracerLib;
+
 
 namespace _3dEditor
 {
@@ -47,7 +49,11 @@ namespace _3dEditor
         List<Line3D> _linesList;
         List<Line3D> _grid;
 
+        /// <summary>
+        /// vsechny objekty vykreslovane v editoru
+        /// </summary>
         List<DrawingObject> _objectsToDraw;
+
         Point _centerPoint;
         Pen _penAxis;
         Pen _penGrid;
@@ -66,6 +72,7 @@ namespace _3dEditor
         {
             InitializeComponent();
 
+            
             _g = this.pictureBoard.CreateGraphics();
             _penAxis = new Pen(Color.Black, 3.0f);
             _penGrid = new Pen(Color.DarkCyan, 2.0f);
@@ -78,6 +85,9 @@ namespace _3dEditor
             this.MouseWheel += new MouseEventHandler(onBoard_MouseWheel);
             _grid = new List<Line3D>((int)Math.Pow(_GRID_SIZE_INIT + 1, 3));
             _objectsToDraw = new List<DrawingObject>(30);
+
+            this.Update();
+            this.Focus();
 
             Reset();
         }
@@ -245,7 +255,7 @@ namespace _3dEditor
                         {
                             pfArr[j] = arr[j].To2D(_scale, _zoom, _centerPoint);
                         }
-                        g.DrawClosedCurve(_penObject, pfArr, 0.9F, System.Drawing.Drawing2D.FillMode.Winding);
+                        g.DrawClosedCurve(_penObject, pfArr, 1F, System.Drawing.Drawing2D.FillMode.Winding);
                         // pridame ohraniceni cestou
                         path = new GraphicsPath();
                         path.AddClosedCurve(pfArr, 0.9F);
@@ -512,6 +522,11 @@ namespace _3dEditor
             List<DrawingObject> drawingList = _editHelp.GetClickableObj(e.Location);
             if (drawingList.Count > 0)
             {
+                if (drawingList[0].ModelObject is DefaultShape)
+                {
+                    WndScene wndsc = GetWndScene();
+                    wndsc.ShowNode(drawingList[0].ModelObject);
+                }
                 _isSelected = drawingList[0];   // vybereme prvni ze seznamu
                 labelClick.Text = "Clicked";
             }
@@ -603,11 +618,92 @@ namespace _3dEditor
                 if (obj.GetType() == typeof(DrawingCube))
                 {
                     DrawingCube cube = (DrawingCube)obj;
+                    Matrix3D foreverPuvodni = _matrixForever.Transpose();
+                    Point3D oldCenterForever = foreverPuvodni * cube.Center;
+
                     foreach (Point3D p in cube.Points)
                     {
-                        p.Posunuti(0.2, 0, -0.1);
+                        p.Posunuti(0.2, 0, 0);
                     }
                 }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            foreach (DrawingObject obj in _objectsToDraw)
+            {
+                if (obj.GetType() == typeof(DrawingCube))
+                {
+                    DrawingCube cube = (DrawingCube)obj;
+                    Matrix3D foreverPuvodni = _matrixForever.Transpose();
+                    Point3D oldCenterForever = foreverPuvodni * cube.Center;
+
+                    foreach (Point3D p in cube.Points)
+                    {
+                        p.Posunuti(-0.2, 0, 0);
+                    }
+                }
+            }
+        }
+
+        private WndScene GetWndScene()
+        {
+            ParentEditor pf = (ParentEditor)this.ParentForm;
+            return pf._wndScene;
+        }
+
+        /// <summary>
+        /// Prida novy objekt ze sveta raytraceru do sveta editoru
+        /// </summary>
+        /// <param name="shape">teleso ze sveta Raytraceru</param>
+        public void AddRaytrObject(DefaultShape shape)
+        {
+            if (shape.GetType() == typeof(Sphere))
+            {
+                Sphere sph = (Sphere)shape;
+                DrawingSphere drSphere = new DrawingSphere(sph);
+                _objectsToDraw.Add(drSphere);
+                WndScene wndScene = GetWndScene();
+                wndScene.AddItem(sph);
+            }
+            else if (shape.GetType() == typeof(Plane))
+            {
+                Plane plane = (Plane)shape;
+                DrawingPlane drPlane = new DrawingPlane(plane);
+                _objectsToDraw.Add(drPlane);
+                WndScene wndScene = GetWndScene();
+                wndScene.AddItem(plane);
+            }
+            else if (shape.GetType() == typeof(Cube))
+            {
+                Cube cube = (Cube)shape;
+                DrawingCube drCube = new DrawingCube(cube);
+                _objectsToDraw.Add(drCube);
+                WndScene wndScene = GetWndScene();
+                wndScene.AddItem(cube);
+            }
+            else if (shape.GetType() == typeof(Cylinder))
+            {
+                Cylinder cylinder = (Cylinder)shape;
+                DrawingCylinder drCyl = new DrawingCylinder(cylinder);
+                _objectsToDraw.Add(drCyl);
+                WndScene wndScene = GetWndScene();
+                wndScene.AddItem(cylinder);
+            }
+        }
+
+        /// <summary>
+        /// Prida scenu do editoru
+        /// </summary>
+        /// <param name="scene"></param>
+        public void AddRaytrScene(RayTracerLib.Scene scene)
+        {
+            this._objectsToDraw.Clear();
+            foreach (DefaultShape shape in scene.SceneObjects)
+            {
+                // prida novy objekt ze sveta raytraceru do sveta editoru
+                AddRaytrObject(shape);
             }
         }
 

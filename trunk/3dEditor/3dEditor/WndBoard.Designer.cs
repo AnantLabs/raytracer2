@@ -51,6 +51,8 @@
             this.statusLabelZ = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripContainer2 = new System.Windows.Forms.ToolStripContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelClick = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -59,8 +61,7 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.button2 = new System.Windows.Forms.Button();
-            this.labelClick = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoard)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -298,6 +299,7 @@
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.labelClick);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
@@ -312,6 +314,25 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(156, 101);
             this.panel1.TabIndex = 5;
+            // 
+            // labelClick
+            // 
+            this.labelClick.AutoSize = true;
+            this.labelClick.Location = new System.Drawing.Point(105, 41);
+            this.labelClick.Name = "labelClick";
+            this.labelClick.Size = new System.Drawing.Size(29, 13);
+            this.labelClick.TabIndex = 11;
+            this.labelClick.Text = "click";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(119, 4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(25, 23);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "+";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -428,24 +449,15 @@
             this.numericUpDown3.TabIndex = 3;
             this.numericUpDown3.ValueChanged += new System.EventHandler(this.onValNumChange);
             // 
-            // button2
+            // button3
             // 
-            this.button2.Location = new System.Drawing.Point(84, 4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(72, 23);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "translace+1";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // labelClick
-            // 
-            this.labelClick.AutoSize = true;
-            this.labelClick.Location = new System.Drawing.Point(105, 41);
-            this.labelClick.Name = "labelClick";
-            this.labelClick.Size = new System.Drawing.Size(29, 13);
-            this.labelClick.TabIndex = 11;
-            this.labelClick.Text = "click";
+            this.button3.Location = new System.Drawing.Point(93, 4);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(25, 23);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "-";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // WndBoard
             // 
@@ -511,5 +523,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label labelClick;
+        private System.Windows.Forms.Button button3;
     }
 }

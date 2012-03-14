@@ -11,12 +11,7 @@ namespace EditorLib
     public class DrawingSphere : DrawingObject
     {
 
-        /// <summary>
-        /// Associated object from Raytracer World to be represented in editor
-        /// </summary>
-        public Sphere ModelObject { get; private set; }
-
-
+ 
         public double Radius { get; private set; }
 
         public Point3D Center

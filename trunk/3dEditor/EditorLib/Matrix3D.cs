@@ -67,6 +67,19 @@ namespace EditorLib
             return Matrix3D.Identity;
         }
 
+        public Matrix3D Transpose()
+        {
+            Matrix3D transp = new Matrix3D();
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    transp.Matrix[i, j] = this.Matrix[j, i];
+                }
+            }
+            return transp;
+        }
+
         /// <summary>
         /// matice:
         /// 1  0         0

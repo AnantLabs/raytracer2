@@ -62,6 +62,8 @@ namespace _3dEditor
 
             if (obj.GetType() == typeof(Cylinder))
                 ShowCylinder((Cylinder)obj);
+
+            this.Update();
         }
 
         private void SetAllInvisible()

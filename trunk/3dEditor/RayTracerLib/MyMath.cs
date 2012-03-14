@@ -16,6 +16,21 @@ namespace RayTracerLib
         /// </summary>
         public static double EPSILON = 0.000001;
 
+        /// <summary>
+        /// Prevede radiany na stupne
+        /// </summary>
+        public static double Rads2Deg(double radians)
+        {
+            return radians / Math.PI * 180.0;
+        }
+
+        /// <summary>
+        /// Prevede stupne na radiany
+        /// </summary>
+        public static double Degs2Rad(double degrees)
+        {
+            return degrees / 180.0 * Math.PI;
+        }
 
         /// <summary>
         /// Orizne cislo na nejblizsi hranici, pokud je mimo zadany interval
