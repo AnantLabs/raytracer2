@@ -358,7 +358,7 @@ namespace RayTracerLib
         {
             // SVETLA:
             Light source1 = new Light();
-            Light source2 = new Light(new Vektor(5, 0, -6), new Colour(0.9, 0.9, 0, 1));
+            Light source2 = new Light(new Vektor(-1, -10, 1), new Colour(0.9, 0.9, 0, 1));
             Lights = new List<Light>(3);
             Lights.Add(source1);
             Lights.Add(source2);
@@ -366,18 +366,22 @@ namespace RayTracerLib
             // OBJEKTY:
             this.SceneObjects = new List<DefaultShape>();
 
-            Plane p = new Plane(new Vektor(1, -9, 1), 2, new Colour(0.06, 0.89, 0.933, 1));
-            p.MinX = -2.0;
-            p.MaxX = 3.0;
-            p.MinY = -2.0;
-            p.MaxY = 3.0;
+            //Plane p = new Plane(new Vektor(1, -9, 1), 2, new Colour(0.06, 0.89, 0.933, 1));
+            Plane2 p = new Plane2();
+            //p.MinX = -2.0;
+            //p.MaxX = 3.0;
+            //p.MinY = -2.0;
+            //p.MaxY = 3.0;
 
             Sphere sp1 = new Sphere(new Vektor(-2, 1, -7), 1);
             sp1.Material.Color = new Colour(0.2, 0.9, 0.1, 1);
 
             Sphere sp2 = new Sphere(new Vektor(0, 0, -4), 1, new Colour(0.2, 0.9, 0.1, 1));
-            sp2.IsActive = false;
+            sp2.IsActive = true;
             Cylinder c = new Cylinder(new Vektor(0.5, 0, -8), new Vektor(0.5, 0.2, -0.4), 1, 4);
+
+            this.Camera.SetNormAndUp(new Vektor(0, 1, -1), this.Camera.Up);
+            this.Camera.Source = new Vektor(-2, -10, 5);
 
             this.SceneObjects.Add(c);
             this.SceneObjects.Add(sp1);

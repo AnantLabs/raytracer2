@@ -22,6 +22,9 @@ namespace _3dEditor
         {
             InitializeComponent();
 
+            this.Focus();
+            this.Update();
+
             FillTree();
         }
         private void FillTree()
@@ -88,8 +91,12 @@ namespace _3dEditor
 
                         if ((TreeNodeTypes)node2.Tag == typ)
                         {
+                            DefaultShape ds = (DefaultShape)obj;
                             TreeNode novyNode = new TreeNode(obj.ToString());
                             novyNode.Tag = obj;
+                            if (ds.IsActive)
+                                novyNode.Checked = true;
+
                             node2.Nodes.Add(novyNode);
                         }
                     }
@@ -104,6 +111,11 @@ namespace _3dEditor
             }
         }
 
+        /// <summary>
+        /// Prida do seznamu objekt ze sveta Raytraceru: 
+        /// koule, rovina, valec, krychle, svetlo, kamera, image, animation
+        /// </summary>
+        /// <param name="obj"></param>
         public void AddItem(object obj)
         {
             if (obj.GetType() == typeof(RayTracerLib.Sphere))
@@ -130,7 +142,7 @@ namespace _3dEditor
         private void OnAfterSelect(object sender, TreeViewEventArgs e)
         {
 
-            this.AddItem(new RayTracerLib.Sphere(new Vektor(), 1));
+            //this.AddItem(new RayTracerLib.Sphere(new Vektor(), 1));
             TreeNode node = e.Node;
             if (node.Tag == null)
                 return;
@@ -138,7 +150,7 @@ namespace _3dEditor
             if (node.Tag.GetType() != typeof(TreeNodeTypes))
             {
                 ParentEditor form = (ParentEditor)this.ParentForm;
-                form._properties.ShowObject(node.Tag);
+                form._wndProperties.ShowObject(node.Tag);
             }
             else
             {
@@ -158,6 +170,61 @@ namespace _3dEditor
             //catch (InvalidCastException ex)
             //{
             //}
+        }
+
+        private void ShowNode(DefaultShape shape, TreeNode rootNode)
+        {
+            if (rootNode.Nodes == null)
+                return;
+
+            foreach (TreeNode node in rootNode.Nodes)
+            {
+                // zjisteni dedicneho typu: zda-li je node.Tag zdedeny typ od DefaultShape
+                if (node.Tag is DefaultShape)       
+                {
+                    if (node.Tag == shape)
+                    {
+                        treeView1.SelectedNode = node;
+                        this.OnMouseDown(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                        this.OnClicked(this, new EventArgs());
+                        this.onMouseDown(this, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                        this.treeView1.Focus();
+                        this.treeView1.HideSelection = false;
+                        this.OnMouseClick(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                        //this.OnGotFocus(new EventArgs());
+                        //this.Activate();
+                        //this.Focus();
+                        this.Update();
+                        //this.Validate();
+                        //this.Refresh();
+                        
+                    }
+                }
+                else
+                {
+                    ShowNode(shape, node);
+                }
+            }
+        }
+        public void ShowNode(DefaultShape shape)
+        {
+            foreach (TreeNode node in treeView1.Nodes)
+            {
+                if ((TreeNodeTypes)node.Tag == TreeNodeTypes.Objects)
+                {
+                    ShowNode(shape, node);
+                }
+            }
+        }
+
+        private void OnClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void onMouseDown(object sender, MouseEventArgs e)
+        {
+            int  a = 1;
         }
     }
 }

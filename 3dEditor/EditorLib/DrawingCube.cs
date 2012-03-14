@@ -13,10 +13,6 @@ namespace EditorLib
     /// </summary>
     public class DrawingCube : DrawingObject
     {
-        /// <summary>
-        /// Associated object from Raytracer World to be represented in editor
-        /// </summary>
-        public Cube ModelObject { get; private set; }
 
         public Point3D Center
         {
@@ -25,15 +21,23 @@ namespace EditorLib
         }
 
         public DrawingCube() : this(0, 0, 0) { }
-            
+
+        public DrawingCube(RayTracerLib.Cube cube)
+        {
+            this.SetModelObject(cube);
+        }
+
         public DrawingCube(double centerX, double centerY, double centerZ)
+        {
+            this.Set(new Point3D(centerX, centerY, centerZ), 1);
+        }
+
+        private void Set(Point3D center, double sideLen)
         {
             Points = new Point3D[9];
 
-            Point3D center = new Point3D(centerX, centerY, centerZ);
             Points[0] = center;
 
-            double sideLen = 1;
             double sideLenHalf = sideLen / 2.0;
             Point3D upper1 = new Point3D(center.X - sideLenHalf, center.Y + sideLenHalf, center.Z - sideLenHalf);
             Points[1] = upper1;
@@ -43,7 +47,7 @@ namespace EditorLib
             Points[3] = upper3;
             Point3D upper4 = new Point3D(center.X + sideLenHalf, center.Y + sideLenHalf, center.Z + sideLenHalf);
             Points[4] = upper4;
-            
+
             Point3D lower1 = new Point3D(center.X - sideLenHalf, center.Y - sideLenHalf, center.Z - sideLenHalf);
             Points[5] = lower1;
             Point3D lower2 = new Point3D(center.X + sideLenHalf, center.Y - sideLenHalf, center.Z - sideLenHalf);
@@ -69,11 +73,6 @@ namespace EditorLib
             Lines.Add(new Line3D(lower3, upper3));
             Lines.Add(new Line3D(lower4, upper4));
         }
-
-        public void SetModelObject(Cube cube)
-        {
-            throw new NotImplementedException();
-        } 
 
         /// <summary>
         /// vrati 6 ctveric pro polygony
@@ -128,5 +127,13 @@ namespace EditorLib
             return list;
         }
 
+
+        public void SetModelObject(RayTracerLib.Cube cube)
+        {
+            this.ModelObject = cube;
+            double sideLen = cube.Size;
+            Point3D center = new Point3D(cube.Center.X, cube.Center.Y, cube.Center.Z);
+            this.Set(center, sideLen);
+        }
     }
 }

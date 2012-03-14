@@ -10,24 +10,23 @@ namespace EditorLib
     public class DrawingCylinder : DrawingObject
     {
 
-        /// <summary>
-        /// Associated object from Raytracer World to be represented in editor
-        /// </summary>
-        public Cylinder ModelObject { get; private set; }
-
-
         public Point3D Center { get; private set; }
         public Point3D Norm { get; private set; }
         public double Lenght { get; private set; }
         public double Radius { get; private set; }
 
 
-        public DrawingCylinder()
+        public DrawingCylinder(Cylinder cylinder)
         {
-
+            this.SetModelObject(cylinder);
         }
 
         public DrawingCylinder(Point3D origin, double radius, double lenght)
+        {
+            this.Set(origin, radius, lenght);
+        }
+
+        private void Set(Point3D origin, double radius, double lenght)
         {
             //double pulLen = lenght / 2.0;
             //Point3D c1 = center + norm * pulLen;
@@ -40,7 +39,7 @@ namespace EditorLib
             Point3D cUpper = new Point3D(center);
             double lenPul = lenght / 2;
             cUpper.Posunuti(0, lenPul, 0);
-            
+
             Point3D cLower = new Point3D(center);
             cLower.Posunuti(0, -lenPul, 0);
 
@@ -90,10 +89,11 @@ namespace EditorLib
 
         public void SetModelObject(Cylinder cylinder)
         {
+            this.ModelObject = cylinder;
             double radius = cylinder.R;
             double lenght = cylinder.H;
-            //Point3D origin = cylinder.Center.
-            throw new NotImplementedException();
+            Point3D origin = new Point3D(cylinder.Center.X, cylinder.Center.Y, cylinder.Center.Z);
+            this.Set(origin, radius, lenght);
         } 
 
         /// <summary>
