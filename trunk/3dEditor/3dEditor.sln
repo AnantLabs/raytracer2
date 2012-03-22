@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3dEditor", "3dEditor\3dEditor.csproj", "{A58244ED-5CFD-4972-BDD5-B7B579DADD30}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorLib", "EditorLib\EditorLib.csproj", "{910F9DBC-754D-47AE-BAB4-F24EC4268ACF}"
