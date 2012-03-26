@@ -68,6 +68,16 @@ namespace _3dEditor
         /// Matice pocitana od zacatku
         /// </summary>
         Matrix3D _matrixForever;
+
+        /// <summary>
+        /// zda se v editoru zobrazi svetla
+        /// </summary>
+        private bool _showLights;   
+        /// <summary>
+        /// zda se v editoru zobrazi kamera
+        /// </summary>
+        private bool _showCamera;
+
         public WndBoard()
         {
             InitializeComponent();
@@ -151,7 +161,7 @@ namespace _3dEditor
             this.toolStripComboBox1.SelectedIndex = _GRID_SIZE_INIT - 2;      // init nastaveni typu mrizky
 
             _objectsToDraw.Clear();
-            _objectsToDraw.Add(new DrawingCube(1, 1, -2));
+            //_objectsToDraw.Add(new DrawingCube(1, 1, -2));
             //_objectsToDraw.Add(new DrawingSphere(new Point3D(1, 2, 1), 1));
             //_objectsToDraw.Add(new DrawingCylinder(new Point3D(1, 2, 1), 1, 3));
             //_objectsToDraw.Add(new DrawingPlane(20, 0.5f, 45, 0, 0, null));
@@ -191,7 +201,7 @@ namespace _3dEditor
             this.Redraw(e.Graphics);
         }
 
-        private void Redraw()
+        public void Redraw()
         {
             this.Redraw(_g);
         }
@@ -225,9 +235,23 @@ namespace _3dEditor
                 //    g.DrawLine(_penObject, a, b);
                 //}
 
-                if (obj == _isSelected)
+                if (obj.ModelObject is DefaultShape)
                 {
-                    int aaa = 1;
+                    DefaultShape defSpape = (DefaultShape)obj.ModelObject;
+                    Color color = defSpape.Material.Color.SystemColor();
+
+
+                    if (defSpape.IsActive == false)
+                        continue;
+
+                    if (obj == _isSelected)
+                    {
+                        _penObject = new Pen(color, EditHelper.PenSelectedWidth);
+                    }
+                    else
+                    {
+                        _penObject = new Pen(color, EditHelper.PenNormalWidth);
+                    }
                 }
 
                 if (obj.GetType() == typeof(DrawingSphere)) // ================= SPHERE
@@ -382,6 +406,27 @@ namespace _3dEditor
 
                     _editHelp.AddClickableObject(editorObject);
                 }
+                else if (obj.GetType() == typeof(DrawingLight)) // ================ LIGHT
+                {
+                    if (_showLights == false)
+                        continue;
+
+                    DrawingLight light = (DrawingLight)obj;
+                    Light l = (Light)light.ModelObject;
+                    if (l.IsActive == false)
+                        continue;
+                    EditorObject editorObject = new EditorObject(light);
+                    GraphicsPath path = new GraphicsPath();
+
+                    a = light.Center.To2D(_scale, _zoom, _centerPoint);
+                    float upperX = a.X - (float)( Properties.Resources.bulb_transp.Width / 2 );
+                    float upperH = a.Y - (float)( Properties.Resources.bulb_transp.Height / 2 );
+                    g.DrawImage(Properties.Resources.bulb_transp, new PointF(upperX, upperH));
+                    path.AddRectangle(new RectangleF(upperX, upperH, Properties.Resources.bulb_transp.Width, Properties.Resources.bulb_transp.Height));
+                    
+                    editorObject.AddPath(path);
+                    _editHelp.AddClickableObject(editorObject);
+                }
             }
 
             pictureBoard.Image = _editorBmp;
@@ -517,12 +562,17 @@ namespace _3dEditor
             this.Redraw();
         }
 
+        /// <summary>
+        /// KLIKNUTI MYSI A VYBRANI OBJEKTU V EDITORU
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void onPicMouseDown(object sender, MouseEventArgs e)
         {
             List<DrawingObject> drawingList = _editHelp.GetClickableObj(e.Location);
             if (drawingList.Count > 0)
             {
-                if (drawingList[0].ModelObject is DefaultShape)
+                if (drawingList[0].ModelObject is DefaultShape || drawingList[0].ModelObject is Light)
                 {
                     WndScene wndsc = GetWndScene();
                     wndsc.ShowNode(drawingList[0].ModelObject);
@@ -577,6 +627,7 @@ namespace _3dEditor
             //Redraw();
         }
 
+        
         /// <summary>
         /// zjisti, zda jsou dva body blizko sobe zahrnujic X i Y souradnice
         /// </summary>
@@ -657,39 +708,50 @@ namespace _3dEditor
         /// Prida novy objekt ze sveta raytraceru do sveta editoru
         /// </summary>
         /// <param name="shape">teleso ze sveta Raytraceru</param>
-        public void AddRaytrObject(DefaultShape shape)
+        public void AddRaytrObject(object shape)
         {
-            if (shape.GetType() == typeof(Sphere))
+            if (shape is DefaultShape)
             {
-                Sphere sph = (Sphere)shape;
-                DrawingSphere drSphere = new DrawingSphere(sph);
-                _objectsToDraw.Add(drSphere);
-                WndScene wndScene = GetWndScene();
-                wndScene.AddItem(sph);
+                if (shape.GetType() == typeof(Sphere))
+                {
+                    Sphere sph = (Sphere)shape;
+                    DrawingSphere drSphere = new DrawingSphere(sph);
+                    _objectsToDraw.Add(drSphere);
+                    WndScene wndScene = GetWndScene();
+                    wndScene.AddItem(sph);
+                }
+                else if (shape.GetType() == typeof(Plane))
+                {
+                    Plane plane = (Plane)shape;
+                    DrawingPlane drPlane = new DrawingPlane(plane);
+                    _objectsToDraw.Add(drPlane);
+                    WndScene wndScene = GetWndScene();
+                    wndScene.AddItem(plane);
+                }
+                else if (shape.GetType() == typeof(Cube))
+                {
+                    Cube cube = (Cube)shape;
+                    DrawingCube drCube = new DrawingCube(cube);
+                    _objectsToDraw.Add(drCube);
+                    WndScene wndScene = GetWndScene();
+                    wndScene.AddItem(cube);
+                }
+                else if (shape.GetType() == typeof(Cylinder))
+                {
+                    Cylinder cylinder = (Cylinder)shape;
+                    DrawingCylinder drCyl = new DrawingCylinder(cylinder);
+                    _objectsToDraw.Add(drCyl);
+                    WndScene wndScene = GetWndScene();
+                    wndScene.AddItem(cylinder);
+                }
             }
-            else if (shape.GetType() == typeof(Plane))
+            else if (shape is Light)
             {
-                Plane plane = (Plane)shape;
-                DrawingPlane drPlane = new DrawingPlane(plane);
-                _objectsToDraw.Add(drPlane);
+                Light light = (Light)shape;
+                DrawingLight drLight = new DrawingLight(light);
+                _objectsToDraw.Add(drLight);
                 WndScene wndScene = GetWndScene();
-                wndScene.AddItem(plane);
-            }
-            else if (shape.GetType() == typeof(Cube))
-            {
-                Cube cube = (Cube)shape;
-                DrawingCube drCube = new DrawingCube(cube);
-                _objectsToDraw.Add(drCube);
-                WndScene wndScene = GetWndScene();
-                wndScene.AddItem(cube);
-            }
-            else if (shape.GetType() == typeof(Cylinder))
-            {
-                Cylinder cylinder = (Cylinder)shape;
-                DrawingCylinder drCyl = new DrawingCylinder(cylinder);
-                _objectsToDraw.Add(drCyl);
-                WndScene wndScene = GetWndScene();
-                wndScene.AddItem(cylinder);
+                wndScene.AddItem(light);
             }
         }
 
@@ -705,8 +767,33 @@ namespace _3dEditor
                 // prida novy objekt ze sveta raytraceru do sveta editoru
                 AddRaytrObject(shape);
             }
+
+            foreach (Light l in scene.Lights)
+                AddRaytrObject(l);
         }
 
+        /// <summary>
+        /// Nastavi objekt sceny jako vybrany v editoru (jako by byl vybran kliknutim)
+        /// </summary>
+        /// <param name="shape">objekt sceny</param>
+        public void SetObjectSelected(DefaultShape shape)
+        {
+            foreach (DrawingObject sefSh in _objectsToDraw)
+            {
+                if (sefSh.ModelObject == shape)
+                {
+                    _isSelected =  sefSh;
+                }
+            }
+        }
 
+        /// <summary>
+        /// zobrazeni svetel v editoru?
+        /// </summary>
+        private void OnShowLights(object sender, EventArgs e)
+        {
+            ToolStripButton btn = (ToolStripButton)sender;
+            this._showLights = btn.Checked;
+        }
     }
 }

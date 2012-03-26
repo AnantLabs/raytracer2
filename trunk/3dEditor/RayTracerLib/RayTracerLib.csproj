@@ -82,6 +82,7 @@
     <Compile Include="Cube.cs" />
     <Compile Include="Cylinder.cs" />
     <Compile Include="DefaultShape.cs" />
+    <Compile Include="RayImage.cs" />
     <Compile Include="Light.cs" />
     <Compile Include="Material.cs" />
     <Compile Include="MatrixRayTr.cs" />

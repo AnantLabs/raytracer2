@@ -59,5 +59,12 @@ namespace _3dEditor.Properties {
                 resourceCulture = value;
             }
         }
+        
+        internal static System.Drawing.Bitmap bulb_transp {
+            get {
+                object obj = ResourceManager.GetObject("bulb_transp", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
