@@ -29,7 +29,10 @@ namespace EditorLib
 
         public DrawingCube(double centerX, double centerY, double centerZ)
         {
-            this.Set(new Point3D(centerX, centerY, centerZ), 1);
+            Cube cube = new Cube(new Vektor(centerX, centerY, centerZ), new Vektor(1, 0, 0), 1);
+            cube.Material = new Material();
+            cube.Material.Color = new Colour(1, 0.5, 0.1, 1);
+            this.SetModelObject(cube);
         }
 
         private void Set(Point3D center, double sideLen)

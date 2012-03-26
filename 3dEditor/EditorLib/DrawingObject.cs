@@ -10,7 +10,7 @@ namespace EditorLib
     public abstract class DrawingObject
     {
 
-        public DefaultShape ModelObject { get; protected set; }
+        public object ModelObject { get; protected set; }
 
         /// <summary>
         /// All currently transformed points of the object

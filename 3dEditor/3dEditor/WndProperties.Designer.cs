@@ -28,10 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelSphere = new System.Windows.Forms.Panel();
             this.label17 = new System.Windows.Forms.Label();
             this.label69 = new System.Windows.Forms.Label();
@@ -302,7 +298,6 @@
             this.label130 = new System.Windows.Forms.Label();
             this.numericElipseC = new System.Windows.Forms.NumericUpDown();
             this.label131 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panelSphere.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSphN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSphKt)).BeginInit();
@@ -408,35 +403,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericElipseCenterY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericElipseC)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3});
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(270, 261);
-            this.dataGridView1.TabIndex = 2;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Column1";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Column2";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Column3";
-            this.Column3.Name = "Column3";
             // 
             // panelSphere
             // 
@@ -3627,6 +3593,10 @@
             this.label112.TabIndex = 24;
             this.label112.Text = "Y:";
             // 
+            // colorDialog
+            // 
+            this.colorDialog.Color = System.Drawing.Color.DimGray;
+            // 
             // panelImage
             // 
             this.panelImage.Controls.Add(this.btnBgCol);
@@ -3642,25 +3612,27 @@
             this.panelImage.Controls.Add(this.label114);
             this.panelImage.Controls.Add(this.button1);
             this.panelImage.Controls.Add(this.label123);
-            this.panelImage.Location = new System.Drawing.Point(85, 381);
+            this.panelImage.Location = new System.Drawing.Point(5, 16);
             this.panelImage.Name = "panelImage";
             this.panelImage.Size = new System.Drawing.Size(309, 240);
             this.panelImage.TabIndex = 61;
             // 
             // btnBgCol
             // 
+            this.btnBgCol.BackColor = System.Drawing.Color.Red;
             this.btnBgCol.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnBgCol.Location = new System.Drawing.Point(114, 67);
+            this.btnBgCol.Location = new System.Drawing.Point(114, 50);
             this.btnBgCol.Name = "btnBgCol";
             this.btnBgCol.Size = new System.Drawing.Size(34, 23);
             this.btnBgCol.TabIndex = 73;
             this.btnBgCol.Text = "...";
-            this.btnBgCol.UseVisualStyleBackColor = true;
+            this.btnBgCol.UseVisualStyleBackColor = false;
+            this.btnBgCol.Click += new System.EventHandler(this.btnBgCol_Click);
             // 
             // label121
             // 
             this.label121.AutoSize = true;
-            this.label121.Location = new System.Drawing.Point(16, 71);
+            this.label121.Location = new System.Drawing.Point(16, 54);
             this.label121.Name = "label121";
             this.label121.Size = new System.Drawing.Size(95, 13);
             this.label121.TabIndex = 72;
@@ -3669,7 +3641,7 @@
             // checkAntialias
             // 
             this.checkAntialias.AutoSize = true;
-            this.checkAntialias.Location = new System.Drawing.Point(19, 95);
+            this.checkAntialias.Location = new System.Drawing.Point(19, 78);
             this.checkAntialias.Name = "checkAntialias";
             this.checkAntialias.Size = new System.Drawing.Size(79, 17);
             this.checkAntialias.TabIndex = 71;
@@ -3678,7 +3650,7 @@
             // 
             // numericRecurs
             // 
-            this.numericRecurs.Location = new System.Drawing.Point(104, 44);
+            this.numericRecurs.Location = new System.Drawing.Point(104, 27);
             this.numericRecurs.Maximum = new decimal(new int[] {
             50,
             0,
@@ -3701,7 +3673,7 @@
             // label113
             // 
             this.label113.AutoSize = true;
-            this.label113.Location = new System.Drawing.Point(17, 46);
+            this.label113.Location = new System.Drawing.Point(17, 29);
             this.label113.Name = "label113";
             this.label113.Size = new System.Drawing.Size(81, 13);
             this.label113.TabIndex = 67;
@@ -3710,7 +3682,7 @@
             // labelResPixels
             // 
             this.labelResPixels.AutoSize = true;
-            this.labelResPixels.Location = new System.Drawing.Point(186, 154);
+            this.labelResPixels.Location = new System.Drawing.Point(186, 137);
             this.labelResPixels.Name = "labelResPixels";
             this.labelResPixels.Size = new System.Drawing.Size(33, 13);
             this.labelResPixels.TabIndex = 66;
@@ -3721,14 +3693,16 @@
             this.comboResolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboResolution.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboResolution.FormattingEnabled = true;
-            this.comboResolution.Location = new System.Drawing.Point(76, 121);
+            this.comboResolution.Location = new System.Drawing.Point(76, 104);
             this.comboResolution.Name = "comboResolution";
             this.comboResolution.Size = new System.Drawing.Size(178, 21);
             this.comboResolution.TabIndex = 65;
+            this.comboResolution.SelectedIndexChanged += new System.EventHandler(this.ComboResolIndexChange);
+            this.comboResolution.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.OnFormatComboResol);
             // 
             // txbResY
             // 
-            this.txbResY.Location = new System.Drawing.Point(138, 151);
+            this.txbResY.Location = new System.Drawing.Point(138, 134);
             this.txbResY.Name = "txbResY";
             this.txbResY.Size = new System.Drawing.Size(46, 20);
             this.txbResY.TabIndex = 64;
@@ -3737,7 +3711,7 @@
             // labelResCross
             // 
             this.labelResCross.AutoSize = true;
-            this.labelResCross.Location = new System.Drawing.Point(124, 154);
+            this.labelResCross.Location = new System.Drawing.Point(124, 137);
             this.labelResCross.Name = "labelResCross";
             this.labelResCross.Size = new System.Drawing.Size(12, 13);
             this.labelResCross.TabIndex = 63;
@@ -3745,7 +3719,7 @@
             // 
             // txbResX
             // 
-            this.txbResX.Location = new System.Drawing.Point(76, 151);
+            this.txbResX.Location = new System.Drawing.Point(76, 134);
             this.txbResX.Name = "txbResX";
             this.txbResX.Size = new System.Drawing.Size(46, 20);
             this.txbResX.TabIndex = 62;
@@ -3754,7 +3728,7 @@
             // label114
             // 
             this.label114.AutoSize = true;
-            this.label114.Location = new System.Drawing.Point(14, 124);
+            this.label114.Location = new System.Drawing.Point(14, 107);
             this.label114.Name = "label114";
             this.label114.Size = new System.Drawing.Size(60, 13);
             this.label114.TabIndex = 60;
@@ -3762,18 +3736,19 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(114, 187);
+            this.button1.Location = new System.Drawing.Point(114, 170);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(61, 23);
             this.button1.TabIndex = 33;
             this.button1.Text = "Save";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.bntImageSave);
             // 
             // label123
             // 
             this.label123.AutoSize = true;
             this.label123.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label123.Location = new System.Drawing.Point(116, 10);
+            this.label123.Location = new System.Drawing.Point(115, 0);
             this.label123.Name = "label123";
             this.label123.Size = new System.Drawing.Size(73, 24);
             this.label123.TabIndex = 15;
@@ -4186,7 +4161,6 @@
             this.Controls.Add(this.panelCamera);
             this.Controls.Add(this.panelLight);
             this.Controls.Add(this.panelBox);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panelRovina);
             this.Controls.Add(this.panelCylindr);
             this.Controls.Add(this.panelSphere);
@@ -4194,7 +4168,6 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "PropertiesWnd";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panelSphere.ResumeLayout(false);
             this.panelSphere.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSphN)).EndInit();
@@ -4316,10 +4289,6 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.Panel panelSphere;
         private System.Windows.Forms.Label label69;
         private System.Windows.Forms.NumericUpDown numSphN;

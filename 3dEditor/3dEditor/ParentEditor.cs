@@ -68,7 +68,7 @@ namespace _3dEditor
         {
             _rayTracer = new RayTracing();
             _rayTracer.RScene = new Scene();
-            Sphere sph1 = new Sphere(new Vektor(1, 2, 1), 1);
+            Sphere sph1 = new Sphere(new Vektor(1, 2, 1), 1, new Colour(1, 0.5, 0.1, 1));
             Sphere sph2 = new Sphere(new Vektor(-2, -1, 2), 1.5);
             Cube cube1 = new Cube(new Vektor(-3, 5, 2), new Vektor(1, 1, 1), 1);
             Plane plane1 = new Plane(new Vektor(1, 1, 0), 3);
@@ -79,8 +79,15 @@ namespace _3dEditor
             _rayTracer.RScene.SceneObjects.Add(cube1);
             _rayTracer.RScene.SceneObjects.Add(plane1);
             _rayTracer.RScene.SceneObjects.Add(cyl);
+            sph2.IsActive = false;
+
+            //_rayTracer.RScene.SetDefaultScene4();
 
             this._wndBoard.AddRaytrScene(_rayTracer.RScene);
+
+            RayImage img = new RayImage();
+            this._wndScene.AddItem(img);
+            
         }
 
         private void onMDIChildActivate(object sender, EventArgs e)

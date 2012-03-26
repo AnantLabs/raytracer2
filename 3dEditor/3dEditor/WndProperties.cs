@@ -14,27 +14,14 @@ namespace _3dEditor
 {
     public partial class WndProperties : Form
     {
+
+        RayImage _currentImage;
+
         public WndProperties()
         {
             InitializeComponent();
 
             SetAllInvisible();
-
-            DataGridViewRow row = new DataGridViewRow();
-            DataGridTextBox tb = new DataGridTextBox();
-            tb.Text = "asd";
-            //row.Cells.Add(tb);
-            DataGridViewComboBoxCell cb = new DataGridViewComboBoxCell();
-            //Data
-            cb.Items.Add("jedna");
-            DataGridViewCheckBoxCell chb= new DataGridViewCheckBoxCell(true);
-            cb.Items.Add("dva");
-            row.Cells.Add(chb);
-            this.dataGridView1.Rows.Add();
-            this.dataGridView1.Rows.Add(row);
-            this.dataGridView1.Rows.Add("jedna","dva","tri");
-
-            this.dataGridView1.Visible = false;
 
             this.panelSphere.Location = new Point(0, 0);
             this.panelCylindr.Location = new Point(0, 0);
@@ -45,8 +32,9 @@ namespace _3dEditor
             this.panelImage.Location = new Point(0, 0);
             this.panelAnimace.Location = new Point(0, 0);
 
-            this.panelCylindr.Visible = true;
-            this.Text = "Properties: Cylindr";
+            
+
+            
         }
 
         public void ShowObject(object obj)
@@ -54,14 +42,17 @@ namespace _3dEditor
             if (obj.GetType() == typeof(Sphere))
                 ShowSphere((Sphere)obj);
 
-            if (obj.GetType() == typeof(Plane))
+            else if (obj.GetType() == typeof(Plane))
                 ShowPlane((Plane)obj);
 
-            if (obj.GetType() == typeof(Cube))
+            else if (obj.GetType() == typeof(Cube))
                 ShowCube((Cube)obj);
 
-            if (obj.GetType() == typeof(Cylinder))
+            else if (obj.GetType() == typeof(Cylinder))
                 ShowCylinder((Cylinder)obj);
+
+            else if (obj.GetType() == typeof(RayImage))
+                ShowImage((RayImage)obj);
 
             this.Update();
         }
@@ -252,11 +243,25 @@ namespace _3dEditor
                 this.radioMultiPass.Checked = true;
         }
 
-        private void ShowImage()
+        private void ShowImage(RayImage img)
         {
             SetAllInvisible();
+            _currentImage = img;
+
             this.panelImage.Visible = true;
             this.Text = "Properties: Image";
+
+            this.comboResolution.DataSource = img.PictureSize;
+            this.comboResolution.SelectedIndex = img.IndexPictureSize;         // nastaveni prvni polozky
+            if (img.IndexPictureSize == img.PictureSize.Length - 1)
+            {
+                this.txbResX.Text = img.CurrentSize.Width.ToString();
+                this.txbResY.Text = img.CurrentSize.Height.ToString();
+            }
+
+            this.numericRecurs.Value = (decimal)MyMath.Clamp(img.MaxRecurse, -1, 100);
+            this.btnBgCol.BackColor = img.BackgroundColor.SystemColor();
+            this.checkAntialias.Checked = img.IsAntialiasing;
         }
 
         private void ShowAnimation()
@@ -267,6 +272,94 @@ namespace _3dEditor
         }
 
 
-        
+        #region comboResolution
+
+
+        private void ComboResolIndexChange(object sender, EventArgs e)
+        {
+            // je-li vybrana posledni polozka - zobrazi se vyber pro vlastni rozliseni
+            if (this.comboResolution.SelectedIndex == this.comboResolution.Items.Count - 1)
+            {
+                this.txbResX.Visible = true;
+                this.txbResY.Visible = true;
+                this.labelResCross.Visible = true;
+                this.labelResPixels.Visible = true;
+            }
+            else
+            {
+                this.txbResX.Visible = false;
+                this.txbResY.Visible = false;
+                this.labelResCross.Visible = false;
+                this.labelResPixels.Visible = false;
+            }
+        }
+
+        /// <summary>
+        /// Vlastni formatovani comboboxu pro vyber rozliseni
+        /// </summary>
+        private void OnFormatComboResol(object sender, ListControlConvertEventArgs e)
+        {
+            Size size;
+            try
+            {
+                size = (Size)e.ListItem;
+            }
+            catch (Exception)
+            {
+                return;
+            }
+            if (size.Width == 0)
+                e.Value = String.Format("Custom");
+            else
+            {
+                string text = String.Format("{0} x {1} pixels ", size.Width, size.Height);
+                double vysl = Math.Round((double)size.Width / (double)size.Height, 2);
+                if (vysl == 1.78)
+                    text += "(16:9)";
+                else
+                    text += "(4:3)";
+                e.Value = String.Format(text, size.Width, size.Height);
+            }
+        }
+
+        private void btnBgCol_Click(object sender, EventArgs e)
+        {
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                btnBgCol.BackColor = colorDialog.Color;
+                Colour col = Colour.ColourCreate(colorDialog.Color);
+                this._currentImage.BackgroundColor = col;
+            }
+        }
+
+        #endregion
+
+        private void bntImageSave(object sender, EventArgs e)
+        {
+            btnBgCol.BackColor = colorDialog.Color;
+            Colour col = Colour.ColourCreate(colorDialog.Color);
+            this._currentImage.BackgroundColor = col;
+
+            this._currentImage.MaxRecurse = (int)this.numericRecurs.Value;
+            this._currentImage.IsAntialiasing = this.checkAntialias.Checked;
+
+            this._currentImage.IndexPictureSize = this.comboResolution.SelectedIndex;
+            int w = 100;
+            int h= 100;
+            // vybrano vlastni rozliseni
+            if (this.comboResolution.SelectedIndex == this._currentImage.PictureSize.Length - 1)
+            {
+                Int32.TryParse(txbResX.Text, out w);
+                Int32.TryParse(txbResY.Text, out h);
+                
+            } // prednastavene rozliseni
+            else
+            {
+                w = this._currentImage.PictureSize[this._currentImage.IndexPictureSize].Width;
+                h = this._currentImage.PictureSize[this._currentImage.IndexPictureSize].Height;
+            }
+            this._currentImage.CurrentSize = new Size(w, h);
+
+        }
     }
 }

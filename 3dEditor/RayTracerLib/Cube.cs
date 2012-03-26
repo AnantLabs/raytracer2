@@ -17,7 +17,6 @@ namespace RayTracerLib
         public double Size { get; private set; }
 
 
-        public Material Material { get; set; }
         private double R;
 
         /// <summary>

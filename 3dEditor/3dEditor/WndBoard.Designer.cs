@@ -51,6 +51,7 @@
             this.statusLabelZ = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripContainer2 = new System.Windows.Forms.ToolStripContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
             this.labelClick = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -61,7 +62,9 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.button3 = new System.Windows.Forms.Button();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripBtnLights = new System.Windows.Forms.ToolStripButton();
+            this.toolStripBtnCamera = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoard)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -83,9 +86,9 @@
             this.pictureBoard.Size = new System.Drawing.Size(692, 541);
             this.pictureBoard.TabIndex = 0;
             this.pictureBoard.TabStop = false;
-            this.pictureBoard.MouseMove += new System.Windows.Forms.MouseEventHandler(this.onPicMouseMove);
-            this.pictureBoard.MouseDown += new System.Windows.Forms.MouseEventHandler(this.onPicMouseDown);
             this.pictureBoard.Paint += new System.Windows.Forms.PaintEventHandler(this.onPaintBoard);
+            this.pictureBoard.MouseDown += new System.Windows.Forms.MouseEventHandler(this.onPicMouseDown);
+            this.pictureBoard.MouseMove += new System.Windows.Forms.MouseEventHandler(this.onPicMouseMove);
             this.pictureBoard.MouseUp += new System.Windows.Forms.MouseEventHandler(this.onPicMouseUp);
             // 
             // toolStrip1
@@ -100,11 +103,14 @@
             this.toolBtnGrid,
             this.toolStripComboBox1,
             this.toolStripSeparator2,
-            this.toolBtnAxes});
+            this.toolBtnAxes,
+            this.toolStripSeparator3,
+            this.toolStripBtnLights,
+            this.toolStripBtnCamera});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(302, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(508, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -114,7 +120,7 @@
             this.toolBtnFront.Image = ((System.Drawing.Image)(resources.GetObject("toolBtnFront.Image")));
             this.toolBtnFront.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolBtnFront.Name = "toolBtnFront";
-            this.toolBtnFront.Size = new System.Drawing.Size(37, 22);
+            this.toolBtnFront.Size = new System.Drawing.Size(39, 22);
             this.toolBtnFront.Text = "Front";
             // 
             // toolBtnTop
@@ -123,7 +129,7 @@
             this.toolBtnTop.Image = ((System.Drawing.Image)(resources.GetObject("toolBtnTop.Image")));
             this.toolBtnTop.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolBtnTop.Name = "toolBtnTop";
-            this.toolBtnTop.Size = new System.Drawing.Size(29, 22);
+            this.toolBtnTop.Size = new System.Drawing.Size(32, 22);
             this.toolBtnTop.Text = "Top";
             this.toolBtnTop.Click += new System.EventHandler(this.toolBtnTop_Click);
             // 
@@ -133,7 +139,7 @@
             this.toolBtnSide.Image = ((System.Drawing.Image)(resources.GetObject("toolBtnSide.Image")));
             this.toolBtnSide.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolBtnSide.Name = "toolBtnSide";
-            this.toolBtnSide.Size = new System.Drawing.Size(31, 22);
+            this.toolBtnSide.Size = new System.Drawing.Size(33, 22);
             this.toolBtnSide.Text = "Side";
             this.toolBtnSide.Click += new System.EventHandler(this.toolBtnSide_Click);
             // 
@@ -161,7 +167,7 @@
             this.toolBtnGrid.Image = ((System.Drawing.Image)(resources.GetObject("toolBtnGrid.Image")));
             this.toolBtnGrid.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolBtnGrid.Name = "toolBtnGrid";
-            this.toolBtnGrid.Size = new System.Drawing.Size(30, 22);
+            this.toolBtnGrid.Size = new System.Drawing.Size(33, 22);
             this.toolBtnGrid.Text = "Grid";
             // 
             // toolStripComboBox1
@@ -215,7 +221,7 @@
             // 
             this.statusLabelZoomConst.Name = "statusLabelZoomConst";
             this.statusLabelZoomConst.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.statusLabelZoomConst.Size = new System.Drawing.Size(37, 17);
+            this.statusLabelZoomConst.Size = new System.Drawing.Size(42, 17);
             this.statusLabelZoomConst.Text = "Zoom:";
             this.statusLabelZoomConst.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -314,6 +320,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(156, 101);
             this.panel1.TabIndex = 5;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(93, 4);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(25, 23);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "-";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // labelClick
             // 
@@ -449,15 +465,31 @@
             this.numericUpDown3.TabIndex = 3;
             this.numericUpDown3.ValueChanged += new System.EventHandler(this.onValNumChange);
             // 
-            // button3
+            // toolStripSeparator3
             // 
-            this.button3.Location = new System.Drawing.Point(93, 4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(25, 23);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "-";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripBtnLights
+            // 
+            this.toolStripBtnLights.CheckOnClick = true;
+            this.toolStripBtnLights.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripBtnLights.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBtnLights.Image")));
+            this.toolStripBtnLights.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripBtnLights.Name = "toolStripBtnLights";
+            this.toolStripBtnLights.Size = new System.Drawing.Size(75, 22);
+            this.toolStripBtnLights.Text = "Show Lights";
+            this.toolStripBtnLights.Click += new System.EventHandler(this.OnShowLights);
+            // 
+            // toolStripBtnCamera
+            // 
+            this.toolStripBtnCamera.CheckOnClick = true;
+            this.toolStripBtnCamera.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripBtnCamera.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBtnCamera.Image")));
+            this.toolStripBtnCamera.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripBtnCamera.Name = "toolStripBtnCamera";
+            this.toolStripBtnCamera.Size = new System.Drawing.Size(84, 22);
+            this.toolStripBtnCamera.Text = "Show Camera";
             // 
             // WndBoard
             // 
@@ -524,5 +556,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label labelClick;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton toolStripBtnLights;
+        private System.Windows.Forms.ToolStripButton toolStripBtnCamera;
     }
 }

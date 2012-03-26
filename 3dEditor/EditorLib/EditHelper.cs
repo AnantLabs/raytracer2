@@ -11,6 +11,10 @@ namespace EditorLib
         public int MagnifCoef { get; set; }
         public int Zoom { get; set; }
 
+        // styl pro bybrany objekt
+        public const float PenSelectedWidth = 1.9f;
+        public const float PenNormalWidth = 1.4f;
+
         /// <summary>
         /// seznam objektu, na ktere je mozne kliknout
         /// </summary>

@@ -63,9 +63,8 @@ namespace _3dEditor
             this.treeView1.Nodes.Add(nodeCameras);
             this.treeView1.Nodes.Add(nodeImages);
             this.treeView1.Nodes.Add(nodeAnimations);
-
-            
         }
+
         private void AddItem(object obj, TreeNodeTypes typ)
         {
             //TreeNode node = new TreeNode(obj.ToString());
@@ -102,7 +101,16 @@ namespace _3dEditor
                     }
                 }
 
-                else if((TreeNodeTypes)node.Tag == rootTyp)
+                else if((TreeNodeTypes)node.Tag == rootTyp && rootTyp == TreeNodeTypes.Lights)
+                {
+                    Light light = (Light)obj;
+                    TreeNode novyNode = new TreeNode(obj.ToString());
+                    novyNode.Tag = obj;
+                    if (light.IsActive)
+                        novyNode.Checked = true;
+                    node.Nodes.Add(novyNode);
+                }
+                else if ((TreeNodeTypes)node.Tag == rootTyp)
                 {
                     TreeNode novyNode = new TreeNode(obj.ToString());
                     novyNode.Tag = obj;
@@ -116,7 +124,7 @@ namespace _3dEditor
         /// koule, rovina, valec, krychle, svetlo, kamera, image, animation
         /// </summary>
         /// <param name="obj"></param>
-        public void AddItem(object obj)
+        public void AddItem(DefaultShape obj)
         {
             if (obj.GetType() == typeof(RayTracerLib.Sphere))
             {
@@ -134,10 +142,17 @@ namespace _3dEditor
             {
                 this.AddItem(obj, TreeNodeTypes.Cylinders);
             }
-            else if (obj.GetType() == typeof(RayTracerLib.Light))
-            {
-                this.AddItem(obj, TreeNodeTypes.Lights);
-            }
+        }
+        public void AddItem(Light obj)
+        {
+            this.AddItem(obj, TreeNodeTypes.Lights);
+        }
+        public void AddItem(RayImage obj)
+        {
+            this.AddItem(obj, TreeNodeTypes.Images);
+        }
+        public void AddItem(Animation obj)
+        {
         }
         private void OnAfterSelect(object sender, TreeViewEventArgs e)
         {
@@ -151,28 +166,23 @@ namespace _3dEditor
             {
                 ParentEditor form = (ParentEditor)this.ParentForm;
                 form._wndProperties.ShowObject(node.Tag);
+                if (node.Tag is DefaultShape)
+                {
+                    DefaultShape ds = (DefaultShape)node.Tag;
+                    form._wndBoard.SetObjectSelected((DefaultShape)node.Tag);
+                    node.Checked = ds.IsActive;
+                }
             }
             else
             {
                 TreeNodeTypes typ = (TreeNodeTypes)node.Tag;
+                ParentEditor form = (ParentEditor)this.ParentForm;
+                form._wndProperties.ShowObject(node.Tag);
             }
 
-            //try
-            //{
-            //    if ((TreeNodeTypes)node.Tag == TreeNodeTypes.Spheres ||
-            //        (TreeNodeTypes)node.Tag == TreeNodeTypes.Planes ||
-            //        (TreeNodeTypes)node.Tag == TreeNodeTypes.Cubes ||
-            //        (TreeNodeTypes)node.Tag == TreeNodeTypes.Cylinders)
-            //    {
-
-            //    }
-            //}
-            //catch (InvalidCastException ex)
-            //{
-            //}
         }
 
-        private void ShowNode(DefaultShape shape, TreeNode rootNode)
+        private void ShowNode(object shape, TreeNode rootNode)
         {
             if (rootNode.Nodes == null)
                 return;
@@ -197,7 +207,20 @@ namespace _3dEditor
                         this.Update();
                         //this.Validate();
                         //this.Refresh();
-                        
+                    }
+                }
+                else if (node.Tag is Light)
+                {
+                    if (node.Tag == shape)
+                    {
+                        treeView1.SelectedNode = node;
+                        this.OnMouseDown(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                        this.OnClicked(this, new EventArgs());
+                        this.onMouseDown(this, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                        this.treeView1.Focus();
+                        this.treeView1.HideSelection = false;
+                        this.OnMouseClick(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                        this.Update();
                     }
                 }
                 else
@@ -206,11 +229,19 @@ namespace _3dEditor
                 }
             }
         }
-        public void ShowNode(DefaultShape shape)
+        /// <summary>
+        /// najde a vybere dany objekt v seznamu - ve strome objektu
+        /// </summary>
+        /// <param name="shape">bud: DefaultShape, Light</param>
+        public void ShowNode(object shape)
         {
             foreach (TreeNode node in treeView1.Nodes)
             {
-                if ((TreeNodeTypes)node.Tag == TreeNodeTypes.Objects)
+                if (((TreeNodeTypes)node.Tag == TreeNodeTypes.Objects) && (shape is DefaultShape))
+                {
+                    ShowNode(shape, node);
+                }
+                else if (( (TreeNodeTypes)node.Tag == TreeNodeTypes.Lights ) && ( shape is Light ))
                 {
                     ShowNode(shape, node);
                 }
@@ -226,5 +257,77 @@ namespace _3dEditor
         {
             int  a = 1;
         }
+
+        
+        public void CollapseAll()
+        {
+            this.treeView1.CollapseAll();
+            this.treeView1.Nodes[0].Collapse();
+            //this.treeView1.Nodes[0].Collapse(false);
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            ToolStripButton btn = (ToolStripButton)sender;
+            SetChildNodes(treeView1.Nodes[0]);
+
+        }
+
+        private void AfterCheck(object sender, TreeViewEventArgs e)
+        {
+
+            if (e.Node.Tag is DefaultShape)
+            {
+                DefaultShape ds = (DefaultShape)e.Node.Tag;
+                ds.IsActive = e.Node.Checked;
+                ParentEditor pe = (ParentEditor)this.ParentForm;
+                pe._wndBoard.Redraw();
+                this.Invalidate();
+                this.Update();
+            }
+            else if (e.Node.Tag is Light)
+            {
+                Light l = (Light)e.Node.Tag;
+                l.IsActive = e.Node.Checked;
+                ParentEditor pe = (ParentEditor)this.ParentForm;
+                pe._wndBoard.Redraw();
+                this.Invalidate();
+                this.Update();
+            }
+            else
+            {
+                SetChildNodes(e.Node);
+            }
+
+        }
+
+        private void SetChildNodes(TreeNode root)
+        {
+            foreach (TreeNode node in root.Nodes)
+            {
+                node.Checked = root.Checked;
+                SetChildNodes(node);
+            }
+        }
+        private void NodeMouseDblClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+
+        }
+
+        private void BeforeCheck(object sender, TreeViewCancelEventArgs e)
+        {
+            if (e.Node.Tag is DefaultShape)
+            {
+                DefaultShape ds = (DefaultShape)e.Node.Tag;
+                if (e.Node.Checked != ds.IsActive)
+                    e.Node.Checked = ds.IsActive;
+                ParentEditor pe = (ParentEditor)this.ParentForm;
+                pe._wndBoard.Redraw();
+                this.Invalidate();
+                this.Update();
+            }
+        }
+
+
     }
 }
