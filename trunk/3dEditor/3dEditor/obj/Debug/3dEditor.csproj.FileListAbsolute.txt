@@ -18,3 +18,5 @@ D:\__diplomka RayTracer2\3dEditor\3dEditor\bin\Debug\RayTracerLib.pdb
 D:\__diplomka RayTracer2\3dEditor\3dEditor\bin\Debug\Splicer.pdb
 D:\__diplomka RayTracer2\3dEditor\3dEditor\bin\Debug\DirectShowLib-2005.pdb
 D:\__diplomka RayTracer2\3dEditor\3dEditor\obj\Debug\_3dEditor.ParentEditor.resources
+D:\__diplomka RayTracer2\google_repos\3dEditor\3dEditor\obj\Debug\3dEditor.exe
+D:\__diplomka RayTracer2\google_repos\3dEditor\3dEditor\obj\Debug\3dEditor.pdb
