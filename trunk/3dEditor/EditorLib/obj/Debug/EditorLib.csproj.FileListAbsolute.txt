@@ -9,3 +9,14 @@ D:\__diplomka RayTracer2\3dEditor\EditorLib\bin\Debug\DirectShowLib-2005.dll
 D:\__diplomka RayTracer2\3dEditor\EditorLib\bin\Debug\RayTracerLib.pdb
 D:\__diplomka RayTracer2\3dEditor\EditorLib\bin\Debug\Splicer.pdb
 D:\__diplomka RayTracer2\3dEditor\EditorLib\bin\Debug\DirectShowLib-2005.pdb
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\EditorLib\bin\Debug\EditorLib.dll
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\EditorLib\bin\Debug\EditorLib.pdb
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\EditorLib\bin\Debug\RayTracerLib.dll
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\EditorLib\bin\Debug\Splicer.dll
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\EditorLib\bin\Debug\DirectShowLib-2005.dll
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\EditorLib\bin\Debug\RayTracerLib.pdb
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\EditorLib\bin\Debug\Splicer.pdb
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\EditorLib\bin\Debug\DirectShowLib-2005.pdb
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\EditorLib\obj\Debug\ResolveAssemblyReference.cache
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\EditorLib\obj\Debug\EditorLib.dll
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\EditorLib\obj\Debug\EditorLib.pdb

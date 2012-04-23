@@ -7,3 +7,12 @@ D:\__diplomka RayTracer2\3dEditor\RayTracerLib\bin\Debug\DirectShowLib-2005.pdb
 D:\__diplomka RayTracer2\3dEditor\RayTracerLib\obj\Debug\ResolveAssemblyReference.cache
 D:\__diplomka RayTracer2\3dEditor\RayTracerLib\obj\Debug\RayTracerLib.dll
 D:\__diplomka RayTracer2\3dEditor\RayTracerLib\obj\Debug\RayTracerLib.pdb
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\RayTracerLib\bin\Debug\RayTracerLib.dll
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\RayTracerLib\bin\Debug\RayTracerLib.pdb
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\RayTracerLib\bin\Debug\DirectShowLib-2005.dll
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\RayTracerLib\bin\Debug\Splicer.dll
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\RayTracerLib\bin\Debug\Splicer.pdb
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\RayTracerLib\bin\Debug\DirectShowLib-2005.pdb
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\RayTracerLib\obj\Debug\ResolveAssemblyReference.cache
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\RayTracerLib\obj\Debug\RayTracerLib.dll
+D:\__diplomka RayTracer2\3dEditor_GoogleSVN\RayTracerLib\obj\Debug\RayTracerLib.pdb
