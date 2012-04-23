@@ -29,6 +29,7 @@ namespace EditorLib
             double rads = dotProd / (p1Len * p2Len);
             rads = Math.Acos(rads);
             return rads;
+
         }
 
         public static double GetDegreesX(Point3D p1, Point3D p2)
