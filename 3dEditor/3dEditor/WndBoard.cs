@@ -18,6 +18,7 @@ namespace _3dEditor
     
     public partial class WndBoard : Form
     {
+
         EditHelper _editHelp;
         Graphics _g;
         Bitmap _editorBmp;
@@ -31,7 +32,7 @@ namespace _3dEditor
         int _zoom;
         int _ZOOM_INCREMENT = 8;
         const int _SCALE_INIT = 150;
-        const int _ZOOM_INIT = 150;
+        const int _ZOOM_INIT = 70;
         /// <summary>
         /// pocatecni velikost mrizky
         /// </summary>
@@ -82,7 +83,12 @@ namespace _3dEditor
         {
             InitializeComponent();
 
-            
+            //this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.UserPaint, true);
+            this.SetStyle(ControlStyles.Selectable, true);
+            this.SetStyle(ControlStyles.ResizeRedraw, true);
+
             _g = this.pictureBoard.CreateGraphics();
             _penAxis = new Pen(Color.Black, 3.0f);
             _penGrid = new Pen(Color.DarkCyan, 2.0f);
@@ -211,6 +217,7 @@ namespace _3dEditor
 
             _editorBmp = new Bitmap(pictureBoard.Width, pictureBoard.Height);
             g = Graphics.FromImage(_editorBmp);
+            g.SmoothingMode = SmoothingMode.AntiAlias;      // ANTIALIASING!!!
 
 
             // ================================ DRAWING:
@@ -408,25 +415,67 @@ namespace _3dEditor
                 }
                 else if (obj.GetType() == typeof(DrawingLight)) // ================ LIGHT
                 {
-                    if (_showLights == false)
+                    if (_showLights == false)           // neni-li zaskrtnuta volba zobrazeni svetel, konec
                         continue;
 
-                    DrawingLight light = (DrawingLight)obj;
-                    Light l = (Light)light.ModelObject;
+                    DrawingLight drLight = (DrawingLight)obj;
+                    Light l = (Light)drLight.ModelObject;
                     if (l.IsActive == false)
                         continue;
-                    EditorObject editorObject = new EditorObject(light);
+                    EditorObject editorObject = new EditorObject(drLight);
                     GraphicsPath path = new GraphicsPath();
 
-                    a = light.Center.To2D(_scale, _zoom, _centerPoint);
+                    a = drLight.Center.To2D(_scale, _zoom, _centerPoint);
                     float upperX = a.X - (float)( Properties.Resources.bulb_transp.Width / 2 );
-                    float upperH = a.Y - (float)( Properties.Resources.bulb_transp.Height / 2 );
-                    g.DrawImage(Properties.Resources.bulb_transp, new PointF(upperX, upperH));
-                    path.AddRectangle(new RectangleF(upperX, upperH, Properties.Resources.bulb_transp.Width, Properties.Resources.bulb_transp.Height));
+                    float upperY = a.Y - (float)( Properties.Resources.bulb_transp.Height / 2 );
+                    g.DrawImage(Properties.Resources.bulb_transp, new PointF(upperX, upperY));
+                    path.AddRectangle(new RectangleF(upperX, upperY, Properties.Resources.bulb_transp.Width, Properties.Resources.bulb_transp.Height));
                     
                     editorObject.AddPath(path);
                     _editHelp.AddClickableObject(editorObject);
                 }
+                else if (obj.GetType() == typeof(DrawingCamera))
+                {
+                    if (_showCamera == false)       // neni-li zaskrtnuta volba zobrazeni kamery, konec
+                        continue;
+
+                    DrawingCamera drCam = (DrawingCamera)obj;
+                    Camera cam = (Camera)drCam.ModelObject;
+                    EditorObject editorObject = new EditorObject(drCam);
+                    GraphicsPath path = new GraphicsPath();
+
+                    a = drCam.Center.To2D(_scale, _zoom, _centerPoint);
+                    float upperX = a.X - (float)(Properties.Resources.camera.Width / 2);
+                    float upperY = a.Y - (float)(Properties.Resources.camera.Height / 2);
+                    g.DrawImage(Properties.Resources.camera, new PointF(upperX, upperY));
+                    path.AddRectangle(new RectangleF(upperX, upperY, Properties.Resources.camera.Width, Properties.Resources.camera.Height));
+
+                    editorObject.AddPath(path);
+                    _editHelp.AddClickableObject(editorObject);
+
+                    
+                    // camera pen:
+                    Pen cameraPen = new Pen(Color.Black, 3);
+                    cameraPen.EndCap = LineCap.Custom;
+                    cameraPen.CustomEndCap = new AdjustableArrowCap(3f, 3f, false);
+                    cameraPen.DashStyle = DashStyle.DashDot;
+
+                    // POKUSY NA TRANSFORMACI KAMERY
+                    foreach (Line3D l in drCam.Lines)
+                    {
+                        a = l.A.To2D(_scale, _zoom, _centerPoint);
+                        b = l.B.To2D(_scale, _zoom, _centerPoint);
+                        g.DrawLine(cameraPen, a, b);
+                    }
+
+                    PointF[] pointsF = new PointF[4];
+                    for (int i=2; i<6; i++)
+                    {
+                        pointsF[i - 2] = drCam.Points[i].To2D(_scale, _zoom, _centerPoint);
+                    }
+                    g.DrawClosedCurve(_penObject, pointsF, 1F, System.Drawing.Drawing2D.FillMode.Winding);
+                }
+
             }
 
             pictureBoard.Image = _editorBmp;
@@ -572,7 +621,9 @@ namespace _3dEditor
             List<DrawingObject> drawingList = _editHelp.GetClickableObj(e.Location);
             if (drawingList.Count > 0)
             {
-                if (drawingList[0].ModelObject is DefaultShape || drawingList[0].ModelObject is Light)
+                if (drawingList[0].ModelObject is DefaultShape 
+                    || drawingList[0].ModelObject is Light
+                    || drawingList[0].ModelObject is Camera)
                 {
                     WndScene wndsc = GetWndScene();
                     wndsc.ShowNode(drawingList[0].ModelObject);
@@ -707,7 +758,7 @@ namespace _3dEditor
         /// <summary>
         /// Prida novy objekt ze sveta raytraceru do sveta editoru
         /// </summary>
-        /// <param name="shape">teleso ze sveta Raytraceru</param>
+        /// <param name="shape">teleso ze sveta Raytraceru (object, svetlo, camera)</param>
         public void AddRaytrObject(object shape)
         {
             if (shape is DefaultShape)
@@ -753,6 +804,15 @@ namespace _3dEditor
                 WndScene wndScene = GetWndScene();
                 wndScene.AddItem(light);
             }
+            else if (shape is Camera)
+            {
+                Camera cam = (Camera)shape;
+                DrawingCamera drCam = new DrawingCamera(cam);
+                _objectsToDraw.Add(drCam);
+                WndScene wndScene = GetWndScene();
+                wndScene.AddItem(cam);
+            }
+
         }
 
         /// <summary>
@@ -770,6 +830,9 @@ namespace _3dEditor
 
             foreach (Light l in scene.Lights)
                 AddRaytrObject(l);
+
+            // nakonec pridame kameru
+            AddRaytrObject(scene.Camera);
         }
 
         /// <summary>
@@ -794,6 +857,12 @@ namespace _3dEditor
         {
             ToolStripButton btn = (ToolStripButton)sender;
             this._showLights = btn.Checked;
+        }
+
+        private void onShowCamera(object sender, EventArgs e)
+        {
+            ToolStripButton btn = (ToolStripButton)sender;
+            this._showCamera = btn.Checked;
         }
     }
 }

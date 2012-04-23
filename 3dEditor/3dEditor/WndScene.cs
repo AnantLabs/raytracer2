@@ -15,12 +15,14 @@ namespace _3dEditor
     public partial class WndScene : Form
     {
         enum TreeNodeTypes { 
-            Objects, Lights, Cameras, Images, Animations, // top level nodes
+            Objects, Lights, Camera, Images, Animations, // top level nodes
             Spheres, Planes, Cubes, Cylinders}
 
         public WndScene()
         {
             InitializeComponent();
+
+            this.SetStyle(ControlStyles.Selectable, true);
 
             this.Focus();
             this.Update();
@@ -49,8 +51,8 @@ namespace _3dEditor
             TreeNode nodeLights = new TreeNode(TreeNodeTypes.Lights.ToString());
             nodeLights.Tag = TreeNodeTypes.Lights;
 
-            TreeNode nodeCameras = new TreeNode(TreeNodeTypes.Cameras.ToString());
-            nodeCameras.Tag = TreeNodeTypes.Cameras;
+            TreeNode nodeCameras = new TreeNode(TreeNodeTypes.Camera.ToString());
+            nodeCameras.Tag = TreeNodeTypes.Camera;
 
             TreeNode nodeImages = new TreeNode(TreeNodeTypes.Images.ToString());
             nodeImages.Tag = TreeNodeTypes.Images;
@@ -110,6 +112,15 @@ namespace _3dEditor
                         novyNode.Checked = true;
                     node.Nodes.Add(novyNode);
                 }
+                else if ((TreeNodeTypes)node.Tag == rootTyp && rootTyp == TreeNodeTypes.Camera)
+                {
+                    Camera cam = (Camera)obj;
+                    TreeNode novyNode = new TreeNode(cam.ToString());
+                    novyNode.Tag = obj;
+                    novyNode.Checked = true;
+                    node.Checked = true;
+                    node.Nodes.Add(novyNode);
+                }
                 else if ((TreeNodeTypes)node.Tag == rootTyp)
                 {
                     TreeNode novyNode = new TreeNode(obj.ToString());
@@ -143,13 +154,17 @@ namespace _3dEditor
                 this.AddItem(obj, TreeNodeTypes.Cylinders);
             }
         }
-        public void AddItem(Light obj)
+        public void AddItem(Light light)
         {
-            this.AddItem(obj, TreeNodeTypes.Lights);
+            this.AddItem(light, TreeNodeTypes.Lights);
         }
-        public void AddItem(RayImage obj)
+        public void AddItem(RayImage img)
         {
-            this.AddItem(obj, TreeNodeTypes.Images);
+            this.AddItem(img, TreeNodeTypes.Images);
+        }
+        public void AddItem(Camera cam)
+        {
+            this.AddItem(cam, TreeNodeTypes.Camera);
         }
         public void AddItem(Animation obj)
         {
@@ -223,6 +238,15 @@ namespace _3dEditor
                         this.Update();
                     }
                 }
+                else if (node.Tag is Camera)
+                {
+                    if (node.Tag == shape)
+                    {
+                        treeView1.SelectedNode = node;
+                        this.treeView1.Focus();
+                        this.treeView1.HideSelection = false;
+                    }
+                }
                 else
                 {
                     ShowNode(shape, node);
@@ -231,6 +255,7 @@ namespace _3dEditor
         }
         /// <summary>
         /// najde a vybere dany objekt v seznamu - ve strome objektu
+        /// prochazi uzly stromu sceny a porovnava, jestli se shoduji se zadanym, ktery chceme zobrazit
         /// </summary>
         /// <param name="shape">bud: DefaultShape, Light</param>
         public void ShowNode(object shape)
@@ -242,6 +267,10 @@ namespace _3dEditor
                     ShowNode(shape, node);
                 }
                 else if (( (TreeNodeTypes)node.Tag == TreeNodeTypes.Lights ) && ( shape is Light ))
+                {
+                    ShowNode(shape, node);
+                }
+                else if (((TreeNodeTypes)node.Tag == TreeNodeTypes.Camera) && (shape is Camera))
                 {
                     ShowNode(shape, node);
                 }

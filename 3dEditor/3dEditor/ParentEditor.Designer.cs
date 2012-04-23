@@ -74,43 +74,43 @@
             this.saveToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.mainToolStripMenuItem.Name = "mainToolStripMenuItem";
-            this.mainToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.mainToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
             this.mainToolStripMenuItem.Text = "&File";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.openToolStripMenuItem.Text = "&Open";
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.editToolStripMenuItem.Text = "&Edit";
             // 
             // windowsToolStripMenuItem
             // 
             this.windowsToolStripMenuItem.Name = "windowsToolStripMenuItem";
-            this.windowsToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.windowsToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
             this.windowsToolStripMenuItem.Text = "&Windows";
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
             // toolStrip1
@@ -136,7 +136,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(38, 22);
+            this.toolStripButton1.Size = new System.Drawing.Size(36, 22);
             this.toolStripButton1.Text = "Draw";
             // 
             // toolStripButton2
@@ -145,7 +145,7 @@
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(56, 22);
+            this.toolStripButton2.Size = new System.Drawing.Size(50, 22);
             this.toolStripButton2.Text = "Animate";
             // 
             // toolStripButton3
@@ -193,46 +193,46 @@
             this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
             this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(45, 22);
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(42, 22);
             this.toolStripSplitButton1.Text = "Add";
             // 
             // sceneObjectToolStripMenuItem
             // 
             this.sceneObjectToolStripMenuItem.Name = "sceneObjectToolStripMenuItem";
-            this.sceneObjectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sceneObjectToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.sceneObjectToolStripMenuItem.Text = "Scene object";
             // 
             // imageToolStripMenuItem
             // 
             this.imageToolStripMenuItem.Name = "imageToolStripMenuItem";
-            this.imageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.imageToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.imageToolStripMenuItem.Text = "Light";
             // 
             // imageToolStripMenuItem1
             // 
             this.imageToolStripMenuItem1.Name = "imageToolStripMenuItem1";
-            this.imageToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.imageToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
             this.imageToolStripMenuItem1.Text = "Image";
             // 
             // animationToolStripMenuItem
             // 
             this.animationToolStripMenuItem.Name = "animationToolStripMenuItem";
-            this.animationToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.animationToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.animationToolStripMenuItem.Text = "Animation";
             // 
             // ParentEditor
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1092, 566);
+            this.ClientSize = new System.Drawing.Size(1092, 686);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ParentEditor";
             this.Text = "3D Editor";
-            this.Activated += new System.EventHandler(this.onShown);
-            this.Shown += new System.EventHandler(this.onShown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.onPaint);
+            this.Shown += new System.EventHandler(this.onShown);
+            this.Activated += new System.EventHandler(this.onShown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
