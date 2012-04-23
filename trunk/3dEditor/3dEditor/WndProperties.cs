@@ -54,6 +54,12 @@ namespace _3dEditor
             else if (obj.GetType() == typeof(RayImage))
                 ShowImage((RayImage)obj);
 
+            else if (obj.GetType() == typeof(Light))
+                ShowLight((Light)obj);
+
+            else if (obj.GetType() == typeof(Camera))
+                ShowCamera((Camera)obj);
+
             this.Update();
         }
 

@@ -7,6 +7,9 @@ using System.Drawing;
 
 namespace EditorLib
 {
+    /// <summary>
+    /// Objekt zobrazitelny v Editoru, na ktery lze kliknout
+    /// </summary>
     public class EditorObject
     {
         private List<GraphicsPath> PathList { get; set; }
