@@ -92,7 +92,9 @@ namespace _3dEditor
 
                         if ((TreeNodeTypes)node2.Tag == typ)
                         {
-                            DefaultShape ds = (DefaultShape)obj;
+                            DrawingObject drobj = (DrawingObject)obj;
+                            //DefaultShape ds = (DefaultShape)obj;
+                            DefaultShape ds = (DefaultShape)drobj.ModelObject;
                             TreeNode novyNode = new TreeNode(obj.ToString());
                             novyNode.Tag = obj;
                             if (ds.IsActive)
@@ -105,7 +107,9 @@ namespace _3dEditor
 
                 else if((TreeNodeTypes)node.Tag == rootTyp && rootTyp == TreeNodeTypes.Lights)
                 {
-                    Light light = (Light)obj;
+                    DrawingLight drLight = (DrawingLight)obj;
+                    //Light light = (Light)obj;
+                    Light light = (Light)drLight.ModelObject;
                     TreeNode novyNode = new TreeNode(obj.ToString());
                     novyNode.Tag = obj;
                     if (light.IsActive)
@@ -114,7 +118,9 @@ namespace _3dEditor
                 }
                 else if ((TreeNodeTypes)node.Tag == rootTyp && rootTyp == TreeNodeTypes.Camera)
                 {
-                    Camera cam = (Camera)obj;
+                    DrawingCamera drCam = (DrawingCamera)obj;
+                    //Camera cam = (Camera)obj;
+                    Camera cam = (Camera)drCam.ModelObject;
                     TreeNode novyNode = new TreeNode(cam.ToString());
                     novyNode.Tag = obj;
                     novyNode.Checked = true;
@@ -135,40 +141,83 @@ namespace _3dEditor
         /// koule, rovina, valec, krychle, svetlo, kamera, image, animation
         /// </summary>
         /// <param name="obj"></param>
-        public void AddItem(DefaultShape obj)
+        //public void AddItem(DefaultShape obj)
+        //{
+        //    if (obj.GetType() == typeof(RayTracerLib.Sphere))
+        //    {
+        //        this.AddItem(obj, TreeNodeTypes.Spheres);
+        //    }
+        //    else if (obj.GetType() == typeof(RayTracerLib.Plane))
+        //    {
+        //        this.AddItem(obj, TreeNodeTypes.Planes);
+        //    }
+        //    else if (obj.GetType() == typeof(RayTracerLib.Cube))
+        //    {
+        //        this.AddItem(obj, TreeNodeTypes.Cubes);
+        //    }
+        //    else if (obj.GetType() == typeof(RayTracerLib.Cylinder))
+        //    {
+        //        this.AddItem(obj, TreeNodeTypes.Cylinders);
+        //    }
+        //}
+
+        /// <summary>
+        /// Prida do seznamu objekt ze sveta Raytraceru: 
+        /// koule, rovina, valec, krychle, svetlo, kamera, image, animation
+        /// </summary>
+        /// <param name="obj"></param>
+        public void AddItem(DrawingObject drawObj)
         {
-            if (obj.GetType() == typeof(RayTracerLib.Sphere))
+            if (drawObj.GetType() == typeof(DrawingSphere))
             {
-                this.AddItem(obj, TreeNodeTypes.Spheres);
+                this.AddItem(drawObj, TreeNodeTypes.Spheres);
             }
-            else if (obj.GetType() == typeof(RayTracerLib.Plane))
+            else if (drawObj.GetType() == typeof(DrawingPlane))
             {
-                this.AddItem(obj, TreeNodeTypes.Planes);
+                this.AddItem(drawObj, TreeNodeTypes.Planes);
             }
-            else if (obj.GetType() == typeof(RayTracerLib.Cube))
+            else if (drawObj.GetType() == typeof(DrawingCube))
             {
-                this.AddItem(obj, TreeNodeTypes.Cubes);
+                this.AddItem(drawObj, TreeNodeTypes.Cubes);
             }
-            else if (obj.GetType() == typeof(RayTracerLib.Cylinder))
+            else if (drawObj.GetType() == typeof(DrawingCylinder))
             {
-                this.AddItem(obj, TreeNodeTypes.Cylinders);
+                this.AddItem(drawObj, TreeNodeTypes.Cylinders);
             }
         }
-        public void AddItem(Light light)
+
+        //public void AddItem(Light light)
+        //{
+        //    this.AddItem(light, TreeNodeTypes.Lights);
+        //}
+        //public void AddItem(Camera cam)
+        //{
+        //    this.AddItem(cam, TreeNodeTypes.Camera);
+        //}
+        //public void AddItem(RayImage img)
+        //{
+        //    this.AddItem(img, TreeNodeTypes.Images);
+        //}
+        //public void AddItem(Animation obj)
+        //{
+        //}
+
+        public void AddItem(DrawingLight light)
         {
             this.AddItem(light, TreeNodeTypes.Lights);
+        }
+        public void AddItem(DrawingCamera cam)
+        {
+            this.AddItem(cam, TreeNodeTypes.Camera);
         }
         public void AddItem(RayImage img)
         {
             this.AddItem(img, TreeNodeTypes.Images);
         }
-        public void AddItem(Camera cam)
-        {
-            this.AddItem(cam, TreeNodeTypes.Camera);
-        }
         public void AddItem(Animation obj)
         {
         }
+
         private void OnAfterSelect(object sender, TreeViewEventArgs e)
         {
 
@@ -177,15 +226,21 @@ namespace _3dEditor
             if (node.Tag == null)
                 return;
 
+            // kdyz se jedna o konkretni instanci objektu v seznamu - neni to obecna skupina
             if (node.Tag.GetType() != typeof(TreeNodeTypes))
             {
                 ParentEditor form = (ParentEditor)this.ParentForm;
                 form._wndProperties.ShowObject(node.Tag);
-                if (node.Tag is DefaultShape)
+                //if (node.Tag is DefaultShape)
+                // zviditelni vykreslovany objekt, ktery byl vybran ze seznamu objektu
+                if (node.Tag is DrawingObject)
                 {
-                    DefaultShape ds = (DefaultShape)node.Tag;
-                    form._wndBoard.SetObjectSelected((DefaultShape)node.Tag);
-                    node.Checked = ds.IsActive;
+                    //DefaultShape ds = (DefaultShape)node.Tag;
+                    DrawingObject dro = (DrawingObject)node.Tag;
+                    //if (dro.ModelObject is DefaultShape)
+                    //DefaultShape ds = (DefaultShape)dro.ModelObject;
+                    form._wndBoard.SetObjectSelected(dro);
+                    //node.Checked = ds.IsActive;
                 }
             }
             else
@@ -205,7 +260,31 @@ namespace _3dEditor
             foreach (TreeNode node in rootNode.Nodes)
             {
                 // zjisteni dedicneho typu: zda-li je node.Tag zdedeny typ od DefaultShape
-                if (node.Tag is DefaultShape)       
+
+                if (node.Tag is DrawingLight)
+                {
+                    if (node.Tag == shape)
+                    {
+                        treeView1.SelectedNode = node;
+                        this.OnMouseDown(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                        this.OnClicked(this, new EventArgs());
+                        this.onMouseDown(this, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                        this.treeView1.Focus();
+                        this.treeView1.HideSelection = false;
+                        this.OnMouseClick(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                        this.Update();
+                    }
+                }
+                else if (node.Tag is DrawingCamera)
+                {
+                    if (node.Tag == shape)
+                    {
+                        treeView1.SelectedNode = node;
+                        this.treeView1.Focus();
+                        this.treeView1.HideSelection = false;
+                    }
+                }
+                else if (node.Tag is DrawingObject)
                 {
                     if (node.Tag == shape)
                     {
@@ -224,29 +303,6 @@ namespace _3dEditor
                         //this.Refresh();
                     }
                 }
-                else if (node.Tag is Light)
-                {
-                    if (node.Tag == shape)
-                    {
-                        treeView1.SelectedNode = node;
-                        this.OnMouseDown(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
-                        this.OnClicked(this, new EventArgs());
-                        this.onMouseDown(this, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
-                        this.treeView1.Focus();
-                        this.treeView1.HideSelection = false;
-                        this.OnMouseClick(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
-                        this.Update();
-                    }
-                }
-                else if (node.Tag is Camera)
-                {
-                    if (node.Tag == shape)
-                    {
-                        treeView1.SelectedNode = node;
-                        this.treeView1.Focus();
-                        this.treeView1.HideSelection = false;
-                    }
-                }
                 else
                 {
                     ShowNode(shape, node);
@@ -262,15 +318,15 @@ namespace _3dEditor
         {
             foreach (TreeNode node in treeView1.Nodes)
             {
-                if (((TreeNodeTypes)node.Tag == TreeNodeTypes.Objects) && (shape is DefaultShape))
+                if (((TreeNodeTypes)node.Tag == TreeNodeTypes.Objects) && (shape is DrawingObject))
                 {
                     ShowNode(shape, node);
                 }
-                else if (( (TreeNodeTypes)node.Tag == TreeNodeTypes.Lights ) && ( shape is Light ))
+                else if (( (TreeNodeTypes)node.Tag == TreeNodeTypes.Lights ) && ( shape is DrawingLight ))
                 {
                     ShowNode(shape, node);
                 }
-                else if (((TreeNodeTypes)node.Tag == TreeNodeTypes.Camera) && (shape is Camera))
+                else if (((TreeNodeTypes)node.Tag == TreeNodeTypes.Camera) && (shape is DrawingCamera))
                 {
                     ShowNode(shape, node);
                 }
@@ -305,18 +361,20 @@ namespace _3dEditor
         private void AfterCheck(object sender, TreeViewEventArgs e)
         {
 
-            if (e.Node.Tag is DefaultShape)
+            if (e.Node.Tag is DrawingDefaultShape)
             {
-                DefaultShape ds = (DefaultShape)e.Node.Tag;
+                DrawingDefaultShape dds = (DrawingDefaultShape)e.Node.Tag;
+                DefaultShape ds = (DefaultShape)dds.ModelObject;
                 ds.IsActive = e.Node.Checked;
                 ParentEditor pe = (ParentEditor)this.ParentForm;
                 pe._wndBoard.Redraw();
                 this.Invalidate();
                 this.Update();
             }
-            else if (e.Node.Tag is Light)
+            else if (e.Node.Tag is DrawingLight)
             {
-                Light l = (Light)e.Node.Tag;
+                DrawingLight dl = (DrawingLight)e.Node.Tag;
+                Light l = (Light)dl.ModelObject;
                 l.IsActive = e.Node.Checked;
                 ParentEditor pe = (ParentEditor)this.ParentForm;
                 pe._wndBoard.Redraw();
@@ -345,16 +403,33 @@ namespace _3dEditor
 
         private void BeforeCheck(object sender, TreeViewCancelEventArgs e)
         {
-            if (e.Node.Tag is DefaultShape)
+
+            if (e.Node.Tag is DrawingCamera)
             {
-                DefaultShape ds = (DefaultShape)e.Node.Tag;
-                if (e.Node.Checked != ds.IsActive)
-                    e.Node.Checked = ds.IsActive;
-                ParentEditor pe = (ParentEditor)this.ParentForm;
-                pe._wndBoard.Redraw();
-                this.Invalidate();
-                this.Update();
+                e.Cancel = true;
             }
+
+            // osetreni, aby kamera byla porad zaskrknuta v seznamu
+            if (e.Node.Tag is TreeNodeTypes && 
+            (TreeNodeTypes)e.Node.Tag == TreeNodeTypes.Camera && 
+            e.Node.Checked == true)
+                e.Cancel = true;
+
+            
+            //if (e.Node.Tag is DrawingObject)
+            //{
+            //    DrawingObject dro = (DrawingObject)e.Node.Tag;
+            //    if (dro.ModelObject is DefaultShape)
+            //    {
+            //        DefaultShape ds = (DefaultShape)dro.ModelObject;
+            //        if (e.Node.Checked != ds.IsActive)
+            //            e.Node.Checked = ds.IsActive;
+            //        ParentEditor pe = (ParentEditor)this.ParentForm;
+            //        pe._wndBoard.Redraw();
+            //        this.Invalidate();
+            //        this.Update();
+            //    }
+            //}
         }
 
 

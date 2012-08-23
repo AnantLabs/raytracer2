@@ -8,7 +8,7 @@ using RayTracerLib;
 
 namespace EditorLib
 {
-    public class DrawingSphere : DrawingObject
+    public class DrawingSphere : DrawingDefaultShape
     {
 
  

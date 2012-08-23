@@ -291,8 +291,8 @@ namespace _3dEditor
                         path = new GraphicsPath();
                         path.AddClosedCurve(pfArr, 0.9F);
                         editorObject.AddPath(path);
-                        _editHelp.AddClickableObject(editorObject);
                     }
+                        _editHelp.AddClickableObject(editorObject);
                 }
 
                 else if (obj.GetType() == typeof(DrawingPlane)) // ================= PLANE
@@ -460,19 +460,85 @@ namespace _3dEditor
                     cameraPen.CustomEndCap = new AdjustableArrowCap(3f, 3f, false);
                     cameraPen.DashStyle = DashStyle.DashDot;
 
-                    // POKUSY NA TRANSFORMACI KAMERY
-                    foreach (Line3D l in drCam.Lines)
+                    Line3D line;
+
+                    // cara ze stredu kamery do stredu elipsy -- osa kuzele
+                    // tato cara ma i sipku ukazujici smer kamery
+                    line = drCam.Lines[0];
+                    a = line.A.To2D(_scale, _zoom, _centerPoint);
+                    b = line.B.To2D(_scale, _zoom, _centerPoint);
+                    g.DrawLine(cameraPen, a, b);
+
+                    // cary podstavy elipsy
+                    // tenci cary bez sipky
+                    if (drCam.ShowCross)
                     {
-                        a = l.A.To2D(_scale, _zoom, _centerPoint);
-                        b = l.B.To2D(_scale, _zoom, _centerPoint);
+                        cameraPen.Width = 1; // tenci
+                        cameraPen.EndCap = LineCap.NoAnchor; // bez zakonceni sipkou
+
+                        // prvni line
+                        line = drCam.Lines[1];
+                        a = line.A.To2D(_scale, _zoom, _centerPoint);
+                        b = line.B.To2D(_scale, _zoom, _centerPoint);
+                        g.DrawLine(cameraPen, a, b);
+
+                        // druha line
+                        line = drCam.Lines[2];
+                        a = line.A.To2D(_scale, _zoom, _centerPoint);
+                        b = line.B.To2D(_scale, _zoom, _centerPoint);
                         g.DrawLine(cameraPen, a, b);
                     }
+                    /// cary steny:
+                    /// 
+                    // prvni par:
+                    if (drCam.ShowSide1)
+                    {
+                        cameraPen.Width = 1; // tenci
+                        cameraPen.EndCap = LineCap.NoAnchor; // bez zakonceni sipkou
 
+                        line = drCam.Lines[3];
+                        a = line.A.To2D(_scale, _zoom, _centerPoint);
+                        b = line.B.To2D(_scale, _zoom, _centerPoint);
+                        g.DrawLine(cameraPen, a, b);
+
+                        line = drCam.Lines[5];
+                        a = line.A.To2D(_scale, _zoom, _centerPoint);
+                        b = line.B.To2D(_scale, _zoom, _centerPoint);
+                        g.DrawLine(cameraPen, a, b);
+
+                    }
+
+                    // druhy par
+                    if (drCam.ShowSide2)
+                    {
+                        cameraPen.Width = 1; // tenci
+                        cameraPen.EndCap = LineCap.NoAnchor; // bez zakonceni sipkou
+
+                        line = drCam.Lines[4];
+                        a = line.A.To2D(_scale, _zoom, _centerPoint);
+                        b = line.B.To2D(_scale, _zoom, _centerPoint);
+                        g.DrawLine(cameraPen, a, b);
+
+                        line = drCam.Lines[6];
+                        a = line.A.To2D(_scale, _zoom, _centerPoint);
+                        b = line.B.To2D(_scale, _zoom, _centerPoint);
+                        g.DrawLine(cameraPen, a, b);
+                    }
+                    //// POKUSY NA TRANSFORMACI KAMERY
+                    //foreach (Line3D l in drCam.Lines)
+                    //{
+                    //    a = l.A.To2D(_scale, _zoom, _centerPoint);
+                    //    b = l.B.To2D(_scale, _zoom, _centerPoint);
+                    //    g.DrawLine(cameraPen, a, b);
+                    //}
+
+                    // podstava
                     PointF[] pointsF = new PointF[4];
-                    for (int i=2; i<6; i++)
+                    for (int i = 2; i < 6; i++)
                     {
                         pointsF[i - 2] = drCam.Points[i].To2D(_scale, _zoom, _centerPoint);
                     }
+
                     g.DrawClosedCurve(_penObject, pointsF, 1F, System.Drawing.Drawing2D.FillMode.Winding);
                 }
 
@@ -621,12 +687,13 @@ namespace _3dEditor
             List<DrawingObject> drawingList = _editHelp.GetClickableObj(e.Location);
             if (drawingList.Count > 0)
             {
-                if (drawingList[0].ModelObject is DefaultShape 
-                    || drawingList[0].ModelObject is Light
-                    || drawingList[0].ModelObject is Camera)
+                //if (drawingList[0].ModelObject is DefaultShape 
+                //    || drawingList[0].ModelObject is Light
+                //    || drawingList[0].ModelObject is Camera)
+                if (drawingList[0] is DrawingObject)
                 {
                     WndScene wndsc = GetWndScene();
-                    wndsc.ShowNode(drawingList[0].ModelObject);
+                    wndsc.ShowNode(drawingList[0]);
                 }
                 _isSelected = drawingList[0];   // vybereme prvni ze seznamu
                 labelClick.Text = "Clicked";
@@ -769,7 +836,7 @@ namespace _3dEditor
                     DrawingSphere drSphere = new DrawingSphere(sph);
                     _objectsToDraw.Add(drSphere);
                     WndScene wndScene = GetWndScene();
-                    wndScene.AddItem(sph);
+                    wndScene.AddItem(drSphere);
                 }
                 else if (shape.GetType() == typeof(Plane))
                 {
@@ -777,7 +844,7 @@ namespace _3dEditor
                     DrawingPlane drPlane = new DrawingPlane(plane);
                     _objectsToDraw.Add(drPlane);
                     WndScene wndScene = GetWndScene();
-                    wndScene.AddItem(plane);
+                    wndScene.AddItem(drPlane);
                 }
                 else if (shape.GetType() == typeof(Cube))
                 {
@@ -785,7 +852,7 @@ namespace _3dEditor
                     DrawingCube drCube = new DrawingCube(cube);
                     _objectsToDraw.Add(drCube);
                     WndScene wndScene = GetWndScene();
-                    wndScene.AddItem(cube);
+                    wndScene.AddItem(drCube);
                 }
                 else if (shape.GetType() == typeof(Cylinder))
                 {
@@ -793,7 +860,7 @@ namespace _3dEditor
                     DrawingCylinder drCyl = new DrawingCylinder(cylinder);
                     _objectsToDraw.Add(drCyl);
                     WndScene wndScene = GetWndScene();
-                    wndScene.AddItem(cylinder);
+                    wndScene.AddItem(drCyl);
                 }
             }
             else if (shape is Light)
@@ -802,7 +869,7 @@ namespace _3dEditor
                 DrawingLight drLight = new DrawingLight(light);
                 _objectsToDraw.Add(drLight);
                 WndScene wndScene = GetWndScene();
-                wndScene.AddItem(light);
+                wndScene.AddItem(drLight);
             }
             else if (shape is Camera)
             {
@@ -810,7 +877,7 @@ namespace _3dEditor
                 DrawingCamera drCam = new DrawingCamera(cam);
                 _objectsToDraw.Add(drCam);
                 WndScene wndScene = GetWndScene();
-                wndScene.AddItem(cam);
+                wndScene.AddItem(drCam);
             }
 
         }
@@ -839,11 +906,11 @@ namespace _3dEditor
         /// Nastavi objekt sceny jako vybrany v editoru (jako by byl vybran kliknutim)
         /// </summary>
         /// <param name="shape">objekt sceny</param>
-        public void SetObjectSelected(DefaultShape shape)
+        public void SetObjectSelected(DrawingObject shape)
         {
             foreach (DrawingObject sefSh in _objectsToDraw)
             {
-                if (sefSh.ModelObject == shape)
+                if (sefSh == shape)
                 {
                     _isSelected =  sefSh;
                 }
