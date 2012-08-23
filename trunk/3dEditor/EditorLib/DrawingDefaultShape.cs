@@ -9,7 +9,7 @@ namespace EditorLib
     /// trida pro predky vsech vyobrazovanych objektu: sphere, plane, cube, cylinder
     /// slouzi jen pro jejich zarazeni do jedne spolecne skupiny
     /// </summary>
-    public class DrawingDefaultShape : DrawingObject
+    public abstract class DrawingDefaultShape : DrawingObject
     {
     }
 }

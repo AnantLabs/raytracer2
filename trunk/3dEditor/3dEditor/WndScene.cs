@@ -29,6 +29,14 @@ namespace _3dEditor
 
             FillTree();
         }
+        /// <summary>
+        /// Vyprazdni cely seznam
+        /// </summary>
+        public void ClearAll()
+        {
+            this.treeView1.Nodes.Clear();
+        }
+
         private void FillTree()
         {
             TreeNode nodeObjects = new TreeNode(TreeNodeTypes.Objects.ToString());
@@ -95,7 +103,7 @@ namespace _3dEditor
                             DrawingObject drobj = (DrawingObject)obj;
                             //DefaultShape ds = (DefaultShape)obj;
                             DefaultShape ds = (DefaultShape)drobj.ModelObject;
-                            TreeNode novyNode = new TreeNode(obj.ToString());
+                            TreeNode novyNode = new TreeNode(ds.ToString());
                             novyNode.Tag = obj;
                             if (ds.IsActive)
                                 novyNode.Checked = true;
@@ -122,7 +130,7 @@ namespace _3dEditor
                     //Camera cam = (Camera)obj;
                     Camera cam = (Camera)drCam.ModelObject;
                     TreeNode novyNode = new TreeNode(cam.ToString());
-                    novyNode.Tag = obj;
+                    novyNode.Tag = drCam;
                     novyNode.Checked = true;
                     node.Checked = true;
                     node.Nodes.Add(novyNode);
@@ -136,6 +144,16 @@ namespace _3dEditor
             }
         }
 
+        public void UpdateRecords()
+        {
+            foreach (TreeNode node in treeView1.Nodes)
+            {
+                foreach(TreeNode childNode in node.Nodes)
+                    childNode.Text = childNode.Tag.ToString();
+            }
+            //this.treeView1.Focus();
+            this.Update();
+        }
         /// <summary>
         /// Prida do seznamu objekt ze sveta Raytraceru: 
         /// koule, rovina, valec, krychle, svetlo, kamera, image, animation
@@ -230,7 +248,7 @@ namespace _3dEditor
             if (node.Tag.GetType() != typeof(TreeNodeTypes))
             {
                 ParentEditor form = (ParentEditor)this.ParentForm;
-                form._wndProperties.ShowObject(node.Tag);
+                form._WndProperties.ShowObject(node.Tag);
                 //if (node.Tag is DefaultShape)
                 // zviditelni vykreslovany objekt, ktery byl vybran ze seznamu objektu
                 if (node.Tag is DrawingObject)
@@ -239,7 +257,7 @@ namespace _3dEditor
                     DrawingObject dro = (DrawingObject)node.Tag;
                     //if (dro.ModelObject is DefaultShape)
                     //DefaultShape ds = (DefaultShape)dro.ModelObject;
-                    form._wndBoard.SetObjectSelected(dro);
+                    form._WndBoard.SetObjectSelected(dro);
                     //node.Checked = ds.IsActive;
                 }
             }
@@ -247,7 +265,7 @@ namespace _3dEditor
             {
                 TreeNodeTypes typ = (TreeNodeTypes)node.Tag;
                 ParentEditor form = (ParentEditor)this.ParentForm;
-                form._wndProperties.ShowObject(node.Tag);
+                form._WndProperties.ShowObject(node.Tag);
             }
 
         }
@@ -284,7 +302,7 @@ namespace _3dEditor
                         this.treeView1.HideSelection = false;
                     }
                 }
-                else if (node.Tag is DrawingObject)
+                else if (node.Tag is DrawingDefaultShape)
                 {
                     if (node.Tag == shape)
                     {
@@ -367,7 +385,7 @@ namespace _3dEditor
                 DefaultShape ds = (DefaultShape)dds.ModelObject;
                 ds.IsActive = e.Node.Checked;
                 ParentEditor pe = (ParentEditor)this.ParentForm;
-                pe._wndBoard.Redraw();
+                pe._WndBoard.Redraw();
                 this.Invalidate();
                 this.Update();
             }
@@ -377,7 +395,7 @@ namespace _3dEditor
                 Light l = (Light)dl.ModelObject;
                 l.IsActive = e.Node.Checked;
                 ParentEditor pe = (ParentEditor)this.ParentForm;
-                pe._wndBoard.Redraw();
+                pe._WndBoard.Redraw();
                 this.Invalidate();
                 this.Update();
             }
@@ -430,6 +448,12 @@ namespace _3dEditor
             //        this.Update();
             //    }
             //}
+        }
+
+        private WndBoard GetWndBoard()
+        {
+            ParentEditor pf = (ParentEditor)this.ParentForm;
+            return pf._WndBoard;
         }
 
 

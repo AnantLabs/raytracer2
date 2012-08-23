@@ -38,6 +38,12 @@ namespace EditorLib
 
         public void Scale(double scale) { }
 
+
+        public override string ToString()
+        {
+            return ModelObject.ToString();
+        }
+
         
     }
 }
