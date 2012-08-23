@@ -298,6 +298,15 @@
             this.label130 = new System.Windows.Forms.Label();
             this.numericElipseC = new System.Windows.Forms.NumericUpDown();
             this.label131 = new System.Windows.Forms.Label();
+            this.checkCross = new System.Windows.Forms.CheckBox();
+            this.checkSide1 = new System.Windows.Forms.CheckBox();
+            this.checkSide2 = new System.Windows.Forms.CheckBox();
+            this.numericKamDist = new System.Windows.Forms.NumericUpDown();
+            this.label132 = new System.Windows.Forms.Label();
+            this.numericKamHeight = new System.Windows.Forms.NumericUpDown();
+            this.label133 = new System.Windows.Forms.Label();
+            this.numericKamWidth = new System.Windows.Forms.NumericUpDown();
+            this.label134 = new System.Windows.Forms.Label();
             this.panelSphere.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSphN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSphKt)).BeginInit();
@@ -402,6 +411,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericElipseA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericElipseCenterY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericElipseC)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericKamDist)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericKamHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericKamWidth)).BeginInit();
             this.SuspendLayout();
             // 
             // panelSphere
@@ -3248,6 +3260,15 @@
             // 
             // panelCamera
             // 
+            this.panelCamera.Controls.Add(this.numericKamWidth);
+            this.panelCamera.Controls.Add(this.label134);
+            this.panelCamera.Controls.Add(this.numericKamHeight);
+            this.panelCamera.Controls.Add(this.label133);
+            this.panelCamera.Controls.Add(this.numericKamDist);
+            this.panelCamera.Controls.Add(this.label132);
+            this.panelCamera.Controls.Add(this.checkSide2);
+            this.panelCamera.Controls.Add(this.checkSide1);
+            this.panelCamera.Controls.Add(this.checkCross);
             this.panelCamera.Controls.Add(this.numericKameraUpX);
             this.panelCamera.Controls.Add(this.numericKameraUpZ);
             this.panelCamera.Controls.Add(this.label32);
@@ -3271,9 +3292,9 @@
             this.panelCamera.Controls.Add(this.numericKameraStredY);
             this.panelCamera.Controls.Add(this.label111);
             this.panelCamera.Controls.Add(this.label112);
-            this.panelCamera.Location = new System.Drawing.Point(137, 344);
+            this.panelCamera.Location = new System.Drawing.Point(10, 266);
             this.panelCamera.Name = "panelCamera";
-            this.panelCamera.Size = new System.Drawing.Size(309, 200);
+            this.panelCamera.Size = new System.Drawing.Size(325, 237);
             this.panelCamera.TabIndex = 60;
             // 
             // numericKameraUpX
@@ -3487,12 +3508,13 @@
             // 
             // buttonKameraSave
             // 
-            this.buttonKameraSave.Location = new System.Drawing.Point(133, 162);
+            this.buttonKameraSave.Location = new System.Drawing.Point(241, 178);
             this.buttonKameraSave.Name = "buttonKameraSave";
             this.buttonKameraSave.Size = new System.Drawing.Size(61, 23);
             this.buttonKameraSave.TabIndex = 33;
             this.buttonKameraSave.Text = "Save";
             this.buttonKameraSave.UseVisualStyleBackColor = true;
+            this.buttonKameraSave.Click += new System.EventHandler(this.buttonKameraSave_Click);
             // 
             // numericKameraStredX
             // 
@@ -4150,15 +4172,129 @@
             this.label131.TabIndex = 24;
             this.label131.Text = "Y:";
             // 
+            // checkCross
+            // 
+            this.checkCross.AutoSize = true;
+            this.checkCross.Location = new System.Drawing.Point(12, 156);
+            this.checkCross.Name = "checkCross";
+            this.checkCross.Size = new System.Drawing.Size(82, 17);
+            this.checkCross.TabIndex = 54;
+            this.checkCross.Text = "Show Cross";
+            this.checkCross.UseVisualStyleBackColor = true;
+            // 
+            // checkSide1
+            // 
+            this.checkSide1.AutoSize = true;
+            this.checkSide1.Location = new System.Drawing.Point(11, 180);
+            this.checkSide1.Name = "checkSide1";
+            this.checkSide1.Size = new System.Drawing.Size(86, 17);
+            this.checkSide1.TabIndex = 55;
+            this.checkSide1.Text = "Show Side 1";
+            this.checkSide1.UseVisualStyleBackColor = true;
+            // 
+            // checkSide2
+            // 
+            this.checkSide2.AutoSize = true;
+            this.checkSide2.Location = new System.Drawing.Point(10, 206);
+            this.checkSide2.Name = "checkSide2";
+            this.checkSide2.Size = new System.Drawing.Size(86, 17);
+            this.checkSide2.TabIndex = 56;
+            this.checkSide2.Text = "Show Side 2";
+            this.checkSide2.UseVisualStyleBackColor = true;
+            // 
+            // numericKamDist
+            // 
+            this.numericKamDist.DecimalPlaces = 5;
+            this.numericKamDist.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericKamDist.Location = new System.Drawing.Point(171, 153);
+            this.numericKamDist.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericKamDist.Name = "numericKamDist";
+            this.numericKamDist.Size = new System.Drawing.Size(61, 20);
+            this.numericKamDist.TabIndex = 58;
+            // 
+            // label132
+            // 
+            this.label132.AutoSize = true;
+            this.label132.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label132.Location = new System.Drawing.Point(117, 156);
+            this.label132.Name = "label132";
+            this.label132.Size = new System.Drawing.Size(52, 13);
+            this.label132.TabIndex = 57;
+            this.label132.Text = "Distance:";
+            // 
+            // numericKamHeight
+            // 
+            this.numericKamHeight.DecimalPlaces = 5;
+            this.numericKamHeight.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericKamHeight.Location = new System.Drawing.Point(171, 182);
+            this.numericKamHeight.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericKamHeight.Name = "numericKamHeight";
+            this.numericKamHeight.Size = new System.Drawing.Size(61, 20);
+            this.numericKamHeight.TabIndex = 60;
+            // 
+            // label133
+            // 
+            this.label133.AutoSize = true;
+            this.label133.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label133.Location = new System.Drawing.Point(127, 185);
+            this.label133.Name = "label133";
+            this.label133.Size = new System.Drawing.Size(41, 13);
+            this.label133.TabIndex = 59;
+            this.label133.Text = "Height:";
+            // 
+            // numericKamWidth
+            // 
+            this.numericKamWidth.DecimalPlaces = 5;
+            this.numericKamWidth.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericKamWidth.Location = new System.Drawing.Point(171, 208);
+            this.numericKamWidth.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericKamWidth.Name = "numericKamWidth";
+            this.numericKamWidth.Size = new System.Drawing.Size(61, 20);
+            this.numericKamWidth.TabIndex = 62;
+            // 
+            // label134
+            // 
+            this.label134.AutoSize = true;
+            this.label134.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label134.Location = new System.Drawing.Point(130, 211);
+            this.label134.Name = "label134";
+            this.label134.Size = new System.Drawing.Size(38, 13);
+            this.label134.TabIndex = 61;
+            this.label134.Text = "Width:";
+            // 
             // WndProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(814, 530);
+            this.Controls.Add(this.panelCamera);
             this.Controls.Add(this.panelAnimace);
             this.Controls.Add(this.panelImage);
-            this.Controls.Add(this.panelCamera);
             this.Controls.Add(this.panelLight);
             this.Controls.Add(this.panelBox);
             this.Controls.Add(this.panelRovina);
@@ -4283,6 +4419,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericElipseA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericElipseCenterY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericElipseC)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericKamDist)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericKamHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericKamWidth)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -4559,6 +4698,15 @@
         private System.Windows.Forms.Label label130;
         private System.Windows.Forms.NumericUpDown numericElipseC;
         private System.Windows.Forms.Label label131;
+        private System.Windows.Forms.NumericUpDown numericKamWidth;
+        private System.Windows.Forms.Label label134;
+        private System.Windows.Forms.NumericUpDown numericKamHeight;
+        private System.Windows.Forms.Label label133;
+        private System.Windows.Forms.NumericUpDown numericKamDist;
+        private System.Windows.Forms.Label label132;
+        private System.Windows.Forms.CheckBox checkSide2;
+        private System.Windows.Forms.CheckBox checkSide1;
+        private System.Windows.Forms.CheckBox checkCross;
 
     }
 }

@@ -7,7 +7,7 @@ using RayTracerLib;
 
 namespace EditorLib
 {
-    public class DrawingCylinder : DrawingObject
+    public class DrawingCylinder : DrawingDefaultShape
     {
 
         public Point3D Center { get; private set; }

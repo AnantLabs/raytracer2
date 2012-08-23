@@ -74,7 +74,7 @@ namespace _3dEditor
             Plane plane1 = new Plane(new Vektor(1, 1, 0), 3);
             Cylinder cyl = new Cylinder(new Vektor(3, 2, 1), new Vektor(1, 1, 1), 1, 8);
             _rayTracer.RScene.SceneObjects.Clear();
-            //_rayTracer.RScene.SceneObjects.Add(sph1);
+            _rayTracer.RScene.SceneObjects.Add(sph1);
             //_rayTracer.RScene.SceneObjects.Add(sph2);
             //_rayTracer.RScene.SceneObjects.Add(cube1);
             //_rayTracer.RScene.SceneObjects.Add(plane1);

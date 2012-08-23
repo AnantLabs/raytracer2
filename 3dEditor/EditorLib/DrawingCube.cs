@@ -11,7 +11,7 @@ namespace EditorLib
     /// Krychle
     /// -- stred v Points[0]
     /// </summary>
-    public class DrawingCube : DrawingObject
+    public class DrawingCube : DrawingDefaultShape
     {
 
         public Point3D Center

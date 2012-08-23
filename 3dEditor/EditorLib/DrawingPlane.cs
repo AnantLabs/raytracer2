@@ -7,7 +7,7 @@ using RayTracerLib;
 
 namespace EditorLib
 {
-    public class DrawingPlane : DrawingObject
+    public class DrawingPlane : DrawingDefaultShape
     {
 
         /// <summary>

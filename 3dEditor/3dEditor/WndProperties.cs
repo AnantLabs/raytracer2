@@ -15,6 +15,9 @@ namespace _3dEditor
     public partial class WndProperties : Form
     {
 
+        /// aktualne zobrazovany objekt
+        object _currentlyDisplayed;
+
         RayImage _currentImage;
 
         public WndProperties()
@@ -22,6 +25,8 @@ namespace _3dEditor
             InitializeComponent();
 
             SetAllInvisible();
+
+           
 
             this.panelSphere.Location = new Point(0, 0);
             this.panelCylindr.Location = new Point(0, 0);
@@ -37,29 +42,56 @@ namespace _3dEditor
             
         }
 
+        //public void ShowObject(object obj)
+        //{
+        //    if (obj.GetType() == typeof(Sphere))
+        //        ShowSphere((Sphere)obj);
+
+        //    else if (obj.GetType() == typeof(Plane))
+        //        ShowPlane((Plane)obj);
+
+        //    else if (obj.GetType() == typeof(Cube))
+        //        ShowCube((Cube)obj);
+
+        //    else if (obj.GetType() == typeof(Cylinder))
+        //        ShowCylinder((Cylinder)obj);
+
+        //    else if (obj.GetType() == typeof(RayImage))
+        //        ShowImage((RayImage)obj);
+
+        //    else if (obj.GetType() == typeof(Light))
+        //        ShowLight((Light)obj);
+
+        //    else if (obj.GetType() == typeof(Camera))
+        //        ShowCamera((Camera)obj);
+
+        //    this.Update();
+        //}
+
         public void ShowObject(object obj)
         {
-            if (obj.GetType() == typeof(Sphere))
-                ShowSphere((Sphere)obj);
+            if (obj.GetType() == typeof(DrawingSphere))
+                ShowSphere((DrawingSphere)obj);
 
-            else if (obj.GetType() == typeof(Plane))
-                ShowPlane((Plane)obj);
+            else if (obj.GetType() == typeof(DrawingPlane))
+                ShowPlane((DrawingPlane)obj);
 
-            else if (obj.GetType() == typeof(Cube))
-                ShowCube((Cube)obj);
+            else if (obj.GetType() == typeof(DrawingCube))
+                ShowCube((DrawingCube)obj);
 
-            else if (obj.GetType() == typeof(Cylinder))
-                ShowCylinder((Cylinder)obj);
+            else if (obj.GetType() == typeof(DrawingCylinder))
+                ShowCylinder((DrawingCylinder)obj);
 
             else if (obj.GetType() == typeof(RayImage))
                 ShowImage((RayImage)obj);
 
-            else if (obj.GetType() == typeof(Light))
-                ShowLight((Light)obj);
+            else if (obj.GetType() == typeof(DrawingLight))
+                ShowLight((DrawingLight)obj);
 
-            else if (obj.GetType() == typeof(Camera))
-                ShowCamera((Camera)obj);
+            else if (obj.GetType() == typeof(DrawingCamera))
+                ShowCamera((DrawingCamera)obj);
 
+            _currentlyDisplayed = obj;
             this.Update();
         }
 
@@ -75,8 +107,9 @@ namespace _3dEditor
             this.panelAnimace.Visible = false;
         }
 
-        private void ShowSphere(Sphere sph)
+        private void ShowSphere(DrawingSphere drSphere)
         {
+            Sphere sph = (Sphere)drSphere.ModelObject;
             SetAllInvisible();
             this.panelSphere.Visible = true;
             this.Text = "Properties: Sphere";
@@ -99,8 +132,9 @@ namespace _3dEditor
             this.numSphColB.Value = (decimal)sph.Material.Color.B;
 
         }
-        private void ShowPlane(Plane pl)
+        private void ShowPlane(DrawingPlane drPlane)
         {
+            Plane pl = (Plane)drPlane.ModelObject;
             SetAllInvisible();
             this.panelRovina.Visible = true;
             this.Text = "Properties: Plane";
@@ -147,8 +181,9 @@ namespace _3dEditor
                 this.numMaxZ.Value = (decimal)pl.MaxZ;
         }
 
-        private void ShowCube(Cube c)
+        private void ShowCube(DrawingCube drCube)
         {
+            Cube c = (Cube)drCube.ModelObject;
             SetAllInvisible();
             this.panelBox.Visible = true;
             this.Text = "Properties: Cube";
@@ -175,8 +210,9 @@ namespace _3dEditor
             this.numBoxColB.Value = (decimal)c.Material.Color.B;
         }
 
-        private void ShowCylinder(Cylinder c)
+        private void ShowCylinder(DrawingCylinder drCyl)
         {
+            Cylinder c = (Cylinder)drCyl.ModelObject;
             SetAllInvisible();
             this.panelCylindr.Visible = true;
             this.Text = "Properties: Cylinder";
@@ -204,8 +240,9 @@ namespace _3dEditor
             this.numCylColB.Value = (decimal)c.Material.Color.B;
         }
 
-        private void ShowCamera(Camera cam)
+        private void ShowCamera(DrawingCamera drCam)
         {
+            Camera cam = (Camera)drCam.ModelObject;
             SetAllInvisible();
             this.panelCamera.Visible = true;
             this.Text = "Properties: Camera";
@@ -221,10 +258,20 @@ namespace _3dEditor
             this.numericKameraUpX.Value = (decimal)MyMath.Clamp(cam.Up.X, -100, 100);
             this.numericKameraUpY.Value = (decimal)MyMath.Clamp(cam.Up.Y, -100, 100);
             this.numericKameraUpZ.Value = (decimal)MyMath.Clamp(cam.Up.Z, -100, 100);
+
+            this.checkCross.Checked = drCam.ShowCross;
+            this.checkSide1.Checked = drCam.ShowSide1;
+            this.checkSide2.Checked = drCam.ShowSide2;
+
+            this.numericKamDist.Value = (decimal)drCam.Dist;
+            this.numericKamHeight.Value = (decimal)drCam.Height;
+            this.numericKamWidth.Value = (decimal)drCam.Width;
         }
 
-        private void ShowLight(Light l)
+        private void ShowLight(DrawingLight drLight)
         {
+            Light l = (Light)drLight.ModelObject;
+
             SetAllInvisible();
             this.panelLight.Visible = true;
             this.Text = "Properties: Light";
@@ -365,6 +412,49 @@ namespace _3dEditor
                 h = this._currentImage.PictureSize[this._currentImage.IndexPictureSize].Height;
             }
             this._currentImage.CurrentSize = new Size(w, h);
+
+        }
+
+        private void buttonKameraSave_Click(object sender, EventArgs e)
+        {
+            DrawingCamera drCam = (DrawingCamera)_currentlyDisplayed;
+
+            try
+            {
+
+                Vektor stred = new Vektor(
+                    (double)this.numericKameraStredX.Value,
+                    (double)this.numericKameraStredY.Value,
+                    (double)this.numericKameraStredZ.Value);
+
+                Vektor dir = new Vektor(
+                    (double)this.numericKameraDirX.Value,
+                    (double)this.numericKameraDirY.Value,
+                    (double)this.numericKameraDirZ.Value);
+
+                Vektor up = new Vektor(
+                    (double)this.numericKameraUpX.Value,
+                    (double)this.numericKameraUpY.Value,
+                    (double)this.numericKameraUpZ.Value);
+
+                Camera camNew = new Camera();
+                camNew.Source = stred;
+                camNew.SetNormAndUp(dir, up);
+                
+                
+                bool showCross = this.checkCross.Checked;
+                bool showSide1 = this.checkSide1.Checked;
+                bool showSide2 = this.checkSide2.Checked;
+
+                int dist = (int)this.numericKamDist.Value;
+                int height = (int)this.numericKamHeight.Value;
+                int width = (int)this.numericKamWidth.Value;
+                drCam.Set(camNew, dist, height, width, showCross, showSide1, showSide2);
+
+            }
+            catch (Exception ex)
+            {
+            }
 
         }
     }
