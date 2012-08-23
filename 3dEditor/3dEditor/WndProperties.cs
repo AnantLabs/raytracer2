@@ -91,6 +91,8 @@ namespace _3dEditor
             else if (obj.GetType() == typeof(DrawingCamera))
                 ShowCamera((DrawingCamera)obj);
 
+            else return;
+
             _currentlyDisplayed = obj;
             this.Update();
         }
@@ -415,9 +417,12 @@ namespace _3dEditor
 
         }
 
-        private void buttonKameraSave_Click(object sender, EventArgs e)
+        private void actionKameraSet(object sender, EventArgs e)
         {
+            if (_currentlyDisplayed.GetType() != typeof(DrawingCamera))
+                return;
             DrawingCamera drCam = (DrawingCamera)_currentlyDisplayed;
+            Camera cam = (Camera)drCam.ModelObject;
 
             try
             {
@@ -437,9 +442,8 @@ namespace _3dEditor
                     (double)this.numericKameraUpY.Value,
                     (double)this.numericKameraUpZ.Value);
 
-                Camera camNew = new Camera();
-                camNew.Source = stred;
-                camNew.SetNormAndUp(dir, up);
+                cam.Source = stred;
+                cam.SetNormAndUp(dir, up);
                 
                 
                 bool showCross = this.checkCross.Checked;
@@ -449,7 +453,9 @@ namespace _3dEditor
                 int dist = (int)this.numericKamDist.Value;
                 int height = (int)this.numericKamHeight.Value;
                 int width = (int)this.numericKamWidth.Value;
-                drCam.Set(camNew, dist, height, width, showCross, showSide1, showSide2);
+                drCam.Set(cam, dist, height, width, showCross, showSide1, showSide2);
+                WndScene wndSc = GetWndScene();
+                wndSc.UpdateRecords();
 
             }
             catch (Exception ex)
@@ -457,5 +463,16 @@ namespace _3dEditor
             }
 
         }
+        private WndBoard GetWndBoard()
+        {
+            ParentEditor pf = (ParentEditor)this.ParentForm;
+            return pf._WndBoard;
+        }
+        private WndScene GetWndScene()
+        {
+            ParentEditor pf = (ParentEditor)this.ParentForm;
+            return pf._WndScene;
+        }
+
     }
 }

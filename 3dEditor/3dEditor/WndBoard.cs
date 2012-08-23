@@ -22,6 +22,7 @@ namespace _3dEditor
         EditHelper _editHelp;
         Graphics _g;
         Bitmap _editorBmp;
+        Scene _currnetScene;
 
         DrawingObject _isSelected;
 
@@ -819,7 +820,7 @@ namespace _3dEditor
         private WndScene GetWndScene()
         {
             ParentEditor pf = (ParentEditor)this.ParentForm;
-            return pf._wndScene;
+            return pf._WndScene;
         }
 
         /// <summary>
@@ -883,11 +884,25 @@ namespace _3dEditor
         }
 
         /// <summary>
-        /// Prida scenu do editoru
+        /// Vyprazdni a znovunaplni cely seznam objektu sceny
+        /// </summary>
+        public void FillWndScene()
+        {
+            WndScene wndScene = GetWndScene();
+            wndScene.ClearAll();
+            foreach (DrawingObject drobj in _objectsToDraw)
+            {
+                wndScene.AddItem(drobj);
+            }
+        }
+        
+        /// <summary>
+        /// Prida scenu do editoru. I do vsech oken celeho editoru.
         /// </summary>
         /// <param name="scene"></param>
         public void AddRaytrScene(RayTracerLib.Scene scene)
         {
+            _currnetScene = scene;
             this._objectsToDraw.Clear();
             foreach (DefaultShape shape in scene.SceneObjects)
             {

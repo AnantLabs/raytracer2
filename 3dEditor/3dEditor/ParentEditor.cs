@@ -15,9 +15,9 @@ namespace _3dEditor
     public partial class ParentEditor : Form
     {
 
-        public WndBoard _wndBoard;
-        public WndScene _wndScene;
-        public WndProperties _wndProperties;
+        public WndBoard _WndBoard { get; private set; }
+        public WndScene _WndScene { get; private set; }
+        public WndProperties _WndProperties { get; private set; }
 
         public RayTracing _rayTracer;
 
@@ -27,35 +27,35 @@ namespace _3dEditor
             //
             // Okno Kreslici plochy
             //
-            _wndBoard = new WndBoard();
-            _wndBoard.MdiParent = this;
-            _wndBoard.Show();
-            _wndBoard.Activate();
+            _WndBoard = new WndBoard();
+            _WndBoard.MdiParent = this;
+            _WndBoard.Show();
+            _WndBoard.Activate();
 
 
             //
             // Okno sceny
             //
-            _wndScene = new WndScene();
-            _wndScene.MdiParent = this;
-            _wndScene.Location = new Point(_wndBoard.Width, _wndBoard.Location.Y);
-            _wndScene.Height = _wndBoard.Height / 2;
+            _WndScene = new WndScene();
+            _WndScene.MdiParent = this;
+            _WndScene.Location = new Point(_WndBoard.Width, _WndBoard.Location.Y);
+            _WndScene.Height = _WndBoard.Height / 2;
             
-            _wndScene.Show();
-            _wndScene.Update();
-            _wndScene.Activate();
-            _wndScene.Refresh();
+            _WndScene.Show();
+            _WndScene.Update();
+            _WndScene.Activate();
+            _WndScene.Refresh();
 
 
             //
             // Okno s nastavenim
             //
-            _wndProperties = new WndProperties();
-            _wndProperties.MdiParent = this;
-            _wndProperties.Location = new Point(_wndBoard.Width, _wndScene.Height);
-            _wndProperties.Width = _wndScene.Width;
-            _wndProperties.Height = _wndBoard.Height / 2;
-            _wndProperties.Show();
+            _WndProperties = new WndProperties();
+            _WndProperties.MdiParent = this;
+            _WndProperties.Location = new Point(_WndBoard.Width, _WndScene.Height);
+            _WndProperties.Width = _WndScene.Width;
+            _WndProperties.Height = _WndBoard.Height / 2;
+            _WndProperties.Show();
             //_wndProperties.Activate();
 
             Form[] fs = this.MdiChildren;
@@ -83,10 +83,10 @@ namespace _3dEditor
 
             //_rayTracer.RScene.SetDefaultScene4();
 
-            this._wndBoard.AddRaytrScene(_rayTracer.RScene);
+            this._WndBoard.AddRaytrScene(_rayTracer.RScene);
 
             RayImage img = new RayImage();
-            this._wndScene.AddItem(img);
+            this._WndScene.AddItem(img);
             
         }
 

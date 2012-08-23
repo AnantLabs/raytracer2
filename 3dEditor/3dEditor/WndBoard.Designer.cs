@@ -83,7 +83,7 @@
             this.pictureBoard.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoard.Location = new System.Drawing.Point(0, 0);
             this.pictureBoard.Name = "pictureBoard";
-            this.pictureBoard.Size = new System.Drawing.Size(792, 591);
+            this.pictureBoard.Size = new System.Drawing.Size(792, 571);
             this.pictureBoard.TabIndex = 0;
             this.pictureBoard.TabStop = false;
             this.pictureBoard.MouseMove += new System.Windows.Forms.MouseEventHandler(this.onPicMouseMove);
@@ -110,7 +110,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(484, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(453, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -235,7 +235,7 @@
             this.statusLabelY,
             this.statusLabelXConst,
             this.statusLabelZ});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 594);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 574);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
             this.statusStrip1.Size = new System.Drawing.Size(792, 22);
@@ -314,12 +314,12 @@
             // 
             this.toolStripContainer2.ContentPanel.Controls.Add(this.panel1);
             this.toolStripContainer2.ContentPanel.Controls.Add(this.pictureBoard);
-            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(792, 591);
+            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(792, 571);
             this.toolStripContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer2.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.toolStripContainer2.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer2.Name = "toolStripContainer2";
-            this.toolStripContainer2.Size = new System.Drawing.Size(792, 616);
+            this.toolStripContainer2.Size = new System.Drawing.Size(792, 596);
             this.toolStripContainer2.TabIndex = 5;
             this.toolStripContainer2.Text = "toolStripContainer2";
             // 
@@ -494,7 +494,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(792, 616);
+            this.ClientSize = new System.Drawing.Size(792, 596);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStripContainer2);
             this.Name = "WndBoard";
