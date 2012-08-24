@@ -50,6 +50,24 @@ namespace EditorLib
             this.Set(origin, rad);
         }
 
+        public override void SetModelObject(object modelObject)
+        {
+            if (modelObject != null && modelObject.GetType() == typeof(RayTracerLib.Sphere))
+                this.SetModelObject((RayTracerLib.Sphere)modelObject);
+        }
+        /// <summary>
+        /// nastavi kouli z Raytraceru do Editoru
+        /// RayTracerLib -> EditorLib
+        /// </summary>
+        /// <param name="sphere"></param>
+        public void SetModelObject(RayTracerLib.Sphere sphere)
+        {
+            this.ModelObject = sphere;
+            double rad = sphere.R;
+            Point3D origin = new Point3D(sphere.Origin.X, sphere.Origin.Y, sphere.Origin.Z);
+            this.Set(origin, rad);
+        }
+
         private void Set(Point3D origin, double rad)
         {
             NSplit = 8;
@@ -135,18 +153,7 @@ namespace EditorLib
             this.Lines = new List<Line3D>(0);
         }
 
-        /// <summary>
-        /// nastavi kouli z Raytraceru do Editoru
-        /// RayTracerLib -> EditorLib
-        /// </summary>
-        /// <param name="sphere"></param>
-        public void SetModelObject(RayTracerLib.Sphere sphere)
-        {
-            this.ModelObject = sphere;
-            double rad = sphere.R;
-            Point3D origin = new Point3D(sphere.Origin.X, sphere.Origin.Y, sphere.Origin.Z);
-            this.Set(origin, rad);
-        }
+
 
         /// <summary>
         /// Vrati seznam ctveric bodu, ktere jsou potrebne k vykresleni poledniku nebo rovnobezky

@@ -144,15 +144,26 @@ namespace _3dEditor
             }
         }
 
+        /// <summary>
+        /// Vsechna data aktualizuje
+        /// </summary>
         public void UpdateRecords()
         {
             foreach (TreeNode node in treeView1.Nodes)
             {
-                foreach(TreeNode childNode in node.Nodes)
-                    childNode.Text = childNode.Tag.ToString();
+                UpdateRecords(node);
             }
             //this.treeView1.Focus();
             this.Update();
+        }
+
+        private void UpdateRecords(TreeNode rootNode)
+        {
+            foreach (TreeNode childNode in rootNode.Nodes)
+            {
+                childNode.Text = childNode.Tag.ToString();
+                UpdateRecords(childNode);
+            }
         }
         /// <summary>
         /// Prida do seznamu objekt ze sveta Raytraceru: 

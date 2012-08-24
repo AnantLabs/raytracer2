@@ -24,10 +24,25 @@ namespace _3dEditor
         Bitmap _editorBmp;
         Scene _currnetScene;
 
-        DrawingObject _isSelected;
+        /// <summary>
+        /// indikuje, zda se ma updatovat a prekreslit vse v editoru
+        /// </summary>
+        bool _updateAll;
+        /// <summary>
+        /// vybrany objekt kliknutim
+        /// </summary>
+        DrawingObject _Selected;
 
         Point3D _axisC3, _axisX3, _axisY3, _axisZ3;
+        /// <summary>
+        /// zda mame stisknute nejake (L | P) tlacitko mysi a zda posouvame mysi po platne
+        /// </summary>
         bool _isDragging;
+
+        /// <summary>
+        /// zda posouvame objekt mysi
+        /// </summary>
+        bool _isTransforming;
 
         int _scale;
         int _zoom;
@@ -43,6 +58,11 @@ namespace _3dEditor
         /// </summary>
         int _MOUSE_SENSITIVITY = 10;
 
+        /// <summary>
+        /// koeficient pri rotaci editoru mysi
+        /// </summary>
+        double _coefMove = 0.4;
+
         double _INIT_DEGX = -20; double _INIT_DEGY = 210; double _INIT_DEGZ = 170;
 
         Point _lastMousePoint;
@@ -56,6 +76,9 @@ namespace _3dEditor
         /// </summary>
         List<DrawingObject> _objectsToDraw;
 
+        /// <summary>
+        /// stred promitaci roviny v platne
+        /// </summary>
         Point _centerPoint;
         Pen _penAxis;
         Pen _penGrid;
@@ -103,6 +126,8 @@ namespace _3dEditor
             _grid = new List<Line3D>((int)Math.Pow(_GRID_SIZE_INIT + 1, 3));
             _objectsToDraw = new List<DrawingObject>(30);
 
+            _updateAll = false;
+            
             this.Update();
             this.Focus();
 
@@ -252,7 +277,7 @@ namespace _3dEditor
                     if (defSpape.IsActive == false)
                         continue;
 
-                    if (obj == _isSelected)
+                    if (obj == _Selected)
                     {
                         _penObject = new Pen(color, EditHelper.PenSelectedWidth);
                     }
@@ -562,6 +587,18 @@ namespace _3dEditor
             this.statusLabelY.Text = Math.Round(degsY, 1).ToString() + "°";
             this.statusLabelZ.Text = Math.Round(degsZ, 1).ToString() + "°";
 
+            //////////////////////////////////////////////////////////////
+            /// UPDATING REST OF EDITOR
+            /// ////////////////////////////////////////////////////////
+            
+            // aktualizujeme seznam objektu
+            if (_updateAll)
+            {
+                WndScene sc = GetWndScene();
+                sc.UpdateRecords();
+                _updateAll = false;
+            }
+
         }
 
         private void DrawAxes(Graphics g)
@@ -608,7 +645,7 @@ namespace _3dEditor
             PictureBox pb = sender as PictureBox;
             if (!pb.ClientRectangle.Contains(e.Location))
                 return;
-            if (!_isDragging)
+            if (!_isDragging && !_isTransforming)
                 return;
 
             Point currPoint = e.Location;
@@ -616,20 +653,9 @@ namespace _3dEditor
             if (IsCloserThanPoint(_lastMousePoint, currPoint, _MOUSE_SENSITIVITY))
                 return;
 
-            double coefMove = 0.4;
-            double degreesX = 0;
-            double degreesY = 0;
-            double degreesZ = 0;
             if (e.Button == MouseButtons.Left)
             {
-                degreesX = (_lastMousePoint.X - currPoint.X) * coefMove;
-                degreesY = (_lastMousePoint.Y - currPoint.Y) * coefMove;
-
-                if (degreesX == 0.0 && degreesY == 0.0)
-                {
-                    this._isDragging = false;
-                    return;
-                }
+                RotateWholeEditor(currPoint);
             }
             else if (e.Button == MouseButtons.Right)
             {
@@ -640,20 +666,65 @@ namespace _3dEditor
                 //{
                 //    this._isDragging = false;
                 //    return;
-                //}
-                int xDel = (_lastMousePoint.X - currPoint.X);
-                int yDel = (_lastMousePoint.Y - currPoint.Y);
-                _centerPoint.X -= xDel;
-                _centerPoint.Y -= yDel;
 
+                if (_isTransforming && _Selected!= null)
+                {
+                    // pretransformovat z 2D do 3D
+                    // potrebujeme ale Z souradnici modelovaneho objektu, ktery posouvame
+                    //double z = _Selected.ModelObject.POINTS.Z
+                    int z = _zoom;
+                    int s = _scale;
+                    double xDel = ((double)(_lastMousePoint.X - currPoint.X)) / _zoom;
+                    double yDel = ((double)(_lastMousePoint.Y - currPoint.Y)) / _zoom;
+                    foreach (Point3D p in _Selected.Points)
+                    {
+                        p.Posunuti(-xDel, -yDel, 0);
+                    }
+
+                }
+
+                if (_isDragging && !_isTransforming)
+                {
+                    int xDel = (_lastMousePoint.X - currPoint.X);
+                    int yDel = (_lastMousePoint.Y - currPoint.Y);
+                    _centerPoint.X -= xDel;
+                    _centerPoint.Y -= yDel;
+                }
+               
             }
-            
+
+
+            this._lastMousePoint = currPoint;
+            this._matrix = EditorLib.Matrix3D.Identity;
+            this.Redraw();
+        }
+
+        /// <summary>
+        /// Rotuje celym editorem
+        /// Neposouva zadny realny objekt ve svete sceny
+        /// Pouze zobrazuje libovolne nahledy
+        /// </summary>
+        /// <param name="currePoint">bod, kde byla naposled mys se stisknutym tlacitkem</param>
+        private void RotateWholeEditor(Point currePoint)
+        {
+            double degreesX = 0;
+            double degreesY = 0;
+            double degreesZ = 0;
+
+            degreesX = (_lastMousePoint.X - currePoint.X) * _coefMove;
+            degreesY = (_lastMousePoint.Y - currePoint.Y) * _coefMove;
+
+            if (degreesX == 0.0 && degreesY == 0.0)
+            {
+                this._isDragging = false;
+                return;
+            }
 
             double radiansX = EditorMath.Degrees2Rad(degreesX);
             double radiansY = EditorMath.Degrees2Rad(degreesY);
             double radiansZ = EditorMath.Degrees2Rad(degreesZ);
 
-            
+
             Matrix3D matr = Matrix3D.NewRotateByRads(-radiansY, radiansX, radiansZ);
             _matrix = _matrix * matr;
             _matrixForever = _matrixForever * _matrix;
@@ -672,10 +743,9 @@ namespace _3dEditor
             Point3D newZ3d = _matrix * _axisZ3;
             _axisZ3 = newZ3d;
 
-            this._lastMousePoint = currPoint;
-            
+            this._lastMousePoint = currePoint;
+
             this._matrix = EditorLib.Matrix3D.Identity;
-            this.Redraw();
         }
 
         /// <summary>
@@ -685,6 +755,8 @@ namespace _3dEditor
         /// <param name="e"></param>
         private void onPicMouseDown(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Right)
+                _Selected = null;
             List<DrawingObject> drawingList = _editHelp.GetClickableObj(e.Location);
             if (drawingList.Count > 0)
             {
@@ -696,19 +768,29 @@ namespace _3dEditor
                     WndScene wndsc = GetWndScene();
                     wndsc.ShowNode(drawingList[0]);
                 }
-                _isSelected = drawingList[0];   // vybereme prvni ze seznamu
-                labelClick.Text = "Clicked";
+                _Selected = drawingList[0];   // vybereme prvni ze seznamu
+                labelClick.Text = "Mouse Down";
             }
             else
+            {
+                //_Selected = null;   // otazka, zda po kliknuti do prazdneho prostoru, zobrazit vlastnosti
                 labelClick.Text = "---";
+            }
             pictureBoard.Focus();
-            this._isDragging = true;
+            if (e.Button == MouseButtons.Left)
+                this._isDragging = true;
+            else if (e.Button == MouseButtons.Right && _Selected == null)
+                this._isDragging = true;
+            else if (e.Button == MouseButtons.Right && _Selected != null)
+                this._isTransforming = true;
+
             this._lastMousePoint = e.Location;
         }
 
         private void onPicMouseUp(object sender, MouseEventArgs e)
         {
             this._isDragging = false;
+            _isTransforming = false;
             this._matrix = EditorLib.Matrix3D.Identity;
         }
 
@@ -927,7 +1009,7 @@ namespace _3dEditor
             {
                 if (sefSh == shape)
                 {
-                    _isSelected =  sefSh;
+                    _Selected =  sefSh;
                 }
             }
         }
@@ -945,6 +1027,97 @@ namespace _3dEditor
         {
             ToolStripButton btn = (ToolStripButton)sender;
             this._showCamera = btn.Checked;
+        }
+
+        /// <summary>
+        /// udalost dvojkliku na kreslici platno.
+        /// Je-li osetrena i udalost OnMouseDown, pak ta bude osetrena pred touto udalosti
+        /// 
+        /// Ucel: vybrani objektu k jeho transformaci. Tedy krome toho, ze se zobrazi jeho vlastnosti
+        /// v okne Properties, tak se u objektu zobrazi nabidka na mozne transformace: 
+        ///     POSUN, ROTACE
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnMouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Clicks < 2)   // neni-li doubleclick, konec
+                return;
+
+            if (_Selected == null)   // nebyl-li vybran zadny kreslici objekt v mouseDown, pak konec
+                return;
+
+            _isDragging = false; // nepresouvame objekt;
+
+            labelClick.Text = "Double Click";
+            btnYPlus.Enabled = true;
+            btnXMinus.Enabled = true;
+            btnXPlus.Enabled = true;
+            btnYMinus.Enabled = true;
+            btnZMinus.Enabled = true;
+            btnZPlus.Enabled = true;
+
+            Point3D zpoint = new Point3D(0, 0, 1);
+            this._matrixForever.TransformPoint(zpoint);
+            Point3D zpointNorm = new Point3D(zpoint);
+            zpointNorm.Normalize();
+            
+            PointF pf1 = _Selected.Points[0].To2D(_scale, _zoom, _centerPoint);
+            Point3D p3d = Point3D.To3D_From2D(pf1, zpoint.Z, _scale, _zoom, _centerPoint);
+            int asd = 2;
+
+            //MoveSelectedObject();
+
+        }
+
+        private void MoveSelectedObject(double dx, double dy, double dz)
+        {
+            DrawingObject drawObj = _Selected;
+            DefaultShape modelObj = null;
+            if (drawObj.ModelObject is DefaultShape)
+                modelObj = (DefaultShape)drawObj.ModelObject;
+
+            Matrix3D matrixCurrent = this._matrix;
+            Matrix3D matrixForever = this._matrixForever;
+            Matrix3D transposed = matrixForever.Transpose();
+
+            modelObj.Move(dx, dy, dz);
+            drawObj.SetModelObject(modelObj);
+
+            
+            drawObj.Rotate(matrixForever);
+
+            _Selected = drawObj;
+            _updateAll = true;
+        }
+
+        private void btnL_Click(object sender, EventArgs e)
+        {
+            this.MoveSelectedObject(-0.5, 0, 0);
+        }
+
+        private void btnR_Click(object sender, EventArgs e)
+        {
+            this.MoveSelectedObject(0.5, 0, 0);
+        }
+        private void btnU_Click(object sender, EventArgs e)
+        {
+            this.MoveSelectedObject(0, -0.5, 0);
+        }
+
+        private void btnD_Click(object sender, EventArgs e)
+        {
+            this.MoveSelectedObject(0, 0.5, 0);
+        }
+
+        private void btnZPlus_Click(object sender, EventArgs e)
+        {
+            this.MoveSelectedObject(0, 0, 0.5);
+        }
+
+        private void btnZMinus_Click(object sender, EventArgs e)
+        {
+            this.MoveSelectedObject(0, 0, -0.5);
         }
     }
 }

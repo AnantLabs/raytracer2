@@ -36,10 +36,6 @@ namespace _3dEditor
             this.panelCamera.Location = new Point(0, 0);
             this.panelImage.Location = new Point(0, 0);
             this.panelAnimace.Location = new Point(0, 0);
-
-            
-
-            
         }
 
         //public void ShowObject(object obj)
@@ -419,7 +415,7 @@ namespace _3dEditor
 
         private void actionKameraSet(object sender, EventArgs e)
         {
-            if (_currentlyDisplayed.GetType() != typeof(DrawingCamera))
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingCamera))
                 return;
             DrawingCamera drCam = (DrawingCamera)_currentlyDisplayed;
             Camera cam = (Camera)drCam.ModelObject;
