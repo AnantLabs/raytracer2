@@ -310,6 +310,49 @@ namespace EditorLib
 
             return matrix;
         }
-        
+
+        /// <summary>
+        /// testovani, ze transponovanim rotacni matice obdrzime inverzni matici
+        /// nefunguje to obecne, jen pri aplikaci rotacnich operaci
+        /// </summary>
+        public static bool TestTranspose()
+        {
+            int count = 30;
+            Random rnd = new Random();
+            Point3D[] points1 = new Point3D[count];
+            Point3D[] points2 = new Point3D[count];
+            double n1, n2, n3;
+            // naplnime 2 pole stejnymi cisly
+            for (int i = 0; i < 30; i++)
+            {
+                n1 = (double)(rnd.Next(100) / 100.0);
+                n2 = (double)(rnd.Next(100) / 100.0);
+                n3 = (double)(rnd.Next(100) / 100.0);
+                points1[i] = new Point3D(n1, n2, n3);
+                points1[i].Normalize();
+                points2[i] = new Point3D(points1[i]);
+            }
+
+            Matrix3D m1 = Matrix3D.NewRotateByDegrees(10, 20, 30);
+            
+            Matrix3D m2 = m1.Transpose();
+
+            // aplikujeme rotacni matici na prvni pole points1
+            m1.TransformPoints(points1);
+            // aplikujeme zpet transponovanou matici
+            m2.TransformPoints(points1);
+
+            // melo by platit: points1 == points2
+            for (int i = 0; i < count; i++)
+            {
+                if (Math.Round(points1[i].X, 2) != Math.Round(points2[i].X, 2) ||
+                    Math.Round(points1[i].Y,2) != Math.Round(points2[i].Y,2) ||
+                    Math.Round(points1[i].Z,2) != Math.Round(points2[i].Z,2))
+                    return false;
+            }
+
+            return true;
+        }
+
     }
 }

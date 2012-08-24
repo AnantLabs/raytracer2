@@ -48,6 +48,15 @@ namespace EditorLib
             return point;
         }
 
+        public static Point3D To3D_From2D(PointF p2d, double z, int scale, int zoom, Point centerPoint)
+        {
+            Point3D point = new Point3D(p2d.X, p2d.Y, 0);
+            float divide = ((float)z + scale) / zoom;
+            point.X = (point.X - centerPoint.X) * divide / scale;
+            point.Y = (point.Y - centerPoint.Y) * divide / scale;
+            point.Z = z;
+            return point;
+        }
         public void MultiplyByMatrix(Matrix3D matrix)
         {
             Point3D newPoint = matrix * this;
@@ -86,7 +95,7 @@ namespace EditorLib
 
         public override string ToString()
         {
-            return "[" + X + ";" + Y + ";" + Z + "]";
+            return "[ " + X + "; " + Y + "; " + Z + " ]";
         }
 
 

@@ -23,6 +23,8 @@ namespace EditorLib
         /// </summary>
         public List<Line3D> Lines { get; protected set; }
 
+        public virtual void SetModelObject(object modelObject) { }
+
         public void Rotate(double degAroundX, double degAroundY, double degAroundZ)
         {
             Matrix3D matr = Matrix3D.NewRotateByDegrees(degAroundX, degAroundY, degAroundZ);
