@@ -45,5 +45,15 @@ namespace EditorLib
             double degs = EditorMath.Radians2Deg(rads);
             return degs;
         }
+
+        public static double GetDegrees2D(double x1, double y1, double x2, double y2)
+        {
+            double dotprod = x1 * x2 + y1 * y2;
+            double len1 = Math.Sqrt(x1 * x1 + y1 * y1);
+            double len2 = Math.Sqrt(x2 * x2 + y2 * y2);
+            double rads = dotprod / (len1 * len2);
+            rads = Math.Acos(rads);
+            return EditorMath.Radians2Deg(rads);
+        }
     }
 }
