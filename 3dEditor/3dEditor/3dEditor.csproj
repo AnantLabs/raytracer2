@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EditorFcs.cs" />
     <Compile Include="ParentEditor.cs">
       <SubType>Form</SubType>
     </Compile>

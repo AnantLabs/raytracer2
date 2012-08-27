@@ -72,6 +72,11 @@ namespace EditorLib
             Set(cam, dist, height, width, showcr, showsd1, showsd2);
         }
 
+        public override void SetModelObject(object modelObject)
+        {
+            if (modelObject.GetType() == typeof(Camera))
+                this.Set((Camera)modelObject, DIST, HEIGHT, WIDTH, true, false, false);
+        }
         public void Set(Camera cam, int dist, int height, int width, bool showcr, bool showsd1, bool showsd2)
         {
             this.Dist = dist > 0 ? dist : DIST;

@@ -23,6 +23,17 @@ namespace _3dEditor
         Graphics _g;
         Bitmap _editorBmp;
         Scene _currnetScene;
+        public Matrix3D RotationMatrix
+        {
+            get
+            {
+                return _matrixForever;
+            }
+            private set
+            {
+
+            }
+        }
 
         /// <summary>
         /// indikuje, zda se ma updatovat a prekreslit vse v editoru
@@ -221,7 +232,7 @@ namespace _3dEditor
             _matrix.TransformLines(_grid);
             foreach (DrawingObject obj in _objectsToDraw)
             {
-                obj.Rotate(_matrix);
+                obj.ApplyRotationMatrix(_matrix);
             }
 
             this._matrix = EditorLib.Matrix3D.Identity;
@@ -741,8 +752,6 @@ namespace _3dEditor
 
                             sph.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
 
-                            
-
                             WndScene wnd = GetWndScene();
                             wnd.UpdateRecords();
                         }
@@ -797,7 +806,7 @@ namespace _3dEditor
 
             foreach (DrawingObject obj in _objectsToDraw)
             {
-                obj.Rotate(_matrix);
+                obj.ApplyRotationMatrix(_matrix);
             }
             if (toolBtnGrid.Checked)
                 _matrix.TransformLines(_grid);
@@ -827,8 +836,8 @@ namespace _3dEditor
             Matrix3D transp = this._matrixForever.Transpose();
             foreach (DrawingObject obj in _objectsToDraw)
             {
-                obj.Rotate(transp);
-                obj.Rotate(rotationMatrix);
+                obj.ApplyRotationMatrix(transp);
+                obj.ApplyRotationMatrix(rotationMatrix);
             }
             if (toolBtnGrid.Checked)
             {
@@ -1027,8 +1036,8 @@ namespace _3dEditor
                 {
                     Sphere sph = (Sphere)shape;
                     DrawingSphere drSphere = new DrawingSphere(sph);
+                    drSphere.ApplyRotationMatrix(_matrixForever); // nastaveni do souradnic editoru
                     _objectsToDraw.Add(drSphere);
-                    this._matrixForever.TransformPoints(drSphere.Points);   // nastaveni do souradnic editoru
                     WndScene wndScene = GetWndScene();
                     wndScene.AddItem(drSphere);
                 }
@@ -1069,6 +1078,7 @@ namespace _3dEditor
             {
                 Camera cam = (Camera)shape;
                 DrawingCamera drCam = new DrawingCamera(cam);
+                drCam.ApplyRotationMatrix(_matrixForever);
                 _objectsToDraw.Add(drCam);
                 WndScene wndScene = GetWndScene();
                 wndScene.AddItem(drCam);
@@ -1196,7 +1206,7 @@ namespace _3dEditor
             drawObj.SetModelObject(modelObj);
 
             
-            drawObj.Rotate(matrixForever);
+            drawObj.ApplyRotationMatrix(matrixForever);
 
             _Selected = drawObj;
             _updateAll = true;

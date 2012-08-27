@@ -511,6 +511,7 @@
             0,
             0,
             0});
+            this.numSphN.ValueChanged += new System.EventHandler(this.actionSphereSet);
             // 
             // label68
             // 
@@ -540,6 +541,7 @@
             this.numSphKt.Name = "numSphKt";
             this.numSphKt.Size = new System.Drawing.Size(61, 20);
             this.numSphKt.TabIndex = 112;
+            this.numSphKt.ValueChanged += new System.EventHandler(this.actionSphereSet);
             // 
             // label67
             // 
@@ -560,6 +562,7 @@
             this.btnSphMaterialColor.TabIndex = 104;
             this.btnSphMaterialColor.Text = "choose";
             this.btnSphMaterialColor.UseVisualStyleBackColor = true;
+            this.btnSphMaterialColor.Click += new System.EventHandler(this.btnSphMaterialColor_Click);
             // 
             // numSphH
             // 
@@ -572,6 +575,7 @@
             0,
             0,
             0});
+            this.numSphH.ValueChanged += new System.EventHandler(this.actionSphereSet);
             // 
             // numSphColR
             // 
@@ -585,6 +589,7 @@
             this.numSphColR.Name = "numSphColR";
             this.numSphColR.Size = new System.Drawing.Size(61, 20);
             this.numSphColR.TabIndex = 106;
+            this.numSphColR.ValueChanged += new System.EventHandler(this.actionSphereSet);
             // 
             // numSphColB
             // 
@@ -598,6 +603,7 @@
             this.numSphColB.Name = "numSphColB";
             this.numSphColB.Size = new System.Drawing.Size(61, 20);
             this.numSphColB.TabIndex = 103;
+            this.numSphColB.ValueChanged += new System.EventHandler(this.actionSphereSet);
             // 
             // label58
             // 
@@ -622,6 +628,7 @@
             this.numSphColG.Name = "numSphColG";
             this.numSphColG.Size = new System.Drawing.Size(61, 20);
             this.numSphColG.TabIndex = 107;
+            this.numSphColG.ValueChanged += new System.EventHandler(this.actionSphereSet);
             // 
             // label59
             // 
@@ -673,6 +680,7 @@
             0,
             0,
             65536});
+            this.numSphKa.ValueChanged += new System.EventHandler(this.actionSphereSet);
             // 
             // label63
             // 
@@ -702,6 +710,7 @@
             0,
             0,
             65536});
+            this.numSphKd.ValueChanged += new System.EventHandler(this.actionSphereSet);
             // 
             // label64
             // 
@@ -731,6 +740,7 @@
             0,
             0,
             65536});
+            this.numSphKs.ValueChanged += new System.EventHandler(this.actionSphereSet);
             // 
             // label65
             // 
@@ -798,6 +808,7 @@
             0,
             0,
             0});
+            this.numericKouleRadius.ValueChanged += new System.EventHandler(this.actionSphereSet);
             // 
             // numericKouleX
             // 
@@ -816,6 +827,7 @@
             this.numericKouleX.Name = "numericKouleX";
             this.numericKouleX.Size = new System.Drawing.Size(61, 20);
             this.numericKouleX.TabIndex = 88;
+            this.numericKouleX.ValueChanged += new System.EventHandler(this.actionSphereSet);
             // 
             // numericKouleZ
             // 
@@ -839,6 +851,7 @@
             0,
             0,
             -2147483648});
+            this.numericKouleZ.ValueChanged += new System.EventHandler(this.actionSphereSet);
             // 
             // label16
             // 
@@ -868,6 +881,7 @@
             this.numericKouleY.Name = "numericKouleY";
             this.numericKouleY.Size = new System.Drawing.Size(61, 20);
             this.numericKouleY.TabIndex = 89;
+            this.numericKouleY.ValueChanged += new System.EventHandler(this.actionSphereSet);
             // 
             // label18
             // 
@@ -899,6 +913,7 @@
             this.buttonKouleSave.TabIndex = 33;
             this.buttonKouleSave.Text = "Save";
             this.buttonKouleSave.UseVisualStyleBackColor = true;
+            this.buttonKouleSave.Click += new System.EventHandler(this.actionSphereSet);
             // 
             // label2
             // 
@@ -3292,7 +3307,7 @@
             this.panelCamera.Controls.Add(this.numericKameraStredY);
             this.panelCamera.Controls.Add(this.label111);
             this.panelCamera.Controls.Add(this.label112);
-            this.panelCamera.Location = new System.Drawing.Point(10, 266);
+            this.panelCamera.Location = new System.Drawing.Point(10, 272);
             this.panelCamera.Name = "panelCamera";
             this.panelCamera.Size = new System.Drawing.Size(325, 237);
             this.panelCamera.TabIndex = 60;
@@ -4319,6 +4334,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "PropertiesWnd";
+            this.Load += new System.EventHandler(this.WndProperties_Load);
             this.panelSphere.ResumeLayout(false);
             this.panelSphere.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSphN)).EndInit();
