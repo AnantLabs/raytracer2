@@ -128,6 +128,16 @@ namespace RayTracerLib
             this.Origin.Z += dz; 
         }
 
+        public void MoveToPoint(double dx, double dy, double dz)
+        {
+
+            //Vektor dVec = new Vektor(dx, dy, dz);
+            //this.Origin += dVec;
+            this.Origin.X = dx;
+            this.Origin.Y = dy;
+            this.Origin.Z = dz;
+        }
+
         public override string ToString()
         {
             return "Sphere: Center=" + Origin + "; R=" + R;

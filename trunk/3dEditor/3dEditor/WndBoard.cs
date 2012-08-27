@@ -80,7 +80,14 @@ namespace _3dEditor
         /// stred promitaci roviny v platne
         /// </summary>
         Point _centerPoint;
+        /// <summary>
+        /// Pero pro osy s kladnymi hodnotami
+        /// </summary>
         Pen _penAxis;
+        /// <summary>
+        /// Pero pro osy se zapornymi hodnotami
+        /// </summary>
+        Pen _penAxisMinus;
         Pen _penGrid;
         Pen _penObject;
         Pen _penSelectedObject;
@@ -115,6 +122,8 @@ namespace _3dEditor
 
             _g = this.pictureBoard.CreateGraphics();
             _penAxis = new Pen(Color.Black, 3.0f);
+            _penAxisMinus = new Pen(Color.Black, 1.0f);
+
             _penGrid = new Pen(Color.DarkCyan, 2.0f);
             _penObject = new Pen(Color.Chocolate, 1.5f);
             _penSelectedObject = new Pen(Color.Chocolate, 2.5f);
@@ -127,7 +136,11 @@ namespace _3dEditor
             _objectsToDraw = new List<DrawingObject>(30);
 
             _updateAll = false;
-            
+
+            toolsComboViewAngle.Items.Clear();
+            toolsComboViewAngle.Items.AddRange(_editHelp.ComboViewObjects);
+            //this.toolsComboViewAngle.SelectedIndex = 0;
+
             this.Update();
             this.Focus();
 
@@ -150,6 +163,10 @@ namespace _3dEditor
         {
             this.Reset(degreesX, degreesY, degreesZ, _zoom, _scale);
         }
+        private void Reset(Matrix3D m)
+        {
+            RotateWholeEditor(m);
+        }
         private void Reset(double degreesX, double degreesY, double degreesZ, int zoom, int scale)
         {
             _objectsToDraw.Clear();
@@ -157,9 +174,7 @@ namespace _3dEditor
             _scale = scale;
             _zoom = zoom;
 
-            this.numericUpDown1.Value = (int)degreesX;
-            this.numericUpDown2.Value = (int)degreesY;
-            this.numericUpDown3.Value = (int)degreesZ;
+            
 
             // resetuje body na hlavnich osach
             //
@@ -177,6 +192,7 @@ namespace _3dEditor
             _grid = EditHelper.FillGrid(_GRID_SIZE_INIT-1);
             
             _centerPoint = new Point(this.pictureBoard.Width / 2, this.pictureBoard.Height / 2);
+
             _matrix = new Matrix3D();
 
             // otocime osy na puvodni stupne
@@ -190,7 +206,7 @@ namespace _3dEditor
 
             
 
-            this.toolStripComboBox1.SelectedIndex = _GRID_SIZE_INIT - 2;      // init nastaveni typu mrizky
+            
 
             _objectsToDraw.Clear();
             //_objectsToDraw.Add(new DrawingCube(1, 1, -2));
@@ -202,13 +218,21 @@ namespace _3dEditor
             //
             //  ROTACE VSECH OBJEKTU V EDITORU
             //
-            _grid = _matrix.Transform2NewLines(_grid);
+            _matrix.TransformLines(_grid);
             foreach (DrawingObject obj in _objectsToDraw)
             {
                 obj.Rotate(_matrix);
             }
 
             this._matrix = EditorLib.Matrix3D.Identity;
+
+            this.toolsComboGridSize.SelectedIndex = _GRID_SIZE_INIT - 2;      // init nastaveni typu mrizky
+            this.toolsComboViewAngle.SelectedIndex = 0;
+            
+            //this.numericUpDown1.Value = (int)degreesX;
+            //this.numericUpDown2.Value = (int)degreesY;
+            //this.numericUpDown3.Value = (int)degreesZ;
+
             pictureBoard.Focus();
             Redraw();
         }
@@ -580,9 +604,19 @@ namespace _3dEditor
             this.statusLabelZoom.Text = _zoom.ToString();
 
             // ANGLES
-            double degsX = Line3D.GetDegreesX(_axisX3, new Point3D(1, 0, 0));
-            double degsY = Line3D.GetDegreesX(_axisY3, new Point3D(0, 1, 0));
-            double degsZ = Line3D.GetDegreesX(_axisZ3, new Point3D(0, 0, 1));
+            Matrix3D matrTransp = _matrixForever.Transpose();
+            //Point3D xTr = matrTransp.Transform2NewPoint(_axisX3);
+            //_matrixForever.TransformPoint(xTr);
+
+            //double degsX = Line3D.GetDegrees2D(_axisZ3.Y, _axisZ3.Z, 1, 0);
+            double degsX = MyMath.Rads2Deg(Math.Acos(_matrixForever.Matrix[0, 2]));
+            double degsY = MyMath.Rads2Deg(Math.Acos(_matrixForever.Matrix[1, 2]));
+            double degsZ = MyMath.Rads2Deg(Math.Acos(_matrixForever.Matrix[2, 2]));
+            //double degsY = Line3D.GetDegrees2D(_axisZ3.Y, _axisZ3.Z, 0, 1);
+            //double degsZ = Line3D.GetDegrees2D(_axisX3.X, _axisX3.Y, 1, 0);
+            //double degsX = Line3D.GetDegreesX(_axisX3, new Point3D(1, 1, 0));
+            //double degsY = Line3D.GetDegreesX(_axisY3, new Point3D(1, 0, 1 ));
+            //double degsZ = Line3D.GetDegreesX(_axisZ3, new Point3D(0, 1, 1));
             this.statusLabelX.Text = Math.Round(degsX, 1).ToString() + "°";
             this.statusLabelY.Text = Math.Round(degsY, 1).ToString() + "°";
             this.statusLabelZ.Text = Math.Round(degsZ, 1).ToString() + "°";
@@ -609,12 +643,20 @@ namespace _3dEditor
             PointF y = _axisY3.To2D(_scale, _zoom, _centerPoint);
             PointF z = _axisZ3.To2D(_scale, _zoom, _centerPoint);
 
+            PointF xm = (_axisC3 - _axisX3).To2D(_scale, _zoom, _centerPoint);
+            PointF ym = (_axisC3 - _axisY3).To2D(_scale, _zoom, _centerPoint);
+            PointF zm = (_axisC3 - _axisZ3).To2D(_scale, _zoom, _centerPoint);
+
             //
             // vykresli osy
             //
             g.DrawLine(_penAxis, c, x);
             g.DrawLine(_penAxis, c, y);
             g.DrawLine(_penAxis, c, z);
+
+            g.DrawLine(_penAxisMinus, c, xm);
+            g.DrawLine(_penAxisMinus, c, ym);
+            g.DrawLine(_penAxisMinus, c, zm);
 
             g.DrawString("X", _fontAxis, Brushes.Black, x);
             g.DrawString("Y", _fontAxis, Brushes.Black, y);
@@ -676,11 +718,36 @@ namespace _3dEditor
                     int s = _scale;
                     double xDel = ((double)(_lastMousePoint.X - currPoint.X)) / _zoom;
                     double yDel = ((double)(_lastMousePoint.Y - currPoint.Y)) / _zoom;
-                    foreach (Point3D p in _Selected.Points)
-                    {
-                        p.Posunuti(-xDel, -yDel, 0);
-                    }
+                    //foreach (Point3D p in _Selected.Points)
+                    //{
+                    //    p.Posunuti(-xDel, -yDel, 0);
+                    //}
 
+                    if (_Selected.ModelObject is DefaultShape)
+                    {
+                        DefaultShape ds = _Selected.ModelObject as DefaultShape;
+                        if (ds is Sphere)
+                        {
+                            foreach (Point3D p in _Selected.Points)
+                            {
+                                p.Posunuti(-xDel, -yDel, 0);
+                            }
+
+                            DrawingSphere drawSphere = _Selected as DrawingSphere;
+                            Sphere sph = ds as Sphere;
+                            Matrix3D transp = this._matrixForever.Transpose();
+                            Point3D[] pointsTransp = transp.Transform2NewPoints(_Selected.Points);
+                            Point3D centerTransp = transp.Transform2NewPoint(drawSphere.Center);
+
+                            sph.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
+
+                            
+
+                            WndScene wnd = GetWndScene();
+                            wnd.UpdateRecords();
+                        }
+                    }
+                    
                 }
 
                 if (_isDragging && !_isTransforming)
@@ -690,7 +757,6 @@ namespace _3dEditor
                     _centerPoint.X -= xDel;
                     _centerPoint.Y -= yDel;
                 }
-               
             }
 
 
@@ -734,7 +800,7 @@ namespace _3dEditor
                 obj.Rotate(_matrix);
             }
             if (toolBtnGrid.Checked)
-                _grid = _matrix.Transform2NewLines(_grid);
+                _matrix.TransformLines(_grid);
 
             Point3D newX3d = _matrix * _axisX3;
             _axisX3 = newX3d;
@@ -748,6 +814,38 @@ namespace _3dEditor
             this._matrix = EditorLib.Matrix3D.Identity;
         }
 
+        /// <summary>
+        /// nastavi rotaci editoru podle zadane matice
+        /// nevyuziva predchozi nastaveni. 
+        /// Nastaveni celeho editoru na presne uhly pomoci zadane matice
+        /// </summary>
+        /// <param name="rotationMatrix">rotacni matice definujici koncovou podobu editoru</param>
+        private void RotateWholeEditor(Matrix3D rotationMatrix)
+        {
+            // musime vyuzit inverzni matici k soucasne globalni rotacni matici
+            // inverzni matice je matice transponovana
+            Matrix3D transp = this._matrixForever.Transpose();
+            foreach (DrawingObject obj in _objectsToDraw)
+            {
+                obj.Rotate(transp);
+                obj.Rotate(rotationMatrix);
+            }
+            if (toolBtnGrid.Checked)
+            {
+                transp.TransformLines(_grid);
+                rotationMatrix.TransformLines(_grid);
+            }
+
+            Point3D newX3d = rotationMatrix * (transp * _axisX3);
+            _axisX3 = newX3d;
+            Point3D newY3d = rotationMatrix * (transp * _axisY3);
+            _axisY3 = newY3d;
+            Point3D newZ3d = rotationMatrix * (transp * _axisZ3);
+            _axisZ3 = newZ3d;
+
+            this._matrixForever = rotationMatrix;
+
+        }
         /// <summary>
         /// KLIKNUTI MYSI A VYBRANI OBJEKTU V EDITORU
         /// </summary>
@@ -802,32 +900,33 @@ namespace _3dEditor
 
         private void toolBtnTop_Click(object sender, EventArgs e)
         {
-            this.Reset(-40, -80, 140);
-            this.numericUpDown1.Value = -40;
-            this.numericUpDown2.Value = -80;
-            this.numericUpDown3.Value = 140;
-            Redraw();
+            Matrix3D m = Matrix3D.NewRotateByDegrees(270, 0, 0);
+            RotateWholeEditor(m);
         }
 
         private void toolBtnSide_Click(object sender, EventArgs e)
         {
-            this.Reset(-40, -80, 140);
-            this.numericUpDown1.Value = -40;
-            this.numericUpDown2.Value = -80;
-            this.numericUpDown3.Value = 140;
-            Redraw();
+            Matrix3D m = Matrix3D.NewRotateByDegrees(340, 250, 160);
+            RotateWholeEditor(m);
         }
 
-        private void OnChanged1(object sender, EventArgs e)
+        private void OnChangedComboGrid(object sender, EventArgs e)
         {
             ToolStripComboBox c = sender as ToolStripComboBox;
             int d = Int32.Parse(c.SelectedItem.ToString());
             _grid = EditHelper.FillGrid(d);
-            _grid = _matrixForever.Transform2NewLines(_grid);
+            _matrixForever.TransformLines(_grid);
             this.pictureBoard.Focus();
             //Redraw();
         }
 
+        private void OnChangedComboAngleView(object sender, EventArgs e)
+        {
+            ToolStripComboBox c = sender as ToolStripComboBox;
+            EditHelper.ComboViewAngle obj = (EditHelper.ComboViewAngle)c.SelectedItem;
+            Matrix3D m = Matrix3D.NewRotateByDegrees(obj.degX, obj.degY, obj.degZ);
+            RotateWholeEditor(m);
+        }
         
         /// <summary>
         /// zjisti, zda jsou dva body blizko sobe zahrnujic X i Y souradnice
@@ -850,7 +949,8 @@ namespace _3dEditor
             double x = Double.Parse(this.statusLabelX.Text.Substring(0,this.statusLabelX.Text.Length - 1));
             double y = Double.Parse(this.statusLabelY.Text.Substring(0, this.statusLabelY.Text.Length - 1));
             double z = Double.Parse(this.statusLabelZ.Text.Substring(0, this.statusLabelZ.Text.Length - 1));
-            this.Reset(x, y, z);
+            Matrix3D m = Matrix3D.NewRotateByDegrees(x, y, z);
+            RotateWholeEditor(m);
         }
 
         /// <summary>
@@ -860,7 +960,17 @@ namespace _3dEditor
         /// <param name="e"></param>
         private void onValNumChange(object sender, EventArgs e)
         {
-            this.Reset((double)this.numericUpDown1.Value, (double)this.numericUpDown2.Value, (double)this.numericUpDown3.Value);
+            NumericUpDown num = sender as NumericUpDown;
+            if (num.Value > 359)
+                num.Value = num.Value % 360;
+            else if (num.Value < 0)
+                num.Value = 360 + num.Value;
+
+            double x = (double)this.numericUpDown1.Value;
+            double y = (double)this.numericUpDown2.Value;
+            double z = (double)this.numericUpDown3.Value;
+            Matrix3D m = Matrix3D.NewRotateByDegrees(x, y, z);
+            RotateWholeEditor(m);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -918,6 +1028,7 @@ namespace _3dEditor
                     Sphere sph = (Sphere)shape;
                     DrawingSphere drSphere = new DrawingSphere(sph);
                     _objectsToDraw.Add(drSphere);
+                    this._matrixForever.TransformPoints(drSphere.Points);   // nastaveni do souradnic editoru
                     WndScene wndScene = GetWndScene();
                     wndScene.AddItem(drSphere);
                 }
@@ -1119,5 +1230,13 @@ namespace _3dEditor
         {
             this.MoveSelectedObject(0, 0, -0.5);
         }
+
+        private void toolBtnFront_Click(object sender, EventArgs e)
+        {
+            Matrix3D m = Matrix3D.NewRotateByDegrees(170, 350, 0);
+            RotateWholeEditor(m);
+        }
+
+        
     }
 }

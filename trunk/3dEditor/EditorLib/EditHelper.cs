@@ -8,12 +8,31 @@ namespace EditorLib
 {
     public class EditHelper
     {
+        public class ComboViewAngle
+        {
+            public String Caption { get; private set; }
+            public int degX { get; private set; }
+            public int degY { get; private set; }
+            public int degZ { get; private set; }
+            public ComboViewAngle(string caption, int x, int y, int z)
+            {
+                Caption = caption;
+                degX = x;
+                degY = y;
+                degZ = z;
+            }
+
+            public override string ToString() { return Caption; }
+        }
+
         public int MagnifCoef { get; set; }
         public int Zoom { get; set; }
 
         // styl pro bybrany objekt
         public const float PenSelectedWidth = 1.9f;
         public const float PenNormalWidth = 1.4f;
+
+        public ComboViewAngle[] ComboViewObjects { get; private set; }
 
         /// <summary>
         /// seznam objektu, na ktere je mozne kliknout
@@ -25,6 +44,17 @@ namespace EditorLib
             MagnifCoef = 150;
             Zoom = 10;
             ClickableObjects = new List<EditorObject>();
+
+            List<ComboViewAngle> listCombos = new List<ComboViewAngle>();
+            listCombos.Add(new ComboViewAngle("Front", 150, 340, 350));
+            listCombos.Add(new ComboViewAngle("Side +X", 315, 250, 135));
+            listCombos.Add(new ComboViewAngle("Side -X", 45, 255, 225));
+            listCombos.Add(new ComboViewAngle("Top", 270, 0, 0));
+            listCombos.Add(new ComboViewAngle("Reset X", 180, 270, 0));
+            listCombos.Add(new ComboViewAngle("Reset Y", 90, 0, 0));
+            listCombos.Add(new ComboViewAngle("Reset Z", 0, 180, 180));
+
+            ComboViewObjects = listCombos.ToArray();
         }
 
         /// <summary>
