@@ -23,6 +23,11 @@ namespace EditorLib
         /// </summary>
         public List<Line3D> Lines { get; protected set; }
 
+        /// <summary>
+        /// Nastaveni modeloveho objektu k objektu v editoru
+        /// </summary>
+        /// <param name="modelObject">objekt ze sveta Raytracingu</param>
+        /// <param name="rotationMatrix">rotacni matice sveta Editoru; muze byt null, pak bude matice jednotokva</param>
         public virtual void SetModelObject(object modelObject) { }
 
         public void Rotate(double degAroundX, double degAroundY, double degAroundZ)
@@ -31,7 +36,12 @@ namespace EditorLib
             matr.TransformLines(Lines);
         }
 
-        public void Rotate(Matrix3D rotationMatrix)
+        /// <summary>
+        /// Aplikuje rotacni matici na vsechny body sveta editoru.
+        /// Nemeni modelovy objekt.
+        /// </summary>
+        /// <param name="rotationMatrix"></param>
+        public void ApplyRotationMatrix(Matrix3D rotationMatrix)
         {
             rotationMatrix.TransformPoints(Points);
         }

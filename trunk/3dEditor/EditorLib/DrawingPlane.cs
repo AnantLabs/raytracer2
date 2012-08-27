@@ -97,7 +97,7 @@ namespace EditorLib
             // ROTACE
             Matrix3D matrix = new Matrix3D();
             matrix.SetOnDegrees(xRotDeg, yRotDeg, zRotDeg);
-            this.Rotate(matrix);
+            this.ApplyRotationMatrix(matrix);
         }
 
         public void SetModelObject(RayTracerLib.Plane plane)

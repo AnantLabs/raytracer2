@@ -154,6 +154,10 @@ namespace _3dEditor
                 UpdateRecords(node);
             }
             //this.treeView1.Focus();
+
+            WndProperties prop = GetWndProperties();
+            prop.ShowObject(treeView1.SelectedNode.Tag);
+
             this.Update();
         }
 
@@ -214,22 +218,6 @@ namespace _3dEditor
                 this.AddItem(drawObj, TreeNodeTypes.Cylinders);
             }
         }
-
-        //public void AddItem(Light light)
-        //{
-        //    this.AddItem(light, TreeNodeTypes.Lights);
-        //}
-        //public void AddItem(Camera cam)
-        //{
-        //    this.AddItem(cam, TreeNodeTypes.Camera);
-        //}
-        //public void AddItem(RayImage img)
-        //{
-        //    this.AddItem(img, TreeNodeTypes.Images);
-        //}
-        //public void AddItem(Animation obj)
-        //{
-        //}
 
         public void AddItem(DrawingLight light)
         {
@@ -318,6 +306,7 @@ namespace _3dEditor
                     if (node.Tag == shape)
                     {
                         treeView1.SelectedNode = node;
+                        node.Text = node.Tag.ToString();
                         this.OnMouseDown(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
                         this.OnClicked(this, new EventArgs());
                         this.onMouseDown(this, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
@@ -465,6 +454,12 @@ namespace _3dEditor
         {
             ParentEditor pf = (ParentEditor)this.ParentForm;
             return pf._WndBoard;
+        }
+
+        private WndProperties GetWndProperties()
+        {
+            ParentEditor form = (ParentEditor)this.ParentForm;
+            return form._WndProperties;
         }
 
 

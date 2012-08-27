@@ -52,6 +52,8 @@ namespace EditorLib
 
         public override void SetModelObject(object modelObject)
         {
+
+
             if (modelObject != null && modelObject.GetType() == typeof(RayTracerLib.Sphere))
                 this.SetModelObject((RayTracerLib.Sphere)modelObject);
         }

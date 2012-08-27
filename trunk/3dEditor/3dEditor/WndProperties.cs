@@ -20,13 +20,21 @@ namespace _3dEditor
 
         RayImage _currentImage;
 
+        /// <summary>
+        /// IMPORTANT!
+        /// Indikuje povoleni zmeneni zobrazovaneho objektu.
+        /// Je-li nastaveno na false, tak se objekt pouze zobrazuje zavolanim z jineho okna.
+        /// Na TRUE jenastaven vzdy - kliknutim na libolne tlactiko zmeny vlastnosti.
+        /// TRUE: pouze zobrazeni objektu - nutno zakazet jeho vnitrni zmenu pri udalostech k nastaveni
+        /// hodnot v prislusnych prvich - numericBoxech apod.
+        /// </summary>
+        private bool _permissionToModify;
+
         public WndProperties()
         {
             InitializeComponent();
 
             SetAllInvisible();
-
-           
 
             this.panelSphere.Location = new Point(0, 0);
             this.panelCylindr.Location = new Point(0, 0);
@@ -36,36 +44,16 @@ namespace _3dEditor
             this.panelCamera.Location = new Point(0, 0);
             this.panelImage.Location = new Point(0, 0);
             this.panelAnimace.Location = new Point(0, 0);
+
+            _permissionToModify = true;
         }
-
-        //public void ShowObject(object obj)
-        //{
-        //    if (obj.GetType() == typeof(Sphere))
-        //        ShowSphere((Sphere)obj);
-
-        //    else if (obj.GetType() == typeof(Plane))
-        //        ShowPlane((Plane)obj);
-
-        //    else if (obj.GetType() == typeof(Cube))
-        //        ShowCube((Cube)obj);
-
-        //    else if (obj.GetType() == typeof(Cylinder))
-        //        ShowCylinder((Cylinder)obj);
-
-        //    else if (obj.GetType() == typeof(RayImage))
-        //        ShowImage((RayImage)obj);
-
-        //    else if (obj.GetType() == typeof(Light))
-        //        ShowLight((Light)obj);
-
-        //    else if (obj.GetType() == typeof(Camera))
-        //        ShowCamera((Camera)obj);
-
-        //    this.Update();
-        //}
-
+        
         public void ShowObject(object obj)
         {
+            // pouze zobrazeni objektu - nutno zakazet jeho vnitrni zmenu pri udalostech k nastaveni
+            // hodnot v prislusnych prvich - numericBoxech apod.
+            _permissionToModify = false;        
+
             if (obj.GetType() == typeof(DrawingSphere))
                 ShowSphere((DrawingSphere)obj);
 
@@ -87,8 +75,12 @@ namespace _3dEditor
             else if (obj.GetType() == typeof(DrawingCamera))
                 ShowCamera((DrawingCamera)obj);
 
-            else return;
-
+            else
+            {
+                _permissionToModify = true;
+                return;
+            }
+            _permissionToModify = true;
             _currentlyDisplayed = obj;
             this.Update();
         }
@@ -108,9 +100,13 @@ namespace _3dEditor
         private void ShowSphere(DrawingSphere drSphere)
         {
             Sphere sph = (Sphere)drSphere.ModelObject;
-            SetAllInvisible();
-            this.panelSphere.Visible = true;
-            this.Text = "Properties: Sphere";
+            // zabraneni neustalemu blikani pri modifikaci stejne koule
+            if (!this.panelSphere.Visible)
+            {
+                SetAllInvisible();
+                this.panelSphere.Visible = true;
+                this.Text = "Properties: Sphere";
+            }
 
             this.numericKouleX.Value = (decimal)MyMath.Clamp(sph.Origin.X, -100, 100);
             this.numericKouleY.Value = (decimal)MyMath.Clamp(sph.Origin.Y, -100, 100);
@@ -417,6 +413,10 @@ namespace _3dEditor
         {
             if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingCamera))
                 return;
+
+            if (!_permissionToModify)
+                return;
+
             DrawingCamera drCam = (DrawingCamera)_currentlyDisplayed;
             Camera cam = (Camera)drCam.ModelObject;
 
@@ -450,6 +450,9 @@ namespace _3dEditor
                 int height = (int)this.numericKamHeight.Value;
                 int width = (int)this.numericKamWidth.Value;
                 drCam.Set(cam, dist, height, width, showCross, showSide1, showSide2);
+
+                WndBoard wnd = GetWndBoard();
+                drCam.ApplyRotationMatrix(wnd.RotationMatrix);
                 WndScene wndSc = GetWndScene();
                 wndSc.UpdateRecords();
 
@@ -459,6 +462,73 @@ namespace _3dEditor
             }
 
         }
+
+        private void actionSphereSet(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingSphere))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            DrawingSphere drSph = (DrawingSphere)_currentlyDisplayed;
+            Sphere sph = (Sphere)drSph.ModelObject;
+
+            Vektor origin = new Vektor(
+                (double)this.numericKouleX.Value,
+                (double)this.numericKouleY.Value,
+                (double)this.numericKouleZ.Value);
+
+            double r = (double)this.numericKouleRadius.Value;
+
+            sph.Origin = origin;
+            sph.R = r;
+
+            Material mat = new Material();
+            mat.Ka = (double)this.numSphKa.Value;
+            mat.Ks = (double)this.numSphKs.Value;
+            mat.Kd = (double)this.numSphKd.Value;
+            mat.KT = (double)this.numSphKt.Value;
+            mat.SpecularExponent = (int)this.numSphH.Value;
+            mat.N = (double)this.numSphN.Value;
+
+            mat.Color.R = (double)this.numSphColR.Value;
+            mat.Color.G = (double)this.numSphColG.Value;
+            mat.Color.B = (double)this.numSphColB.Value;
+
+            sph.Material = mat;
+
+            drSph.SetModelObject(sph);
+            WndBoard wndB = GetWndBoard();
+            drSph.ApplyRotationMatrix(wndB.RotationMatrix);
+            WndScene wndSc = GetWndScene();
+            wndSc.UpdateRecords();
+
+
+        }
+
+        private void btnSphMaterialColor_Click(object sender, EventArgs e)
+        {
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                double r = colorDialog.Color.R / (double)255;
+                double g = colorDialog.Color.G / (double)255;
+                double b = colorDialog.Color.B / (double)255;
+                double a = colorDialog.Color.A / (double)255;
+
+                RayTracerLib.Colour col = new RayTracerLib.Colour(r, g, b, a);
+
+                this.numSphColR.Value = (decimal)col.R;
+                this.numSphColG.Value = (decimal)col.G;
+                this.numSphColB.Value = (decimal)col.B;
+            }
+        }
+
+        public void UpdateSelected()
+        {
+
+        }
+
         private WndBoard GetWndBoard()
         {
             ParentEditor pf = (ParentEditor)this.ParentForm;
@@ -468,6 +538,11 @@ namespace _3dEditor
         {
             ParentEditor pf = (ParentEditor)this.ParentForm;
             return pf._WndScene;
+        }
+
+        private void WndProperties_Load(object sender, EventArgs e)
+        {
+
         }
 
     }
