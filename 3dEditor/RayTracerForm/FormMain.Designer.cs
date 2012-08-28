@@ -3908,6 +3908,7 @@
             this.AutoScroll = true;
             this.AutoScrollMinSize = new System.Drawing.Size(640, 480);
             this.ClientSize = new System.Drawing.Size(1284, 580);
+            this.Controls.Add(this.panelLight);
             this.Controls.Add(this.btnBgCol);
             this.Controls.Add(this.label121);
             this.Controls.Add(this.panelCamera);
@@ -3937,7 +3938,6 @@
             this.Controls.Add(this.checkBack);
             this.Controls.Add(this.panelCylindr);
             this.Controls.Add(this.panelSphere);
-            this.Controls.Add(this.panelLight);
             this.Controls.Add(this.panelBox);
             this.Controls.Add(this.panelRovina);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

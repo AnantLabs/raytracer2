@@ -29,10 +29,7 @@ namespace _3dEditor
             {
                 return _matrixForever;
             }
-            private set
-            {
-
-            }
+            private set { }
         }
 
         /// <summary>
@@ -214,8 +211,6 @@ namespace _3dEditor
             _axisY3 = _matrix.Transform2NewPoint(_axisY3);
             _axisZ3 = _matrix.Transform2NewPoint(_axisZ3);
             _matrixForever = _matrix;
-
-            
 
             
 
@@ -747,7 +742,7 @@ namespace _3dEditor
                             DrawingSphere drawSphere = _Selected as DrawingSphere;
                             Sphere sph = ds as Sphere;
                             Matrix3D transp = this._matrixForever.Transpose();
-                            Point3D[] pointsTransp = transp.Transform2NewPoints(_Selected.Points);
+                            //Point3D[] pointsTransp = transp.Transform2NewPoints(_Selected.Points);
                             Point3D centerTransp = transp.Transform2NewPoint(drawSphere.Center);
 
                             sph.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
@@ -755,6 +750,38 @@ namespace _3dEditor
                             WndScene wnd = GetWndScene();
                             wnd.UpdateRecords();
                         }
+                    }
+                    else if (_Selected.ModelObject is Camera)
+                    {
+                        DrawingCamera drCam = _Selected as DrawingCamera;
+                        Camera cam = _Selected.ModelObject as Camera;
+                        foreach (Point3D p in _Selected.Points)
+                        {
+                            p.Posunuti(-xDel, -yDel, 0);
+                        }
+                        Matrix3D transp = this._matrixForever.Transpose();
+                        Point3D centerTransp = transp.Transform2NewPoint(drCam.Center);
+                        cam.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
+
+                        WndScene wnd = GetWndScene();
+                        wnd.UpdateRecords();
+                    }
+
+                    else if (_Selected.ModelObject is Light)
+                    {
+                        DrawingLight drLight = _Selected as DrawingLight;
+                        Light light = _Selected.ModelObject as Light;
+                        foreach (Point3D p in _Selected.Points)
+                        {
+                            p.Posunuti(-xDel, -yDel, 0);
+                        }
+                        Matrix3D transp = this._matrixForever.Transpose();
+                        Point3D centerTransp = transp.Transform2NewPoint(drLight.Center);
+                        light.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
+
+                        WndScene wnd = GetWndScene();
+                        wnd.UpdateRecords();
+
                     }
                     
                 }
@@ -1045,6 +1072,7 @@ namespace _3dEditor
                 {
                     Plane plane = (Plane)shape;
                     DrawingPlane drPlane = new DrawingPlane(plane);
+                    drPlane.ApplyRotationMatrix(_matrixForever); // nastaveni do souradnic editoru
                     _objectsToDraw.Add(drPlane);
                     WndScene wndScene = GetWndScene();
                     wndScene.AddItem(drPlane);
@@ -1053,6 +1081,7 @@ namespace _3dEditor
                 {
                     Cube cube = (Cube)shape;
                     DrawingCube drCube = new DrawingCube(cube);
+                    drCube.ApplyRotationMatrix(_matrixForever); // nastaveni do souradnic editoru
                     _objectsToDraw.Add(drCube);
                     WndScene wndScene = GetWndScene();
                     wndScene.AddItem(drCube);
@@ -1061,6 +1090,7 @@ namespace _3dEditor
                 {
                     Cylinder cylinder = (Cylinder)shape;
                     DrawingCylinder drCyl = new DrawingCylinder(cylinder);
+                    drCyl.ApplyRotationMatrix(_matrixForever); // nastaveni do souradnic editoru
                     _objectsToDraw.Add(drCyl);
                     WndScene wndScene = GetWndScene();
                     wndScene.AddItem(drCyl);
@@ -1070,6 +1100,7 @@ namespace _3dEditor
             {
                 Light light = (Light)shape;
                 DrawingLight drLight = new DrawingLight(light);
+                drLight.ApplyRotationMatrix(_matrixForever); // nastaveni do souradnic editoru
                 _objectsToDraw.Add(drLight);
                 WndScene wndScene = GetWndScene();
                 wndScene.AddItem(drLight);

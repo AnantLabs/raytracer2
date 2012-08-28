@@ -99,7 +99,6 @@ namespace _3dEditor
 
         private void ShowSphere(DrawingSphere drSphere)
         {
-            Sphere sph = (Sphere)drSphere.ModelObject;
             // zabraneni neustalemu blikani pri modifikaci stejne koule
             if (!this.panelSphere.Visible)
             {
@@ -107,6 +106,8 @@ namespace _3dEditor
                 this.panelSphere.Visible = true;
                 this.Text = "Properties: Sphere";
             }
+
+            Sphere sph = (Sphere)drSphere.ModelObject;
 
             this.numericKouleX.Value = (decimal)MyMath.Clamp(sph.Origin.X, -100, 100);
             this.numericKouleY.Value = (decimal)MyMath.Clamp(sph.Origin.Y, -100, 100);
@@ -128,10 +129,15 @@ namespace _3dEditor
         }
         private void ShowPlane(DrawingPlane drPlane)
         {
+            // zabraneni neustalemu blikani pri modifikaci stejne koule
+            if (!this.panelRovina.Visible)
+            {
+                SetAllInvisible();
+                this.panelRovina.Visible = true;
+                this.Text = "Properties: Plane";
+            }
+
             Plane pl = (Plane)drPlane.ModelObject;
-            SetAllInvisible();
-            this.panelRovina.Visible = true;
-            this.Text = "Properties: Plane";
 
             this.numericRovinaA.Value = (decimal)MyMath.Clamp(pl.Normal.X, -100, 100);
             this.numericRovinaB.Value = (decimal)MyMath.Clamp(pl.Normal.Y, -100, 100);
@@ -177,10 +183,15 @@ namespace _3dEditor
 
         private void ShowCube(DrawingCube drCube)
         {
+            // zabraneni neustalemu blikani pri modifikaci stejne koule
+            if (!this.panelBox.Visible)
+            {
+                SetAllInvisible();
+                this.panelBox.Visible = true;
+                this.Text = "Properties: Cube";
+            }
+
             Cube c = (Cube)drCube.ModelObject;
-            SetAllInvisible();
-            this.panelBox.Visible = true;
-            this.Text = "Properties: Cube";
 
             this.numericBoxX.Value = (decimal)MyMath.Clamp(c.Center.X, -100, 100);
             this.numericBoxY.Value = (decimal)MyMath.Clamp(c.Center.Y, -100, 100);
@@ -206,10 +217,15 @@ namespace _3dEditor
 
         private void ShowCylinder(DrawingCylinder drCyl)
         {
+            // zabraneni neustalemu blikani pri modifikaci stejne koule
+            if (!this.panelCylindr.Visible)
+            {
+                SetAllInvisible();
+                this.panelCylindr.Visible = true;
+                this.Text = "Properties: Cylinder";
+            }
+
             Cylinder c = (Cylinder)drCyl.ModelObject;
-            SetAllInvisible();
-            this.panelCylindr.Visible = true;
-            this.Text = "Properties: Cylinder";
 
             this.numericCylCentX.Value = (decimal)MyMath.Clamp(c.Center.X, -100, 100);
             this.numericCylCentY.Value = (decimal)MyMath.Clamp(c.Center.Y, -100, 100);
@@ -236,10 +252,15 @@ namespace _3dEditor
 
         private void ShowCamera(DrawingCamera drCam)
         {
+            // zabraneni neustalemu blikani pri modifikaci stejne koule
+            if (!this.panelCamera.Visible)
+            {
+                SetAllInvisible();
+                this.panelCamera.Visible = true;
+                this.Text = "Properties: Camera";
+            }
+
             Camera cam = (Camera)drCam.ModelObject;
-            SetAllInvisible();
-            this.panelCamera.Visible = true;
-            this.Text = "Properties: Camera";
 
             this.numericKameraDirX.Value = (decimal)MyMath.Clamp(cam.Norm.X, -100, 100);
             this.numericKameraDirY.Value = (decimal)MyMath.Clamp(cam.Norm.Y, -100, 100);
@@ -264,11 +285,15 @@ namespace _3dEditor
 
         private void ShowLight(DrawingLight drLight)
         {
-            Light l = (Light)drLight.ModelObject;
+            // zabraneni neustalemu blikani pri modifikaci stejne koule
+            if (!this.panelLight.Visible)
+            {
+                SetAllInvisible();
+                this.panelLight.Visible = true;
+                this.Text = "Properties: Light";
+            }
 
-            SetAllInvisible();
-            this.panelLight.Visible = true;
-            this.Text = "Properties: Light";
+            Light l = (Light)drLight.ModelObject;
 
             this.numericSvetloX.Value = (decimal)MyMath.Clamp(l.Coord.X, -100, 100);
             this.numericSvetloY.Value = (decimal)MyMath.Clamp(l.Coord.Y, -100, 100);
@@ -292,11 +317,15 @@ namespace _3dEditor
 
         private void ShowImage(RayImage img)
         {
-            SetAllInvisible();
-            _currentImage = img;
+            // zabraneni neustalemu blikani pri modifikaci stejne koule
+            if (!this.panelImage.Visible)
+            {
+                SetAllInvisible();
+                this.panelImage.Visible = true;
+                this.Text = "Properties: Image";
+            }
 
-            this.panelImage.Visible = true;
-            this.Text = "Properties: Image";
+            _currentImage = img;
 
             this.comboResolution.DataSource = img.PictureSize;
             this.comboResolution.SelectedIndex = img.IndexPictureSize;         // nastaveni prvni polozky
@@ -313,9 +342,14 @@ namespace _3dEditor
 
         private void ShowAnimation()
         {
-            SetAllInvisible();
-            this.panelImage.Visible = true;
-            this.Text = "Properties: Animation";
+            // zabraneni neustalemu blikani pri modifikaci stejne koule
+            if (!this.panelAnimace.Visible)
+            {
+                SetAllInvisible();
+                this.panelAnimace.Visible = true;
+                this.Text = "Properties: Animation";
+            }
+
         }
 
 
@@ -446,11 +480,11 @@ namespace _3dEditor
                 bool showSide1 = this.checkSide1.Checked;
                 bool showSide2 = this.checkSide2.Checked;
 
-                int dist = (int)this.numericKamDist.Value;
-                int height = (int)this.numericKamHeight.Value;
-                int width = (int)this.numericKamWidth.Value;
-                drCam.Set(cam, dist, height, width, showCross, showSide1, showSide2);
+                double dist = (double)this.numericKamDist.Value;
+                double height = (double)this.numericKamHeight.Value;
+                double width = (double)this.numericKamWidth.Value;
 
+                drCam.Set(cam, dist, height, width, showCross, showSide1, showSide2);
                 WndBoard wnd = GetWndBoard();
                 drCam.ApplyRotationMatrix(wnd.RotationMatrix);
                 WndScene wndSc = GetWndScene();
@@ -461,6 +495,98 @@ namespace _3dEditor
             {
             }
 
+        }
+
+        private void actionLightSet(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingLight))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            DrawingLight drLight = (DrawingLight)_currentlyDisplayed;
+            Light light = (Light)drLight.ModelObject;
+
+            Vektor lightCoord = new Vektor(
+                (double)this.numericSvetloX.Value,
+                (double)this.numericSvetloY.Value,
+                (double)this.numericSvetloZ.Value);
+
+            RayTracerLib.Colour lightColor = new RayTracerLib.Colour(
+                (double)this.numericSvetloR.Value,
+                (double)this.numericSvetloG.Value,
+                (double)this.numericSvetloB.Value,
+                1);
+
+            int numSoftLights = (int)this.numericLightNum.Value;
+            double epsSoftLights = (double)this.numericLightEps.Value;
+
+
+            light.Coord = lightCoord;
+            light.Color = lightColor;
+
+            light.IsSoftLight = this.checkBoxLightIsSoft.Checked;
+            bool isSinglePass = this.radioSinglePass.Checked;
+            if (light.IsSoftLight)
+                light.SetSoftLights(numSoftLights, epsSoftLights, isSinglePass);
+
+            drLight.SetModelObject(light);
+            WndBoard wndB = GetWndBoard();
+            drLight.ApplyRotationMatrix(wndB.RotationMatrix);
+            WndScene wndSc = GetWndScene();
+            wndSc.UpdateRecords();
+
+        }
+
+        /// <summary>
+        /// vybrani barvy prosvetlo
+        /// </summary>
+        private void btnLighColor_Click(object sender, EventArgs e)
+        {
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                double r = colorDialog.Color.R / (double)255;
+                double g = colorDialog.Color.G / (double)255;
+                double b = colorDialog.Color.B / (double)255;
+                double a = colorDialog.Color.A / (double)255;
+
+                RayTracerLib.Colour col = new RayTracerLib.Colour(r, g, b, a);
+
+                this.numericSvetloR.Value = (decimal)col.R;
+                this.numericSvetloG.Value = (decimal)col.G;
+                this.numericSvetloB.Value = (decimal)col.B;
+            }
+        }
+        private void OnScrollNum(object sender, EventArgs e)
+        {
+            TrackBar tr = (TrackBar)sender;
+
+            numericLightNum.Value = tr.Value;
+        }
+
+        private void OnScrollEps(object sender, EventArgs e)
+        {
+            TrackBar tr = (TrackBar)sender;
+            numericLightEps.Value = (decimal)(tr.Value * 5 / 100.0);
+        }
+        private void OnNumericLightNumChanged(object sender, EventArgs e)
+        {
+            NumericUpDown num = (NumericUpDown)sender;
+            this.trackBarLightNum.Value = (int)num.Value;
+        }
+
+        private void OnNumericLightEpsChanged(object sender, EventArgs e)
+        {
+            NumericUpDown num = (NumericUpDown)sender;
+            this.trackBarLightEps.Value = (int)(num.Value * 100 / 5);
+        }
+
+        private void OnLightSoftCheckedChang(object sender, EventArgs e)
+        {
+            CheckBox ch = (CheckBox)sender;
+            this.panelLightSoft.Visible = ch.Checked;
+            this.panelSoftPasses.Visible = ch.Checked;
         }
 
         private void actionSphereSet(object sender, EventArgs e)
