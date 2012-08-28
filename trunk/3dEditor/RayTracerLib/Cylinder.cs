@@ -256,6 +256,16 @@ namespace RayTracerLib
             throw new NotImplementedException();
         }
 
+        public void MoveToPoint(double dx, double dy, double dz)
+        {
+            //Vektor dVec = new Vektor(dx, dy, dz);
+            //this.Origin += dVec;
+            this.Center.X = dx;
+            this.Center.Y = dy;
+            this.Center.Z = dz;
+            this.SetValues(Center, Dir, R, H);
+        }
+
         public override string ToString()
         {
             return "Cylinder: Center=" + Center + "; Dir=" + Dir;

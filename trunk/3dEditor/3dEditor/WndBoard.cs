@@ -732,24 +732,37 @@ namespace _3dEditor
                     if (_Selected.ModelObject is DefaultShape)
                     {
                         DefaultShape ds = _Selected.ModelObject as DefaultShape;
+                        foreach (Point3D p in _Selected.Points)
+                        {
+                            p.Posunuti(-xDel, -yDel, 0);
+                        }
                         if (ds is Sphere)
                         {
-                            foreach (Point3D p in _Selected.Points)
-                            {
-                                p.Posunuti(-xDel, -yDel, 0);
-                            }
-
                             DrawingSphere drawSphere = _Selected as DrawingSphere;
                             Sphere sph = ds as Sphere;
                             Matrix3D transp = this._matrixForever.Transpose();
-                            //Point3D[] pointsTransp = transp.Transform2NewPoints(_Selected.Points);
                             Point3D centerTransp = transp.Transform2NewPoint(drawSphere.Center);
-
                             sph.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
-
-                            WndScene wnd = GetWndScene();
-                            wnd.UpdateRecords();
                         }
+                        else if (ds is Cube)
+                        {
+                            DrawingCube drCube = _Selected as DrawingCube;
+                            Cube cube = ds as Cube;
+                            Matrix3D transp = this._matrixForever.Transpose();
+                            Point3D centerTransp = transp.Transform2NewPoint(drCube.Center);
+                            cube.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                        }
+                        else if (ds is Cylinder)
+                        {
+                            DrawingCylinder drCyl = _Selected as DrawingCylinder;
+                            Cylinder cyl = ds as Cylinder;
+                            Matrix3D transp = this._matrixForever.Transpose();
+                            Point3D centerTransp = transp.Transform2NewPoint(drCyl.Center);
+                            cyl.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                        }
+                        // aktualizace seznamu objektu ve scene
+                        WndScene wnd = GetWndScene();
+                        wnd.UpdateRecords();
                     }
                     else if (_Selected.ModelObject is Camera)
                     {

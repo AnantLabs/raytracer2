@@ -279,19 +279,27 @@ namespace EditorLib
         }
 
 
-        /// OPERACE POSUNUTI - TRANSLACE:
-        /// vektor posunuti: [Px, Py]
-        /// matice:
-        /// 1 0 Px
-        /// 0 1 Py
-        /// 0 0 1
+        /// <summary>OPERACE POSUNUTI - TRANSLACE:
+        /// vektor posunuti: [Px, Py, Pz]
+        /// matice je na leve strance operace nasobeni;
+        /// matice * BOD = posunutyBOD
+        /// 1 0 0 Px
+        /// 0 1 0 Py
+        /// 0 0 1 Pz
+        /// 0 0 0 1
+        /// </summary>
         public static Matrix3D PosunutiNewMatrix(double Px, double Py, double Pz)
         {
             Matrix3D matrix =new Matrix3D();
+            //matrix = new Matrix3D(
+            //    new Point3D(1, 0, 0),
+            //    new Point3D(0, 1, 0),
+            //    new Point3D(Px, Py, Pz));
+
             matrix = new Matrix3D(
-                new Point3D(1, 0, 0),
-                new Point3D(0, 1, 0),
-                new Point3D(Px, Py, Pz));
+                new Point3D(1, 0, Px),
+                new Point3D(0, 1, Py),
+                new Point3D(0, 0, Pz));
 
             return matrix;
         }

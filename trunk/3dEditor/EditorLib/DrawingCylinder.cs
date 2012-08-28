@@ -10,7 +10,17 @@ namespace EditorLib
     public class DrawingCylinder : DrawingDefaultShape
     {
 
-        public Point3D Center { get; private set; }
+        public Point3D Center
+        {
+            get
+            {
+                return Points[0];
+            }
+            private set
+            {
+                Points[0] = value;
+            }
+        }
         public Point3D Norm { get; private set; }
         public double Lenght { get; private set; }
         public double Radius { get; private set; }
@@ -21,12 +31,12 @@ namespace EditorLib
             this.SetModelObject(cylinder);
         }
 
-        public DrawingCylinder(Point3D origin, double radius, double lenght)
+        public DrawingCylinder(Point3D origin, double radius, double lenght, double rotX)
         {
-            this.Set(origin, radius, lenght);
+            this.Set(origin, radius, lenght, rotX);
         }
 
-        private void Set(Point3D origin, double radius, double lenght)
+        private void Set(Point3D origin, double radius, double lenght, double rotX)
         {
             //double pulLen = lenght / 2.0;
             //Point3D c1 = center + norm * pulLen;
@@ -80,6 +90,15 @@ namespace EditorLib
                 Lines.Add(line);
             }
 
+
+            Matrix3D mShift1 = Matrix3D.PosunutiNewMatrix(1, 2, 3);
+            Point3D pS1 = new Point3D(10, 20, 30);
+            mShift1.TransformPoint(pS1);
+
+            Matrix3D m = Matrix3D.NewRotateByDegrees(rotX, 0, 0);
+            this.ApplyRotationMatrix(m);
+
+            Matrix3D shiftMat = Matrix3D.PosunutiNewMatrix(origin.X, origin.Y, origin.Z);
             // nakonec posuneme
             foreach (Point3D p in Points)
             {
@@ -87,13 +106,18 @@ namespace EditorLib
             }
         }
 
-        public void SetModelObject(Cylinder cylinder)
+        public override void SetModelObject(object modelObject)
+        {
+            if (modelObject.GetType() == typeof(Cylinder))
+                this.SetModelObject((Cylinder)modelObject, 0);
+        }
+        public void SetModelObject(Cylinder cylinder, double rotX)
         {
             this.ModelObject = cylinder;
             double radius = cylinder.R;
             double lenght = cylinder.H;
             Point3D origin = new Point3D(cylinder.Center.X, cylinder.Center.Y, cylinder.Center.Z);
-            this.Set(origin, radius, lenght);
+            this.Set(origin, radius, lenght, rotX);
         } 
 
         /// <summary>

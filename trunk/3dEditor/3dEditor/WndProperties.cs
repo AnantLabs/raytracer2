@@ -443,6 +443,214 @@ namespace _3dEditor
 
         }
 
+        ///////////////////////////////////////////////
+        //////// S P H E R E
+        //////////////////////////////////////////////
+
+        private void actionSphereSet(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingSphere))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            DrawingSphere drSph = (DrawingSphere)_currentlyDisplayed;
+            Sphere sph = (Sphere)drSph.ModelObject;
+
+            Vektor origin = new Vektor(
+                (double)this.numericKouleX.Value,
+                (double)this.numericKouleY.Value,
+                (double)this.numericKouleZ.Value);
+
+            double r = (double)this.numericKouleRadius.Value;
+
+            sph.Origin = origin;
+            sph.R = r;
+
+            Material mat = new Material();
+            mat.Ka = (double)this.numSphKa.Value;
+            mat.Ks = (double)this.numSphKs.Value;
+            mat.Kd = (double)this.numSphKd.Value;
+            mat.KT = (double)this.numSphKt.Value;
+            mat.SpecularExponent = (int)this.numSphH.Value;
+            mat.N = (double)this.numSphN.Value;
+
+            mat.Color.R = (double)this.numSphColR.Value;
+            mat.Color.G = (double)this.numSphColG.Value;
+            mat.Color.B = (double)this.numSphColB.Value;
+
+            sph.Material = mat;
+
+            drSph.SetModelObject(sph);
+            WndBoard wndB = GetWndBoard();
+            drSph.ApplyRotationMatrix(wndB.RotationMatrix);
+            WndScene wndSc = GetWndScene();
+            wndSc.UpdateRecords();
+        }
+
+        private void btnSphMaterialColor_Click(object sender, EventArgs e)
+        {
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                double r = colorDialog.Color.R / (double)255;
+                double g = colorDialog.Color.G / (double)255;
+                double b = colorDialog.Color.B / (double)255;
+                double a = colorDialog.Color.A / (double)255;
+
+                RayTracerLib.Colour col = new RayTracerLib.Colour(r, g, b, a);
+
+                _permissionToModify = false;
+                this.numSphColR.Value = (decimal)col.R;
+                this.numSphColG.Value = (decimal)col.G;
+                _permissionToModify = true;
+                this.numSphColB.Value = (decimal)col.B;
+            }
+        }
+
+        ///////////////////////////////////////////////
+        //////// C U B E
+        //////////////////////////////////////////////
+
+        private void actionCubeSet(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingCube))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            DrawingCube drCube = (DrawingCube)_currentlyDisplayed;
+            Cube cube = (Cube)drCube.ModelObject;
+
+            Vektor center = new Vektor(
+                (double)this.numericBoxX.Value,
+                (double)this.numericBoxY.Value,
+                (double)this.numericBoxZ.Value);
+
+            Vektor dir = new Vektor(
+                (double)this.numericBoxOsaX.Value,
+                (double)this.numericBoxOsaY.Value,
+                (double)this.numericBoxOsaZ.Value);
+
+            double size = (double)this.numericBoxSize.Value;
+
+
+            Material mat = new Material();
+            mat.Ka = (double)this.numBoxKa.Value;
+            mat.Ks = (double)this.numBoxKs.Value;
+            mat.Kd = (double)this.numBoxKd.Value;
+            mat.KT = (double)this.numBoxKt.Value;
+            mat.SpecularExponent = (int)this.numBoxH.Value;
+            mat.N = (double)this.numBoxN.Value;
+
+            mat.Color.R = (double)this.numBoxColR.Value;
+            mat.Color.G = (double)this.numBoxColG.Value;
+            mat.Color.B = (double)this.numBoxColB.Value;
+
+            cube.Material = mat;
+            cube.SetValues(center, dir, size);
+
+            drCube.SetModelObject(cube);
+            WndBoard wndB = GetWndBoard();
+            drCube.ApplyRotationMatrix(wndB.RotationMatrix);
+            WndScene wndSc = GetWndScene();
+            wndSc.UpdateRecords();
+        }
+
+        private void btnCubeMaterialColor_Click(object sender, EventArgs e)
+        {
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                double r = colorDialog.Color.R / (double)255;
+                double g = colorDialog.Color.G / (double)255;
+                double b = colorDialog.Color.B / (double)255;
+                double a = colorDialog.Color.A / (double)255;
+
+                RayTracerLib.Colour col = new RayTracerLib.Colour(r, g, b, a);
+
+                _permissionToModify = false;
+                this.numBoxColR.Value = (decimal)col.R;
+                this.numBoxColG.Value = (decimal)col.G;
+                _permissionToModify = true;
+                this.numBoxColB.Value = (decimal)col.B;
+            }
+        }
+
+        ///////////////////////////////////////////////
+        //////// C Y L I N D E R
+        //////////////////////////////////////////////
+        #region CYLINDER
+        private void actionCylinderSet(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingCylinder))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            DrawingCylinder drCyl = (DrawingCylinder)_currentlyDisplayed;
+            Cylinder cyl = (Cylinder)drCyl.ModelObject;
+
+            Vektor center = new Vektor(
+                (double)this.numericCylCentX.Value,
+                (double)this.numericCylCentY.Value,
+                (double)this.numericCylCentZ.Value);
+
+            Vektor dir = new Vektor(
+                (double)this.numericCylDirX.Value,
+                (double)this.numericCylDirY.Value,
+                (double)this.numericCylDirZ.Value);
+
+            double r = (double)this.numericCylR.Value;
+            double h = (double)this.numericCylH.Value;
+
+            Material mat = new Material();
+            mat.Ka = (double)this.numCylKa.Value;
+            mat.Ks = (double)this.numCylKs.Value;
+            mat.Kd = (double)this.numCylKd.Value;
+            mat.KT = (double)this.numCylKt.Value;
+            mat.SpecularExponent = (int)this.numCylH.Value;
+            mat.N = (double)this.numCylN.Value;
+
+            mat.Color.R = (double)this.numCylColR.Value;
+            mat.Color.G = (double)this.numCylColG.Value;
+            mat.Color.B = (double)this.numCylColB.Value;
+
+            cyl.Material = mat;
+            cyl.SetValues(center, dir, r, h);
+
+            drCyl.SetModelObject(cyl, (double)this.numCylRotateX.Value);
+            WndBoard wndB = GetWndBoard();
+            drCyl.ApplyRotationMatrix(wndB.RotationMatrix);
+            WndScene wndSc = GetWndScene();
+            wndSc.UpdateRecords();
+        }
+        
+
+        private void btnCylMaterialColor_Click(object sender, EventArgs e)
+        {
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                double r = colorDialog.Color.R / (double)255;
+                double g = colorDialog.Color.G / (double)255;
+                double b = colorDialog.Color.B / (double)255;
+                double a = colorDialog.Color.A / (double)255;
+
+                RayTracerLib.Colour col = new RayTracerLib.Colour(r, g, b, a);
+
+                _permissionToModify = false;
+                this.numCylColR.Value = (decimal)col.R;
+                this.numCylColG.Value = (decimal)col.G;
+                _permissionToModify = true;
+                this.numCylColB.Value = (decimal)col.B;
+            }
+        }
+        #endregion
+        ///////////////////////////////////////////////
+        //////// C A M E R A
+        //////////////////////////////////////////////
+        #region CAMERA
         private void actionKameraSet(object sender, EventArgs e)
         {
             if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingCamera))
@@ -497,6 +705,11 @@ namespace _3dEditor
 
         }
 
+        #endregion
+        ///////////////////////////////////////////////
+        //////// L I G H T
+        //////////////////////////////////////////////
+        #region LIGHT
         private void actionLightSet(object sender, EventArgs e)
         {
             if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingLight))
@@ -553,8 +766,10 @@ namespace _3dEditor
 
                 RayTracerLib.Colour col = new RayTracerLib.Colour(r, g, b, a);
 
+                _permissionToModify = false;
                 this.numericSvetloR.Value = (decimal)col.R;
                 this.numericSvetloG.Value = (decimal)col.G;
+                _permissionToModify = true;
                 this.numericSvetloB.Value = (decimal)col.B;
             }
         }
@@ -588,67 +803,7 @@ namespace _3dEditor
             this.panelLightSoft.Visible = ch.Checked;
             this.panelSoftPasses.Visible = ch.Checked;
         }
-
-        private void actionSphereSet(object sender, EventArgs e)
-        {
-            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingSphere))
-                return;
-
-            if (!_permissionToModify)
-                return;
-
-            DrawingSphere drSph = (DrawingSphere)_currentlyDisplayed;
-            Sphere sph = (Sphere)drSph.ModelObject;
-
-            Vektor origin = new Vektor(
-                (double)this.numericKouleX.Value,
-                (double)this.numericKouleY.Value,
-                (double)this.numericKouleZ.Value);
-
-            double r = (double)this.numericKouleRadius.Value;
-
-            sph.Origin = origin;
-            sph.R = r;
-
-            Material mat = new Material();
-            mat.Ka = (double)this.numSphKa.Value;
-            mat.Ks = (double)this.numSphKs.Value;
-            mat.Kd = (double)this.numSphKd.Value;
-            mat.KT = (double)this.numSphKt.Value;
-            mat.SpecularExponent = (int)this.numSphH.Value;
-            mat.N = (double)this.numSphN.Value;
-
-            mat.Color.R = (double)this.numSphColR.Value;
-            mat.Color.G = (double)this.numSphColG.Value;
-            mat.Color.B = (double)this.numSphColB.Value;
-
-            sph.Material = mat;
-
-            drSph.SetModelObject(sph);
-            WndBoard wndB = GetWndBoard();
-            drSph.ApplyRotationMatrix(wndB.RotationMatrix);
-            WndScene wndSc = GetWndScene();
-            wndSc.UpdateRecords();
-
-
-        }
-
-        private void btnSphMaterialColor_Click(object sender, EventArgs e)
-        {
-            if (this.colorDialog.ShowDialog() == DialogResult.OK)
-            {
-                double r = colorDialog.Color.R / (double)255;
-                double g = colorDialog.Color.G / (double)255;
-                double b = colorDialog.Color.B / (double)255;
-                double a = colorDialog.Color.A / (double)255;
-
-                RayTracerLib.Colour col = new RayTracerLib.Colour(r, g, b, a);
-
-                this.numSphColR.Value = (decimal)col.R;
-                this.numSphColG.Value = (decimal)col.G;
-                this.numSphColB.Value = (decimal)col.B;
-            }
-        }
+        #endregion
 
         public void UpdateSelected()
         {
@@ -669,6 +824,30 @@ namespace _3dEditor
         private void WndProperties_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void onNumericRotateCylinder(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed.GetType() != typeof(DrawingCylinder))
+                return;
+
+            NumericUpDown num = sender as NumericUpDown;
+            if (num.Value > 359)
+                num.Value = num.Value % 360;
+            else if (num.Value < 0)
+                num.Value = 360 + num.Value;
+
+            double x = (double)this.numCylRotateX.Value;
+            double y = (double)this.numCylRotateY.Value;
+            double z = (double)this.numCylRotateZ.Value;
+            Matrix3D m = Matrix3D.NewRotateByDegrees(x, y, z);
+
+            DrawingCylinder drCyl = _currentlyDisplayed as DrawingCylinder;
+
+            WndBoard wnd = GetWndBoard();
+            Matrix3D transp = wnd.RotationMatrix.Transpose();
+            drCyl.ApplyRotationMatrix(transp);
+            //drCyl.ApplyRotationMatrix(m);
         }
 
     }

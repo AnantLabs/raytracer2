@@ -225,9 +225,19 @@ namespace RayTracerLib
             throw new NotImplementedException();
         }
 
+        public void MoveToPoint(double dx, double dy, double dz)
+        {
+            //Vektor dVec = new Vektor(dx, dy, dz);
+            //this.Origin += dVec;
+            this.Center.X = dx;
+            this.Center.Y = dy;
+            this.Center.Z = dz;
+            SetValues(Center, Dir, Size);
+        }
+
         public override string ToString()
         {
-            return "Cube: " + Dir;
+            return "Cube: Center=" + Center + "; Axis=" + Dir;
         }
     }
 }
