@@ -734,7 +734,7 @@ namespace _3dEditor
                         DefaultShape ds = _Selected.ModelObject as DefaultShape;
                         foreach (Point3D p in _Selected.Points)
                         {
-                            p.Posunuti(-xDel, -yDel, 0);
+                            p.Posunuti(-xDel, -yDel, 0);    // potreba nahradit zpusobem s matici a nasobeni rotacni matice
                         }
                         if (ds is Sphere)
                         {
