@@ -11,28 +11,28 @@ namespace EditorLib
         /// <summary>
         /// implicitni vzdalenost podstavy od kamery
         /// </summary>
-        private const int DIST = 6;
+        private const double DIST = 6;
         /// <summary>
         /// implicitni vyska podstavy
         /// </summary>
-        private const int HEIGHT = 3;
+        private const double HEIGHT = 3;
         /// <summary>
         /// implicitni sirka podstavy
         /// </summary>
-        private const int WIDTH = 4;
+        private const double WIDTH = 4;
 
         /// <summary>
         /// vzdalenost podstavy kuzele od stredu kamery
         /// </summary>
-        public int Dist { get; private set; }
+        public double Dist { get; private set; }
         /// <summary>
         /// vyska podstavy kuzele
         /// </summary>
-        public int Height { get; private set; }
+        public double Height { get; private set; }
         /// <summary>
         /// sirka podstavy kuzele
         /// </summary>
-        public int Width { get; private set; }
+        public double Width { get; private set; }
 
         /// <summary>
         /// definuje, zda se zobrazi kriz na podstave kuzele kamery
@@ -67,7 +67,7 @@ namespace EditorLib
         public DrawingCamera(Camera cam)
             : this(cam, DIST, HEIGHT, WIDTH, true, false, false) { }
 
-        public DrawingCamera(Camera cam, int dist, int height, int width, bool showcr, bool showsd1, bool showsd2)
+        public DrawingCamera(Camera cam, double dist, double height, double width, bool showcr, bool showsd1, bool showsd2)
         {
             Set(cam, dist, height, width, showcr, showsd1, showsd2);
         }
@@ -77,7 +77,7 @@ namespace EditorLib
             if (modelObject.GetType() == typeof(Camera))
                 this.Set((Camera)modelObject, DIST, HEIGHT, WIDTH, true, false, false);
         }
-        public void Set(Camera cam, int dist, int height, int width, bool showcr, bool showsd1, bool showsd2)
+        public void Set(Camera cam, double dist, double height, double width, bool showcr, bool showsd1, bool showsd2)
         {
             this.Dist = dist > 0 ? dist : DIST;
             this.Height = height > 0 ? height : HEIGHT;

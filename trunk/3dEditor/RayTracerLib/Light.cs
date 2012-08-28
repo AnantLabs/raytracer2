@@ -84,6 +84,15 @@ namespace RayTracerLib
             IsSinglePass = old.IsSinglePass;
         }
 
+        public void MoveToPoint(double dx, double dy, double dz)
+        {
+            //Vektor dVec = new Vektor(dx, dy, dz);
+            //this.Origin += dVec;
+            this.Coord.X = dx;
+            this.Coord.Y = dy;
+            this.Coord.Z = dz;
+        }
+
 
         public bool SetSoftLights(int numSoftLights, double epsSoftLights, bool isSinglePass)
         {

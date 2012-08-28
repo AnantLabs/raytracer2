@@ -2901,7 +2901,7 @@
             this.panelLight.Controls.Add(this.label30);
             this.panelLight.Controls.Add(this.numericSvetloB);
             this.panelLight.Controls.Add(this.label31);
-            this.panelLight.Location = new System.Drawing.Point(311, 312);
+            this.panelLight.Location = new System.Drawing.Point(321, 257);
             this.panelLight.Name = "panelLight";
             this.panelLight.Size = new System.Drawing.Size(335, 284);
             this.panelLight.TabIndex = 59;
@@ -2926,6 +2926,7 @@
             this.radioMultiPass.TabStop = true;
             this.radioMultiPass.Text = "Multi-Pass";
             this.radioMultiPass.UseVisualStyleBackColor = true;
+            this.radioMultiPass.CheckedChanged += new System.EventHandler(this.actionLightSet);
             // 
             // radioSinglePass
             // 
@@ -2936,6 +2937,7 @@
             this.radioSinglePass.TabIndex = 0;
             this.radioSinglePass.Text = "Single-Pass";
             this.radioSinglePass.UseVisualStyleBackColor = true;
+            this.radioSinglePass.CheckedChanged += new System.EventHandler(this.actionLightSet);
             // 
             // panelLightSoft
             // 
@@ -2977,6 +2979,7 @@
             0,
             0,
             0});
+            this.numericLightEps.ValueChanged += new System.EventHandler(this.OnNumericLightEpsChanged);
             // 
             // label119
             // 
@@ -2997,6 +3000,7 @@
             this.trackBarLightEps.Size = new System.Drawing.Size(178, 45);
             this.trackBarLightEps.TabIndex = 42;
             this.trackBarLightEps.Value = 20;
+            this.trackBarLightEps.Scroll += new System.EventHandler(this.OnScrollEps);
             // 
             // numericLightNum
             // 
@@ -3019,6 +3023,7 @@
             0,
             0,
             0});
+            this.numericLightNum.ValueChanged += new System.EventHandler(this.OnNumericLightNumChanged);
             // 
             // label22
             // 
@@ -3039,6 +3044,7 @@
             this.trackBarLightNum.Size = new System.Drawing.Size(178, 45);
             this.trackBarLightNum.TabIndex = 0;
             this.trackBarLightNum.Value = 16;
+            this.trackBarLightNum.Scroll += new System.EventHandler(this.OnScrollNum);
             // 
             // checkBoxLightIsSoft
             // 
@@ -3051,6 +3057,7 @@
             this.checkBoxLightIsSoft.TabIndex = 39;
             this.checkBoxLightIsSoft.Text = "Soft light";
             this.checkBoxLightIsSoft.UseVisualStyleBackColor = true;
+            this.checkBoxLightIsSoft.CheckedChanged += new System.EventHandler(this.actionLightSet);
             // 
             // label23
             // 
@@ -3080,6 +3087,7 @@
             this.btnLighColor.TabIndex = 36;
             this.btnLighColor.Text = "choose";
             this.btnLighColor.UseVisualStyleBackColor = true;
+            this.btnLighColor.Click += new System.EventHandler(this.btnLighColor_Click);
             // 
             // buttonLightSave
             // 
@@ -3107,6 +3115,7 @@
             this.numericSvetloX.Name = "numericSvetloX";
             this.numericSvetloX.Size = new System.Drawing.Size(61, 20);
             this.numericSvetloX.TabIndex = 20;
+            this.numericSvetloX.ValueChanged += new System.EventHandler(this.actionLightSet);
             // 
             // label25
             // 
@@ -3160,6 +3169,7 @@
             0,
             0,
             0});
+            this.numericSvetloZ.ValueChanged += new System.EventHandler(this.actionLightSet);
             // 
             // numericSvetloG
             // 
@@ -3178,6 +3188,7 @@
             this.numericSvetloG.Name = "numericSvetloG";
             this.numericSvetloG.Size = new System.Drawing.Size(61, 20);
             this.numericSvetloG.TabIndex = 28;
+            this.numericSvetloG.ValueChanged += new System.EventHandler(this.actionLightSet);
             // 
             // label28
             // 
@@ -3206,6 +3217,7 @@
             this.numericSvetloR.Name = "numericSvetloR";
             this.numericSvetloR.Size = new System.Drawing.Size(61, 20);
             this.numericSvetloR.TabIndex = 27;
+            this.numericSvetloR.ValueChanged += new System.EventHandler(this.actionLightSet);
             // 
             // numericSvetloY
             // 
@@ -3224,6 +3236,7 @@
             this.numericSvetloY.Name = "numericSvetloY";
             this.numericSvetloY.Size = new System.Drawing.Size(61, 20);
             this.numericSvetloY.TabIndex = 21;
+            this.numericSvetloY.ValueChanged += new System.EventHandler(this.actionLightSet);
             // 
             // label29
             // 
@@ -3262,6 +3275,7 @@
             this.numericSvetloB.Name = "numericSvetloB";
             this.numericSvetloB.Size = new System.Drawing.Size(61, 20);
             this.numericSvetloB.TabIndex = 25;
+            this.numericSvetloB.ValueChanged += new System.EventHandler(this.actionLightSet);
             // 
             // label31
             // 
@@ -4321,11 +4335,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(831, 547);
+            this.ClientSize = new System.Drawing.Size(848, 564);
+            this.Controls.Add(this.panelLight);
             this.Controls.Add(this.panelCamera);
             this.Controls.Add(this.panelAnimace);
             this.Controls.Add(this.panelImage);
-            this.Controls.Add(this.panelLight);
             this.Controls.Add(this.panelBox);
             this.Controls.Add(this.panelRovina);
             this.Controls.Add(this.panelCylindr);

@@ -169,6 +169,12 @@ namespace RayTracerLib
             return true;
         }
 
+        public void MoveToPoint(double dx, double dy, double dz)
+        {
+            this.Source.X = dx;
+            this.Source.Y = dy;
+            this.Source.Z = dz;
+        }
         public override string ToString()
         {
             return "Camera: Center=" + Source + "; Norm=" + Norm;

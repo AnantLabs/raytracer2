@@ -120,7 +120,6 @@ namespace RayTracerLib
         /// <param name="dz">z-direction move</param>
         public override void Move(double dx, double dy, double dz)
         {
-
             //Vektor dVec = new Vektor(dx, dy, dz);
             //this.Origin += dVec;
             this.Origin.X += dx;
@@ -130,7 +129,6 @@ namespace RayTracerLib
 
         public void MoveToPoint(double dx, double dy, double dz)
         {
-
             //Vektor dVec = new Vektor(dx, dy, dz);
             //this.Origin += dVec;
             this.Origin.X = dx;
