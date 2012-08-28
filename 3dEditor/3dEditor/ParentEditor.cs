@@ -77,8 +77,8 @@ namespace _3dEditor
             _rayTracer.RScene.SceneObjects.Add(sph1);
             //_rayTracer.RScene.SceneObjects.Add(sph2);
             //_rayTracer.RScene.SceneObjects.Add(cube1);
-            _rayTracer.RScene.SceneObjects.Add(plane1);
-            //_rayTracer.RScene.SceneObjects.Add(cyl);
+            //_rayTracer.RScene.SceneObjects.Add(plane1);
+            _rayTracer.RScene.SceneObjects.Add(cyl);
             sph2.IsActive = false;
 
             //_rayTracer.RScene.SetDefaultScene4();
