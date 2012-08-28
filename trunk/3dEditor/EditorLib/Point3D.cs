@@ -11,12 +11,15 @@ namespace EditorLib
         public double X { get; set; }
         public double Y { get; set; }
         public double Z { get; set; }
+        public double ZZ { get; set; }
 
         public Point3D() : this(0, 0, 0) { }
 
-        public Point3D(double x, double y, double z)
+        public Point3D(double x, double y, double z): this(x, y, z, 1) { }
+
+        public Point3D(double x, double y, double z, double zz)
         {
-            X = x; Y = y; Z = z;
+            X = x; Y = y; Z = z; ZZ = zz;
         }
 
         public Point3D(Point3D old)
@@ -24,6 +27,7 @@ namespace EditorLib
             this.X = old.X;
             this.Y = old.Y;
             this.Z = old.Z;
+            this.ZZ = old.ZZ;
         }
         public Point3D Normalize()
         {
@@ -63,6 +67,7 @@ namespace EditorLib
             this.X = newPoint.X;
             this.Y = newPoint.Y;
             this.Z = newPoint.Z;
+            this.ZZ = newPoint.ZZ;
         }
 
         /// <summary>

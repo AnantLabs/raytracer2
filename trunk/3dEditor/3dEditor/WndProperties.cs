@@ -620,7 +620,7 @@ namespace _3dEditor
             cyl.Material = mat;
             cyl.SetValues(center, dir, r, h);
 
-            drCyl.SetModelObject(cyl, (double)this.numCylRotateX.Value);
+            drCyl.SetModelObject(cyl);
             WndBoard wndB = GetWndBoard();
             drCyl.ApplyRotationMatrix(wndB.RotationMatrix);
             WndScene wndSc = GetWndScene();
@@ -847,6 +847,7 @@ namespace _3dEditor
             WndBoard wnd = GetWndBoard();
             Matrix3D transp = wnd.RotationMatrix.Transpose();
             drCyl.ApplyRotationMatrix(transp);
+            drCyl.RotateCyl(x, y, z);
             //drCyl.ApplyRotationMatrix(m);
         }
 

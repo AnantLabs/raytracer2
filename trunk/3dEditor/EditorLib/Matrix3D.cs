@@ -9,39 +9,54 @@ namespace EditorLib
     {
         public static Matrix3D Identity
         { get {
-            return new Matrix3D(new Point3D(1, 0, 0), new Point3D(0, 1, 0), new Point3D(0, 0, 1));
+            return new Matrix3D(
+                new Point3D(1, 0, 0, 0),
+                new Point3D(0, 1, 0, 0),
+                new Point3D(0, 0, 1, 0),
+                new Point3D(0, 0, 0, 1));
             }
         }
 
-        public double[,] Matrix = new double[3, 3];
+        public double[,] Matrix = new double[4, 4];
 
         public Matrix3D()
         {
             this.Matrix = this.MakeIdentity().Matrix;
         }
-        public Matrix3D(Point3D row1, Point3D row2, Point3D row3)
+        public Matrix3D(Point3D row1, Point3D row2, Point3D row3) : this(row1, row2, row3, new Point3D(0, 0, 0, 1)) { }
+        public Matrix3D(Point3D row1, Point3D row2, Point3D row3, Point3D row4)
         {
-            Matrix[0, 0] = row1.X; Matrix[0, 1] = row1.Y; Matrix[0, 2] = row1.Z;
-            Matrix[1, 0] = row2.X; Matrix[1, 1] = row2.Y; Matrix[1, 2] = row2.Z;
-            Matrix[2, 0] = row3.X; Matrix[2, 1] = row3.Y; Matrix[2, 2] = row3.Z;
+            Matrix[0, 0] = row1.X; Matrix[0, 1] = row1.Y; Matrix[0, 2] = row1.Z; Matrix[0, 3] = row1.ZZ;
+            Matrix[1, 0] = row2.X; Matrix[1, 1] = row2.Y; Matrix[1, 2] = row2.Z; Matrix[1, 3] = row2.ZZ;
+            Matrix[2, 0] = row3.X; Matrix[2, 1] = row3.Y; Matrix[2, 2] = row3.Z; Matrix[2, 3] = row3.ZZ;
+            Matrix[3, 0] = row4.X; Matrix[3, 1] = row4.Y; Matrix[3, 2] = row4.Z; Matrix[3, 3] = row4.ZZ;
         }
 
         public static Point3D operator *(Matrix3D matrix, Point3D point3D)
         {
-            
+
             double x = point3D.X * matrix.Matrix[0, 0] +
                     point3D.Y * matrix.Matrix[0, 1] +
-                    point3D.Z * matrix.Matrix[0, 2];
+                    point3D.Z * matrix.Matrix[0, 2] +
+                    point3D.ZZ * matrix.Matrix[0, 3];
+
 
             double y = point3D.X * matrix.Matrix[1, 0] +
                     point3D.Y * matrix.Matrix[1, 1] +
-                    point3D.Z * matrix.Matrix[1, 2];
+                    point3D.Z * matrix.Matrix[1, 2] +
+                    point3D.ZZ * matrix.Matrix[1, 3];
 
             double z = point3D.X * matrix.Matrix[2, 0] +
                     point3D.Y * matrix.Matrix[2, 1] +
-                    point3D.Z * matrix.Matrix[2, 2];
+                    point3D.Z * matrix.Matrix[2, 2] +
+                    point3D.ZZ * matrix.Matrix[2, 3];
 
-            Point3D newP3d = new Point3D(x, y, z);
+            double zz = point3D.X * matrix.Matrix[3, 0] +
+                    point3D.Y * matrix.Matrix[3, 1] +
+                    point3D.Z * matrix.Matrix[3, 2] +
+                    point3D.ZZ * matrix.Matrix[3, 3];
+
+            Point3D newP3d = new Point3D(x, y, z, zz);
             return newP3d;
         }
 
@@ -49,14 +64,15 @@ namespace EditorLib
         {
             Matrix3D matrix = new Matrix3D();
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
-                for (int j = 0; j < 3; j++)
+                for (int j = 0; j < 4; j++)
                 {
                     matrix.Matrix[i, j] =
                         (m2.Matrix[i, 0] * m1.Matrix[0, j]) +
                         (m2.Matrix[i, 1] * m1.Matrix[1, j]) +
-                        (m2.Matrix[i, 2] * m1.Matrix[2, j]);
+                        (m2.Matrix[i, 2] * m1.Matrix[2, j]) +
+                        (m2.Matrix[i, 3] * m1.Matrix[3, j]);
                 }
             }
             return matrix;
@@ -70,9 +86,9 @@ namespace EditorLib
         public Matrix3D Transpose()
         {
             Matrix3D transp = new Matrix3D();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
-                for (int j = 0; j < 3; j++)
+                for (int j = 0; j < 4; j++)
                 {
                     transp.Matrix[i, j] = this.Matrix[j, i];
                 }
@@ -250,31 +266,34 @@ namespace EditorLib
         }
 
         /// OPERACE POSUNUTI - TRANSLACE:
-        /// vektor posunuti: [Px, Py]
+        /// vektor posunuti: [Px, Py, Pz]
         /// matice:
-        /// 1 0 Px
-        /// 0 1 Py
-        /// 0 0 1
+        /// 1 0 0 Px
+        /// 0 1 0 Py
+        /// 0 0 1 Pz
         public static Point3D Posunuti(Point3D point3D, double Px, double Py, double Pz)
         {
-            //Matrix3D matrix = new Matrix3D(
-            //    new Point3D(1, 0, 0),
-            //    new Point3D(0, 1, 0),
-            //    new Point3D(Px, Py, Pz));
+            Matrix3D matrix = new Matrix3D(
+                new Point3D(1, 0, 0, Px),
+                new Point3D(0, 1, 0, Py),
+                new Point3D(0, 0, 1, Pz));
 
-            //double x = point3D.X * matrix.Matrix[0, 0] +
-            //        point3D.Y * matrix.Matrix[0, 1] +
-            //        point3D.Z * matrix.Matrix[0, 2];
+            double x = point3D.X * matrix.Matrix[0, 0] +
+                    //point3D.Y * matrix.Matrix[0, 1] +
+                    //point3D.Z * matrix.Matrix[0, 2] +
+                    point3D.ZZ * matrix.Matrix[0, 3];
 
-            //double y = point3D.X * matrix.Matrix[1, 0] +
-            //        point3D.Y * matrix.Matrix[1, 1] +
-            //        point3D.Z * matrix.Matrix[1, 2];
+            double y = //point3D.X * matrix.Matrix[1, 0] +
+                    point3D.Y * matrix.Matrix[1, 1] +
+                    //point3D.Z * matrix.Matrix[1, 2] +
+                    point3D.ZZ * matrix.Matrix[1, 3];
 
-            //double z = point3D.X * matrix.Matrix[2, 0] +
-            //        point3D.Y * matrix.Matrix[2, 1] +
-            //        point3D.Z * matrix.Matrix[2, 2];
+            double z = //point3D.X * matrix.Matrix[2, 0] +
+                    //point3D.Y * matrix.Matrix[2, 1] +
+                    point3D.Z * matrix.Matrix[2, 2] +
+                    point3D.ZZ * matrix.Matrix[2, 3];
 
-            Point3D newP3d = new Point3D(point3D.X + Px, point3D.Y + Py, point3D.Z + Pz);
+            Point3D newP3d = new Point3D(x, y, z);
             return newP3d;
         }
 
@@ -297,9 +316,10 @@ namespace EditorLib
             //    new Point3D(Px, Py, Pz));
 
             matrix = new Matrix3D(
-                new Point3D(1, 0, Px),
-                new Point3D(0, 1, Py),
-                new Point3D(0, 0, Pz));
+                new Point3D(1, 0, 0, Px),
+                new Point3D(0, 1, 0, Py),
+                new Point3D(0, 0, 1, Pz),
+                new Point3D(0, 0, 0, 1));
 
             return matrix;
         }
@@ -362,5 +382,29 @@ namespace EditorLib
             return true;
         }
 
+        public static void TestSkladaniTransformaci()
+        {
+            Matrix3D mShift = Matrix3D.PosunutiNewMatrix(1, 2, 3);
+            Matrix3D mRot = Matrix3D.NewRotateByDegrees(45, 0, 0);
+            Matrix3D mRotCorrect = mRot * mShift;       // spravne skladani
+            Matrix3D mRot2 = mShift * mRot;
+            Matrix3D mRot3 = mShift * mShift;
+            Point3D pRight = new Point3D(10, 20, 30);
+            Point3D pShitf = new Point3D(10, 20, 30);
+            Point3D pRot = new Point3D(10, 20, 30);
+            Point3D pRot1 = new Point3D(10, 20, 30);
+            Point3D pRot2 = new Point3D(10, 20, 30);
+            Point3D pRot3 = new Point3D(10, 20, 30);
+
+            mRot.TransformPoint(pRight);
+            mShift.TransformPoint(pRight);
+
+            mShift.TransformPoint(pShitf);
+            mRot.TransformPoint(pShitf);
+
+            mRotCorrect.TransformPoint(pRot1);
+            mRot2.TransformPoint(pRot2);
+            mRot3.TransformPoint(pRot3);
+        }
     }
 }

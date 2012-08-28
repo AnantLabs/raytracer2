@@ -25,18 +25,22 @@ namespace EditorLib
         public double Lenght { get; private set; }
         public double Radius { get; private set; }
 
+        Matrix3D _LocalMatrix;
+
 
         public DrawingCylinder(Cylinder cylinder)
         {
+            _LocalMatrix = Matrix3D.Identity;
             this.SetModelObject(cylinder);
         }
 
-        public DrawingCylinder(Point3D origin, double radius, double lenght, double rotX)
+        public DrawingCylinder(Point3D origin, double radius, double lenght)
         {
-            this.Set(origin, radius, lenght, rotX);
+            _LocalMatrix = Matrix3D.Identity;
+            this.Set(origin, radius, lenght);
         }
 
-        private void Set(Point3D origin, double radius, double lenght, double rotX)
+        private void Set(Point3D origin, double radius, double lenght)
         {
             //double pulLen = lenght / 2.0;
             //Point3D c1 = center + norm * pulLen;
@@ -90,34 +94,42 @@ namespace EditorLib
                 Lines.Add(line);
             }
 
-
-            Matrix3D mShift1 = Matrix3D.PosunutiNewMatrix(1, 2, 3);
-            Point3D pS1 = new Point3D(10, 20, 30);
-            mShift1.TransformPoint(pS1);
-
-            Matrix3D m = Matrix3D.NewRotateByDegrees(rotX, 0, 0);
-            this.ApplyRotationMatrix(m);
+            //Matrix3D m = Matrix3D.NewRotateByDegrees(30, 0, 0);
+            //_LocalMatrix = m;
+            //m.TransformPoints(Points);
+            //this.ApplyRotationMatrix(m);
+            _LocalMatrix.TransformPoints(Points);
 
             Matrix3D shiftMat = Matrix3D.PosunutiNewMatrix(origin.X, origin.Y, origin.Z);
+            shiftMat.TransformPoints(Points);
             // nakonec posuneme
-            foreach (Point3D p in Points)
-            {
-                p.Posunuti(origin.X, origin.Y, origin.Z);
-            }
+            //foreach (Point3D p in Points)
+            //{
+            //    p.Posunuti(origin.X, origin.Y, origin.Z);
+            //}
         }
+        public void RotateCyl(double x, double y, double z)
+        {
+            Matrix3D transp = _LocalMatrix.Transpose();
+            transp.TransformPoints(Points);
+            Matrix3D newRot = Matrix3D.NewRotateByDegrees(x, y, z);
 
+            this._LocalMatrix =newRot;
+            this.SetModelObject(this.ModelObject);
+            
+        }
         public override void SetModelObject(object modelObject)
         {
             if (modelObject.GetType() == typeof(Cylinder))
-                this.SetModelObject((Cylinder)modelObject, 0);
+                this.SetModelObject((Cylinder)modelObject);
         }
-        public void SetModelObject(Cylinder cylinder, double rotX)
+        public void SetModelObject(Cylinder cylinder)
         {
             this.ModelObject = cylinder;
             double radius = cylinder.R;
             double lenght = cylinder.H;
             Point3D origin = new Point3D(cylinder.Center.X, cylinder.Center.Y, cylinder.Center.Z);
-            this.Set(origin, radius, lenght, rotX);
+            this.Set(origin, radius, lenght);
         } 
 
         /// <summary>
