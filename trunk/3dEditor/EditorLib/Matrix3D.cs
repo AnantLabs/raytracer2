@@ -332,9 +332,10 @@ namespace EditorLib
         public static Matrix3D ScalingNewMatrix(double Sx, double Sy, double Sz)
         {
             Matrix3D matrix = new Matrix3D(
-                new Point3D(Sx, 0, 0), 
-                new Point3D(0, Sy, 0), 
-                new Point3D(0, 0, Sz));
+                new Point3D(Sx, 0, 0, 0),
+                new Point3D(0, Sy, 0, 0),
+                new Point3D(0, 0, Sz, 0),
+                new Point3D(0, 0, 0, 1));
 
             return matrix;
         }

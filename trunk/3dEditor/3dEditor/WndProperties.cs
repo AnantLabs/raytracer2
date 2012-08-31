@@ -126,6 +126,10 @@ namespace _3dEditor
             this.numSphColG.Value = (decimal)sph.Material.Color.G;
             this.numSphColB.Value = (decimal)sph.Material.Color.B;
 
+            this.numSphSize.Value = (decimal)drSphere.Sides;
+            this.numSphPhi.Value = (decimal)drSphere.DecremPhi;
+            this.numSphTheta.Value = (decimal)drSphere.DecremTheta;
+
         }
         private void ShowPlane(DrawingPlane drPlane)
         {
@@ -482,7 +486,11 @@ namespace _3dEditor
 
             sph.Material = mat;
 
-            drSph.SetModelObject(sph);
+            int size = (int)this.numSphSize.Value;
+            int theta = (int)this.numSphTheta.Value;
+            int phi = (int)this.numSphPhi.Value;
+
+            drSph.SetModelObject(sph, size, theta, phi);
             WndBoard wndB = GetWndBoard();
             drSph.ApplyRotationMatrix(wndB.RotationMatrix);
             WndScene wndSc = GetWndScene();
@@ -846,9 +854,8 @@ namespace _3dEditor
 
             WndBoard wnd = GetWndBoard();
             Matrix3D transp = wnd.RotationMatrix.Transpose();
-            drCyl.ApplyRotationMatrix(transp);
             drCyl.RotateCyl(x, y, z);
-            //drCyl.ApplyRotationMatrix(m);
+            wnd.RotationMatrix.TransformPoints(drCyl.Points);
         }
 
     }

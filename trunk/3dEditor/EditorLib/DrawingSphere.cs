@@ -10,9 +10,15 @@ namespace EditorLib
 {
     public class DrawingSphere : DrawingDefaultShape
     {
-
- 
         public double Radius { get; private set; }
+
+        const int _SIDES = 20;
+        const int _DECREM_THETA = 20;
+        const int _DECREM_PHI = 20;
+
+        public int Sides { get; private set; }
+        public int DecremTheta { get; private set; }
+        public int DecremPhi { get; private set; }
 
         public Point3D Center
         {
@@ -34,26 +40,29 @@ namespace EditorLib
         /// <summary>
         /// zakladni konstruktor, ktery vytvori i vlastni kouli z Raytraceru
         /// </summary>
-        public DrawingSphere()
+        public DrawingSphere() : this (new Sphere(new Vektor(), 1))
         {
-            Sphere sph = new Sphere(new Vektor(), 1);
-            this.SetModelObject(sph);
+            Sides = _SIDES;
+            DecremTheta = _DECREM_THETA;
+            DecremPhi = _DECREM_PHI;
         }
 
         public DrawingSphere(Sphere sphere)
         {
+            Sides = _SIDES;
+            DecremTheta = _DECREM_THETA;
+            DecremPhi = _DECREM_PHI;
             this.SetModelObject(sphere);
         }
         //public List<Rect
         public DrawingSphere(Point3D origin, double rad)
+            : this(new Sphere(new Vektor(origin.X,origin.Y,origin.Z), rad))
         {
             this.Set(origin, rad);
         }
 
         public override void SetModelObject(object modelObject)
         {
-
-
             if (modelObject != null && modelObject.GetType() == typeof(RayTracerLib.Sphere))
                 this.SetModelObject((RayTracerLib.Sphere)modelObject);
         }
@@ -64,15 +73,47 @@ namespace EditorLib
         /// <param name="sphere"></param>
         public void SetModelObject(RayTracerLib.Sphere sphere)
         {
+            this.SetModelObject(sphere, _SIDES, _DECREM_THETA, _DECREM_PHI);
+        }
+        
+        public void SetModelObject(RayTracerLib.Sphere sphere, int numSides, int decrTheta, int decrPhi)
+        {
             this.ModelObject = sphere;
             double rad = sphere.R;
             Point3D origin = new Point3D(sphere.Origin.X, sphere.Origin.Y, sphere.Origin.Z);
-            this.Set(origin, rad);
+            this.Set(origin, rad, numSides, decrTheta, decrPhi);
         }
-
         private void Set(Point3D origin, double rad)
         {
-            NSplit = 8;
+            this.Set(origin, rad, Sides, DecremTheta, DecremPhi);
+        }
+        private void Set(Point3D origin, double rad, int numSides, int decrTheta, int decrPhi)
+        {
+            Sides = numSides;
+            DecremTheta = decrTheta;
+            DecremPhi = decrPhi;
+            List<Point3D> poledniky = this.getPoledniky(1, numSides, decrTheta);
+            List<Point3D> rovnobezky = this.getRovnobezky(1, numSides, decrPhi);
+            rovnobezky.AddRange(poledniky);
+
+            List<Point3D> points = new List<Point3D>();
+            points.Add(new Point3D(0, 0, 0));
+            points.AddRange(rovnobezky);
+            Points = points.ToArray();
+
+            this.Radius = rad;
+            
+            Matrix3D scale = Matrix3D.ScalingNewMatrix(rad, rad, rad);
+            Matrix3D posunuti = Matrix3D.PosunutiNewMatrix(origin.X, origin.Y, origin.Z);
+            Matrix3D mm = scale * posunuti; // nejdrive scaling, pak posunuti
+            mm.TransformPoints(Points);
+            
+            this.Lines = new List<Line3D>(0);
+        }
+
+        private void Set2(Point3D origin, double rad)
+        {
+            NSplit = 2;
             this.Points = new Point3D[1 + 4 * 4 * NSplit];
             Point3D center = new Point3D(0, 0, 0);
             this.Points[0] = center;
@@ -152,10 +193,71 @@ namespace EditorLib
                 p.Posunuti(origin.X, origin.Y, origin.Z);
             }
             this.Radius = rad;
-            this.Lines = new List<Line3D>(0);
+            
         }
 
 
+        private List<Point3D> getPoledniky(double radius, int sidesNum, double decremTheta)
+        {
+            List<Point3D> allPoints = new List<Point3D>();
+            int sides = sidesNum;  // The amount of segment to create the circle
+            double theta = 360;
+            while (theta > 0)
+            {
+                double thetaRads = theta * Math.PI / 180;
+                List<Point3D> points = new List<Point3D>();
+                for (int a = 0; a < 360; a += 360 / sides)
+                {
+                    double phi = a * Math.PI / 180;
+                    float x = (float)(Math.Cos(thetaRads) * Math.Sin(phi));
+                    float y = (float)(Math.Sin(phi) * Math.Sin(thetaRads));
+                    float z = (float)(Math.Cos(phi));
+                    Point3D p = new Point3D(x, z, y);
+                    points.Add(p);
+                }
+                points.Add(new Point3D(points[0].X, points[0].Y, points[0].Z));
+
+                allPoints.AddRange(points);
+                theta -= decremTheta;
+            }
+            return allPoints;
+        }
+
+        /// <summary>
+        /// x = r * Sin(phi)*Cos(theta)
+        /// y = r * Sin(theta)*Sin(phi)
+        /// z = r * Cos(theta)
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="radius"></param>
+        /// <param name="sidesNum"></param>
+        /// <param name="decrementRad"></param>
+        /// <returns></returns>
+        private List<Point3D> getRovnobezky(double radius, int sidesNum, double decremPhi)
+        {
+            List<Point3D> allPoints = new List<Point3D>();
+            int sides = sidesNum;  // The amount of segment to create the circle
+            double theta = 360;
+            while (theta > 0)
+            {
+                double thetaRads = theta * Math.PI / 180;
+                List<Point3D> points = new List<Point3D>();
+                for (int a = 0; a < 360; a += 360 / sides)
+                {
+                    double phi = a * Math.PI / 180;
+                    float x = (float)(Math.Cos(phi) * Math.Sin(thetaRads));
+                    float y = (float)(Math.Sin(phi) * Math.Sin(thetaRads));
+                    float z = (float)(Math.Cos(thetaRads));
+                    Point3D p = new Point3D(x, z, y);
+                    points.Add(p);
+                }
+                points.Add(new Point3D(points[0].X, points[0].Y, points[0].Z));
+
+                allPoints.AddRange(points);
+                theta -= decremPhi;
+            }
+            return allPoints;
+        }
 
         /// <summary>
         /// Vrati seznam ctveric bodu, ktere jsou potrebne k vykresleni poledniku nebo rovnobezky
@@ -177,6 +279,12 @@ namespace EditorLib
                 list.Add(arr);
             }
             return list;
+        }
+
+        public Point3D[] GetDrawingPoints()
+        {
+            List<Point3D> ls = new List<Point3D>(Points);
+            return ls.GetRange(1, ls.Count-1).ToArray();
         }
     }
 }

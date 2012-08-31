@@ -13,7 +13,8 @@ namespace EditorLib
         public object ModelObject { get; protected set; }
 
         /// <summary>
-        /// All currently transformed points of the object
+        /// All currently transformed points of the object.
+        /// Souradnice objektu v editoru
         /// </summary>
         public Point3D[] Points { get; protected set; }
 

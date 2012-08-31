@@ -14,6 +14,7 @@ namespace EditorLib
     {
         private List<GraphicsPath> PathList { get; set; }
         public DrawingObject AssociatedObject { get; private set; }
+        
 
         public EditorObject(DrawingObject assocObj)
         {
