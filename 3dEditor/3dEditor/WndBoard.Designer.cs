@@ -31,16 +31,18 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WndBoard));
             this.pictureBoard = new System.Windows.Forms.PictureBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolBtnReset = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolsComboViewAngle = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolBtnAxes = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolBtnGrid = new System.Windows.Forms.ToolStripButton();
             this.toolsComboGridSize = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolBtnAxes = new System.Windows.Forms.ToolStripButton();
+            this.toolBtnReset = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripBtnLights = new System.Windows.Forms.ToolStripButton();
             this.toolStripBtnCamera = new System.Windows.Forms.ToolStripButton();
-            this.toolsComboViewAngle = new System.Windows.Forms.ToolStripComboBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabelZoomConst = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabelZoom = new System.Windows.Forms.ToolStripStatusLabel();
@@ -68,8 +70,6 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoard)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -88,7 +88,7 @@
             this.pictureBoard.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoard.Location = new System.Drawing.Point(0, 0);
             this.pictureBoard.Name = "pictureBoard";
-            this.pictureBoard.Size = new System.Drawing.Size(792, 561);
+            this.pictureBoard.Size = new System.Drawing.Size(792, 601);
             this.pictureBoard.TabIndex = 0;
             this.pictureBoard.TabStop = false;
             this.pictureBoard.MouseMove += new System.Windows.Forms.MouseEventHandler(this.onPicMouseMove);
@@ -120,15 +120,45 @@
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolBtnReset
+            // toolStripLabel1
             // 
-            this.toolBtnReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolBtnReset.Image = ((System.Drawing.Image)(resources.GetObject("toolBtnReset.Image")));
-            this.toolBtnReset.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolBtnReset.Name = "toolBtnReset";
-            this.toolBtnReset.Size = new System.Drawing.Size(39, 22);
-            this.toolBtnReset.Text = "Reset";
-            this.toolBtnReset.Click += new System.EventHandler(this.toolBtnReset_Click);
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(33, 22);
+            this.toolStripLabel1.Text = "View:";
+            // 
+            // toolsComboViewAngle
+            // 
+            this.toolsComboViewAngle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolsComboViewAngle.DropDownWidth = 80;
+            this.toolsComboViewAngle.Items.AddRange(new object[] {
+            "Front",
+            "Side +X",
+            "Side -X",
+            "Top",
+            "Reset X",
+            "Reset Y",
+            "Reset Z"});
+            this.toolsComboViewAngle.Name = "toolsComboViewAngle";
+            this.toolsComboViewAngle.Size = new System.Drawing.Size(80, 25);
+            this.toolsComboViewAngle.ToolTipText = "Select predefined view angle";
+            this.toolsComboViewAngle.SelectedIndexChanged += new System.EventHandler(this.OnChangedComboAngleView);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolBtnAxes
+            // 
+            this.toolBtnAxes.Checked = true;
+            this.toolBtnAxes.CheckOnClick = true;
+            this.toolBtnAxes.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toolBtnAxes.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolBtnAxes.Image = ((System.Drawing.Image)(resources.GetObject("toolBtnAxes.Image")));
+            this.toolBtnAxes.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolBtnAxes.Name = "toolBtnAxes";
+            this.toolBtnAxes.Size = new System.Drawing.Size(35, 22);
+            this.toolBtnAxes.Text = "Axes";
             // 
             // toolStripSeparator1
             // 
@@ -164,17 +194,15 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolBtnAxes
+            // toolBtnReset
             // 
-            this.toolBtnAxes.Checked = true;
-            this.toolBtnAxes.CheckOnClick = true;
-            this.toolBtnAxes.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.toolBtnAxes.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolBtnAxes.Image = ((System.Drawing.Image)(resources.GetObject("toolBtnAxes.Image")));
-            this.toolBtnAxes.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolBtnAxes.Name = "toolBtnAxes";
-            this.toolBtnAxes.Size = new System.Drawing.Size(35, 22);
-            this.toolBtnAxes.Text = "Axes";
+            this.toolBtnReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolBtnReset.Image = ((System.Drawing.Image)(resources.GetObject("toolBtnReset.Image")));
+            this.toolBtnReset.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolBtnReset.Name = "toolBtnReset";
+            this.toolBtnReset.Size = new System.Drawing.Size(39, 22);
+            this.toolBtnReset.Text = "Reset";
+            this.toolBtnReset.Click += new System.EventHandler(this.toolBtnReset_Click);
             // 
             // toolStripSeparator3
             // 
@@ -203,23 +231,6 @@
             this.toolStripBtnCamera.Text = "Show Camera";
             this.toolStripBtnCamera.Click += new System.EventHandler(this.onShowCamera);
             // 
-            // toolsComboViewAngle
-            // 
-            this.toolsComboViewAngle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolsComboViewAngle.DropDownWidth = 80;
-            this.toolsComboViewAngle.Items.AddRange(new object[] {
-            "Front",
-            "Side +X",
-            "Side -X",
-            "Top",
-            "Reset X",
-            "Reset Y",
-            "Reset Z"});
-            this.toolsComboViewAngle.Name = "toolsComboViewAngle";
-            this.toolsComboViewAngle.Size = new System.Drawing.Size(80, 25);
-            this.toolsComboViewAngle.ToolTipText = "Select predefined view angle";
-            this.toolsComboViewAngle.SelectedIndexChanged += new System.EventHandler(this.OnChangedComboAngleView);
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -231,7 +242,7 @@
             this.statusLabelY,
             this.statusLabelXConst,
             this.statusLabelZ});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 564);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 604);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
             this.statusStrip1.Size = new System.Drawing.Size(792, 22);
@@ -310,12 +321,12 @@
             // 
             this.toolStripContainer2.ContentPanel.Controls.Add(this.panel1);
             this.toolStripContainer2.ContentPanel.Controls.Add(this.pictureBoard);
-            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(792, 561);
+            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(792, 601);
             this.toolStripContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer2.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.toolStripContainer2.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer2.Name = "toolStripContainer2";
-            this.toolStripContainer2.Size = new System.Drawing.Size(792, 586);
+            this.toolStripContainer2.Size = new System.Drawing.Size(792, 626);
             this.toolStripContainer2.TabIndex = 5;
             this.toolStripContainer2.Text = "toolStripContainer2";
             // 
@@ -548,22 +559,11 @@
             this.numericUpDown3.TabIndex = 3;
             this.numericUpDown3.ValueChanged += new System.EventHandler(this.onValNumChange);
             // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(33, 22);
-            this.toolStripLabel1.Text = "View:";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-            // 
             // WndBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(792, 586);
+            this.ClientSize = new System.Drawing.Size(792, 626);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStripContainer2);
             this.Name = "WndBoard";

@@ -64,7 +64,7 @@ namespace _3dEditor
         /// <summary>
         /// citlivost pro prepocitani souradnic
         /// </summary>
-        int _MOUSE_SENSITIVITY = 10;
+        int _MOUSE_SENSITIVITY = 15;
 
         /// <summary>
         /// koeficient pri rotaci editoru mysi
@@ -291,13 +291,6 @@ namespace _3dEditor
             PointF a, b;
             foreach (DrawingObject obj in _objectsToDraw)
             {
-                //foreach (Line3D l in obj.Lines)
-                //{
-                //    a = l.A.To2D(_scale, _zoom, _centerPoint);
-                //    b = l.B.To2D(_scale, _zoom, _centerPoint);
-                //    g.DrawLine(_penObject, a, b);
-                //}
-
                 if (obj.ModelObject is DefaultShape)
                 {
                     DefaultShape defSpape = (DefaultShape)obj.ModelObject;
@@ -332,23 +325,38 @@ namespace _3dEditor
 
                     a = sph.Center.To2D(_scale, _zoom, _centerPoint);
                     float rad = ((float)sph.Radius * _scale) / _scale *_zoom;
-                    float xOhnisko = rad;
 
-                    List<Point3D[]> quarts = sph.GetQuartets();
-                    foreach (Point3D[] arr in quarts)
+                    Point3D[] points = sph.GetDrawingPoints();
+
+                    for (int i = 0; i < points.Length - 2; i++)
                     {
-                        PointF[] pfArr = new PointF[arr.Length];
-                        for (int j = 0; j < arr.Length; j++)
-                        {
-                            pfArr[j] = arr[j].To2D(_scale, _zoom, _centerPoint);
-                        }
-                        g.DrawClosedCurve(_penObject, pfArr, 1F, System.Drawing.Drawing2D.FillMode.Winding);
-                        // pridame ohraniceni cestou
-                        path = new GraphicsPath();
-                        path.AddClosedCurve(pfArr, 0.9F);
-                        editorObject.AddPath(path);
+                        PointF pf1 = points[i].To2D(_scale, _zoom, _centerPoint);
+                        PointF pf2 = points[i+1].To2D(_scale, _zoom, _centerPoint);
+                        g.DrawLine(_penObject, pf1, pf2);
                     }
-                        _editHelp.AddClickableObject(editorObject);
+
+                    path = new GraphicsPath();
+                    path.AddEllipse(a.X - rad, a.Y - rad, 2*rad, 2*rad);
+                    editorObject.AddPath(path);
+                    _editHelp.AddClickableObject(editorObject);
+
+                    //List<Point3D[]> quarts = sph.GetQuartets();
+                    //foreach (Point3D[] arr in quarts)
+                    //{
+                    //    PointF[] pfArr = new PointF[arr.Length];
+                    //    for (int j = 0; j < arr.Length; j++)
+                    //    {
+                    //        pfArr[j] = arr[j].To2D(_scale, _zoom, _centerPoint);
+                    //        //g.DrawArc(_penAxis, pfArr[j].X,pfArr[j].Y,
+                    //    }
+                    //    //g.DrawClosedCurve(_penObject, pfArr, 0.999999F, System.Drawing.Drawing2D.FillMode.Winding);
+                        
+                    //    // pridame ohraniceni cestou
+                    //    path = new GraphicsPath();
+                    //    path.AddClosedCurve(pfArr, 0.9F);
+                    //    editorObject.AddPath(path);
+                    //}
+                        
                 }
 
                 else if (obj.GetType() == typeof(DrawingPlane)) // ================= PLANE
@@ -510,12 +518,6 @@ namespace _3dEditor
                     _editHelp.AddClickableObject(editorObject);
 
                     
-                    // camera pen:
-                    Pen cameraPen = new Pen(Color.Black, 3);
-                    cameraPen.EndCap = LineCap.Custom;
-                    cameraPen.CustomEndCap = new AdjustableArrowCap(3f, 3f, false);
-                    cameraPen.DashStyle = DashStyle.DashDot;
-
                     Line3D line;
 
                     // cara ze stredu kamery do stredu elipsy -- osa kuzele
@@ -523,70 +525,54 @@ namespace _3dEditor
                     line = drCam.Lines[0];
                     a = line.A.To2D(_scale, _zoom, _centerPoint);
                     b = line.B.To2D(_scale, _zoom, _centerPoint);
-                    g.DrawLine(cameraPen, a, b);
+                    g.DrawLine(_editHelp.CameraPenMain, a, b);
 
                     // cary podstavy elipsy
                     // tenci cary bez sipky
                     if (drCam.ShowCross)
                     {
-                        cameraPen.Width = 1; // tenci
-                        cameraPen.EndCap = LineCap.NoAnchor; // bez zakonceni sipkou
-
                         // prvni line
                         line = drCam.Lines[1];
                         a = line.A.To2D(_scale, _zoom, _centerPoint);
                         b = line.B.To2D(_scale, _zoom, _centerPoint);
-                        g.DrawLine(cameraPen, a, b);
+                        g.DrawLine(_editHelp.CameraPenLight, a, b);
 
                         // druha line
                         line = drCam.Lines[2];
                         a = line.A.To2D(_scale, _zoom, _centerPoint);
                         b = line.B.To2D(_scale, _zoom, _centerPoint);
-                        g.DrawLine(cameraPen, a, b);
+                        g.DrawLine(_editHelp.CameraPenLight, a, b);
                     }
                     /// cary steny:
                     /// 
                     // prvni par:
                     if (drCam.ShowSide1)
                     {
-                        cameraPen.Width = 1; // tenci
-                        cameraPen.EndCap = LineCap.NoAnchor; // bez zakonceni sipkou
-
                         line = drCam.Lines[3];
                         a = line.A.To2D(_scale, _zoom, _centerPoint);
                         b = line.B.To2D(_scale, _zoom, _centerPoint);
-                        g.DrawLine(cameraPen, a, b);
+                        g.DrawLine(_editHelp.CameraPenLight, a, b);
 
                         line = drCam.Lines[5];
                         a = line.A.To2D(_scale, _zoom, _centerPoint);
                         b = line.B.To2D(_scale, _zoom, _centerPoint);
-                        g.DrawLine(cameraPen, a, b);
+                        g.DrawLine(_editHelp.CameraPenLight, a, b);
 
                     }
 
                     // druhy par
                     if (drCam.ShowSide2)
                     {
-                        cameraPen.Width = 1; // tenci
-                        cameraPen.EndCap = LineCap.NoAnchor; // bez zakonceni sipkou
-
                         line = drCam.Lines[4];
                         a = line.A.To2D(_scale, _zoom, _centerPoint);
                         b = line.B.To2D(_scale, _zoom, _centerPoint);
-                        g.DrawLine(cameraPen, a, b);
+                        g.DrawLine(_editHelp.CameraPenLight, a, b);
 
                         line = drCam.Lines[6];
                         a = line.A.To2D(_scale, _zoom, _centerPoint);
                         b = line.B.To2D(_scale, _zoom, _centerPoint);
-                        g.DrawLine(cameraPen, a, b);
+                        g.DrawLine(_editHelp.CameraPenLight, a, b);
                     }
-                    //// POKUSY NA TRANSFORMACI KAMERY
-                    //foreach (Line3D l in drCam.Lines)
-                    //{
-                    //    a = l.A.To2D(_scale, _zoom, _centerPoint);
-                    //    b = l.B.To2D(_scale, _zoom, _centerPoint);
-                    //    g.DrawLine(cameraPen, a, b);
-                    //}
 
                     // podstava
                     PointF[] pointsF = new PointF[4];
@@ -595,7 +581,7 @@ namespace _3dEditor
                         pointsF[i - 2] = drCam.Points[i].To2D(_scale, _zoom, _centerPoint);
                     }
 
-                    g.DrawClosedCurve(_penObject, pointsF, 1F, System.Drawing.Drawing2D.FillMode.Winding);
+                    g.DrawClosedCurve(_editHelp.CameraPenEllips, pointsF, 1F, System.Drawing.Drawing2D.FillMode.Winding);
                 }
 
             }
@@ -667,6 +653,9 @@ namespace _3dEditor
             g.DrawString("X", _fontAxis, Brushes.Black, x);
             g.DrawString("Y", _fontAxis, Brushes.Black, y);
             g.DrawString("Z", _fontAxis, Brushes.Black, z);
+
+            //drawArcs(g, _penAxisMinus, new Rectangle(new Point(200, 50), new Size(150, 150)));
+            drawMyArcs(g, _penAxisMinus, new Rectangle(new Point(200, 50), new Size(150, 150)));
         }
 
         private void DrawGrid(Graphics g, List<Line3D> lines)
@@ -686,6 +675,115 @@ namespace _3dEditor
             PointF b = points3d[1].To2D(_scale, _zoom, _centerPoint);
 
             //g.DrawEllipse(Pens.Gold, uperLeftX, upperLeftY, Width, Height);
+        }
+
+        private PointF[] getPoledniky(int sidesNum, Rectangle r, float decrementRad)
+        {
+            PointF center = new PointF(r.Left + r.Width / 2, r.Top + r.Height / 2);
+
+            List<PointF> allPoints = new List<PointF>();
+            int sides = sidesNum;  // The amount of segment to create the circle
+            float radius = r.Width / 2; // The radius of the circle
+            float rad = radius;
+            while (rad > 0)
+            {
+
+                List<PointF> points = new List<PointF>();
+                for (int a = 0; a < 360; a += 360 / sides)
+                {
+                    double heading = a * Math.PI / 180;
+                    float x = (float)(Math.Cos(heading) * rad);
+                    float y = (float)(Math.Sin(heading) * radius);
+                    PointF p = new PointF(x, y);
+                    p.X += center.X;
+                    p.Y += center.Y;
+                    points.Add(p);
+                }
+                points.Add(new PointF(points[0].X, points[0].Y));
+
+                allPoints.AddRange(points);
+                rad -= decrementRad;
+
+            }
+            return allPoints.ToArray();
+        }
+        private PointF[] getRovnobezky(int sidesNum, Rectangle r, float decrementRad)
+        {
+            PointF center = new PointF(r.Left + r.Width / 2, r.Top + r.Height / 2);
+
+            List<PointF> allPoints = new List<PointF>();
+            int sides = sidesNum;  // The amount of segment to create the circle
+            float radius = r.Width / 2; // The radius of the circle
+            float rad = radius;
+            while (rad > 0)
+            {
+
+                List<PointF> points = new List<PointF>();
+                for (int a = 0; a < 360; a += 360 / sides)
+                {
+                    double heading = a * Math.PI / 180;
+                    float x = (float)(Math.Cos(heading) * radius);
+                    float y = (float)(Math.Sin(heading) * rad);
+                    PointF p = new PointF(x, y);
+                    p.X += center.X;
+                    p.Y += center.Y;
+                    points.Add(p);
+                }
+                points.Add(new PointF(points[0].X, points[0].Y));
+
+                allPoints.AddRange(points);
+                rad -= decrementRad;
+
+            }
+            return allPoints.ToArray();
+        }
+        private void drawMyArcs(Graphics g, Pen color, Rectangle r)
+        {
+            PointF[] poledniky = getPoledniky(100, r, 20);
+            PointF[] rovnobezky = getRovnobezky(100, r, 20);
+
+            for (int i = 0; i < poledniky.Length - 1; i++)
+            {
+                g.DrawLine(color, poledniky[i], poledniky[i + 1]);
+                g.DrawLine(color, rovnobezky[i], rovnobezky[i + 1]);
+            }
+
+
+        }
+        private void drawArcs(Graphics g, Pen color, Rectangle r)
+        {
+
+            int x1 = r.Left + r.Width / 2;
+            int y1 = r.Top;
+            int x2 = x1;
+            int y2 = r.Top + r.Height;
+
+            int x3 = r.Left;
+            int y3 = r.Top + r.Height / 2;
+            int x4 = r.Left + r.Width;
+            int y4 = y3;
+
+            // CENTER = [x1,y3]
+            // draw axis
+            g.DrawLine(color, x1, y1, x2, y2);
+            g.DrawLine(color, x3, y3, x4, y4);
+
+            // right-left arcs
+            for (int j = r.Width; j > 0; j -= 40)
+            {
+                int left = r.Left + (r.Width - j) / 2;
+                Rectangle rc = new Rectangle(left, r.Top, j, r.Height);
+                g.DrawArc(color, rc, 0.0F, 180.0F); // 0-180 degrees
+                g.DrawArc(color, rc, 180.0F, 360.0F); // 180-360 degrees
+            }
+            // top-bottom arcs
+            for (int j = r.Height; j > 0; j -= 40)
+            {
+                int top = r.Top + (r.Height - j) / 2;
+                Rectangle rc = new Rectangle(r.Left, top, r.Width, j);
+                g.DrawArc(color, rc, 270.0F, 450.0F); // 270-90 degrees
+                g.DrawArc(color, rc, 90.0F, 270.0F); // 90-270 degrees
+            }
         }
 
         private void onPicMouseMove(object sender, MouseEventArgs e)
@@ -732,10 +830,13 @@ namespace _3dEditor
                     if (_Selected.ModelObject is DefaultShape)
                     {
                         DefaultShape ds = _Selected.ModelObject as DefaultShape;
-                        foreach (Point3D p in _Selected.Points)
-                        {
-                            p.Posunuti(-xDel, -yDel, 0);    // potreba nahradit zpusobem s matici a nasobeni rotacni matice
-                        }
+                        //if (!(ds is Cylinder))
+                        //{
+                            foreach (Point3D p in _Selected.Points)
+                            {
+                                p.Posunuti(-xDel, -yDel, 0);    // potreba nahradit zpusobem s matici a nasobeni rotacni matice
+                            }
+                        //}
                         if (ds is Sphere)
                         {
                             DrawingSphere drawSphere = _Selected as DrawingSphere;
@@ -757,6 +858,7 @@ namespace _3dEditor
                             DrawingCylinder drCyl = _Selected as DrawingCylinder;
                             Cylinder cyl = ds as Cylinder;
                             Matrix3D transp = this._matrixForever.Transpose();
+                            //drCyl.ShiftCyl(-xDel, -yDel, 0);
                             Point3D centerTransp = transp.Transform2NewPoint(drCyl.Center);
                             cyl.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
                         }

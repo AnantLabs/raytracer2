@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace EditorLib
 {
@@ -27,6 +28,11 @@ namespace EditorLib
 
         public int MagnifCoef { get; set; }
         public int Zoom { get; set; }
+
+        public Pen CameraPenMain { get; set; }
+        public Pen CameraPenLight { get; set; }
+        public Pen CameraPenEllips { get; set; }
+
 
         // styl pro bybrany objekt
         public const float PenSelectedWidth = 1.9f;
@@ -55,6 +61,18 @@ namespace EditorLib
             listCombos.Add(new ComboViewAngle("Reset Z", 0, 180, 180));
 
             ComboViewObjects = listCombos.ToArray();
+
+            // nastaveny pera kamery
+            CameraPenMain = new Pen(Color.Black, 3);
+            CameraPenMain.EndCap = LineCap.Custom;
+            CameraPenMain.CustomEndCap = new AdjustableArrowCap(3f, 3f, false);
+            CameraPenMain.DashStyle = DashStyle.DashDot;
+
+            CameraPenLight = new Pen(Color.Black, 1);
+            CameraPenLight.EndCap = LineCap.NoAnchor;
+            CameraPenLight.DashStyle = DashStyle.DashDot;
+
+            CameraPenEllips = new Pen(Color.Firebrick, 2);
         }
 
         /// <summary>

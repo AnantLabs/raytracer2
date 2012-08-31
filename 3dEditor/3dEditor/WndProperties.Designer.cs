@@ -60,7 +60,6 @@
             this.numericKouleY = new System.Windows.Forms.NumericUpDown();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.buttonKouleSave = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -73,6 +72,14 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panelCylindr = new System.Windows.Forms.Panel();
+            this.label135 = new System.Windows.Forms.Label();
+            this.label138 = new System.Windows.Forms.Label();
+            this.label75 = new System.Windows.Forms.Label();
+            this.label137 = new System.Windows.Forms.Label();
+            this.label136 = new System.Windows.Forms.Label();
+            this.numCylRotateZ = new System.Windows.Forms.NumericUpDown();
+            this.numCylRotateY = new System.Windows.Forms.NumericUpDown();
+            this.numCylRotateX = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
             this.numCylN = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
@@ -305,13 +312,14 @@
             this.label130 = new System.Windows.Forms.Label();
             this.numericElipseC = new System.Windows.Forms.NumericUpDown();
             this.label131 = new System.Windows.Forms.Label();
-            this.numCylRotateX = new System.Windows.Forms.NumericUpDown();
-            this.numCylRotateY = new System.Windows.Forms.NumericUpDown();
-            this.numCylRotateZ = new System.Windows.Forms.NumericUpDown();
-            this.label135 = new System.Windows.Forms.Label();
-            this.label136 = new System.Windows.Forms.Label();
-            this.label137 = new System.Windows.Forms.Label();
-            this.label75 = new System.Windows.Forms.Label();
+            this.numSphSize = new System.Windows.Forms.NumericUpDown();
+            this.label139 = new System.Windows.Forms.Label();
+            this.label140 = new System.Windows.Forms.Label();
+            this.label141 = new System.Windows.Forms.Label();
+            this.label142 = new System.Windows.Forms.Label();
+            this.label143 = new System.Windows.Forms.Label();
+            this.numSphTheta = new System.Windows.Forms.NumericUpDown();
+            this.numSphPhi = new System.Windows.Forms.NumericUpDown();
             this.panelSphere.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSphN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSphKt)).BeginInit();
@@ -327,6 +335,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericKouleZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericKouleY)).BeginInit();
             this.panelCylindr.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCylRotateZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCylRotateY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCylRotateX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCylN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCylKt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCylH)).BeginInit();
@@ -419,14 +430,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericElipseA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericElipseCenterY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericElipseC)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCylRotateX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCylRotateY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCylRotateZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSphSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSphTheta)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSphPhi)).BeginInit();
             this.SuspendLayout();
             // 
             // panelSphere
             // 
             this.panelSphere.BackColor = System.Drawing.SystemColors.Control;
+            this.panelSphere.Controls.Add(this.numSphPhi);
+            this.panelSphere.Controls.Add(this.numSphTheta);
+            this.panelSphere.Controls.Add(this.numSphSize);
+            this.panelSphere.Controls.Add(this.label139);
+            this.panelSphere.Controls.Add(this.label140);
+            this.panelSphere.Controls.Add(this.label141);
+            this.panelSphere.Controls.Add(this.label142);
             this.panelSphere.Controls.Add(this.label17);
             this.panelSphere.Controls.Add(this.label69);
             this.panelSphere.Controls.Add(this.numSphN);
@@ -458,18 +476,18 @@
             this.panelSphere.Controls.Add(this.numericKouleY);
             this.panelSphere.Controls.Add(this.label18);
             this.panelSphere.Controls.Add(this.label19);
-            this.panelSphere.Controls.Add(this.buttonKouleSave);
             this.panelSphere.Controls.Add(this.label2);
             this.panelSphere.Controls.Add(this.label6);
             this.panelSphere.Controls.Add(this.label7);
             this.panelSphere.Controls.Add(this.label8);
             this.panelSphere.Controls.Add(this.label9);
             this.panelSphere.Controls.Add(this.label10);
-            this.panelSphere.Controls.Add(this.label11);
             this.panelSphere.Controls.Add(this.label12);
             this.panelSphere.Controls.Add(this.label14);
             this.panelSphere.Controls.Add(this.label15);
             this.panelSphere.Controls.Add(this.label1);
+            this.panelSphere.Controls.Add(this.label11);
+            this.panelSphere.Controls.Add(this.label143);
             this.panelSphere.Location = new System.Drawing.Point(280, 3);
             this.panelSphere.Name = "panelSphere";
             this.panelSphere.Size = new System.Drawing.Size(348, 253);
@@ -480,7 +498,7 @@
             this.label17.AutoSize = true;
             this.label17.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label17.Location = new System.Drawing.Point(29, 226);
+            this.label17.Location = new System.Drawing.Point(236, 26);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(70, 16);
             this.label17.TabIndex = 127;
@@ -913,16 +931,6 @@
             this.label19.TabIndex = 91;
             this.label19.Text = "Y:";
             // 
-            // buttonKouleSave
-            // 
-            this.buttonKouleSave.Location = new System.Drawing.Point(122, 223);
-            this.buttonKouleSave.Name = "buttonKouleSave";
-            this.buttonKouleSave.Size = new System.Drawing.Size(61, 23);
-            this.buttonKouleSave.TabIndex = 33;
-            this.buttonKouleSave.Text = "Save";
-            this.buttonKouleSave.UseVisualStyleBackColor = true;
-            this.buttonKouleSave.Click += new System.EventHandler(this.actionSphereSet);
-            // 
             // label2
             // 
             this.label2.BackColor = System.Drawing.Color.Gainsboro;
@@ -1024,10 +1032,11 @@
             // 
             // panelCylindr
             // 
+            this.panelCylindr.Controls.Add(this.label135);
+            this.panelCylindr.Controls.Add(this.label138);
             this.panelCylindr.Controls.Add(this.label75);
             this.panelCylindr.Controls.Add(this.label137);
             this.panelCylindr.Controls.Add(this.label136);
-            this.panelCylindr.Controls.Add(this.label135);
             this.panelCylindr.Controls.Add(this.numCylRotateZ);
             this.panelCylindr.Controls.Add(this.numCylRotateY);
             this.panelCylindr.Controls.Add(this.numCylRotateX);
@@ -1070,16 +1079,135 @@
             this.panelCylindr.Controls.Add(this.numericCylCentY);
             this.panelCylindr.Controls.Add(this.label77);
             this.panelCylindr.Controls.Add(this.label78);
-            this.panelCylindr.Location = new System.Drawing.Point(200, 275);
+            this.panelCylindr.Location = new System.Drawing.Point(679, 17);
             this.panelCylindr.Name = "panelCylindr";
             this.panelCylindr.Size = new System.Drawing.Size(375, 362);
             this.panelCylindr.TabIndex = 57;
+            // 
+            // label135
+            // 
+            this.label135.AutoSize = true;
+            this.label135.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label135.Location = new System.Drawing.Point(97, 120);
+            this.label135.Name = "label135";
+            this.label135.Size = new System.Drawing.Size(15, 13);
+            this.label135.TabIndex = 126;
+            this.label135.Text = "x:";
+            // 
+            // label138
+            // 
+            this.label138.AutoSize = true;
+            this.label138.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label138.Location = new System.Drawing.Point(15, 119);
+            this.label138.Name = "label138";
+            this.label138.Size = new System.Drawing.Size(87, 16);
+            this.label138.TabIndex = 129;
+            this.label138.Text = "Orientation:";
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label75.Location = new System.Drawing.Point(75, 0);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(81, 24);
+            this.label75.TabIndex = 63;
+            this.label75.Text = "Cylindr:";
+            // 
+            // label137
+            // 
+            this.label137.AutoSize = true;
+            this.label137.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label137.Location = new System.Drawing.Point(225, 119);
+            this.label137.Name = "label137";
+            this.label137.Size = new System.Drawing.Size(15, 13);
+            this.label137.TabIndex = 128;
+            this.label137.Text = "z:";
+            // 
+            // label136
+            // 
+            this.label136.AutoSize = true;
+            this.label136.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label136.Location = new System.Drawing.Point(162, 119);
+            this.label136.Name = "label136";
+            this.label136.Size = new System.Drawing.Size(15, 13);
+            this.label136.TabIndex = 127;
+            this.label136.Text = "y:";
+            // 
+            // numCylRotateZ
+            // 
+            this.numCylRotateZ.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numCylRotateZ.Location = new System.Drawing.Point(242, 117);
+            this.numCylRotateZ.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numCylRotateZ.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numCylRotateZ.Name = "numCylRotateZ";
+            this.numCylRotateZ.Size = new System.Drawing.Size(45, 20);
+            this.numCylRotateZ.TabIndex = 125;
+            this.numCylRotateZ.ValueChanged += new System.EventHandler(this.onNumericRotateCylinder);
+            // 
+            // numCylRotateY
+            // 
+            this.numCylRotateY.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numCylRotateY.Location = new System.Drawing.Point(179, 117);
+            this.numCylRotateY.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numCylRotateY.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numCylRotateY.Name = "numCylRotateY";
+            this.numCylRotateY.Size = new System.Drawing.Size(45, 20);
+            this.numCylRotateY.TabIndex = 124;
+            this.numCylRotateY.ValueChanged += new System.EventHandler(this.onNumericRotateCylinder);
+            // 
+            // numCylRotateX
+            // 
+            this.numCylRotateX.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numCylRotateX.Location = new System.Drawing.Point(116, 117);
+            this.numCylRotateX.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numCylRotateX.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numCylRotateX.Name = "numCylRotateX";
+            this.numCylRotateX.Size = new System.Drawing.Size(45, 20);
+            this.numCylRotateX.TabIndex = 123;
+            this.numCylRotateX.ValueChanged += new System.EventHandler(this.onNumericRotateCylinder);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label13.Location = new System.Drawing.Point(110, 223);
+            this.label13.Location = new System.Drawing.Point(110, 248);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(104, 13);
             this.label13.TabIndex = 122;
@@ -1093,7 +1221,7 @@
             0,
             0,
             65536});
-            this.numCylN.Location = new System.Drawing.Point(217, 221);
+            this.numCylN.Location = new System.Drawing.Point(217, 246);
             this.numCylN.Maximum = new decimal(new int[] {
             10,
             0,
@@ -1113,7 +1241,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(80, 203);
+            this.label4.Location = new System.Drawing.Point(80, 228);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(134, 13);
             this.label4.TabIndex = 120;
@@ -1127,7 +1255,7 @@
             0,
             0,
             65536});
-            this.numCylKt.Location = new System.Drawing.Point(217, 201);
+            this.numCylKt.Location = new System.Drawing.Point(217, 226);
             this.numCylKt.Maximum = new decimal(new int[] {
             1,
             0,
@@ -1142,7 +1270,7 @@
             // 
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label36.Location = new System.Drawing.Point(99, 183);
+            this.label36.Location = new System.Drawing.Point(99, 208);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(115, 13);
             this.label36.TabIndex = 118;
@@ -1150,7 +1278,7 @@
             // 
             // btnCylMaterialColor
             // 
-            this.btnCylMaterialColor.Location = new System.Drawing.Point(309, 244);
+            this.btnCylMaterialColor.Location = new System.Drawing.Point(309, 269);
             this.btnCylMaterialColor.Name = "btnCylMaterialColor";
             this.btnCylMaterialColor.Size = new System.Drawing.Size(61, 23);
             this.btnCylMaterialColor.TabIndex = 111;
@@ -1160,7 +1288,7 @@
             // 
             // numCylH
             // 
-            this.numCylH.Location = new System.Drawing.Point(217, 181);
+            this.numCylH.Location = new System.Drawing.Point(217, 206);
             this.numCylH.Name = "numCylH";
             this.numCylH.Size = new System.Drawing.Size(61, 20);
             this.numCylH.TabIndex = 117;
@@ -1179,7 +1307,7 @@
             0,
             0,
             65536});
-            this.numCylColR.Location = new System.Drawing.Point(82, 245);
+            this.numCylColR.Location = new System.Drawing.Point(82, 270);
             this.numCylColR.Name = "numCylColR";
             this.numCylColR.Size = new System.Drawing.Size(61, 20);
             this.numCylColR.TabIndex = 113;
@@ -1193,7 +1321,7 @@
             0,
             0,
             65536});
-            this.numCylColB.Location = new System.Drawing.Point(242, 245);
+            this.numCylColB.Location = new System.Drawing.Point(242, 270);
             this.numCylColB.Name = "numCylColB";
             this.numCylColB.Size = new System.Drawing.Size(61, 20);
             this.numCylColB.TabIndex = 110;
@@ -1203,7 +1331,7 @@
             // 
             this.label37.AutoSize = true;
             this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label37.Location = new System.Drawing.Point(64, 248);
+            this.label37.Location = new System.Drawing.Point(64, 273);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(18, 13);
             this.label37.TabIndex = 112;
@@ -1217,7 +1345,7 @@
             0,
             0,
             65536});
-            this.numCylColG.Location = new System.Drawing.Point(162, 245);
+            this.numCylColG.Location = new System.Drawing.Point(162, 270);
             this.numCylColG.Name = "numCylColG";
             this.numCylColG.Size = new System.Drawing.Size(61, 20);
             this.numCylColG.TabIndex = 114;
@@ -1227,7 +1355,7 @@
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label38.Location = new System.Drawing.Point(223, 248);
+            this.label38.Location = new System.Drawing.Point(223, 273);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(17, 13);
             this.label38.TabIndex = 115;
@@ -1237,7 +1365,7 @@
             // 
             this.label39.AutoSize = true;
             this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label39.Location = new System.Drawing.Point(145, 248);
+            this.label39.Location = new System.Drawing.Point(145, 273);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(18, 13);
             this.label39.TabIndex = 116;
@@ -1247,7 +1375,7 @@
             // 
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label40.Location = new System.Drawing.Point(8, 246);
+            this.label40.Location = new System.Drawing.Point(8, 271);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(57, 16);
             this.label40.TabIndex = 109;
@@ -1261,7 +1389,7 @@
             0,
             0,
             65536});
-            this.numCylKa.Location = new System.Drawing.Point(217, 121);
+            this.numCylKa.Location = new System.Drawing.Point(217, 146);
             this.numCylKa.Name = "numCylKa";
             this.numCylKa.Size = new System.Drawing.Size(61, 20);
             this.numCylKa.TabIndex = 105;
@@ -1276,7 +1404,7 @@
             // 
             this.label41.AutoSize = true;
             this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label41.Location = new System.Drawing.Point(21, 115);
+            this.label41.Location = new System.Drawing.Point(21, 140);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(68, 16);
             this.label41.TabIndex = 102;
@@ -1290,7 +1418,7 @@
             0,
             0,
             65536});
-            this.numCylKd.Location = new System.Drawing.Point(217, 161);
+            this.numCylKd.Location = new System.Drawing.Point(217, 186);
             this.numCylKd.Name = "numCylKd";
             this.numCylKd.Size = new System.Drawing.Size(61, 20);
             this.numCylKd.TabIndex = 103;
@@ -1305,7 +1433,7 @@
             // 
             this.label42.AutoSize = true;
             this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label42.Location = new System.Drawing.Point(91, 124);
+            this.label42.Location = new System.Drawing.Point(91, 149);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(123, 13);
             this.label42.TabIndex = 104;
@@ -1319,7 +1447,7 @@
             0,
             0,
             65536});
-            this.numCylKs.Location = new System.Drawing.Point(217, 141);
+            this.numCylKs.Location = new System.Drawing.Point(217, 166);
             this.numCylKs.Name = "numCylKs";
             this.numCylKs.Size = new System.Drawing.Size(61, 20);
             this.numCylKs.TabIndex = 106;
@@ -1334,7 +1462,7 @@
             // 
             this.label49.AutoSize = true;
             this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label49.Location = new System.Drawing.Point(95, 163);
+            this.label49.Location = new System.Drawing.Point(95, 188);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(119, 13);
             this.label49.TabIndex = 107;
@@ -1344,7 +1472,7 @@
             // 
             this.label57.AutoSize = true;
             this.label57.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label57.Location = new System.Drawing.Point(87, 143);
+            this.label57.Location = new System.Drawing.Point(87, 168);
             this.label57.Name = "label57";
             this.label57.Size = new System.Drawing.Size(127, 13);
             this.label57.TabIndex = 108;
@@ -1489,7 +1617,7 @@
             // 
             this.label71.AutoSize = true;
             this.label71.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label71.Location = new System.Drawing.Point(270, 93);
+            this.label71.Location = new System.Drawing.Point(270, 96);
             this.label71.Name = "label71";
             this.label71.Size = new System.Drawing.Size(17, 13);
             this.label71.TabIndex = 96;
@@ -1499,7 +1627,7 @@
             // 
             this.label72.AutoSize = true;
             this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label72.Location = new System.Drawing.Point(178, 93);
+            this.label72.Location = new System.Drawing.Point(178, 96);
             this.label72.Name = "label72";
             this.label72.Size = new System.Drawing.Size(17, 13);
             this.label72.TabIndex = 97;
@@ -4359,99 +4487,142 @@
             this.label131.TabIndex = 24;
             this.label131.Text = "Y:";
             // 
-            // numCylRotateX
+            // numSphSize
             // 
-            this.numCylRotateX.Increment = new decimal(new int[] {
+            this.numSphSize.Increment = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numCylRotateX.Location = new System.Drawing.Point(40, 273);
-            this.numCylRotateX.Maximum = new decimal(new int[] {
-            360,
+            this.numSphSize.Location = new System.Drawing.Point(106, 221);
+            this.numSphSize.Maximum = new decimal(new int[] {
+            80,
             0,
             0,
             0});
-            this.numCylRotateX.Name = "numCylRotateX";
-            this.numCylRotateX.Size = new System.Drawing.Size(45, 20);
-            this.numCylRotateX.TabIndex = 123;
-            this.numCylRotateX.ValueChanged += new System.EventHandler(this.onNumericRotateCylinder);
-            // 
-            // numCylRotateY
-            // 
-            this.numCylRotateY.Increment = new decimal(new int[] {
+            this.numSphSize.Minimum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numCylRotateY.Location = new System.Drawing.Point(103, 273);
-            this.numCylRotateY.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.numCylRotateY.Name = "numCylRotateY";
-            this.numCylRotateY.Size = new System.Drawing.Size(45, 20);
-            this.numCylRotateY.TabIndex = 124;
-            this.numCylRotateY.ValueChanged += new System.EventHandler(this.onNumericRotateCylinder);
-            // 
-            // numCylRotateZ
-            // 
-            this.numCylRotateZ.Increment = new decimal(new int[] {
+            this.numSphSize.Name = "numSphSize";
+            this.numSphSize.Size = new System.Drawing.Size(42, 20);
+            this.numSphSize.TabIndex = 131;
+            this.numSphSize.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numCylRotateZ.Location = new System.Drawing.Point(166, 273);
-            this.numCylRotateZ.Maximum = new decimal(new int[] {
-            360,
+            this.numSphSize.ValueChanged += new System.EventHandler(this.actionSphereSet);
+            // 
+            // label139
+            // 
+            this.label139.AutoSize = true;
+            this.label139.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label139.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label139.Location = new System.Drawing.Point(69, 224);
+            this.label139.Name = "label139";
+            this.label139.Size = new System.Drawing.Size(37, 13);
+            this.label139.TabIndex = 130;
+            this.label139.Text = "Detail:";
+            // 
+            // label140
+            // 
+            this.label140.AutoSize = true;
+            this.label140.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label140.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label140.Location = new System.Drawing.Point(243, 224);
+            this.label140.Name = "label140";
+            this.label140.Size = new System.Drawing.Size(25, 13);
+            this.label140.TabIndex = 133;
+            this.label140.Text = "Phi:";
+            // 
+            // label141
+            // 
+            this.label141.AutoSize = true;
+            this.label141.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label141.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label141.Location = new System.Drawing.Point(149, 224);
+            this.label141.Name = "label141";
+            this.label141.Size = new System.Drawing.Size(38, 13);
+            this.label141.TabIndex = 134;
+            this.label141.Text = "Theta:";
+            // 
+            // label142
+            // 
+            this.label142.AutoSize = true;
+            this.label142.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label142.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label142.Location = new System.Drawing.Point(10, 222);
+            this.label142.Name = "label142";
+            this.label142.Size = new System.Drawing.Size(53, 16);
+            this.label142.TabIndex = 128;
+            this.label142.Text = "Editor:";
+            // 
+            // label143
+            // 
+            this.label143.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label143.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label143.Location = new System.Drawing.Point(-67, 220);
+            this.label143.Name = "label143";
+            this.label143.Size = new System.Drawing.Size(500, 20);
+            this.label143.TabIndex = 135;
+            // 
+            // numSphTheta
+            // 
+            this.numSphTheta.Increment = new decimal(new int[] {
+            10,
             0,
             0,
             0});
-            this.numCylRotateZ.Name = "numCylRotateZ";
-            this.numCylRotateZ.Size = new System.Drawing.Size(45, 20);
-            this.numCylRotateZ.TabIndex = 125;
-            this.numCylRotateZ.ValueChanged += new System.EventHandler(this.onNumericRotateCylinder);
+            this.numSphTheta.Location = new System.Drawing.Point(184, 220);
+            this.numSphTheta.Maximum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.numSphTheta.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numSphTheta.Name = "numSphTheta";
+            this.numSphTheta.Size = new System.Drawing.Size(42, 20);
+            this.numSphTheta.TabIndex = 136;
+            this.numSphTheta.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numSphTheta.ValueChanged += new System.EventHandler(this.actionSphereSet);
             // 
-            // label135
+            // numSphPhi
             // 
-            this.label135.AutoSize = true;
-            this.label135.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label135.Location = new System.Drawing.Point(21, 276);
-            this.label135.Name = "label135";
-            this.label135.Size = new System.Drawing.Size(15, 13);
-            this.label135.TabIndex = 126;
-            this.label135.Text = "x:";
-            // 
-            // label136
-            // 
-            this.label136.AutoSize = true;
-            this.label136.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label136.Location = new System.Drawing.Point(86, 275);
-            this.label136.Name = "label136";
-            this.label136.Size = new System.Drawing.Size(15, 13);
-            this.label136.TabIndex = 127;
-            this.label136.Text = "y:";
-            // 
-            // label137
-            // 
-            this.label137.AutoSize = true;
-            this.label137.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label137.Location = new System.Drawing.Point(149, 275);
-            this.label137.Name = "label137";
-            this.label137.Size = new System.Drawing.Size(15, 13);
-            this.label137.TabIndex = 128;
-            this.label137.Text = "z:";
-            // 
-            // label75
-            // 
-            this.label75.AutoSize = true;
-            this.label75.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label75.Location = new System.Drawing.Point(75, 0);
-            this.label75.Name = "label75";
-            this.label75.Size = new System.Drawing.Size(81, 24);
-            this.label75.TabIndex = 63;
-            this.label75.Text = "Cylindr:";
+            this.numSphPhi.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numSphPhi.Location = new System.Drawing.Point(268, 221);
+            this.numSphPhi.Maximum = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.numSphPhi.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numSphPhi.Name = "numSphPhi";
+            this.numSphPhi.Size = new System.Drawing.Size(42, 20);
+            this.numSphPhi.TabIndex = 137;
+            this.numSphPhi.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numSphPhi.ValueChanged += new System.EventHandler(this.actionSphereSet);
             // 
             // WndProperties
             // 
@@ -4459,6 +4630,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(831, 547);
+            this.Controls.Add(this.panelSphere);
             this.Controls.Add(this.panelCylindr);
             this.Controls.Add(this.panelBox);
             this.Controls.Add(this.panelLight);
@@ -4466,7 +4638,6 @@
             this.Controls.Add(this.panelAnimace);
             this.Controls.Add(this.panelImage);
             this.Controls.Add(this.panelRovina);
-            this.Controls.Add(this.panelSphere);
             this.Name = "WndProperties";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
@@ -4489,6 +4660,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericKouleY)).EndInit();
             this.panelCylindr.ResumeLayout(false);
             this.panelCylindr.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCylRotateZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCylRotateY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCylRotateX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCylN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCylKt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCylH)).EndInit();
@@ -4590,9 +4764,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericElipseA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericElipseCenterY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericElipseC)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCylRotateX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCylRotateY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCylRotateZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSphSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSphTheta)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSphPhi)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -4630,7 +4804,6 @@
         private System.Windows.Forms.NumericUpDown numericKouleY;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Button buttonKouleSave;
         private System.Windows.Forms.Panel panelCylindr;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.NumericUpDown numCylN;
@@ -4883,6 +5056,15 @@
         private System.Windows.Forms.NumericUpDown numCylRotateY;
         private System.Windows.Forms.NumericUpDown numCylRotateX;
         private System.Windows.Forms.Label label75;
+        private System.Windows.Forms.Label label138;
+        private System.Windows.Forms.NumericUpDown numSphSize;
+        private System.Windows.Forms.Label label139;
+        private System.Windows.Forms.Label label140;
+        private System.Windows.Forms.Label label141;
+        private System.Windows.Forms.Label label142;
+        private System.Windows.Forms.Label label143;
+        private System.Windows.Forms.NumericUpDown numSphPhi;
+        private System.Windows.Forms.NumericUpDown numSphTheta;
 
     }
 }

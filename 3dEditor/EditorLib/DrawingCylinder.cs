@@ -25,18 +25,21 @@ namespace EditorLib
         public double Lenght { get; private set; }
         public double Radius { get; private set; }
 
-        Matrix3D _LocalMatrix;
+        Matrix3D _RotatMatrix;
+        Matrix3D _ShiftMatrix;
+        Matrix3D _localMatrix;
 
 
         public DrawingCylinder(Cylinder cylinder)
         {
-            _LocalMatrix = Matrix3D.Identity;
+            _RotatMatrix = Matrix3D.Identity;
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(cylinder.Center.X, cylinder.Center.Y, cylinder.Center.Z);
             this.SetModelObject(cylinder);
         }
 
         public DrawingCylinder(Point3D origin, double radius, double lenght)
         {
-            _LocalMatrix = Matrix3D.Identity;
+            _RotatMatrix = Matrix3D.Identity;
             this.Set(origin, radius, lenght);
         }
 
@@ -46,7 +49,9 @@ namespace EditorLib
             //Point3D c1 = center + norm * pulLen;
             //Point3D c2 = center - norm * pulLen;
 
-            int NSplit = 8;
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(origin.X, origin.Y, origin.Z);
+
+            int NSplit = 10;
             List<Point3D> listPoint = new List<Point3D>();
             Point3D center = new Point3D(0, 0, 0);
             listPoint.Add(center);
@@ -98,10 +103,12 @@ namespace EditorLib
             //_LocalMatrix = m;
             //m.TransformPoints(Points);
             //this.ApplyRotationMatrix(m);
-            _LocalMatrix.TransformPoints(Points);
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+            //_RotatMatrix.TransformPoints(Points);
+            _localMatrix.TransformPoints(Points);
 
-            Matrix3D shiftMat = Matrix3D.PosunutiNewMatrix(origin.X, origin.Y, origin.Z);
-            shiftMat.TransformPoints(Points);
+            //Matrix3D shiftMat = Matrix3D.PosunutiNewMatrix(origin.X, origin.Y, origin.Z);
+            //shiftMat.TransformPoints(Points);
             // nakonec posuneme
             //foreach (Point3D p in Points)
             //{
@@ -110,13 +117,31 @@ namespace EditorLib
         }
         public void RotateCyl(double x, double y, double z)
         {
-            Matrix3D transp = _LocalMatrix.Transpose();
-            transp.TransformPoints(Points);
             Matrix3D newRot = Matrix3D.NewRotateByDegrees(x, y, z);
 
-            this._LocalMatrix =newRot;
+            Matrix3D transpRot = _RotatMatrix.Transpose();
+            Matrix3D transpShift = _ShiftMatrix.Transpose();
+            Matrix3D transpLoc = _localMatrix.Transpose();
+
+            transpLoc.TransformPoints(Points);
+
+            //transpShift.TransformPoints(Points);
+            //transpRot.TransformPoints(Points);
+
+            this._RotatMatrix =newRot;
             this.SetModelObject(this.ModelObject);
             
+        }
+
+        public void ShiftCyl(double dx, double dy, double dz)
+        {
+            Matrix3D mPos = Matrix3D.PosunutiNewMatrix(dx, dy, dz);
+            Matrix3D m2Pos = _ShiftMatrix * mPos;
+            Point3D p1 = new Point3D(2, 3, 4);
+            m2Pos.TransformPoint(p1);
+
+            mPos.TransformPoints(Points);
+            _ShiftMatrix = m2Pos;
         }
         public override void SetModelObject(object modelObject)
         {

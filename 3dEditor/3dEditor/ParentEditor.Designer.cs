@@ -223,7 +223,7 @@
             // ParentEditor
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1212, 686);
+            this.ClientSize = new System.Drawing.Size(1212, 696);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
