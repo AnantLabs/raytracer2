@@ -64,7 +64,7 @@ namespace _3dEditor
         /// <summary>
         /// citlivost pro prepocitani souradnic
         /// </summary>
-        int _MOUSE_SENSITIVITY = 15;
+        int _MOUSE_SENSITIVITY = 12;
 
         /// <summary>
         /// koeficient pri rotaci editoru mysi
@@ -338,25 +338,7 @@ namespace _3dEditor
                     path = new GraphicsPath();
                     path.AddEllipse(a.X - rad, a.Y - rad, 2*rad, 2*rad);
                     editorObject.AddPath(path);
-                    _editHelp.AddClickableObject(editorObject);
-
-                    //List<Point3D[]> quarts = sph.GetQuartets();
-                    //foreach (Point3D[] arr in quarts)
-                    //{
-                    //    PointF[] pfArr = new PointF[arr.Length];
-                    //    for (int j = 0; j < arr.Length; j++)
-                    //    {
-                    //        pfArr[j] = arr[j].To2D(_scale, _zoom, _centerPoint);
-                    //        //g.DrawArc(_penAxis, pfArr[j].X,pfArr[j].Y,
-                    //    }
-                    //    //g.DrawClosedCurve(_penObject, pfArr, 0.999999F, System.Drawing.Drawing2D.FillMode.Winding);
-                        
-                    //    // pridame ohraniceni cestou
-                    //    path = new GraphicsPath();
-                    //    path.AddClosedCurve(pfArr, 0.9F);
-                    //    editorObject.AddPath(path);
-                    //}
-                        
+                    _editHelp.AddClickableObject(editorObject);                        
                 }
 
                 else if (obj.GetType() == typeof(DrawingPlane)) // ================= PLANE
@@ -625,6 +607,8 @@ namespace _3dEditor
                 _updateAll = false;
             }
 
+
+            //DrawShit();
         }
 
         private void DrawAxes(Graphics g)
@@ -653,9 +637,6 @@ namespace _3dEditor
             g.DrawString("X", _fontAxis, Brushes.Black, x);
             g.DrawString("Y", _fontAxis, Brushes.Black, y);
             g.DrawString("Z", _fontAxis, Brushes.Black, z);
-
-            //drawArcs(g, _penAxisMinus, new Rectangle(new Point(200, 50), new Size(150, 150)));
-            drawMyArcs(g, _penAxisMinus, new Rectangle(new Point(200, 50), new Size(150, 150)));
         }
 
         private void DrawGrid(Graphics g, List<Line3D> lines)
@@ -666,123 +647,6 @@ namespace _3dEditor
                 a = l.A.To2D(_scale, _zoom, _centerPoint);
                 b = l.B.To2D(_scale, _zoom, _centerPoint);
                 g.DrawLine(_penGrid, a, b);
-            }
-        }
-
-        private void DrawEllipse(Graphics g, List<Point3D> points3d)
-        {
-            PointF a = points3d[0].To2D(_scale, _zoom, _centerPoint);
-            PointF b = points3d[1].To2D(_scale, _zoom, _centerPoint);
-
-            //g.DrawEllipse(Pens.Gold, uperLeftX, upperLeftY, Width, Height);
-        }
-
-        private PointF[] getPoledniky(int sidesNum, Rectangle r, float decrementRad)
-        {
-            PointF center = new PointF(r.Left + r.Width / 2, r.Top + r.Height / 2);
-
-            List<PointF> allPoints = new List<PointF>();
-            int sides = sidesNum;  // The amount of segment to create the circle
-            float radius = r.Width / 2; // The radius of the circle
-            float rad = radius;
-            while (rad > 0)
-            {
-
-                List<PointF> points = new List<PointF>();
-                for (int a = 0; a < 360; a += 360 / sides)
-                {
-                    double heading = a * Math.PI / 180;
-                    float x = (float)(Math.Cos(heading) * rad);
-                    float y = (float)(Math.Sin(heading) * radius);
-                    PointF p = new PointF(x, y);
-                    p.X += center.X;
-                    p.Y += center.Y;
-                    points.Add(p);
-                }
-                points.Add(new PointF(points[0].X, points[0].Y));
-
-                allPoints.AddRange(points);
-                rad -= decrementRad;
-
-            }
-            return allPoints.ToArray();
-        }
-        private PointF[] getRovnobezky(int sidesNum, Rectangle r, float decrementRad)
-        {
-            PointF center = new PointF(r.Left + r.Width / 2, r.Top + r.Height / 2);
-
-            List<PointF> allPoints = new List<PointF>();
-            int sides = sidesNum;  // The amount of segment to create the circle
-            float radius = r.Width / 2; // The radius of the circle
-            float rad = radius;
-            while (rad > 0)
-            {
-
-                List<PointF> points = new List<PointF>();
-                for (int a = 0; a < 360; a += 360 / sides)
-                {
-                    double heading = a * Math.PI / 180;
-                    float x = (float)(Math.Cos(heading) * radius);
-                    float y = (float)(Math.Sin(heading) * rad);
-                    PointF p = new PointF(x, y);
-                    p.X += center.X;
-                    p.Y += center.Y;
-                    points.Add(p);
-                }
-                points.Add(new PointF(points[0].X, points[0].Y));
-
-                allPoints.AddRange(points);
-                rad -= decrementRad;
-
-            }
-            return allPoints.ToArray();
-        }
-        private void drawMyArcs(Graphics g, Pen color, Rectangle r)
-        {
-            PointF[] poledniky = getPoledniky(100, r, 20);
-            PointF[] rovnobezky = getRovnobezky(100, r, 20);
-
-            for (int i = 0; i < poledniky.Length - 1; i++)
-            {
-                g.DrawLine(color, poledniky[i], poledniky[i + 1]);
-                g.DrawLine(color, rovnobezky[i], rovnobezky[i + 1]);
-            }
-
-
-        }
-        private void drawArcs(Graphics g, Pen color, Rectangle r)
-        {
-
-            int x1 = r.Left + r.Width / 2;
-            int y1 = r.Top;
-            int x2 = x1;
-            int y2 = r.Top + r.Height;
-
-            int x3 = r.Left;
-            int y3 = r.Top + r.Height / 2;
-            int x4 = r.Left + r.Width;
-            int y4 = y3;
-
-            // CENTER = [x1,y3]
-            // draw axis
-            g.DrawLine(color, x1, y1, x2, y2);
-            g.DrawLine(color, x3, y3, x4, y4);
-
-            // right-left arcs
-            for (int j = r.Width; j > 0; j -= 40)
-            {
-                int left = r.Left + (r.Width - j) / 2;
-                Rectangle rc = new Rectangle(left, r.Top, j, r.Height);
-                g.DrawArc(color, rc, 0.0F, 180.0F); // 0-180 degrees
-                g.DrawArc(color, rc, 180.0F, 360.0F); // 180-360 degrees
-            }
-            // top-bottom arcs
-            for (int j = r.Height; j > 0; j -= 40)
-            {
-                int top = r.Top + (r.Height - j) / 2;
-                Rectangle rc = new Rectangle(r.Left, top, r.Width, j);
-                g.DrawArc(color, rc, 270.0F, 450.0F); // 270-90 degrees
-                g.DrawArc(color, rc, 90.0F, 270.0F); // 90-270 degrees
             }
         }
 
@@ -1000,8 +864,6 @@ namespace _3dEditor
         /// <summary>
         /// KLIKNUTI MYSI A VYBRANI OBJEKTU V EDITORU
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void onPicMouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -1009,9 +871,6 @@ namespace _3dEditor
             List<DrawingObject> drawingList = _editHelp.GetClickableObj(e.Location);
             if (drawingList.Count > 0)
             {
-                //if (drawingList[0].ModelObject is DefaultShape 
-                //    || drawingList[0].ModelObject is Light
-                //    || drawingList[0].ModelObject is Camera)
                 if (drawingList[0] is DrawingObject)
                 {
                     WndScene wndsc = GetWndScene();
@@ -1022,7 +881,7 @@ namespace _3dEditor
             }
             else
             {
-                //_Selected = null;   // otazka, zda po kliknuti do prazdneho prostoru, zobrazit vlastnosti
+                _Selected = null;   // otazka, zda po kliknuti do prazdneho prostoru, zobrazit vlastnosti
                 labelClick.Text = "---";
             }
             pictureBoard.Focus();
@@ -1036,6 +895,24 @@ namespace _3dEditor
             this._lastMousePoint = e.Location;
         }
 
+        private void DrawShit()
+        {
+            int w = 800;
+            int h = 400;
+
+            Bitmap bmp = new Bitmap(w,h);
+            Graphics gr = Graphics.FromImage(bmp);
+            gr.Clear(Color.White);
+
+            int inc = 22;
+            for (int i = 0; i < h; i += 2*inc)
+            {
+                gr.FillRectangle(Brushes.Gainsboro, new Rectangle(0, i, w, h));
+                gr.FillRectangle(Brushes.WhiteSmoke, new Rectangle(0, i + inc, w, h));
+            }
+            bmp.Save("C:\\back.png", System.Drawing.Imaging.ImageFormat.Png);
+            
+        }
         private void onPicMouseUp(object sender, MouseEventArgs e)
         {
             this._isDragging = false;
@@ -1045,8 +922,8 @@ namespace _3dEditor
 
         private void toolBtnReset_Click(object sender, EventArgs e)
         {
-            this.Reset();
-            Redraw();
+            //this.Reset();
+            //Redraw();
         }
 
         private void toolBtnTop_Click(object sender, EventArgs e)
