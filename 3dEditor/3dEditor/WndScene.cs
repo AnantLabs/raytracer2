@@ -462,6 +462,50 @@ namespace _3dEditor
             return form._WndProperties;
         }
 
+        private void OnRemoveObjectFromScene(object sender, EventArgs e)
+        {
+            // kdyz je to obecny typ, nemazeme nic
+            if (treeView1.SelectedNode.Tag is TreeNodeTypes || treeView1.SelectedNode.Tag is DrawingCamera)
+                return;
+
+            WndBoard wndBoard = GetWndBoard();
+            wndBoard.RemoveRaytrObject(treeView1.SelectedNode.Tag);
+            treeView1.Nodes.Remove(treeView1.SelectedNode);
+
+            WndProperties wndProp = GetWndProperties();
+            wndProp.ShowDefault();
+        }
+
+        private void OnAddSphere(object sender, EventArgs e)
+        {
+            WndBoard wndBoard = GetWndBoard();
+            wndBoard.AddRaytrObject(new Sphere(new Vektor(), 1));
+        }
+
+        private void OnAddPlane(object sender, EventArgs e)
+        {
+            WndBoard wndBoard = GetWndBoard();
+            wndBoard.AddRaytrObject(new Plane(new Vektor(1, 0, 0), 2));
+        }
+
+        private void onAddCube(object sender, EventArgs e)
+        {
+            WndBoard wndBoard = GetWndBoard();
+            wndBoard.AddRaytrObject(new Cube(new Vektor(), new Vektor(1, 0, 0), 1));
+        }
+
+        private void onAddCylinder(object sender, EventArgs e)
+        {
+            WndBoard wndBoard = GetWndBoard();
+            wndBoard.AddRaytrObject(new Cylinder(new Vektor(), new Vektor(1, 0, 0), 1, 5));
+        }
+
+        private void onAddLight(object sender, EventArgs e)
+        {
+            WndBoard wndBoard = GetWndBoard();
+            wndBoard.AddRaytrObject(new Light());
+        }
+
 
     }
 }
