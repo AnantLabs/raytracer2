@@ -52,6 +52,10 @@ namespace EditorLib
             Sides = _SIDES;
             DecremTheta = _DECREM_THETA;
             DecremPhi = _DECREM_PHI;
+
+            _RotatMatrix = Matrix3D.Identity;
+            
+
             this.SetModelObject(sphere);
         }
         //public List<Rect
@@ -104,10 +108,15 @@ namespace EditorLib
             this.Radius = rad;
             
             Matrix3D scale = Matrix3D.ScalingNewMatrix(rad, rad, rad);
-            Matrix3D posunuti = Matrix3D.PosunutiNewMatrix(origin.X, origin.Y, origin.Z);
-            Matrix3D mm = scale * posunuti; // nejdrive scaling, pak posunuti
-            mm.TransformPoints(Points);
-            
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(origin.X, origin.Y, origin.Z);
+
+            //Matrix3D mm = scale * _ShiftMatrix; // nejdrive scaling, pak posunuti
+            //mm.TransformPoints(Points);
+
+            _localMatrix = scale * _RotatMatrix;
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+            _localMatrix.TransformPoints(Points);
+
             this.Lines = new List<Line3D>(0);
         }
 

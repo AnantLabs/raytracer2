@@ -24,11 +24,13 @@ namespace EditorLib
 
         public DrawingCube(RayTracerLib.Cube cube)
         {
+            _RotatMatrix = Matrix3D.Identity;
             this.SetModelObject(cube);
         }
 
         public DrawingCube(double centerX, double centerY, double centerZ)
         {
+            _RotatMatrix = Matrix3D.Identity;
             Cube cube = new Cube(new Vektor(centerX, centerY, centerZ), new Vektor(1, 0, 0), 1);
             cube.Material = new Material();
             cube.Material.Color = new Colour(1, 0.5, 0.1, 1);
@@ -39,6 +41,8 @@ namespace EditorLib
         {
             Points = new Point3D[9];
 
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(center.X, center.Y, center.Z);
+            center = new Point3D(0, 0, 0);
             Points[0] = center;
 
             double sideLenHalf = sideLen / 2.0;
@@ -75,6 +79,9 @@ namespace EditorLib
             Lines.Add(new Line3D(lower2, upper2));
             Lines.Add(new Line3D(lower3, upper3));
             Lines.Add(new Line3D(lower4, upper4));
+
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+            _localMatrix.TransformPoints(Points);
         }
 
         /// <summary>
@@ -130,6 +137,11 @@ namespace EditorLib
             return list;
         }
 
+        public override void SetModelObject(object modelObject)
+        {
+            if (modelObject.GetType() == typeof(Cube))
+                this.SetModelObject((Cube)modelObject);
+        }
 
         public void SetModelObject(RayTracerLib.Cube cube)
         {
@@ -138,5 +150,16 @@ namespace EditorLib
             Point3D center = new Point3D(cube.Center.X, cube.Center.Y, cube.Center.Z);
             this.Set(center, sideLen);
         }
+
+        //public void RotateCube(double x, double y, double z)
+        //{
+        //    Matrix3D newRot = Matrix3D.NewRotateByDegrees(x, y, z);
+
+        //    Matrix3D transpLoc = _localMatrix.Transpose();
+        //    transpLoc.TransformPoints(Points);
+
+        //    this._RotatMatrix = newRot;
+        //    this.SetModelObject(this.ModelObject);
+        //}
     }
 }

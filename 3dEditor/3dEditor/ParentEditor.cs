@@ -21,6 +21,7 @@ namespace _3dEditor
 
         public RayTracing _rayTracer;
 
+        const double _ratioSize = 1.0 / 2.4;    // pomer vysek oken> hlavni okno: okno sceny
         public ParentEditor()
         {
             InitializeComponent();
@@ -39,7 +40,7 @@ namespace _3dEditor
             _WndScene = new WndScene();
             _WndScene.MdiParent = this;
             _WndScene.Location = new Point(_WndBoard.Width, _WndBoard.Location.Y);
-            _WndScene.Height = _WndBoard.Height / 2;
+            _WndScene.Height = (int)(_WndBoard.Height * _ratioSize);
             
             _WndScene.Show();
             _WndScene.Update();
@@ -54,7 +55,7 @@ namespace _3dEditor
             _WndProperties.MdiParent = this;
             _WndProperties.Location = new Point(_WndBoard.Width, _WndScene.Height);
             _WndProperties.Width = _WndScene.Width;
-            _WndProperties.Height = _WndBoard.Height / 2;
+            _WndProperties.Height = (int)(_WndBoard.Height * (1 - _ratioSize));
             _WndProperties.Show();
             //_wndProperties.Activate();
 
@@ -76,8 +77,8 @@ namespace _3dEditor
             _rayTracer.RScene.SceneObjects.Clear();
             _rayTracer.RScene.SceneObjects.Add(sph1);
             //_rayTracer.RScene.SceneObjects.Add(sph2);
-            //_rayTracer.RScene.SceneObjects.Add(cube1);
-            //_rayTracer.RScene.SceneObjects.Add(plane1);
+            _rayTracer.RScene.SceneObjects.Add(cube1);
+            _rayTracer.RScene.SceneObjects.Add(plane1);
             _rayTracer.RScene.SceneObjects.Add(cyl);
             sph2.IsActive = false;
 

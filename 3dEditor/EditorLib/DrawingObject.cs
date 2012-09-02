@@ -24,6 +24,10 @@ namespace EditorLib
         /// </summary>
         public List<Line3D> Lines { get; protected set; }
 
+        protected Matrix3D _RotatMatrix;
+        protected Matrix3D _ShiftMatrix;
+        protected Matrix3D _localMatrix;
+
         /// <summary>
         /// Nastaveni modeloveho objektu k objektu v editoru
         /// </summary>
@@ -33,8 +37,13 @@ namespace EditorLib
 
         public void Rotate(double degAroundX, double degAroundY, double degAroundZ)
         {
-            Matrix3D matr = Matrix3D.NewRotateByDegrees(degAroundX, degAroundY, degAroundZ);
-            matr.TransformLines(Lines);
+            Matrix3D newRot = Matrix3D.NewRotateByDegrees(degAroundX, degAroundY, degAroundZ);
+            Matrix3D transpLoc = _localMatrix.Transpose();
+
+            transpLoc.TransformPoints(Points);
+
+            this._RotatMatrix = newRot;
+            this.SetModelObject(this.ModelObject);
         }
 
         /// <summary>
