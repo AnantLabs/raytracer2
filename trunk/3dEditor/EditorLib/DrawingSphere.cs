@@ -114,7 +114,7 @@ namespace EditorLib
             //mm.TransformPoints(Points);
 
             _localMatrix = scale * _RotatMatrix;
-            _localMatrix = _RotatMatrix * _ShiftMatrix;
+            _localMatrix = _localMatrix * _ShiftMatrix;
             _localMatrix.TransformPoints(Points);
 
             this.Lines = new List<Line3D>(0);

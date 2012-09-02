@@ -39,8 +39,6 @@
             this.toolBtnGrid = new System.Windows.Forms.ToolStripButton();
             this.toolsComboGridSize = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolBtnReset = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripBtnLights = new System.Windows.Forms.ToolStripButton();
             this.toolStripBtnCamera = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -109,14 +107,12 @@
             this.toolBtnGrid,
             this.toolsComboGridSize,
             this.toolStripSeparator2,
-            this.toolBtnReset,
-            this.toolStripSeparator3,
             this.toolStripBtnLights,
             this.toolStripBtnCamera});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(477, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(463, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -193,21 +189,6 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolBtnReset
-            // 
-            this.toolBtnReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolBtnReset.Image = ((System.Drawing.Image)(resources.GetObject("toolBtnReset.Image")));
-            this.toolBtnReset.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolBtnReset.Name = "toolBtnReset";
-            this.toolBtnReset.Size = new System.Drawing.Size(39, 22);
-            this.toolBtnReset.Text = "Reset";
-            this.toolBtnReset.Click += new System.EventHandler(this.toolBtnReset_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
             // toolStripBtnLights
             // 
@@ -595,7 +576,6 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripButton toolBtnGrid;
-        private System.Windows.Forms.ToolStripButton toolBtnReset;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelZoomConst;
         private System.Windows.Forms.ToolStripStatusLabel statusLabelXConst;
@@ -620,7 +600,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label labelClick;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton toolStripBtnLights;
         private System.Windows.Forms.ToolStripButton toolStripBtnCamera;
         private System.Windows.Forms.Button btnXMinus;
