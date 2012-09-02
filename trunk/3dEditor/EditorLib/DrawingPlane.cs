@@ -20,11 +20,10 @@ namespace EditorLib
         /// </summary>
         public float Distance { get; private set; }
 
+        const int SIZE = 10;
+        const float DISTANCE = 1;
 
-        public DrawingPlane(Plane plane)
-        {
-            this.SetModelObject(plane);
-        }
+        public DrawingPlane(Plane plane) : this(SIZE, DISTANCE, 0, 0, 0, plane) { }
         /// <summary>
         /// Rovina v editoru
         /// TODO: 
@@ -40,9 +39,14 @@ namespace EditorLib
         public DrawingPlane(
             int size, float distance, 
             double xRotDeg, double yRotDeg, double zRotDeg, 
-            Point3D leftCorner)
+            Plane plane)
         {
-            this.Set(size, distance, xRotDeg, yRotDeg, zRotDeg, leftCorner);
+            _RotatMatrix = Matrix3D.NewRotateByDegrees(xRotDeg, yRotDeg, zRotDeg);
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(plane.Pocatek.X, plane.Pocatek.Y, plane.Pocatek.Z);
+            this.ModelObject = plane;
+            Size = size > 0 ? size : SIZE;
+            Distance = distance > 0 ? distance : DISTANCE;
+            this.Set();
         }
 
                 
@@ -58,13 +62,11 @@ namespace EditorLib
         /// <param name="yRotDeg">rotace podle y - stupne</param>
         /// <param name="zRotDeg">rotace podle z - stupne</param>
         /// <param name="leftCorner">levy "dolni" roh roviny</param>
-        private void Set(
-            int size, float distance,
-            double xRotDeg, double yRotDeg, double zRotDeg,
-            Point3D leftCorner)
+        private void Set()
         {
-            Size = size;
-            Distance = distance;
+            Plane plane = (Plane)ModelObject;
+            Point3D leftCorner = new Point3D(plane.Pocatek.X, plane.Pocatek.Y, plane.Pocatek.Z);
+
             List<Point3D> points = new List<Point3D>();
             List<Line3D> lines = new List<Line3D>(2 * (Size + 1));
             Line3D line;
@@ -94,17 +96,38 @@ namespace EditorLib
             this.Points = points.ToArray();
             this.Lines = lines;
 
-            // ROTACE
-            Matrix3D matrix = new Matrix3D();
-            matrix.SetOnDegrees(xRotDeg, yRotDeg, zRotDeg);
-            this.ApplyRotationMatrix(matrix);
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+            _localMatrix.TransformPoints(Points);
+        }
+
+        public override void SetModelObject(object modelObject)
+        {
+            if (modelObject.GetType() == typeof(Plane))
+                this.SetModelObject((Plane)modelObject);
+        }
+
+        public void SetModelObject(RayTracerLib.Plane plane, int size, float distance)
+        {
+            this.ModelObject = plane;
+            Size = size > 0 ? size : SIZE;
+            Distance = distance > 0 ? distance : DISTANCE;
+            this.Set();
         }
 
         public void SetModelObject(RayTracerLib.Plane plane)
         {
-            this.ModelObject = plane;
-            Point3D leftCorn = new Point3D(plane.Pocatek.X, plane.Pocatek.Y, plane.Pocatek.Z);
-            this.Set(10, 1, 10, 20, 30, leftCorn);
+            this.SetModelObject(plane, Size, Distance);
         }
+
+        //public void RotatePlane(double x, double y, double z)
+        //{
+        //    Matrix3D newRot = Matrix3D.NewRotateByDegrees(x, y, z);
+        //    Matrix3D transpLoc = _localMatrix.Transpose();
+
+        //    transpLoc.TransformPoints(Points);
+
+        //    this._RotatMatrix = newRot;
+        //    this.SetModelObject(this.ModelObject);
+        //}
     }
 }

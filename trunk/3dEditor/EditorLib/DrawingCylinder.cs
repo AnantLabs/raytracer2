@@ -25,10 +25,6 @@ namespace EditorLib
         public double Lenght { get; private set; }
         public double Radius { get; private set; }
 
-        Matrix3D _RotatMatrix;
-        Matrix3D _ShiftMatrix;
-        Matrix3D _localMatrix;
-
 
         public DrawingCylinder(Cylinder cylinder)
         {
@@ -115,23 +111,23 @@ namespace EditorLib
             //    p.Posunuti(origin.X, origin.Y, origin.Z);
             //}
         }
-        public void RotateCyl(double x, double y, double z)
-        {
-            Matrix3D newRot = Matrix3D.NewRotateByDegrees(x, y, z);
+        //public void RotateCyl(double x, double y, double z)
+        //{
+        //    Matrix3D newRot = Matrix3D.NewRotateByDegrees(x, y, z);
 
-            Matrix3D transpRot = _RotatMatrix.Transpose();
-            Matrix3D transpShift = _ShiftMatrix.Transpose();
-            Matrix3D transpLoc = _localMatrix.Transpose();
+        //    Matrix3D transpRot = _RotatMatrix.Transpose();
+        //    Matrix3D transpShift = _ShiftMatrix.Transpose();
+        //    Matrix3D transpLoc = _localMatrix.Transpose();
 
-            transpLoc.TransformPoints(Points);
+        //    transpLoc.TransformPoints(Points);
 
-            //transpShift.TransformPoints(Points);
-            //transpRot.TransformPoints(Points);
+        //    //transpShift.TransformPoints(Points);
+        //    //transpRot.TransformPoints(Points);
 
-            this._RotatMatrix =newRot;
-            this.SetModelObject(this.ModelObject);
+        //    this._RotatMatrix =newRot;
+        //    this.SetModelObject(this.ModelObject);
             
-        }
+        //}
 
         public void ShiftCyl(double dx, double dy, double dz)
         {

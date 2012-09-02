@@ -366,7 +366,7 @@ namespace _3dEditor
                     _editHelp.AddClickableObject(editorObject);
                 }
 
-                else if (obj.GetType() == typeof(DrawingCube))
+                else if (obj.GetType() == typeof(DrawingCube))      //=============== CUBE
                 {
                     DrawingCube cube = (DrawingCube)obj;
                     EditorObject editorObject = new EditorObject(cube);

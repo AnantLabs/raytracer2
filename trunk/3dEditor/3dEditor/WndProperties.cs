@@ -183,6 +183,9 @@ namespace _3dEditor
             checkBoxMaxZ.Checked = (pl.MaxZ != Double.PositiveInfinity);
             if (checkBoxMaxZ.Checked)
                 this.numMaxZ.Value = (decimal)pl.MaxZ;
+
+            this.numPlaneSize.Value = (decimal)drPlane.Size;
+            this.numPlaneDist.Value = (decimal)drPlane.Distance;
         }
 
         private void ShowCube(DrawingCube drCube)
@@ -516,6 +519,102 @@ namespace _3dEditor
             }
         }
 
+
+        #region plane
+        ///////////////////////////////////////////////
+        //////// P L A N E
+        //////////////////////////////////////////////
+        private void actionPlaneSet(object sender, EventArgs e)
+        {
+
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingPlane))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            DrawingPlane drPlane = (DrawingPlane)_currentlyDisplayed;
+            Plane plane = (Plane)drPlane.ModelObject;
+
+            Vektor norm = new Vektor(
+                (double)this.numericRovinaA.Value,
+                (double)this.numericRovinaB.Value,
+                (double)this.numericRovinaC.Value);
+
+            double d = (double)numericRovinaD.Value;
+
+            double minx, maxx, miny, maxy, minz, maxz;
+            minx = miny = minz = Double.NegativeInfinity;
+            maxx = maxy = maxz = Double.PositiveInfinity;
+
+            if (checkBoxMinX.Checked)
+                minx = (double)numMinX.Value;
+            if (checkBoxMaxX.Checked)
+                maxx = (double)numMaxX.Value;
+            if (checkBoxMinY.Checked)
+                miny = (double)numMinY.Value;
+            if (checkBoxMaxY.Checked)
+                maxy = (double)numMaxY.Value;
+            if (checkBoxMinZ.Checked)
+                minz = (double)numMinZ.Value;
+            if (checkBoxMaxZ.Checked)
+                maxz = (double)numMaxZ.Value;
+
+            plane.Normal = norm;
+            plane.D = d;
+
+            plane.MinX = minx;
+            plane.MaxX = maxx;
+            plane.MinY = miny;
+            plane.MaxY = maxy;
+            plane.MinZ = minz;
+            plane.MaxZ = maxz;
+
+            Material mat = new Material();
+            mat.Ka = (double)this.numPlaneKa.Value;
+            mat.Ks = (double)this.numPlaneKs.Value;
+            mat.Kd = (double)this.numPlaneKd.Value;
+            mat.KT = (double)this.numPlaneKt.Value;
+            mat.SpecularExponent = (int)this.numPlaneH.Value;
+            mat.N = (double)this.numPlaneN.Value;
+
+            mat.Color.R = (double)this.numPlaneColR.Value;
+            mat.Color.G = (double)this.numPlaneColG.Value;
+            mat.Color.B = (double)this.numPlaneColB.Value;
+
+            int size = (int)this.numPlaneSize.Value;
+            float dist = (float)this.numPlaneDist.Value;
+
+            plane.Material = mat;
+            plane.CreateBoundVektors();
+
+            drPlane.SetModelObject(plane, size, dist);
+            WndBoard wndB = GetWndBoard();
+            drPlane.ApplyRotationMatrix(wndB.RotationMatrix);
+            WndScene wndSc = GetWndScene();
+            wndSc.UpdateRecords();
+        }
+
+        private void btnPlaneMaterialColor_Click(object sender, EventArgs e)
+        {
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                double r = colorDialog.Color.R / (double)255;
+                double g = colorDialog.Color.G / (double)255;
+                double b = colorDialog.Color.B / (double)255;
+                double a = colorDialog.Color.A / (double)255;
+
+                RayTracerLib.Colour col = new RayTracerLib.Colour(r, g, b, a);
+
+                _permissionToModify = false;
+                this.numPlaneColR.Value = (decimal)col.R;
+                this.numPlaneColG.Value = (decimal)col.G;
+                _permissionToModify = true;
+                this.numPlaneColB.Value = (decimal)col.B;
+            }
+        }
+
+        #endregion
         ///////////////////////////////////////////////
         //////// C U B E
         //////////////////////////////////////////////
@@ -834,6 +933,29 @@ namespace _3dEditor
 
         }
 
+        private void onNumericRotateSphere(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed.GetType() != typeof(DrawingSphere))
+                return;
+
+            NumericUpDown num = sender as NumericUpDown;
+            if (num.Value > 359)
+                num.Value = num.Value % 360;
+            else if (num.Value < 0)
+                num.Value = 360 + num.Value;
+
+            double x = (double)this.numSphRotX.Value;
+            double y = (double)this.numSphRotY.Value;
+            double z = (double)this.numSphRotZ.Value;
+            Matrix3D m = Matrix3D.NewRotateByDegrees(x, y, z);
+
+            DrawingSphere drSph = _currentlyDisplayed as DrawingSphere;
+
+            WndBoard wnd = GetWndBoard();
+            drSph.Rotate(x, y, z);
+            wnd.RotationMatrix.TransformPoints(drSph.Points);
+        }
+
         private void onNumericRotateCylinder(object sender, EventArgs e)
         {
             if (_currentlyDisplayed.GetType() != typeof(DrawingCylinder))
@@ -853,10 +975,58 @@ namespace _3dEditor
             DrawingCylinder drCyl = _currentlyDisplayed as DrawingCylinder;
 
             WndBoard wnd = GetWndBoard();
-            Matrix3D transp = wnd.RotationMatrix.Transpose();
-            drCyl.RotateCyl(x, y, z);
+            //Matrix3D transp = wnd.RotationMatrix.Transpose();
+            drCyl.Rotate(x, y, z);
             wnd.RotationMatrix.TransformPoints(drCyl.Points);
         }
+
+        private void onNumericRotateCube(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed.GetType() != typeof(DrawingCube))
+                return;
+
+            NumericUpDown num = sender as NumericUpDown;
+            if (num.Value > 359)
+                num.Value = num.Value % 360;
+            else if (num.Value < 0)
+                num.Value = 360 + num.Value;
+
+            double x = (double)this.numBoxRotateX.Value;
+            double y = (double)this.numBoxRotateY.Value;
+            double z = (double)this.numBoxRotateZ.Value;
+            Matrix3D m = Matrix3D.NewRotateByDegrees(x, y, z);
+
+            DrawingCube drCube = _currentlyDisplayed as DrawingCube;
+            drCube.Rotate(x, y, z);
+
+            WndBoard wnd = GetWndBoard();
+            wnd.RotationMatrix.TransformPoints(drCube.Points);
+        }
+
+        private void onNumericRotatePlane(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed.GetType() != typeof(DrawingPlane))
+                return;
+
+            NumericUpDown num = sender as NumericUpDown;
+            if (num.Value > 359)
+                num.Value = num.Value % 360;
+            else if (num.Value < 0)
+                num.Value = 360 + num.Value;
+
+            double x = (double)this.numPlaneRotX.Value;
+            double y = (double)this.numPlaneRotY.Value;
+            double z = (double)this.numPlaneRotZ.Value;
+            Matrix3D m = Matrix3D.NewRotateByDegrees(x, y, z);
+
+            DrawingPlane drPlane = _currentlyDisplayed as DrawingPlane;
+
+            WndBoard wnd = GetWndBoard();
+            drPlane.Rotate(x, y, z);
+            wnd.RotationMatrix.TransformPoints(drPlane.Points);
+        }
+
+        
 
     }
 }
