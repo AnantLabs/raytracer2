@@ -34,7 +34,7 @@ namespace _3dEditor
         {
             InitializeComponent();
 
-            SetAllInvisible();
+            ShowDefault();
 
             this.panelSphere.Location = new Point(0, 0);
             this.panelCylindr.Location = new Point(0, 0);
@@ -46,6 +46,16 @@ namespace _3dEditor
             this.panelAnimace.Location = new Point(0, 0);
 
             _permissionToModify = true;
+        }
+
+        /// <summary>
+        /// zakladni zobrazeni pro nezobrazovany zadny objekt
+        /// Inicializace po otevreni okna, nebo po odstraneni objektu ze sceny
+        /// </summary>
+        public void ShowDefault()
+        {
+            SetAllInvisible();
+            this.Text = "Properties";
         }
         
         public void ShowObject(object obj)

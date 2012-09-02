@@ -1043,6 +1043,15 @@ namespace _3dEditor
             return pf._WndScene;
         }
 
+        public void RemoveRaytrObject(object shape)
+        {
+            if (shape is DrawingObject)
+            {
+                DrawingObject drObj = (DrawingObject)shape;
+                _currnetScene.RemoveObject(drObj.ModelObject);
+                _objectsToDraw.Remove(drObj);
+            }
+        }
         /// <summary>
         /// Prida novy objekt ze sveta raytraceru do sveta editoru
         /// </summary>

@@ -136,6 +136,49 @@ namespace RayTracerLib
 
         }
 
+        /// <summary>
+        /// Odebere objekt ze sceny
+        /// </summary>
+        /// <param name="itemToRemove"></param>
+        public void RemoveObject(object itemToRemove)
+        {
+
+            if (itemToRemove.GetType() == typeof(Sphere))
+            {
+                Sphere sph = (Sphere)itemToRemove;
+                this.SceneObjects.Remove(sph);
+            }
+            // vymazani roviny ze sceny
+            else if (itemToRemove.GetType() == typeof(Plane))
+            {
+                Plane p = (Plane)itemToRemove;
+                this.SceneObjects.Remove(p);
+            }
+            // vymazani krychle ze sceny
+            else if (itemToRemove.GetType() == typeof(Box))
+            {
+                Box b = (Box)itemToRemove;
+                this.SceneObjects.Remove(b);
+            }
+                // vymazani krychle ze sceny
+            else if (itemToRemove.GetType() == typeof(Cube))
+            {
+                Cube c = (Cube)itemToRemove;
+                this.SceneObjects.Remove(c);
+            }
+            else if (itemToRemove.GetType() == typeof(Cylinder))
+            {
+                Cylinder cyl = (Cylinder)itemToRemove;
+                this.SceneObjects.Remove(cyl);
+            }
+
+            // vymazeme svetlo ze sceny
+            else if (itemToRemove.GetType() == typeof(Light))
+            {
+                Light l = (Light)itemToRemove;
+                this.Lights.Remove(l);
+            }
+        }
         public void AddLight(Light l)
         {
             Lights.Add(l);

@@ -33,7 +33,6 @@ namespace _3dEditor
             _WndBoard.Show();
             _WndBoard.Activate();
 
-
             //
             // Okno sceny
             //

@@ -60,6 +60,13 @@ namespace _3dEditor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap add_1_icon16 {
+            get {
+                object obj = ResourceManager.GetObject("add_1_icon16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap bgProperties {
             get {
                 object obj = ResourceManager.GetObject("bgProperties", resourceCulture);
@@ -77,6 +84,13 @@ namespace _3dEditor.Properties {
         internal static System.Drawing.Bitmap camera {
             get {
                 object obj = ResourceManager.GetObject("camera", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap remove_16 {
+            get {
+                object obj = ResourceManager.GetObject("remove_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
