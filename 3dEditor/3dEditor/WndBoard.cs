@@ -866,17 +866,29 @@ namespace _3dEditor
         /// </summary>
         private void onPicMouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right && _Selected == null)
                 _Selected = null;
             List<DrawingObject> drawingList = _editHelp.GetClickableObj(e.Location);
             if (drawingList.Count > 0)
             {
-                if (drawingList[0] is DrawingObject)
+                // bylo by dobre vybrat z kandidatu ten, ktery je z nich uz vybran
+                bool wasSelectedBefore = false;
+                foreach (DrawingObject drObj in drawingList)
+                {
+                    if (_Selected == drObj)
+                    {
+                        WndScene wndsc = GetWndScene();
+                        wndsc.ShowNode(drObj);
+                        wasSelectedBefore = true;
+                        break;
+                    }
+                }
+                if (!wasSelectedBefore && drawingList[0] is DrawingObject)
                 {
                     WndScene wndsc = GetWndScene();
                     wndsc.ShowNode(drawingList[0]);
+                    _Selected = drawingList[0];   // vybereme prvni ze seznamu
                 }
-                _Selected = drawingList[0];   // vybereme prvni ze seznamu
                 labelClick.Text = "Mouse Down";
             }
             else
@@ -895,6 +907,10 @@ namespace _3dEditor
             this._lastMousePoint = e.Location;
         }
 
+
+        /// <summary>
+        /// ulozi do souboru obrazek pozadi okna properties
+        /// </summary>
         private void DrawShit()
         {
             int w = 800;
@@ -911,8 +927,8 @@ namespace _3dEditor
                 gr.FillRectangle(Brushes.WhiteSmoke, new Rectangle(0, i + inc, w, h));
             }
             bmp.Save("C:\\back.png", System.Drawing.Imaging.ImageFormat.Png);
-            
         }
+
         private void onPicMouseUp(object sender, MouseEventArgs e)
         {
             this._isDragging = false;
@@ -1068,6 +1084,7 @@ namespace _3dEditor
                     _objectsToDraw.Add(drSphere);
                     WndScene wndScene = GetWndScene();
                     wndScene.AddItem(drSphere);
+                    wndScene.ShowNode(drSphere);
                 }
                 else if (shape.GetType() == typeof(Plane))
                 {
@@ -1077,6 +1094,7 @@ namespace _3dEditor
                     _objectsToDraw.Add(drPlane);
                     WndScene wndScene = GetWndScene();
                     wndScene.AddItem(drPlane);
+                    wndScene.ShowNode(drPlane);
                 }
                 else if (shape.GetType() == typeof(Cube))
                 {
@@ -1086,6 +1104,7 @@ namespace _3dEditor
                     _objectsToDraw.Add(drCube);
                     WndScene wndScene = GetWndScene();
                     wndScene.AddItem(drCube);
+                    wndScene.ShowNode(drCube);
                 }
                 else if (shape.GetType() == typeof(Cylinder))
                 {
@@ -1095,6 +1114,7 @@ namespace _3dEditor
                     _objectsToDraw.Add(drCyl);
                     WndScene wndScene = GetWndScene();
                     wndScene.AddItem(drCyl);
+                    wndScene.ShowNode(drCyl);
                 }
             }
             else if (shape is Light)
@@ -1105,6 +1125,7 @@ namespace _3dEditor
                 _objectsToDraw.Add(drLight);
                 WndScene wndScene = GetWndScene();
                 wndScene.AddItem(drLight);
+                wndScene.ShowNode(drLight);
             }
             else if (shape is Camera)
             {

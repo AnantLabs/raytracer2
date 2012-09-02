@@ -88,9 +88,44 @@ namespace _3dEditor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap cube16 {
+            get {
+                object obj = ResourceManager.GetObject("cube16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap cyl16 {
+            get {
+                object obj = ResourceManager.GetObject("cyl16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap plane16 {
+            get {
+                object obj = ResourceManager.GetObject("plane16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap remove_16 {
             get {
                 object obj = ResourceManager.GetObject("remove_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap sphere16 {
+            get {
+                object obj = ResourceManager.GetObject("sphere16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap sun16 {
+            get {
+                object obj = ResourceManager.GetObject("sun16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

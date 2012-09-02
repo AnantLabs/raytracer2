@@ -625,11 +625,6 @@
             // 
             // numSphPhi
             // 
-            this.numSphPhi.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
             this.numSphPhi.Location = new System.Drawing.Point(276, 265);
             this.numSphPhi.Maximum = new decimal(new int[] {
             180,
@@ -653,11 +648,6 @@
             // 
             // numSphTheta
             // 
-            this.numSphTheta.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
             this.numSphTheta.Location = new System.Drawing.Point(201, 265);
             this.numSphTheta.Maximum = new decimal(new int[] {
             180,
@@ -1072,9 +1062,9 @@
             // 
             // numericKouleRadius
             // 
-            this.numericKouleRadius.DecimalPlaces = 5;
+            this.numericKouleRadius.DecimalPlaces = 2;
             this.numericKouleRadius.Increment = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             65536});
