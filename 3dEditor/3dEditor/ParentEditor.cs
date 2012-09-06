@@ -74,19 +74,22 @@ namespace _3dEditor
             Plane plane1 = new Plane(new Vektor(1, 1, 0), 3);
             Cylinder cyl = new Cylinder(new Vektor(3, 2, 1), new Vektor(1, 1, 1), 1, 8);
             _rayTracer.RScene.SceneObjects.Clear();
-            _rayTracer.RScene.SceneObjects.Add(sph1);
+            //_rayTracer.RScene.SceneObjects.Add(sph1);
             //_rayTracer.RScene.SceneObjects.Add(sph2);
             _rayTracer.RScene.SceneObjects.Add(cube1);
             _rayTracer.RScene.SceneObjects.Add(plane1);
-            _rayTracer.RScene.SceneObjects.Add(cyl);
+            //_rayTracer.RScene.SceneObjects.Add(cyl);
             sph2.IsActive = false;
 
             //_rayTracer.RScene.SetDefaultScene4();
 
             this._WndBoard.AddRaytrScene(_rayTracer.RScene);
 
-            RayImage img = new RayImage();
+            RayImage img = new RayImage(1, new Colour(1, 0, 0, 0), false);
             this._WndScene.AddItem(img);
+
+            DrawingAnimation drAnim = new DrawingAnimation();
+            this._WndBoard.AddAnimation(drAnim);
             
         }
 

@@ -102,6 +102,20 @@ namespace _3dEditor.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap drawing48 {
+            get {
+                object obj = ResourceManager.GetObject("drawing48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap icon_camera16 {
+            get {
+                object obj = ResourceManager.GetObject("icon_camera16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap plane16 {
             get {
                 object obj = ResourceManager.GetObject("plane16", resourceCulture);

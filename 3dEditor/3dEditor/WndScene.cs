@@ -135,10 +135,30 @@ namespace _3dEditor
                     node.Checked = true;
                     node.Nodes.Add(novyNode);
                 }
+                else if ((TreeNodeTypes)node.Tag == rootTyp && rootTyp == TreeNodeTypes.Images)
+                {
+                    RayImage img = (RayImage)obj;
+                    TreeNode novyNode = new TreeNode(img.ToString());
+                    novyNode.Tag = img;
+                    novyNode.Checked = true;
+                    node.Checked = true;
+                    node.Nodes.Add(novyNode);
+                }
+                else if ((TreeNodeTypes)node.Tag == rootTyp && rootTyp == TreeNodeTypes.Animations)
+                {
+                    DrawingAnimation drAnim = (DrawingAnimation)obj;
+                    TreeNode novyNode = new TreeNode(drAnim.ToString());
+                    novyNode.Tag = drAnim;
+                    novyNode.Checked = drAnim.ShowAnimation;
+                    node.Checked = true;
+                    node.Nodes.Add(novyNode);
+                }
                 else if ((TreeNodeTypes)node.Tag == rootTyp)
                 {
                     TreeNode novyNode = new TreeNode(obj.ToString());
                     novyNode.Tag = obj;
+                    novyNode.Checked = true;
+                    node.Checked = true;
                     node.Nodes.Add(novyNode);
                 }
             }
@@ -217,6 +237,10 @@ namespace _3dEditor
             {
                 this.AddItem(drawObj, TreeNodeTypes.Cylinders);
             }
+            else if (drawObj.GetType() == typeof(DrawingAnimation))
+            {
+                this.AddItem(drawObj, TreeNodeTypes.Animations);
+            }
         }
 
         public void AddItem(DrawingLight light)
@@ -230,9 +254,6 @@ namespace _3dEditor
         public void AddItem(RayImage img)
         {
             this.AddItem(img, TreeNodeTypes.Images);
-        }
-        public void AddItem(Animation obj)
-        {
         }
 
         private void OnAfterSelect(object sender, TreeViewEventArgs e)
@@ -321,6 +342,26 @@ namespace _3dEditor
                         //this.Refresh();
                     }
                 }
+                else if (node.Tag is DrawingAnimation)
+                {
+                    if (node.Tag == shape)
+                    {
+                        treeView1.SelectedNode = node;
+                        node.Text = node.Tag.ToString();
+                        this.treeView1.Focus();
+                        this.treeView1.HideSelection = false;
+                    }
+                }
+                else if (node.Tag is RayImage)
+                {
+                    if (node.Tag == shape)
+                    {
+                        treeView1.SelectedNode = node;
+                        node.Text = node.Tag.ToString();
+                        this.treeView1.Focus();
+                        this.treeView1.HideSelection = false;
+                    }
+                }
                 else
                 {
                     ShowNode(shape, node);
@@ -345,6 +386,14 @@ namespace _3dEditor
                     ShowNode(shape, node);
                 }
                 else if (((TreeNodeTypes)node.Tag == TreeNodeTypes.Camera) && (shape is DrawingCamera))
+                {
+                    ShowNode(shape, node);
+                }
+                else if (((TreeNodeTypes)node.Tag == TreeNodeTypes.Images) && (shape is RayImage))
+                {
+                    ShowNode(shape, node);
+                }
+                else if (((TreeNodeTypes)node.Tag == TreeNodeTypes.Animations) && (shape is DrawingAnimation))
                 {
                     ShowNode(shape, node);
                 }
@@ -398,6 +447,11 @@ namespace _3dEditor
                 pe._WndBoard.Redraw();
                 this.Invalidate();
                 this.Update();
+            }
+            else if (e.Node.Tag is DrawingAnimation)
+            {
+                DrawingAnimation drAnim = (DrawingAnimation)e.Node.Tag;
+                drAnim.ShowAnimation = e.Node.Checked;
             }
             else
             {
@@ -504,6 +558,19 @@ namespace _3dEditor
         {
             WndBoard wndBoard = GetWndBoard();
             wndBoard.AddRaytrObject(new Light());
+        }
+
+        private void onAddImage(object sender, EventArgs e)
+        {
+            RayImage img = new RayImage(1, new Colour(1, 0, 0, 0), false);
+            this.AddItem(img, TreeNodeTypes.Images);
+            this.ShowNode(img);
+        }
+
+        private void onAddAnimation(object sender, EventArgs e)
+        {
+            WndBoard wndBoard = GetWndBoard();
+            wndBoard.AddAnimation(new DrawingAnimation());
         }
 
 
