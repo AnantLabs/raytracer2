@@ -463,45 +463,7 @@ namespace _3dEditor
 
         #endregion
 
-        private void actionImageSet(object sender, EventArgs e)
-        {
-            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(RayImage))
-                return;
-
-            if (!_permissionToModify)
-                return;
-
-            RayImage img = (RayImage)_currentlyDisplayed;
-
-            //btnImageBgr.BackColor = colorDialog.Color;
-            //Colour col = Colour.ColourCreate(colorDialog.Color);
-            //img.BackgroundColor = col;
-
-            img.MaxRecurse = (int)this.numericRecurs.Value;
-            img.IsAntialiasing = this.checkAntialias.Checked;
-
-            img.IndexPictureSize = this.comboResolution.SelectedIndex;
-            int w = 100;
-            int h= 100;
-            // vybrano vlastni rozliseni
-            if (this.comboResolution.SelectedIndex == img.PictureSize.Length - 1)
-            {
-                Int32.TryParse(txbResX.Text, out w);
-                Int32.TryParse(txbResY.Text, out h);
-                w = w > 0 ? w : 100;
-                h = h > 0 ? h : 100;
-                
-            } // prednastavene rozliseni
-            else
-            {
-                w = img.PictureSize[img.IndexPictureSize].Width;
-                h = img.PictureSize[img.IndexPictureSize].Height;
-            }
-            img.CurrentSize = new Size(w, h);
-
-            WndScene wndSc = GetWndScene();
-            wndSc.UpdateRecords();
-        }
+        
 
         ///////////////////////////////////////////////
         //////// S P H E R E
@@ -964,6 +926,46 @@ namespace _3dEditor
             this.panelSoftPasses.Visible = ch.Checked;
         }
         #endregion
+
+        private void actionImageSet(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(RayImage))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            RayImage img = (RayImage)_currentlyDisplayed;
+
+            //btnImageBgr.BackColor = colorDialog.Color;
+            //Colour col = Colour.ColourCreate(colorDialog.Color);
+            //img.BackgroundColor = col;
+
+            img.MaxRecurse = (int)this.numericRecurs.Value;
+            img.IsAntialiasing = this.checkAntialias.Checked;
+
+            img.IndexPictureSize = this.comboResolution.SelectedIndex;
+            int w = 100;
+            int h = 100;
+            // vybrano vlastni rozliseni
+            if (this.comboResolution.SelectedIndex == img.PictureSize.Length - 1)
+            {
+                Int32.TryParse(txbResX.Text, out w);
+                Int32.TryParse(txbResY.Text, out h);
+                w = w > 0 ? w : 100;
+                h = h > 0 ? h : 100;
+
+            } // prednastavene rozliseni
+            else
+            {
+                w = img.PictureSize[img.IndexPictureSize].Width;
+                h = img.PictureSize[img.IndexPictureSize].Height;
+            }
+            img.CurrentSize = new Size(w, h);
+
+            WndScene wndSc = GetWndScene();
+            wndSc.UpdateRecords();
+        }
 
         private void actionAnimationSet(object sender, EventArgs e)
         {

@@ -141,7 +141,7 @@ namespace EditorLib
 
         public override string ToString()
         {
-            return "Center= " + Center + ";A= " + A + ";B= " + B + ";";
+            return "Center= " + CenterWorld + ";A= " + A + ";B= " + B + ";";
         }
     }
 }
