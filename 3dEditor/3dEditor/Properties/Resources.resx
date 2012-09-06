@@ -130,8 +130,8 @@
   <data name="camera" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\camera.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cube16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\cube16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cube_icon24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\cube-icon24.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cyl16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\cyl16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -142,8 +142,8 @@
   <data name="icon_camera16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\icon-camera16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="plane16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\plane16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="rectangle16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\rectangle16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="remove_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\remove_16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

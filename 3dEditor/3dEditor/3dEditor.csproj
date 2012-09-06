@@ -195,12 +195,6 @@
     <EmbeddedResource Include="Images\sphere16.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Images\cube16.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Images\plane16.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Images\sun16.png" />
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +202,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\drawing48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\cube-icon24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\rectangle16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

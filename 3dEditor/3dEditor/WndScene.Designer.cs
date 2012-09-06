@@ -99,7 +99,7 @@
             // 
             // bToolStripMenuItem
             // 
-            this.bToolStripMenuItem.Image = global::_3dEditor.Properties.Resources.plane16;
+            this.bToolStripMenuItem.Image = global::_3dEditor.Properties.Resources.rectangle16;
             this.bToolStripMenuItem.Name = "bToolStripMenuItem";
             this.bToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.bToolStripMenuItem.Text = "Plane";
@@ -117,7 +117,7 @@
             // 
             // cubeToolStripMenuItem
             // 
-            this.cubeToolStripMenuItem.Image = global::_3dEditor.Properties.Resources.cube16;
+            this.cubeToolStripMenuItem.Image = global::_3dEditor.Properties.Resources.cube_icon24;
             this.cubeToolStripMenuItem.Name = "cubeToolStripMenuItem";
             this.cubeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.cubeToolStripMenuItem.Text = "Cube";
