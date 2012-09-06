@@ -524,10 +524,16 @@ namespace _3dEditor
 
             WndBoard wndBoard = GetWndBoard();
             wndBoard.RemoveRaytrObject(treeView1.SelectedNode.Tag);
-            treeView1.Nodes.Remove(treeView1.SelectedNode);
+
+            treeView1.Nodes.Remove(treeView1.SelectedNode); // musi byt pred odstranenim z Editoru
 
             WndProperties wndProp = GetWndProperties();
-            wndProp.ShowDefault();
+            // v okne Properties zobrazime bud zakladni obrazovku, nebo vlastnosti dalsiho prvku
+            // Muze se ve strome vybrat bud dalsi prvek, nebo koren stejneho podstromu
+            if (treeView1.SelectedNode.Tag is TreeNodeTypes)
+                wndProp.ShowDefault();      // vybran koren - bud prazdny podstrom, nebo nemusi
+            else
+                wndProp.ShowObject(treeView1.SelectedNode.Tag); // vybran dalsi prvek ze stejneho podstromu
         }
 
         private void OnAddSphere(object sender, EventArgs e)

@@ -1120,7 +1120,15 @@ namespace _3dEditor
 
         public void RemoveRaytrObject(object shape)
         {
-            if (shape is DrawingObject)
+            if (shape is RayImage)
+            {
+
+            }
+            else if (shape is DrawingAnimation)
+            {
+                _objectsToDraw.Remove((DrawingObject)shape);
+            }
+            else if (shape is DrawingObject)
             {
                 DrawingObject drObj = (DrawingObject)shape;
                 _currnetScene.RemoveObject(drObj.ModelObject);
