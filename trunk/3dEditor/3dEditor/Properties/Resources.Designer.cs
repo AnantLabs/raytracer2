@@ -88,9 +88,9 @@ namespace _3dEditor.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap cube16 {
+        internal static System.Drawing.Bitmap cube_icon24 {
             get {
-                object obj = ResourceManager.GetObject("cube16", resourceCulture);
+                object obj = ResourceManager.GetObject("cube_icon24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -116,9 +116,9 @@ namespace _3dEditor.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap plane16 {
+        internal static System.Drawing.Bitmap rectangle16 {
             get {
-                object obj = ResourceManager.GetObject("plane16", resourceCulture);
+                object obj = ResourceManager.GetObject("rectangle16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
