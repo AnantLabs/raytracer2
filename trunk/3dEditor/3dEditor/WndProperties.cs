@@ -18,8 +18,6 @@ namespace _3dEditor
         /// aktualne zobrazovany objekt
         object _currentlyDisplayed;
 
-        RayImage _currentImage;
-
         /// <summary>
         /// IMPORTANT!
         /// Indikuje povoleni zmeneni zobrazovaneho objektu.
@@ -62,7 +60,7 @@ namespace _3dEditor
         {
             // pouze zobrazeni objektu - nutno zakazet jeho vnitrni zmenu pri udalostech k nastaveni
             // hodnot v prislusnych prvich - numericBoxech apod.
-            _permissionToModify = false;        
+            _permissionToModify = false;
 
             if (obj.GetType() == typeof(DrawingSphere))
                 ShowSphere((DrawingSphere)obj);
@@ -84,6 +82,8 @@ namespace _3dEditor
 
             else if (obj.GetType() == typeof(DrawingCamera))
                 ShowCamera((DrawingCamera)obj);
+            else if (obj.GetType() == typeof(DrawingAnimation))
+                ShowAnimation((DrawingAnimation)obj);
 
             else
             {
@@ -342,8 +342,6 @@ namespace _3dEditor
                 this.Text = "Properties: Image";
             }
 
-            _currentImage = img;
-
             this.comboResolution.DataSource = img.PictureSize;
             this.comboResolution.SelectedIndex = img.IndexPictureSize;         // nastaveni prvni polozky
             if (img.IndexPictureSize == img.PictureSize.Length - 1)
@@ -353,11 +351,11 @@ namespace _3dEditor
             }
 
             this.numericRecurs.Value = (decimal)MyMath.Clamp(img.MaxRecurse, -1, 100);
-            this.btnBgCol.BackColor = img.BackgroundColor.SystemColor();
             this.checkAntialias.Checked = img.IsAntialiasing;
+            this.btnImageBgr.BackColor = img.BackgroundColor.SystemColor();
         }
 
-        private void ShowAnimation()
+        private void ShowAnimation(DrawingAnimation drAnim)
         {
             // zabraneni neustalemu blikani pri modifikaci stejne koule
             if (!this.panelAnimace.Visible)
@@ -366,6 +364,30 @@ namespace _3dEditor
                 this.panelAnimace.Visible = true;
                 this.Text = "Properties: Animation";
             }
+            this.numAnimCenterX.Value = (decimal)drAnim.CenterWorld.X;
+            this.numAnimCenterY.Value = (decimal)drAnim.CenterWorld.Y;
+            this.numAnimCenterZ.Value = (decimal)drAnim.CenterWorld.Z;
+
+            this.numAnimElipseA.Value = (decimal)drAnim.A;
+            this.numAnimElipseB.Value = (decimal)drAnim.B;
+
+            this.numAnimFps.Value = (decimal)drAnim.FPS;
+            this.numAnimSecs.Value = (decimal)drAnim.Time;
+            this.textBAnimFile.Text = drAnim.FileFullPath;
+
+            switch (drAnim.TypeAnim)
+            {
+                case AnimationType.VideoOnly:
+                    this.radioAnimVideoOnly.Checked = true;
+                    break;
+                case AnimationType.ImagesOnly:
+                    this.radioAnimImgsOnly.Checked = true;
+                    break;
+                case AnimationType.BothImagesAndVideo:
+                    this.radioAnimBothImgVideo.Checked = true;
+                    break;
+            }
+            
 
         }
 
@@ -390,6 +412,7 @@ namespace _3dEditor
                 this.labelResCross.Visible = false;
                 this.labelResPixels.Visible = false;
             }
+            this.actionImageSet(sender, e);
         }
 
         /// <summary>
@@ -420,44 +443,64 @@ namespace _3dEditor
             }
         }
 
-        private void btnBgCol_Click(object sender, EventArgs e)
+        private void btnImageBgCol_Click(object sender, EventArgs e)
         {
             if (this.colorDialog.ShowDialog() == DialogResult.OK)
             {
-                btnBgCol.BackColor = colorDialog.Color;
+                if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(RayImage))
+                    return;
+
+                if (!_permissionToModify)
+                    return;
+
+                RayImage img = (RayImage)_currentlyDisplayed;
+
+                btnImageBgr.BackColor = colorDialog.Color;
                 Colour col = Colour.ColourCreate(colorDialog.Color);
-                this._currentImage.BackgroundColor = col;
+                img.BackgroundColor = col;
             }
         }
 
         #endregion
 
-        private void bntImageSave(object sender, EventArgs e)
+        private void actionImageSet(object sender, EventArgs e)
         {
-            btnBgCol.BackColor = colorDialog.Color;
-            Colour col = Colour.ColourCreate(colorDialog.Color);
-            this._currentImage.BackgroundColor = col;
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(RayImage))
+                return;
 
-            this._currentImage.MaxRecurse = (int)this.numericRecurs.Value;
-            this._currentImage.IsAntialiasing = this.checkAntialias.Checked;
+            if (!_permissionToModify)
+                return;
 
-            this._currentImage.IndexPictureSize = this.comboResolution.SelectedIndex;
+            RayImage img = (RayImage)_currentlyDisplayed;
+
+            //btnImageBgr.BackColor = colorDialog.Color;
+            //Colour col = Colour.ColourCreate(colorDialog.Color);
+            //img.BackgroundColor = col;
+
+            img.MaxRecurse = (int)this.numericRecurs.Value;
+            img.IsAntialiasing = this.checkAntialias.Checked;
+
+            img.IndexPictureSize = this.comboResolution.SelectedIndex;
             int w = 100;
             int h= 100;
             // vybrano vlastni rozliseni
-            if (this.comboResolution.SelectedIndex == this._currentImage.PictureSize.Length - 1)
+            if (this.comboResolution.SelectedIndex == img.PictureSize.Length - 1)
             {
                 Int32.TryParse(txbResX.Text, out w);
                 Int32.TryParse(txbResY.Text, out h);
+                w = w > 0 ? w : 100;
+                h = h > 0 ? h : 100;
                 
             } // prednastavene rozliseni
             else
             {
-                w = this._currentImage.PictureSize[this._currentImage.IndexPictureSize].Width;
-                h = this._currentImage.PictureSize[this._currentImage.IndexPictureSize].Height;
+                w = img.PictureSize[img.IndexPictureSize].Width;
+                h = img.PictureSize[img.IndexPictureSize].Height;
             }
-            this._currentImage.CurrentSize = new Size(w, h);
+            img.CurrentSize = new Size(w, h);
 
+            WndScene wndSc = GetWndScene();
+            wndSc.UpdateRecords();
         }
 
         ///////////////////////////////////////////////
@@ -922,6 +965,43 @@ namespace _3dEditor
         }
         #endregion
 
+        private void actionAnimationSet(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingAnimation))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            DrawingAnimation drAnim = (DrawingAnimation)_currentlyDisplayed;
+
+            Point3D center = new Point3D();
+            center.X = (double)this.numAnimCenterX.Value;
+            center.Y = (double)this.numAnimCenterY.Value;
+            center.Z = (double)this.numAnimCenterZ.Value;
+
+            double a = (double)this.numAnimElipseA.Value;
+            double b = (double)this.numAnimElipseB.Value;
+            double c = (double)this.numAnimElipseB.Value;
+
+            drAnim.Set(center, a, b);
+
+            drAnim.FPS=(double)this.numAnimFps.Value;
+            drAnim.Time = (double)this.numAnimSecs.Value;
+            drAnim.FileFullPath = this.textBAnimFile.Text;
+
+            if (this.radioAnimVideoOnly.Checked)
+                drAnim.TypeAnim = AnimationType.VideoOnly;
+            else if (this.radioAnimImgsOnly.Checked)
+                drAnim.TypeAnim = AnimationType.ImagesOnly;
+            else if (this.radioAnimBothImgVideo.Checked)
+                drAnim.TypeAnim = AnimationType.BothImagesAndVideo;
+
+            WndBoard wnd = GetWndBoard();
+            wnd.RotationMatrix.TransformPoints(drAnim.Points);
+            WndScene wndSc = GetWndScene();
+            wndSc.UpdateRecords();
+        }
         public void UpdateSelected()
         {
 
@@ -1034,6 +1114,29 @@ namespace _3dEditor
             WndBoard wnd = GetWndBoard();
             drPlane.Rotate(x, y, z);
             wnd.RotationMatrix.TransformPoints(drPlane.Points);
+        }
+
+        private void onNumericRotateAnimation(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed.GetType() != typeof(DrawingAnimation))
+                return;
+
+            NumericUpDown num = sender as NumericUpDown;
+            if (num.Value > 359)
+                num.Value = num.Value % 360;
+            else if (num.Value < 0)
+                num.Value = 360 + num.Value;
+
+            double x = (double)this.numAnimRotX.Value;
+            double y = (double)this.numAnimRotY.Value;
+            double z = (double)this.numAnimRotZ.Value;
+            Matrix3D m = Matrix3D.NewRotateByDegrees(x, y, z);
+
+            DrawingAnimation drAnim = _currentlyDisplayed as DrawingAnimation;
+
+            WndBoard wnd = GetWndBoard();
+            drAnim.Rotate(x, y, z);
+            wnd.RotationMatrix.TransformPoints(drAnim.Points);
         }
 
         

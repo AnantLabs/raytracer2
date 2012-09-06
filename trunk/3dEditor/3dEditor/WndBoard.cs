@@ -54,7 +54,7 @@ namespace _3dEditor
 
         int _scale;
         int _zoom;
-        int _ZOOM_INCREMENT = 8;
+        int _ZOOM_INCREMENT = 5;
         const int _SCALE_INIT = 150;
         const int _ZOOM_INIT = 70;
         /// <summary>
@@ -480,7 +480,7 @@ namespace _3dEditor
                     editorObject.AddPath(path);
                     _editHelp.AddClickableObject(editorObject);
                 }
-                else if (obj.GetType() == typeof(DrawingCamera))
+                else if (obj.GetType() == typeof(DrawingCamera))    // ============ CAMERA
                 {
                     if (_showCamera == false)       // neni-li zaskrtnuta volba zobrazeni kamery, konec
                         continue;
@@ -564,6 +564,52 @@ namespace _3dEditor
                     }
 
                     g.DrawClosedCurve(_editHelp.CameraPenEllips, pointsF, 1F, System.Drawing.Drawing2D.FillMode.Winding);
+                }                                                       ///////////////////////////
+                else if (obj.GetType() == typeof(DrawingAnimation))     // ========== ANIMATION
+                {
+                    DrawingAnimation drAnim = (DrawingAnimation)obj;
+                    if (drAnim.ShowAnimation == false)       // neni-li volba zobrazeni animace, nezobrazujeme
+                        continue;
+
+                    EditorObject editorObject = new EditorObject(drAnim);
+                    GraphicsPath path;
+
+                    Line3D lineA = drAnim.AxisA;
+                    a = lineA.A.To2D(_scale, _zoom, _centerPoint);
+                    b = lineA.B.To2D(_scale, _zoom, _centerPoint);
+                    g.DrawLine(DrawingAnimation.AxisAPen, a, b);
+                    Line3D lineB = drAnim.AxisB;
+                    a = lineB.A.To2D(_scale, _zoom, _centerPoint);
+                    b = lineB.B.To2D(_scale, _zoom, _centerPoint);
+                    g.DrawLine(DrawingAnimation.AxisBPen, a, b);
+                    //foreach (Line3D l in drAnim.Lines)
+                    //{
+                    //    a = l.A.To2D(_scale, _zoom, _centerPoint);
+                    //    b = l.B.To2D(_scale, _zoom, _centerPoint);
+                    //    g.DrawLine(_penObject, a, b);
+                    //}
+
+                    a = drAnim.Center.To2D(_scale, _zoom, _centerPoint);
+                    // nakreslit stred elipsy
+                    //g.DrawLine(_penObject, a, PointF.Subtract(a, new Size(2, 2)));
+                    //float rad = ((float)sph.Radius * _scale) / _scale * _zoom;
+
+                    Point3D[] points = drAnim.GetDrawingPoints();
+                    path = new GraphicsPath();
+                    for (int i = 0; i < points.Length - 1; i++)
+                    {
+                        PointF pf1 = points[i].To2D(_scale, _zoom, _centerPoint);
+                        PointF pf2 = points[i + 1].To2D(_scale, _zoom, _centerPoint);
+                        g.DrawLine(DrawingAnimation.EllipsePen, pf1, pf2);
+                        path.AddLine(pf1, pf2);
+                    }
+
+                    
+                    
+                    //path.AddEllipse(a.X - rad, a.Y - rad, 2 * rad, 2 * rad);
+                    editorObject.AddPath(path);
+                    _editHelp.AddClickableObject(editorObject);   
+
                 }
 
             }
@@ -761,6 +807,19 @@ namespace _3dEditor
                         WndScene wnd = GetWndScene();
                         wnd.UpdateRecords();
 
+                    }
+                    else if (_Selected is DrawingAnimation)
+                    {
+                        DrawingAnimation drAnim = _Selected as DrawingAnimation;
+                        foreach (Point3D p in _Selected.Points)
+                        {
+                            p.Posunuti(-xDel, -yDel, 0);
+                        }
+                        Matrix3D transp = this._matrixForever.Transpose();
+                        Point3D centerTransp = transp.Transform2NewPoint(drAnim.Center);
+                        drAnim.CenterWorld = centerTransp;
+                        WndScene wnd = GetWndScene();
+                        wnd.UpdateRecords();
                     }
                     
                 }
@@ -1137,6 +1196,15 @@ namespace _3dEditor
                 wndScene.AddItem(drCam);
             }
 
+        }
+
+        public void AddAnimation(DrawingAnimation drAnim)
+        {
+            drAnim.ApplyRotationMatrix(_matrixForever);
+            _objectsToDraw.Add(drAnim);
+            WndScene wndScene = GetWndScene();
+            wndScene.AddItem(drAnim);
+            wndScene.ShowNode(drAnim);
         }
 
         /// <summary>

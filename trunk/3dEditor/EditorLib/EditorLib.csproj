@@ -71,6 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DrawingAnimation.cs" />
     <Compile Include="DrawingCamera.cs" />
     <Compile Include="DrawingCylinder.cs" />
     <Compile Include="DrawingDefaultShape.cs" />

@@ -229,17 +229,16 @@
             this.radioMultiPass = new System.Windows.Forms.RadioButton();
             this.radioSinglePass = new System.Windows.Forms.RadioButton();
             this.panelLightSoft = new System.Windows.Forms.Panel();
+            this.trackBarLightNum = new System.Windows.Forms.TrackBar();
+            this.trackBarLightEps = new System.Windows.Forms.TrackBar();
             this.numericLightEps = new System.Windows.Forms.NumericUpDown();
             this.label119 = new System.Windows.Forms.Label();
-            this.trackBarLightEps = new System.Windows.Forms.TrackBar();
             this.numericLightNum = new System.Windows.Forms.NumericUpDown();
             this.label22 = new System.Windows.Forms.Label();
-            this.trackBarLightNum = new System.Windows.Forms.TrackBar();
             this.checkBoxLightIsSoft = new System.Windows.Forms.CheckBox();
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.btnLighColor = new System.Windows.Forms.Button();
-            this.buttonLightSave = new System.Windows.Forms.Button();
             this.numericSvetloX = new System.Windows.Forms.NumericUpDown();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
@@ -287,7 +286,7 @@
             this.label112 = new System.Windows.Forms.Label();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.panelImage = new System.Windows.Forms.Panel();
-            this.btnBgCol = new System.Windows.Forms.Button();
+            this.btnImageBgr = new System.Windows.Forms.Button();
             this.label121 = new System.Windows.Forms.Label();
             this.checkAntialias = new System.Windows.Forms.CheckBox();
             this.numericRecurs = new System.Windows.Forms.NumericUpDown();
@@ -298,38 +297,42 @@
             this.labelResCross = new System.Windows.Forms.Label();
             this.txbResX = new System.Windows.Forms.TextBox();
             this.label114 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.label123 = new System.Windows.Forms.Label();
             this.panelAnimace = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.radioImgsOnly = new System.Windows.Forms.RadioButton();
-            this.radioBothImgVideo = new System.Windows.Forms.RadioButton();
-            this.radioVideoOnly = new System.Windows.Forms.RadioButton();
+            this.radioAnimImgsOnly = new System.Windows.Forms.RadioButton();
+            this.radioAnimBothImgVideo = new System.Windows.Forms.RadioButton();
+            this.radioAnimVideoOnly = new System.Windows.Forms.RadioButton();
             this.label115 = new System.Windows.Forms.Label();
             this.label116 = new System.Windows.Forms.Label();
             this.btnSaveAsFile = new System.Windows.Forms.Button();
-            this.numericAnimationFps = new System.Windows.Forms.NumericUpDown();
+            this.numAnimFps = new System.Windows.Forms.NumericUpDown();
             this.label120 = new System.Windows.Forms.Label();
-            this.numericAnimationSeconds = new System.Windows.Forms.NumericUpDown();
+            this.numAnimSecs = new System.Windows.Forms.NumericUpDown();
             this.label118 = new System.Windows.Forms.Label();
-            this.textBoxAnimat = new System.Windows.Forms.TextBox();
+            this.textBAnimFile = new System.Windows.Forms.TextBox();
             this.label117 = new System.Windows.Forms.Label();
             this.label122 = new System.Windows.Forms.Label();
             this.label124 = new System.Windows.Forms.Label();
             this.label125 = new System.Windows.Forms.Label();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.numericElipseCenterX = new System.Windows.Forms.NumericUpDown();
+            this.numAnimCenterX = new System.Windows.Forms.NumericUpDown();
             this.label126 = new System.Windows.Forms.Label();
-            this.label127 = new System.Windows.Forms.Label();
-            this.numericElipseCenterZ = new System.Windows.Forms.NumericUpDown();
-            this.numericElipseB = new System.Windows.Forms.NumericUpDown();
+            this.numAnimCenterZ = new System.Windows.Forms.NumericUpDown();
             this.label128 = new System.Windows.Forms.Label();
-            this.numericElipseA = new System.Windows.Forms.NumericUpDown();
-            this.numericElipseCenterY = new System.Windows.Forms.NumericUpDown();
+            this.numAnimElipseA = new System.Windows.Forms.NumericUpDown();
+            this.numAnimCenterY = new System.Windows.Forms.NumericUpDown();
             this.label129 = new System.Windows.Forms.Label();
             this.label130 = new System.Windows.Forms.Label();
-            this.numericElipseC = new System.Windows.Forms.NumericUpDown();
+            this.numAnimElipseB = new System.Windows.Forms.NumericUpDown();
             this.label131 = new System.Windows.Forms.Label();
+            this.label147 = new System.Windows.Forms.Label();
+            this.label127 = new System.Windows.Forms.Label();
+            this.label146 = new System.Windows.Forms.Label();
+            this.label148 = new System.Windows.Forms.Label();
+            this.label149 = new System.Windows.Forms.Label();
+            this.numAnimRotZ = new System.Windows.Forms.NumericUpDown();
+            this.numAnimRotY = new System.Windows.Forms.NumericUpDown();
+            this.numAnimRotX = new System.Windows.Forms.NumericUpDown();
             this.panelSphere.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSphRotZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSphRotY)).BeginInit();
@@ -419,10 +422,10 @@
             this.panelLight.SuspendLayout();
             this.panelSoftPasses.SuspendLayout();
             this.panelLightSoft.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericLightEps)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarLightEps)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericLightNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarLightNum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarLightEps)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericLightEps)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericLightNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSvetloX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSvetloZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSvetloG)).BeginInit();
@@ -446,14 +449,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericRecurs)).BeginInit();
             this.panelAnimace.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericAnimationFps)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericAnimationSeconds)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericElipseCenterX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericElipseCenterZ)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericElipseB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericElipseA)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericElipseCenterY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericElipseC)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimFps)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimSecs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimCenterX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimCenterZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimElipseA)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimCenterY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimElipseB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotX)).BeginInit();
             this.SuspendLayout();
             // 
             // panelSphere
@@ -505,7 +510,7 @@
             this.panelSphere.Controls.Add(this.numericKouleY);
             this.panelSphere.Controls.Add(this.label18);
             this.panelSphere.Controls.Add(this.label19);
-            this.panelSphere.Location = new System.Drawing.Point(20, 182);
+            this.panelSphere.Location = new System.Drawing.Point(295, 63);
             this.panelSphere.Name = "panelSphere";
             this.panelSphere.Size = new System.Drawing.Size(419, 293);
             this.panelSphere.TabIndex = 41;
@@ -1984,7 +1989,7 @@
             this.panelRovina.Controls.Add(this.numericRovinaB);
             this.panelRovina.Controls.Add(this.label88);
             this.panelRovina.Controls.Add(this.label89);
-            this.panelRovina.Location = new System.Drawing.Point(35, 26);
+            this.panelRovina.Location = new System.Drawing.Point(705, 2);
             this.panelRovina.Name = "panelRovina";
             this.panelRovina.Size = new System.Drawing.Size(407, 349);
             this.panelRovina.TabIndex = 58;
@@ -3574,13 +3579,13 @@
             // 
             // panelLight
             // 
+            this.panelLight.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
             this.panelLight.Controls.Add(this.panelSoftPasses);
             this.panelLight.Controls.Add(this.panelLightSoft);
             this.panelLight.Controls.Add(this.checkBoxLightIsSoft);
             this.panelLight.Controls.Add(this.label23);
             this.panelLight.Controls.Add(this.label24);
             this.panelLight.Controls.Add(this.btnLighColor);
-            this.panelLight.Controls.Add(this.buttonLightSave);
             this.panelLight.Controls.Add(this.numericSvetloX);
             this.panelLight.Controls.Add(this.label25);
             this.panelLight.Controls.Add(this.label26);
@@ -3594,13 +3599,14 @@
             this.panelLight.Controls.Add(this.label30);
             this.panelLight.Controls.Add(this.numericSvetloB);
             this.panelLight.Controls.Add(this.label31);
-            this.panelLight.Location = new System.Drawing.Point(364, 343);
+            this.panelLight.Location = new System.Drawing.Point(331, 490);
             this.panelLight.Name = "panelLight";
             this.panelLight.Size = new System.Drawing.Size(335, 284);
             this.panelLight.TabIndex = 59;
             // 
             // panelSoftPasses
             // 
+            this.panelSoftPasses.BackColor = System.Drawing.Color.Transparent;
             this.panelSoftPasses.Controls.Add(this.radioMultiPass);
             this.panelSoftPasses.Controls.Add(this.radioSinglePass);
             this.panelSoftPasses.Location = new System.Drawing.Point(84, 108);
@@ -3612,7 +3618,7 @@
             // 
             this.radioMultiPass.AutoSize = true;
             this.radioMultiPass.Checked = true;
-            this.radioMultiPass.Location = new System.Drawing.Point(108, 7);
+            this.radioMultiPass.Location = new System.Drawing.Point(108, 5);
             this.radioMultiPass.Name = "radioMultiPass";
             this.radioMultiPass.Size = new System.Drawing.Size(73, 17);
             this.radioMultiPass.TabIndex = 1;
@@ -3624,7 +3630,7 @@
             // radioSinglePass
             // 
             this.radioSinglePass.AutoSize = true;
-            this.radioSinglePass.Location = new System.Drawing.Point(8, 7);
+            this.radioSinglePass.Location = new System.Drawing.Point(8, 5);
             this.radioSinglePass.Name = "radioSinglePass";
             this.radioSinglePass.Size = new System.Drawing.Size(80, 17);
             this.radioSinglePass.TabIndex = 0;
@@ -3634,16 +3640,39 @@
             // 
             // panelLightSoft
             // 
+            this.panelLightSoft.BackColor = System.Drawing.Color.Transparent;
+            this.panelLightSoft.Controls.Add(this.trackBarLightNum);
+            this.panelLightSoft.Controls.Add(this.trackBarLightEps);
             this.panelLightSoft.Controls.Add(this.numericLightEps);
             this.panelLightSoft.Controls.Add(this.label119);
-            this.panelLightSoft.Controls.Add(this.trackBarLightEps);
             this.panelLightSoft.Controls.Add(this.numericLightNum);
             this.panelLightSoft.Controls.Add(this.label22);
-            this.panelLightSoft.Controls.Add(this.trackBarLightNum);
             this.panelLightSoft.Location = new System.Drawing.Point(3, 145);
             this.panelLightSoft.Name = "panelLightSoft";
             this.panelLightSoft.Size = new System.Drawing.Size(321, 100);
             this.panelLightSoft.TabIndex = 40;
+            // 
+            // trackBarLightNum
+            // 
+            this.trackBarLightNum.Location = new System.Drawing.Point(60, 7);
+            this.trackBarLightNum.Maximum = 64;
+            this.trackBarLightNum.Minimum = 16;
+            this.trackBarLightNum.Name = "trackBarLightNum";
+            this.trackBarLightNum.Size = new System.Drawing.Size(178, 45);
+            this.trackBarLightNum.TabIndex = 0;
+            this.trackBarLightNum.Value = 16;
+            this.trackBarLightNum.Scroll += new System.EventHandler(this.OnScrollNum);
+            // 
+            // trackBarLightEps
+            // 
+            this.trackBarLightEps.Location = new System.Drawing.Point(59, 52);
+            this.trackBarLightEps.Maximum = 20;
+            this.trackBarLightEps.Minimum = 1;
+            this.trackBarLightEps.Name = "trackBarLightEps";
+            this.trackBarLightEps.Size = new System.Drawing.Size(178, 45);
+            this.trackBarLightEps.TabIndex = 42;
+            this.trackBarLightEps.Value = 20;
+            this.trackBarLightEps.Scroll += new System.EventHandler(this.OnScrollEps);
             // 
             // numericLightEps
             // 
@@ -3653,7 +3682,7 @@
             0,
             0,
             131072});
-            this.numericLightEps.Location = new System.Drawing.Point(240, 56);
+            this.numericLightEps.Location = new System.Drawing.Point(241, 54);
             this.numericLightEps.Maximum = new decimal(new int[] {
             1,
             0,
@@ -3684,20 +3713,9 @@
             this.label119.TabIndex = 44;
             this.label119.Text = "Dispersion:";
             // 
-            // trackBarLightEps
-            // 
-            this.trackBarLightEps.Location = new System.Drawing.Point(59, 52);
-            this.trackBarLightEps.Maximum = 20;
-            this.trackBarLightEps.Minimum = 1;
-            this.trackBarLightEps.Name = "trackBarLightEps";
-            this.trackBarLightEps.Size = new System.Drawing.Size(178, 45);
-            this.trackBarLightEps.TabIndex = 42;
-            this.trackBarLightEps.Value = 20;
-            this.trackBarLightEps.Scroll += new System.EventHandler(this.OnScrollEps);
-            // 
             // numericLightNum
             // 
-            this.numericLightNum.Location = new System.Drawing.Point(241, 11);
+            this.numericLightNum.Location = new System.Drawing.Point(241, 10);
             this.numericLightNum.Maximum = new decimal(new int[] {
             64,
             0,
@@ -3728,35 +3746,26 @@
             this.label22.TabIndex = 41;
             this.label22.Text = "Size:";
             // 
-            // trackBarLightNum
-            // 
-            this.trackBarLightNum.Location = new System.Drawing.Point(60, 7);
-            this.trackBarLightNum.Maximum = 64;
-            this.trackBarLightNum.Minimum = 16;
-            this.trackBarLightNum.Name = "trackBarLightNum";
-            this.trackBarLightNum.Size = new System.Drawing.Size(178, 45);
-            this.trackBarLightNum.TabIndex = 0;
-            this.trackBarLightNum.Value = 16;
-            this.trackBarLightNum.Scroll += new System.EventHandler(this.OnScrollNum);
-            // 
             // checkBoxLightIsSoft
             // 
             this.checkBoxLightIsSoft.AutoSize = true;
+            this.checkBoxLightIsSoft.BackColor = System.Drawing.Color.Transparent;
             this.checkBoxLightIsSoft.Checked = true;
             this.checkBoxLightIsSoft.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxLightIsSoft.Location = new System.Drawing.Point(11, 116);
+            this.checkBoxLightIsSoft.Location = new System.Drawing.Point(11, 113);
             this.checkBoxLightIsSoft.Name = "checkBoxLightIsSoft";
             this.checkBoxLightIsSoft.Size = new System.Drawing.Size(67, 17);
             this.checkBoxLightIsSoft.TabIndex = 39;
             this.checkBoxLightIsSoft.Text = "Soft light";
-            this.checkBoxLightIsSoft.UseVisualStyleBackColor = true;
+            this.checkBoxLightIsSoft.UseVisualStyleBackColor = false;
             this.checkBoxLightIsSoft.CheckedChanged += new System.EventHandler(this.actionLightSet);
             // 
             // label23
             // 
             this.label23.AutoSize = true;
+            this.label23.BackColor = System.Drawing.Color.Transparent;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label23.Location = new System.Drawing.Point(5, 63);
+            this.label23.Location = new System.Drawing.Point(5, 47);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(57, 16);
             this.label23.TabIndex = 38;
@@ -3765,8 +3774,9 @@
             // label24
             // 
             this.label24.AutoSize = true;
+            this.label24.BackColor = System.Drawing.Color.Transparent;
             this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label24.Location = new System.Drawing.Point(5, 32);
+            this.label24.Location = new System.Drawing.Point(5, 24);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(57, 16);
             this.label24.TabIndex = 37;
@@ -3774,22 +3784,13 @@
             // 
             // btnLighColor
             // 
-            this.btnLighColor.Location = new System.Drawing.Point(8, 88);
+            this.btnLighColor.Location = new System.Drawing.Point(3, 66);
             this.btnLighColor.Name = "btnLighColor";
             this.btnLighColor.Size = new System.Drawing.Size(61, 23);
             this.btnLighColor.TabIndex = 36;
             this.btnLighColor.Text = "choose";
             this.btnLighColor.UseVisualStyleBackColor = true;
             this.btnLighColor.Click += new System.EventHandler(this.btnLighColor_Click);
-            // 
-            // buttonLightSave
-            // 
-            this.buttonLightSave.Location = new System.Drawing.Point(126, 251);
-            this.buttonLightSave.Name = "buttonLightSave";
-            this.buttonLightSave.Size = new System.Drawing.Size(61, 23);
-            this.buttonLightSave.TabIndex = 33;
-            this.buttonLightSave.Text = "Save";
-            this.buttonLightSave.UseVisualStyleBackColor = true;
             // 
             // numericSvetloX
             // 
@@ -3799,7 +3800,7 @@
             0,
             0,
             65536});
-            this.numericSvetloX.Location = new System.Drawing.Point(81, 32);
+            this.numericSvetloX.Location = new System.Drawing.Point(81, 23);
             this.numericSvetloX.Minimum = new decimal(new int[] {
             100,
             0,
@@ -3813,8 +3814,9 @@
             // label25
             // 
             this.label25.AutoSize = true;
+            this.label25.BackColor = System.Drawing.Color.Transparent;
             this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label25.Location = new System.Drawing.Point(149, 66);
+            this.label25.Location = new System.Drawing.Point(149, 49);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(18, 13);
             this.label25.TabIndex = 30;
@@ -3823,18 +3825,20 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label26.Location = new System.Drawing.Point(12, 4);
+            this.label26.BackColor = System.Drawing.Color.Transparent;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label26.Location = new System.Drawing.Point(3, 3);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(61, 24);
+            this.label26.Size = new System.Drawing.Size(67, 20);
             this.label26.TabIndex = 15;
-            this.label26.Text = "Light:";
+            this.label26.Text = "LIGHT:";
             // 
             // label27
             // 
             this.label27.AutoSize = true;
+            this.label27.BackColor = System.Drawing.Color.Transparent;
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label27.Location = new System.Drawing.Point(235, 66);
+            this.label27.Location = new System.Drawing.Point(235, 49);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(17, 13);
             this.label27.TabIndex = 29;
@@ -3848,7 +3852,7 @@
             0,
             0,
             65536});
-            this.numericSvetloZ.Location = new System.Drawing.Point(255, 32);
+            this.numericSvetloZ.Location = new System.Drawing.Point(255, 23);
             this.numericSvetloZ.Minimum = new decimal(new int[] {
             100,
             0,
@@ -3872,7 +3876,7 @@
             0,
             0,
             131072});
-            this.numericSvetloG.Location = new System.Drawing.Point(169, 64);
+            this.numericSvetloG.Location = new System.Drawing.Point(169, 44);
             this.numericSvetloG.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -3886,8 +3890,9 @@
             // label28
             // 
             this.label28.AutoSize = true;
+            this.label28.BackColor = System.Drawing.Color.Transparent;
             this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label28.Location = new System.Drawing.Point(61, 34);
+            this.label28.Location = new System.Drawing.Point(61, 26);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(17, 13);
             this.label28.TabIndex = 17;
@@ -3901,7 +3906,7 @@
             0,
             0,
             131072});
-            this.numericSvetloR.Location = new System.Drawing.Point(80, 64);
+            this.numericSvetloR.Location = new System.Drawing.Point(81, 44);
             this.numericSvetloR.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -3920,7 +3925,7 @@
             0,
             0,
             65536});
-            this.numericSvetloY.Location = new System.Drawing.Point(169, 32);
+            this.numericSvetloY.Location = new System.Drawing.Point(169, 23);
             this.numericSvetloY.Minimum = new decimal(new int[] {
             100,
             0,
@@ -3934,8 +3939,9 @@
             // label29
             // 
             this.label29.AutoSize = true;
+            this.label29.BackColor = System.Drawing.Color.Transparent;
             this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label29.Location = new System.Drawing.Point(60, 66);
+            this.label29.Location = new System.Drawing.Point(60, 49);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(18, 13);
             this.label29.TabIndex = 26;
@@ -3944,8 +3950,9 @@
             // label30
             // 
             this.label30.AutoSize = true;
+            this.label30.BackColor = System.Drawing.Color.Transparent;
             this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label30.Location = new System.Drawing.Point(235, 34);
+            this.label30.Location = new System.Drawing.Point(235, 26);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(17, 13);
             this.label30.TabIndex = 23;
@@ -3959,7 +3966,7 @@
             0,
             0,
             131072});
-            this.numericSvetloB.Location = new System.Drawing.Point(255, 64);
+            this.numericSvetloB.Location = new System.Drawing.Point(255, 44);
             this.numericSvetloB.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -3973,8 +3980,9 @@
             // label31
             // 
             this.label31.AutoSize = true;
+            this.label31.BackColor = System.Drawing.Color.Transparent;
             this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label31.Location = new System.Drawing.Point(149, 34);
+            this.label31.Location = new System.Drawing.Point(149, 26);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(17, 13);
             this.label31.TabIndex = 24;
@@ -3982,6 +3990,7 @@
             // 
             // panelCamera
             // 
+            this.panelCamera.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
             this.panelCamera.Controls.Add(this.numericKamWidth);
             this.panelCamera.Controls.Add(this.label134);
             this.panelCamera.Controls.Add(this.numericKamHeight);
@@ -4013,9 +4022,9 @@
             this.panelCamera.Controls.Add(this.numericKameraStredY);
             this.panelCamera.Controls.Add(this.label111);
             this.panelCamera.Controls.Add(this.label112);
-            this.panelCamera.Location = new System.Drawing.Point(10, 272);
+            this.panelCamera.Location = new System.Drawing.Point(714, 488);
             this.panelCamera.Name = "panelCamera";
-            this.panelCamera.Size = new System.Drawing.Size(325, 237);
+            this.panelCamera.Size = new System.Drawing.Size(363, 254);
             this.panelCamera.TabIndex = 60;
             // 
             // numericKamWidth
@@ -4026,7 +4035,7 @@
             0,
             0,
             65536});
-            this.numericKamWidth.Location = new System.Drawing.Point(171, 208);
+            this.numericKamWidth.Location = new System.Drawing.Point(173, 155);
             this.numericKamWidth.Minimum = new decimal(new int[] {
             100,
             0,
@@ -4040,8 +4049,9 @@
             // label134
             // 
             this.label134.AutoSize = true;
+            this.label134.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label134.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label134.Location = new System.Drawing.Point(130, 211);
+            this.label134.Location = new System.Drawing.Point(133, 158);
             this.label134.Name = "label134";
             this.label134.Size = new System.Drawing.Size(38, 13);
             this.label134.TabIndex = 61;
@@ -4055,7 +4065,7 @@
             0,
             0,
             65536});
-            this.numericKamHeight.Location = new System.Drawing.Point(171, 182);
+            this.numericKamHeight.Location = new System.Drawing.Point(173, 133);
             this.numericKamHeight.Minimum = new decimal(new int[] {
             100,
             0,
@@ -4069,8 +4079,9 @@
             // label133
             // 
             this.label133.AutoSize = true;
+            this.label133.BackColor = System.Drawing.Color.Gainsboro;
             this.label133.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label133.Location = new System.Drawing.Point(127, 185);
+            this.label133.Location = new System.Drawing.Point(130, 136);
             this.label133.Name = "label133";
             this.label133.Size = new System.Drawing.Size(41, 13);
             this.label133.TabIndex = 59;
@@ -4084,7 +4095,7 @@
             0,
             0,
             65536});
-            this.numericKamDist.Location = new System.Drawing.Point(171, 153);
+            this.numericKamDist.Location = new System.Drawing.Point(173, 111);
             this.numericKamDist.Minimum = new decimal(new int[] {
             100,
             0,
@@ -4098,8 +4109,9 @@
             // label132
             // 
             this.label132.AutoSize = true;
+            this.label132.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label132.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label132.Location = new System.Drawing.Point(117, 156);
+            this.label132.Location = new System.Drawing.Point(119, 114);
             this.label132.Name = "label132";
             this.label132.Size = new System.Drawing.Size(52, 13);
             this.label132.TabIndex = 57;
@@ -4108,34 +4120,37 @@
             // checkSide2
             // 
             this.checkSide2.AutoSize = true;
-            this.checkSide2.Location = new System.Drawing.Point(10, 206);
+            this.checkSide2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.checkSide2.Location = new System.Drawing.Point(14, 157);
             this.checkSide2.Name = "checkSide2";
             this.checkSide2.Size = new System.Drawing.Size(86, 17);
             this.checkSide2.TabIndex = 56;
             this.checkSide2.Text = "Show Side 2";
-            this.checkSide2.UseVisualStyleBackColor = true;
+            this.checkSide2.UseVisualStyleBackColor = false;
             this.checkSide2.CheckedChanged += new System.EventHandler(this.actionKameraSet);
             // 
             // checkSide1
             // 
             this.checkSide1.AutoSize = true;
-            this.checkSide1.Location = new System.Drawing.Point(11, 180);
+            this.checkSide1.BackColor = System.Drawing.Color.Gainsboro;
+            this.checkSide1.Location = new System.Drawing.Point(14, 135);
             this.checkSide1.Name = "checkSide1";
             this.checkSide1.Size = new System.Drawing.Size(86, 17);
             this.checkSide1.TabIndex = 55;
             this.checkSide1.Text = "Show Side 1";
-            this.checkSide1.UseVisualStyleBackColor = true;
+            this.checkSide1.UseVisualStyleBackColor = false;
             this.checkSide1.CheckedChanged += new System.EventHandler(this.actionKameraSet);
             // 
             // checkCross
             // 
             this.checkCross.AutoSize = true;
-            this.checkCross.Location = new System.Drawing.Point(12, 156);
+            this.checkCross.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.checkCross.Location = new System.Drawing.Point(14, 113);
             this.checkCross.Name = "checkCross";
             this.checkCross.Size = new System.Drawing.Size(82, 17);
             this.checkCross.TabIndex = 54;
             this.checkCross.Text = "Show Cross";
-            this.checkCross.UseVisualStyleBackColor = true;
+            this.checkCross.UseVisualStyleBackColor = false;
             this.checkCross.CheckedChanged += new System.EventHandler(this.actionKameraSet);
             // 
             // numericKameraUpX
@@ -4146,7 +4161,7 @@
             0,
             0,
             65536});
-            this.numericKameraUpX.Location = new System.Drawing.Point(241, 65);
+            this.numericKameraUpX.Location = new System.Drawing.Point(115, 67);
             this.numericKameraUpX.Minimum = new decimal(new int[] {
             100,
             0,
@@ -4165,7 +4180,7 @@
             0,
             0,
             65536});
-            this.numericKameraUpZ.Location = new System.Drawing.Point(241, 117);
+            this.numericKameraUpZ.Location = new System.Drawing.Point(288, 67);
             this.numericKameraUpZ.Minimum = new decimal(new int[] {
             100,
             0,
@@ -4179,8 +4194,9 @@
             // label32
             // 
             this.label32.AutoSize = true;
+            this.label32.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label32.Location = new System.Drawing.Point(221, 68);
+            this.label32.Location = new System.Drawing.Point(94, 70);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(17, 13);
             this.label32.TabIndex = 49;
@@ -4194,7 +4210,7 @@
             0,
             0,
             65536});
-            this.numericKameraUpY.Location = new System.Drawing.Point(241, 91);
+            this.numericKameraUpY.Location = new System.Drawing.Point(202, 67);
             this.numericKameraUpY.Minimum = new decimal(new int[] {
             100,
             0,
@@ -4213,8 +4229,9 @@
             // label33
             // 
             this.label33.AutoSize = true;
+            this.label33.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label33.Location = new System.Drawing.Point(221, 120);
+            this.label33.Location = new System.Drawing.Point(268, 70);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(17, 13);
             this.label33.TabIndex = 52;
@@ -4223,8 +4240,9 @@
             // label34
             // 
             this.label34.AutoSize = true;
+            this.label34.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label34.Location = new System.Drawing.Point(221, 94);
+            this.label34.Location = new System.Drawing.Point(181, 70);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(17, 13);
             this.label34.TabIndex = 53;
@@ -4233,12 +4251,13 @@
             // label35
             // 
             this.label35.AutoSize = true;
+            this.label35.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label35.Location = new System.Drawing.Point(238, 31);
+            this.label35.Location = new System.Drawing.Point(3, 69);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(67, 30);
+            this.label35.Size = new System.Drawing.Size(90, 15);
             this.label35.TabIndex = 47;
-            this.label35.Text = "Vertical\r\ndirection:";
+            this.label35.Text = "UP direction:";
             this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // numericKameraDirX
@@ -4249,7 +4268,7 @@
             0,
             0,
             65536});
-            this.numericKameraDirX.Location = new System.Drawing.Point(138, 65);
+            this.numericKameraDirX.Location = new System.Drawing.Point(115, 45);
             this.numericKameraDirX.Minimum = new decimal(new int[] {
             100,
             0,
@@ -4268,7 +4287,7 @@
             0,
             0,
             65536});
-            this.numericKameraDirZ.Location = new System.Drawing.Point(138, 117);
+            this.numericKameraDirZ.Location = new System.Drawing.Point(288, 45);
             this.numericKameraDirZ.Minimum = new decimal(new int[] {
             100,
             0,
@@ -4287,8 +4306,9 @@
             // label56
             // 
             this.label56.AutoSize = true;
+            this.label56.BackColor = System.Drawing.Color.Gainsboro;
             this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label56.Location = new System.Drawing.Point(118, 68);
+            this.label56.Location = new System.Drawing.Point(94, 49);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(17, 13);
             this.label56.TabIndex = 42;
@@ -4302,7 +4322,7 @@
             0,
             0,
             65536});
-            this.numericKameraDirY.Location = new System.Drawing.Point(138, 91);
+            this.numericKameraDirY.Location = new System.Drawing.Point(202, 45);
             this.numericKameraDirY.Minimum = new decimal(new int[] {
             100,
             0,
@@ -4316,8 +4336,9 @@
             // label100
             // 
             this.label100.AutoSize = true;
+            this.label100.BackColor = System.Drawing.Color.Gainsboro;
             this.label100.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label100.Location = new System.Drawing.Point(118, 120);
+            this.label100.Location = new System.Drawing.Point(268, 49);
             this.label100.Name = "label100";
             this.label100.Size = new System.Drawing.Size(17, 13);
             this.label100.TabIndex = 45;
@@ -4326,8 +4347,9 @@
             // label105
             // 
             this.label105.AutoSize = true;
+            this.label105.BackColor = System.Drawing.Color.Gainsboro;
             this.label105.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label105.Location = new System.Drawing.Point(118, 94);
+            this.label105.Location = new System.Drawing.Point(181, 49);
             this.label105.Name = "label105";
             this.label105.Size = new System.Drawing.Size(17, 13);
             this.label105.TabIndex = 46;
@@ -4336,8 +4358,9 @@
             // label107
             // 
             this.label107.AutoSize = true;
+            this.label107.BackColor = System.Drawing.Color.Gainsboro;
             this.label107.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label107.Location = new System.Drawing.Point(132, 44);
+            this.label107.Location = new System.Drawing.Point(19, 47);
             this.label107.Name = "label107";
             this.label107.Size = new System.Drawing.Size(74, 16);
             this.label107.TabIndex = 40;
@@ -4346,8 +4369,9 @@
             // label108
             // 
             this.label108.AutoSize = true;
+            this.label108.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label108.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label108.Location = new System.Drawing.Point(35, 44);
+            this.label108.Location = new System.Drawing.Point(36, 24);
             this.label108.Name = "label108";
             this.label108.Size = new System.Drawing.Size(57, 16);
             this.label108.TabIndex = 39;
@@ -4361,7 +4385,7 @@
             0,
             0,
             65536});
-            this.numericKameraStredX.Location = new System.Drawing.Point(34, 65);
+            this.numericKameraStredX.Location = new System.Drawing.Point(115, 23);
             this.numericKameraStredX.Minimum = new decimal(new int[] {
             100,
             0,
@@ -4375,12 +4399,13 @@
             // label109
             // 
             this.label109.AutoSize = true;
-            this.label109.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label109.Location = new System.Drawing.Point(116, 10);
+            this.label109.BackColor = System.Drawing.Color.Gainsboro;
+            this.label109.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label109.Location = new System.Drawing.Point(3, 2);
             this.label109.Name = "label109";
-            this.label109.Size = new System.Drawing.Size(88, 24);
+            this.label109.Size = new System.Drawing.Size(89, 20);
             this.label109.TabIndex = 15;
-            this.label109.Text = "Camera:";
+            this.label109.Text = "CAMERA:";
             // 
             // numericKameraStredZ
             // 
@@ -4390,7 +4415,7 @@
             0,
             0,
             65536});
-            this.numericKameraStredZ.Location = new System.Drawing.Point(34, 117);
+            this.numericKameraStredZ.Location = new System.Drawing.Point(288, 23);
             this.numericKameraStredZ.Minimum = new decimal(new int[] {
             100,
             0,
@@ -4404,8 +4429,9 @@
             // label110
             // 
             this.label110.AutoSize = true;
+            this.label110.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label110.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label110.Location = new System.Drawing.Point(14, 68);
+            this.label110.Location = new System.Drawing.Point(94, 26);
             this.label110.Name = "label110";
             this.label110.Size = new System.Drawing.Size(17, 13);
             this.label110.TabIndex = 17;
@@ -4419,7 +4445,7 @@
             0,
             0,
             65536});
-            this.numericKameraStredY.Location = new System.Drawing.Point(34, 91);
+            this.numericKameraStredY.Location = new System.Drawing.Point(202, 23);
             this.numericKameraStredY.Minimum = new decimal(new int[] {
             100,
             0,
@@ -4438,8 +4464,9 @@
             // label111
             // 
             this.label111.AutoSize = true;
+            this.label111.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label111.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label111.Location = new System.Drawing.Point(14, 120);
+            this.label111.Location = new System.Drawing.Point(268, 26);
             this.label111.Name = "label111";
             this.label111.Size = new System.Drawing.Size(17, 13);
             this.label111.TabIndex = 23;
@@ -4448,8 +4475,9 @@
             // label112
             // 
             this.label112.AutoSize = true;
+            this.label112.BackColor = System.Drawing.Color.WhiteSmoke;
             this.label112.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label112.Location = new System.Drawing.Point(14, 94);
+            this.label112.Location = new System.Drawing.Point(181, 26);
             this.label112.Name = "label112";
             this.label112.Size = new System.Drawing.Size(17, 13);
             this.label112.TabIndex = 24;
@@ -4461,7 +4489,8 @@
             // 
             // panelImage
             // 
-            this.panelImage.Controls.Add(this.btnBgCol);
+            this.panelImage.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelImage.Controls.Add(this.btnImageBgr);
             this.panelImage.Controls.Add(this.label121);
             this.panelImage.Controls.Add(this.checkAntialias);
             this.panelImage.Controls.Add(this.numericRecurs);
@@ -4472,47 +4501,51 @@
             this.panelImage.Controls.Add(this.labelResCross);
             this.panelImage.Controls.Add(this.txbResX);
             this.panelImage.Controls.Add(this.label114);
-            this.panelImage.Controls.Add(this.button1);
             this.panelImage.Controls.Add(this.label123);
-            this.panelImage.Location = new System.Drawing.Point(133, 208);
+            this.panelImage.Location = new System.Drawing.Point(26, 264);
             this.panelImage.Name = "panelImage";
-            this.panelImage.Size = new System.Drawing.Size(309, 240);
+            this.panelImage.Size = new System.Drawing.Size(367, 249);
             this.panelImage.TabIndex = 61;
             // 
-            // btnBgCol
+            // btnImageBgr
             // 
-            this.btnBgCol.BackColor = System.Drawing.Color.Red;
-            this.btnBgCol.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnBgCol.Location = new System.Drawing.Point(114, 50);
-            this.btnBgCol.Name = "btnBgCol";
-            this.btnBgCol.Size = new System.Drawing.Size(34, 23);
-            this.btnBgCol.TabIndex = 73;
-            this.btnBgCol.Text = "...";
-            this.btnBgCol.UseVisualStyleBackColor = false;
-            this.btnBgCol.Click += new System.EventHandler(this.btnBgCol_Click);
+            this.btnImageBgr.BackColor = System.Drawing.Color.Red;
+            this.btnImageBgr.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnImageBgr.Location = new System.Drawing.Point(161, 43);
+            this.btnImageBgr.Name = "btnImageBgr";
+            this.btnImageBgr.Size = new System.Drawing.Size(34, 23);
+            this.btnImageBgr.TabIndex = 73;
+            this.btnImageBgr.Text = "...";
+            this.btnImageBgr.UseVisualStyleBackColor = false;
+            this.btnImageBgr.Click += new System.EventHandler(this.btnImageBgCol_Click);
             // 
             // label121
             // 
             this.label121.AutoSize = true;
-            this.label121.Location = new System.Drawing.Point(16, 54);
+            this.label121.BackColor = System.Drawing.Color.Transparent;
+            this.label121.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label121.Location = new System.Drawing.Point(16, 48);
             this.label121.Name = "label121";
-            this.label121.Size = new System.Drawing.Size(95, 13);
+            this.label121.Size = new System.Drawing.Size(136, 16);
             this.label121.TabIndex = 72;
             this.label121.Text = "Background Color:";
             // 
             // checkAntialias
             // 
             this.checkAntialias.AutoSize = true;
-            this.checkAntialias.Location = new System.Drawing.Point(19, 78);
+            this.checkAntialias.BackColor = System.Drawing.Color.Transparent;
+            this.checkAntialias.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkAntialias.Location = new System.Drawing.Point(19, 69);
             this.checkAntialias.Name = "checkAntialias";
-            this.checkAntialias.Size = new System.Drawing.Size(79, 17);
+            this.checkAntialias.Size = new System.Drawing.Size(108, 20);
             this.checkAntialias.TabIndex = 71;
             this.checkAntialias.Text = "Antialiasing";
-            this.checkAntialias.UseVisualStyleBackColor = true;
+            this.checkAntialias.UseVisualStyleBackColor = false;
+            this.checkAntialias.CheckedChanged += new System.EventHandler(this.actionImageSet);
             // 
             // numericRecurs
             // 
-            this.numericRecurs.Location = new System.Drawing.Point(104, 27);
+            this.numericRecurs.Location = new System.Drawing.Point(133, 23);
             this.numericRecurs.Maximum = new decimal(new int[] {
             50,
             0,
@@ -4531,22 +4564,27 @@
             0,
             0,
             0});
+            this.numericRecurs.Click += new System.EventHandler(this.actionImageSet);
             // 
             // label113
             // 
             this.label113.AutoSize = true;
-            this.label113.Location = new System.Drawing.Point(17, 29);
+            this.label113.BackColor = System.Drawing.Color.Transparent;
+            this.label113.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label113.Location = new System.Drawing.Point(17, 26);
             this.label113.Name = "label113";
-            this.label113.Size = new System.Drawing.Size(81, 13);
+            this.label113.Size = new System.Drawing.Size(114, 16);
             this.label113.TabIndex = 67;
             this.label113.Text = "Max Recursion:";
             // 
             // labelResPixels
             // 
             this.labelResPixels.AutoSize = true;
-            this.labelResPixels.Location = new System.Drawing.Point(186, 137);
+            this.labelResPixels.BackColor = System.Drawing.Color.Transparent;
+            this.labelResPixels.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelResPixels.Location = new System.Drawing.Point(207, 135);
             this.labelResPixels.Name = "labelResPixels";
-            this.labelResPixels.Size = new System.Drawing.Size(33, 13);
+            this.labelResPixels.Size = new System.Drawing.Size(49, 16);
             this.labelResPixels.TabIndex = 66;
             this.labelResPixels.Text = "pixels";
             // 
@@ -4555,7 +4593,7 @@
             this.comboResolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboResolution.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboResolution.FormattingEnabled = true;
-            this.comboResolution.Location = new System.Drawing.Point(76, 104);
+            this.comboResolution.Location = new System.Drawing.Point(92, 111);
             this.comboResolution.Name = "comboResolution";
             this.comboResolution.Size = new System.Drawing.Size(178, 21);
             this.comboResolution.TabIndex = 65;
@@ -4564,148 +4602,153 @@
             // 
             // txbResY
             // 
-            this.txbResY.Location = new System.Drawing.Point(138, 134);
+            this.txbResY.Location = new System.Drawing.Point(159, 133);
             this.txbResY.Name = "txbResY";
             this.txbResY.Size = new System.Drawing.Size(46, 20);
             this.txbResY.TabIndex = 64;
             this.txbResY.Text = "100";
+            this.txbResY.TextChanged += new System.EventHandler(this.actionImageSet);
             // 
             // labelResCross
             // 
             this.labelResCross.AutoSize = true;
-            this.labelResCross.Location = new System.Drawing.Point(124, 137);
+            this.labelResCross.BackColor = System.Drawing.Color.Transparent;
+            this.labelResCross.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelResCross.Location = new System.Drawing.Point(141, 135);
             this.labelResCross.Name = "labelResCross";
-            this.labelResCross.Size = new System.Drawing.Size(12, 13);
+            this.labelResCross.Size = new System.Drawing.Size(15, 16);
             this.labelResCross.TabIndex = 63;
             this.labelResCross.Text = "x";
             // 
             // txbResX
             // 
-            this.txbResX.Location = new System.Drawing.Point(76, 134);
+            this.txbResX.Location = new System.Drawing.Point(92, 133);
             this.txbResX.Name = "txbResX";
             this.txbResX.Size = new System.Drawing.Size(46, 20);
             this.txbResX.TabIndex = 62;
             this.txbResX.Text = "100";
+            this.txbResX.TextChanged += new System.EventHandler(this.actionImageSet);
             // 
             // label114
             // 
             this.label114.AutoSize = true;
-            this.label114.Location = new System.Drawing.Point(14, 107);
+            this.label114.BackColor = System.Drawing.Color.Transparent;
+            this.label114.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label114.Location = new System.Drawing.Point(4, 114);
             this.label114.Name = "label114";
-            this.label114.Size = new System.Drawing.Size(60, 13);
+            this.label114.Size = new System.Drawing.Size(86, 16);
             this.label114.TabIndex = 60;
             this.label114.Text = "Resolution:";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(114, 170);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(61, 23);
-            this.button1.TabIndex = 33;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.bntImageSave);
             // 
             // label123
             // 
             this.label123.AutoSize = true;
-            this.label123.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label123.Location = new System.Drawing.Point(27, 2);
+            this.label123.BackColor = System.Drawing.Color.Transparent;
+            this.label123.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label123.Location = new System.Drawing.Point(3, 3);
             this.label123.Name = "label123";
-            this.label123.Size = new System.Drawing.Size(73, 24);
+            this.label123.Size = new System.Drawing.Size(72, 20);
             this.label123.TabIndex = 15;
-            this.label123.Text = "Image:";
+            this.label123.Text = "IMAGE:";
             // 
             // panelAnimace
             // 
+            this.panelAnimace.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelAnimace.Controls.Add(this.label127);
+            this.panelAnimace.Controls.Add(this.label146);
+            this.panelAnimace.Controls.Add(this.label148);
+            this.panelAnimace.Controls.Add(this.label149);
+            this.panelAnimace.Controls.Add(this.numAnimRotZ);
+            this.panelAnimace.Controls.Add(this.numAnimRotY);
+            this.panelAnimace.Controls.Add(this.numAnimRotX);
             this.panelAnimace.Controls.Add(this.panel1);
-            this.panelAnimace.Controls.Add(this.label116);
             this.panelAnimace.Controls.Add(this.btnSaveAsFile);
-            this.panelAnimace.Controls.Add(this.numericAnimationFps);
+            this.panelAnimace.Controls.Add(this.numAnimFps);
             this.panelAnimace.Controls.Add(this.label120);
-            this.panelAnimace.Controls.Add(this.numericAnimationSeconds);
+            this.panelAnimace.Controls.Add(this.numAnimSecs);
             this.panelAnimace.Controls.Add(this.label118);
-            this.panelAnimace.Controls.Add(this.textBoxAnimat);
+            this.panelAnimace.Controls.Add(this.textBAnimFile);
             this.panelAnimace.Controls.Add(this.label117);
             this.panelAnimace.Controls.Add(this.label122);
             this.panelAnimace.Controls.Add(this.label124);
             this.panelAnimace.Controls.Add(this.label125);
-            this.panelAnimace.Controls.Add(this.btnSave);
-            this.panelAnimace.Controls.Add(this.numericElipseCenterX);
+            this.panelAnimace.Controls.Add(this.numAnimCenterX);
             this.panelAnimace.Controls.Add(this.label126);
-            this.panelAnimace.Controls.Add(this.label127);
-            this.panelAnimace.Controls.Add(this.numericElipseCenterZ);
-            this.panelAnimace.Controls.Add(this.numericElipseB);
+            this.panelAnimace.Controls.Add(this.numAnimCenterZ);
             this.panelAnimace.Controls.Add(this.label128);
-            this.panelAnimace.Controls.Add(this.numericElipseA);
-            this.panelAnimace.Controls.Add(this.numericElipseCenterY);
+            this.panelAnimace.Controls.Add(this.numAnimElipseA);
+            this.panelAnimace.Controls.Add(this.numAnimCenterY);
             this.panelAnimace.Controls.Add(this.label129);
             this.panelAnimace.Controls.Add(this.label130);
-            this.panelAnimace.Controls.Add(this.numericElipseC);
+            this.panelAnimace.Controls.Add(this.numAnimElipseB);
             this.panelAnimace.Controls.Add(this.label131);
-            this.panelAnimace.Location = new System.Drawing.Point(5, 421);
+            this.panelAnimace.Controls.Add(this.label116);
+            this.panelAnimace.Controls.Add(this.label147);
+            this.panelAnimace.Location = new System.Drawing.Point(12, 8);
             this.panelAnimace.Name = "panelAnimace";
-            this.panelAnimace.Size = new System.Drawing.Size(412, 251);
+            this.panelAnimace.Size = new System.Drawing.Size(378, 275);
             this.panelAnimace.TabIndex = 62;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.radioImgsOnly);
-            this.panel1.Controls.Add(this.radioBothImgVideo);
-            this.panel1.Controls.Add(this.radioVideoOnly);
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.radioAnimImgsOnly);
+            this.panel1.Controls.Add(this.radioAnimBothImgVideo);
+            this.panel1.Controls.Add(this.radioAnimVideoOnly);
             this.panel1.Controls.Add(this.label115);
-            this.panel1.Location = new System.Drawing.Point(50, 113);
+            this.panel1.Location = new System.Drawing.Point(17, 131);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(197, 81);
+            this.panel1.Size = new System.Drawing.Size(197, 88);
             this.panel1.TabIndex = 56;
             // 
-            // radioImgsOnly
+            // radioAnimImgsOnly
             // 
-            this.radioImgsOnly.AutoSize = true;
-            this.radioImgsOnly.Location = new System.Drawing.Point(6, 39);
-            this.radioImgsOnly.Name = "radioImgsOnly";
-            this.radioImgsOnly.Size = new System.Drawing.Size(81, 17);
-            this.radioImgsOnly.TabIndex = 60;
-            this.radioImgsOnly.Text = "Frames only";
-            this.radioImgsOnly.UseVisualStyleBackColor = true;
+            this.radioAnimImgsOnly.AutoSize = true;
+            this.radioAnimImgsOnly.Location = new System.Drawing.Point(6, 47);
+            this.radioAnimImgsOnly.Name = "radioAnimImgsOnly";
+            this.radioAnimImgsOnly.Size = new System.Drawing.Size(81, 17);
+            this.radioAnimImgsOnly.TabIndex = 60;
+            this.radioAnimImgsOnly.Text = "Frames only";
+            this.radioAnimImgsOnly.UseVisualStyleBackColor = true;
             // 
-            // radioBothImgVideo
+            // radioAnimBothImgVideo
             // 
-            this.radioBothImgVideo.AutoSize = true;
-            this.radioBothImgVideo.Location = new System.Drawing.Point(6, 56);
-            this.radioBothImgVideo.Name = "radioBothImgVideo";
-            this.radioBothImgVideo.Size = new System.Drawing.Size(108, 17);
-            this.radioBothImgVideo.TabIndex = 59;
-            this.radioBothImgVideo.Text = "Video with frames";
-            this.radioBothImgVideo.UseVisualStyleBackColor = true;
+            this.radioAnimBothImgVideo.AutoSize = true;
+            this.radioAnimBothImgVideo.Location = new System.Drawing.Point(6, 68);
+            this.radioAnimBothImgVideo.Name = "radioAnimBothImgVideo";
+            this.radioAnimBothImgVideo.Size = new System.Drawing.Size(108, 17);
+            this.radioAnimBothImgVideo.TabIndex = 59;
+            this.radioAnimBothImgVideo.Text = "Video with frames";
+            this.radioAnimBothImgVideo.UseVisualStyleBackColor = true;
             // 
-            // radioVideoOnly
+            // radioAnimVideoOnly
             // 
-            this.radioVideoOnly.AutoSize = true;
-            this.radioVideoOnly.Checked = true;
-            this.radioVideoOnly.Location = new System.Drawing.Point(6, 22);
-            this.radioVideoOnly.Name = "radioVideoOnly";
-            this.radioVideoOnly.Size = new System.Drawing.Size(74, 17);
-            this.radioVideoOnly.TabIndex = 58;
-            this.radioVideoOnly.TabStop = true;
-            this.radioVideoOnly.Text = "Video only";
-            this.radioVideoOnly.UseVisualStyleBackColor = true;
+            this.radioAnimVideoOnly.AutoSize = true;
+            this.radioAnimVideoOnly.Checked = true;
+            this.radioAnimVideoOnly.Location = new System.Drawing.Point(6, 25);
+            this.radioAnimVideoOnly.Name = "radioAnimVideoOnly";
+            this.radioAnimVideoOnly.Size = new System.Drawing.Size(74, 17);
+            this.radioAnimVideoOnly.TabIndex = 58;
+            this.radioAnimVideoOnly.TabStop = true;
+            this.radioAnimVideoOnly.Text = "Video only";
+            this.radioAnimVideoOnly.UseVisualStyleBackColor = true;
             // 
             // label115
             // 
             this.label115.AutoSize = true;
-            this.label115.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label115.Location = new System.Drawing.Point(3, 3);
+            this.label115.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label115.Location = new System.Drawing.Point(3, 5);
             this.label115.Name = "label115";
-            this.label115.Size = new System.Drawing.Size(65, 13);
+            this.label115.Size = new System.Drawing.Size(77, 13);
             this.label115.TabIndex = 57;
             this.label115.Text = "Output type:";
             // 
             // label116
             // 
             this.label116.AutoSize = true;
+            this.label116.BackColor = System.Drawing.Color.Transparent;
             this.label116.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label116.Location = new System.Drawing.Point(190, 75);
+            this.label116.Location = new System.Drawing.Point(156, 91);
             this.label116.Name = "label116";
             this.label116.Size = new System.Drawing.Size(47, 13);
             this.label116.TabIndex = 52;
@@ -4713,88 +4756,98 @@
             // 
             // btnSaveAsFile
             // 
-            this.btnSaveAsFile.Location = new System.Drawing.Point(379, 196);
+            this.btnSaveAsFile.Location = new System.Drawing.Point(318, 219);
             this.btnSaveAsFile.Name = "btnSaveAsFile";
             this.btnSaveAsFile.Size = new System.Drawing.Size(27, 23);
             this.btnSaveAsFile.TabIndex = 50;
             this.btnSaveAsFile.Text = "...";
             this.btnSaveAsFile.UseVisualStyleBackColor = true;
             // 
-            // numericAnimationFps
+            // numAnimFps
             // 
-            this.numericAnimationFps.DecimalPlaces = 1;
-            this.numericAnimationFps.Location = new System.Drawing.Point(127, 91);
-            this.numericAnimationFps.Maximum = new decimal(new int[] {
+            this.numAnimFps.DecimalPlaces = 1;
+            this.numAnimFps.Location = new System.Drawing.Point(96, 110);
+            this.numAnimFps.Maximum = new decimal(new int[] {
             30,
             0,
             0,
             0});
-            this.numericAnimationFps.Minimum = new decimal(new int[] {
+            this.numAnimFps.Minimum = new decimal(new int[] {
             12,
             0,
             0,
             0});
-            this.numericAnimationFps.Name = "numericAnimationFps";
-            this.numericAnimationFps.Size = new System.Drawing.Size(61, 20);
-            this.numericAnimationFps.TabIndex = 49;
-            this.numericAnimationFps.Value = new decimal(new int[] {
+            this.numAnimFps.Name = "numAnimFps";
+            this.numAnimFps.Size = new System.Drawing.Size(61, 20);
+            this.numAnimFps.TabIndex = 49;
+            this.numAnimFps.Value = new decimal(new int[] {
             25,
             0,
             0,
             0});
+            this.numAnimFps.ValueChanged += new System.EventHandler(this.actionAnimationSet);
             // 
             // label120
             // 
             this.label120.AutoSize = true;
+            this.label120.BackColor = System.Drawing.Color.Transparent;
             this.label120.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label120.Location = new System.Drawing.Point(65, 91);
+            this.label120.Location = new System.Drawing.Point(41, 112);
             this.label120.Name = "label120";
             this.label120.Size = new System.Drawing.Size(33, 16);
             this.label120.TabIndex = 48;
             this.label120.Text = "fps:";
             // 
-            // numericAnimationSeconds
+            // numAnimSecs
             // 
-            this.numericAnimationSeconds.DecimalPlaces = 1;
-            this.numericAnimationSeconds.Location = new System.Drawing.Point(127, 71);
-            this.numericAnimationSeconds.Maximum = new decimal(new int[] {
+            this.numAnimSecs.DecimalPlaces = 1;
+            this.numAnimSecs.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numAnimSecs.Location = new System.Drawing.Point(96, 89);
+            this.numAnimSecs.Maximum = new decimal(new int[] {
             330,
             0,
             0,
             0});
-            this.numericAnimationSeconds.Name = "numericAnimationSeconds";
-            this.numericAnimationSeconds.Size = new System.Drawing.Size(61, 20);
-            this.numericAnimationSeconds.TabIndex = 47;
-            this.numericAnimationSeconds.Value = new decimal(new int[] {
+            this.numAnimSecs.Name = "numAnimSecs";
+            this.numAnimSecs.Size = new System.Drawing.Size(61, 20);
+            this.numAnimSecs.TabIndex = 47;
+            this.numAnimSecs.Value = new decimal(new int[] {
             3,
             0,
             0,
             0});
+            this.numAnimSecs.ValueChanged += new System.EventHandler(this.actionAnimationSet);
             // 
             // label118
             // 
             this.label118.AutoSize = true;
+            this.label118.BackColor = System.Drawing.Color.Transparent;
             this.label118.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label118.Location = new System.Drawing.Point(2, 199);
+            this.label118.Location = new System.Drawing.Point(2, 222);
             this.label118.Name = "label118";
             this.label118.Size = new System.Drawing.Size(56, 16);
             this.label118.TabIndex = 45;
             this.label118.Text = "Output:";
             // 
-            // textBoxAnimat
+            // textBAnimFile
             // 
-            this.textBoxAnimat.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
-            this.textBoxAnimat.Location = new System.Drawing.Point(59, 197);
-            this.textBoxAnimat.Name = "textBoxAnimat";
-            this.textBoxAnimat.Size = new System.Drawing.Size(318, 20);
-            this.textBoxAnimat.TabIndex = 44;
-            this.textBoxAnimat.Text = "d:\\myworks\\raytracer\\out\\anim.avi";
+            this.textBAnimFile.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
+            this.textBAnimFile.Location = new System.Drawing.Point(59, 220);
+            this.textBAnimFile.Name = "textBAnimFile";
+            this.textBAnimFile.Size = new System.Drawing.Size(257, 20);
+            this.textBAnimFile.TabIndex = 44;
+            this.textBAnimFile.Text = "d:\\myworks\\raytracer\\out\\anim.avi";
             // 
             // label117
             // 
             this.label117.AutoSize = true;
+            this.label117.BackColor = System.Drawing.Color.Transparent;
             this.label117.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label117.Location = new System.Drawing.Point(28, 74);
+            this.label117.Location = new System.Drawing.Point(4, 90);
             this.label117.Name = "label117";
             this.label117.Size = new System.Drawing.Size(70, 16);
             this.label117.TabIndex = 43;
@@ -4803,18 +4856,20 @@
             // label122
             // 
             this.label122.AutoSize = true;
-            this.label122.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label122.Location = new System.Drawing.Point(64, 5);
+            this.label122.BackColor = System.Drawing.Color.Transparent;
+            this.label122.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label122.Location = new System.Drawing.Point(2, 1);
             this.label122.Name = "label122";
-            this.label122.Size = new System.Drawing.Size(109, 24);
+            this.label122.Size = new System.Drawing.Size(194, 20);
             this.label122.TabIndex = 41;
-            this.label122.Text = "Animation:";
+            this.label122.Text = "ANIMATION - Elliptical:";
             // 
             // label124
             // 
             this.label124.AutoSize = true;
+            this.label124.BackColor = System.Drawing.Color.Transparent;
             this.label124.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label124.Location = new System.Drawing.Point(52, 53);
+            this.label124.Location = new System.Drawing.Point(28, 47);
             this.label124.Name = "label124";
             this.label124.Size = new System.Drawing.Size(46, 16);
             this.label124.TabIndex = 38;
@@ -4823,209 +4878,321 @@
             // label125
             // 
             this.label125.AutoSize = true;
+            this.label125.BackColor = System.Drawing.Color.Transparent;
             this.label125.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label125.Location = new System.Drawing.Point(41, 33);
+            this.label125.Location = new System.Drawing.Point(17, 25);
             this.label125.Name = "label125";
             this.label125.Size = new System.Drawing.Size(57, 16);
             this.label125.TabIndex = 37;
             this.label125.Text = "Center:";
             // 
-            // btnSave
+            // numAnimCenterX
             // 
-            this.btnSave.Location = new System.Drawing.Point(158, 219);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(61, 23);
-            this.btnSave.TabIndex = 1;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            // 
-            // numericElipseCenterX
-            // 
-            this.numericElipseCenterX.DecimalPlaces = 5;
-            this.numericElipseCenterX.Increment = new decimal(new int[] {
+            this.numAnimCenterX.DecimalPlaces = 5;
+            this.numAnimCenterX.Increment = new decimal(new int[] {
             5,
             0,
             0,
             65536});
-            this.numericElipseCenterX.Location = new System.Drawing.Point(127, 31);
-            this.numericElipseCenterX.Minimum = new decimal(new int[] {
+            this.numAnimCenterX.Location = new System.Drawing.Point(96, 23);
+            this.numAnimCenterX.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
-            this.numericElipseCenterX.Name = "numericElipseCenterX";
-            this.numericElipseCenterX.Size = new System.Drawing.Size(61, 20);
-            this.numericElipseCenterX.TabIndex = 20;
+            this.numAnimCenterX.Name = "numAnimCenterX";
+            this.numAnimCenterX.Size = new System.Drawing.Size(61, 20);
+            this.numAnimCenterX.TabIndex = 20;
+            this.numAnimCenterX.ValueChanged += new System.EventHandler(this.actionAnimationSet);
             // 
             // label126
             // 
             this.label126.AutoSize = true;
-            this.label126.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label126.Location = new System.Drawing.Point(199, 54);
+            this.label126.BackColor = System.Drawing.Color.Transparent;
+            this.label126.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label126.ForeColor = System.Drawing.Color.Red;
+            this.label126.Location = new System.Drawing.Point(163, 49);
             this.label126.Name = "label126";
-            this.label126.Size = new System.Drawing.Size(17, 13);
+            this.label126.Size = new System.Drawing.Size(19, 13);
             this.label126.TabIndex = 30;
             this.label126.Text = "B:";
             // 
-            // label127
+            // numAnimCenterZ
             // 
-            this.label127.AutoSize = true;
-            this.label127.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label127.Location = new System.Drawing.Point(287, 54);
-            this.label127.Name = "label127";
-            this.label127.Size = new System.Drawing.Size(17, 13);
-            this.label127.TabIndex = 29;
-            this.label127.Text = "C:";
-            // 
-            // numericElipseCenterZ
-            // 
-            this.numericElipseCenterZ.DecimalPlaces = 5;
-            this.numericElipseCenterZ.Increment = new decimal(new int[] {
+            this.numAnimCenterZ.DecimalPlaces = 5;
+            this.numAnimCenterZ.Increment = new decimal(new int[] {
             5,
             0,
             0,
             65536});
-            this.numericElipseCenterZ.Location = new System.Drawing.Point(307, 31);
-            this.numericElipseCenterZ.Minimum = new decimal(new int[] {
+            this.numAnimCenterZ.Location = new System.Drawing.Point(271, 23);
+            this.numAnimCenterZ.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
-            this.numericElipseCenterZ.Name = "numericElipseCenterZ";
-            this.numericElipseCenterZ.Size = new System.Drawing.Size(61, 20);
-            this.numericElipseCenterZ.TabIndex = 16;
-            this.numericElipseCenterZ.Value = new decimal(new int[] {
+            this.numAnimCenterZ.Name = "numAnimCenterZ";
+            this.numAnimCenterZ.Size = new System.Drawing.Size(61, 20);
+            this.numAnimCenterZ.TabIndex = 16;
+            this.numAnimCenterZ.Value = new decimal(new int[] {
             3,
             0,
             0,
             0});
-            // 
-            // numericElipseB
-            // 
-            this.numericElipseB.DecimalPlaces = 5;
-            this.numericElipseB.Location = new System.Drawing.Point(219, 51);
-            this.numericElipseB.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericElipseB.Name = "numericElipseB";
-            this.numericElipseB.Size = new System.Drawing.Size(61, 20);
-            this.numericElipseB.TabIndex = 28;
-            this.numericElipseB.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.numAnimCenterZ.ValueChanged += new System.EventHandler(this.actionAnimationSet);
             // 
             // label128
             // 
             this.label128.AutoSize = true;
+            this.label128.BackColor = System.Drawing.Color.Transparent;
             this.label128.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label128.Location = new System.Drawing.Point(107, 34);
+            this.label128.Location = new System.Drawing.Point(76, 26);
             this.label128.Name = "label128";
             this.label128.Size = new System.Drawing.Size(17, 13);
             this.label128.TabIndex = 17;
             this.label128.Text = "X:";
             // 
-            // numericElipseA
+            // numAnimElipseA
             // 
-            this.numericElipseA.DecimalPlaces = 5;
-            this.numericElipseA.Location = new System.Drawing.Point(127, 51);
-            this.numericElipseA.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericElipseA.Name = "numericElipseA";
-            this.numericElipseA.Size = new System.Drawing.Size(61, 20);
-            this.numericElipseA.TabIndex = 27;
-            this.numericElipseA.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // numericElipseCenterY
-            // 
-            this.numericElipseCenterY.DecimalPlaces = 5;
-            this.numericElipseCenterY.Increment = new decimal(new int[] {
+            this.numAnimElipseA.DecimalPlaces = 1;
+            this.numAnimElipseA.Increment = new decimal(new int[] {
             5,
             0,
             0,
             65536});
-            this.numericElipseCenterY.Location = new System.Drawing.Point(219, 31);
-            this.numericElipseCenterY.Minimum = new decimal(new int[] {
+            this.numAnimElipseA.Location = new System.Drawing.Point(96, 45);
+            this.numAnimElipseA.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numAnimElipseA.Name = "numAnimElipseA";
+            this.numAnimElipseA.Size = new System.Drawing.Size(61, 20);
+            this.numAnimElipseA.TabIndex = 27;
+            this.numAnimElipseA.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numAnimElipseA.ValueChanged += new System.EventHandler(this.actionAnimationSet);
+            // 
+            // numAnimCenterY
+            // 
+            this.numAnimCenterY.DecimalPlaces = 5;
+            this.numAnimCenterY.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numAnimCenterY.Location = new System.Drawing.Point(183, 23);
+            this.numAnimCenterY.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
-            this.numericElipseCenterY.Name = "numericElipseCenterY";
-            this.numericElipseCenterY.Size = new System.Drawing.Size(61, 20);
-            this.numericElipseCenterY.TabIndex = 21;
+            this.numAnimCenterY.Name = "numAnimCenterY";
+            this.numAnimCenterY.Size = new System.Drawing.Size(61, 20);
+            this.numAnimCenterY.TabIndex = 21;
+            this.numAnimCenterY.ValueChanged += new System.EventHandler(this.actionAnimationSet);
             // 
             // label129
             // 
             this.label129.AutoSize = true;
-            this.label129.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label129.Location = new System.Drawing.Point(107, 54);
+            this.label129.BackColor = System.Drawing.Color.Transparent;
+            this.label129.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label129.ForeColor = System.Drawing.Color.Blue;
+            this.label129.Location = new System.Drawing.Point(76, 49);
             this.label129.Name = "label129";
-            this.label129.Size = new System.Drawing.Size(17, 13);
+            this.label129.Size = new System.Drawing.Size(19, 13);
             this.label129.TabIndex = 26;
             this.label129.Text = "A:";
             // 
             // label130
             // 
             this.label130.AutoSize = true;
+            this.label130.BackColor = System.Drawing.Color.Transparent;
             this.label130.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label130.Location = new System.Drawing.Point(287, 34);
+            this.label130.Location = new System.Drawing.Point(251, 26);
             this.label130.Name = "label130";
             this.label130.Size = new System.Drawing.Size(17, 13);
             this.label130.TabIndex = 23;
             this.label130.Text = "Z:";
             // 
-            // numericElipseC
+            // numAnimElipseB
             // 
-            this.numericElipseC.DecimalPlaces = 5;
-            this.numericElipseC.Location = new System.Drawing.Point(307, 51);
-            this.numericElipseC.Maximum = new decimal(new int[] {
-            1000,
+            this.numAnimElipseB.DecimalPlaces = 1;
+            this.numAnimElipseB.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numAnimElipseB.Location = new System.Drawing.Point(183, 45);
+            this.numAnimElipseB.Maximum = new decimal(new int[] {
+            50,
             0,
             0,
             0});
-            this.numericElipseC.Name = "numericElipseC";
-            this.numericElipseC.Size = new System.Drawing.Size(61, 20);
-            this.numericElipseC.TabIndex = 25;
-            this.numericElipseC.Value = new decimal(new int[] {
+            this.numAnimElipseB.Name = "numAnimElipseB";
+            this.numAnimElipseB.Size = new System.Drawing.Size(61, 20);
+            this.numAnimElipseB.TabIndex = 25;
+            this.numAnimElipseB.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
+            this.numAnimElipseB.ValueChanged += new System.EventHandler(this.actionAnimationSet);
             // 
             // label131
             // 
             this.label131.AutoSize = true;
+            this.label131.BackColor = System.Drawing.Color.Transparent;
             this.label131.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label131.Location = new System.Drawing.Point(199, 34);
+            this.label131.Location = new System.Drawing.Point(163, 26);
             this.label131.Name = "label131";
             this.label131.Size = new System.Drawing.Size(17, 13);
             this.label131.TabIndex = 24;
             this.label131.Text = "Y:";
+            // 
+            // label147
+            // 
+            this.label147.AutoSize = true;
+            this.label147.BackColor = System.Drawing.Color.Transparent;
+            this.label147.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label147.Location = new System.Drawing.Point(300, 71);
+            this.label147.Name = "label147";
+            this.label147.Size = new System.Drawing.Size(45, 13);
+            this.label147.TabIndex = 59;
+            this.label147.Text = "degrees";
+            // 
+            // label127
+            // 
+            this.label127.AutoSize = true;
+            this.label127.BackColor = System.Drawing.Color.Transparent;
+            this.label127.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label127.ForeColor = System.Drawing.Color.Blue;
+            this.label127.Location = new System.Drawing.Point(94, 69);
+            this.label127.Name = "label127";
+            this.label127.Size = new System.Drawing.Size(17, 13);
+            this.label127.TabIndex = 148;
+            this.label127.Text = "x:";
+            // 
+            // label146
+            // 
+            this.label146.AutoSize = true;
+            this.label146.BackColor = System.Drawing.Color.Transparent;
+            this.label146.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label146.Location = new System.Drawing.Point(8, 69);
+            this.label146.Name = "label146";
+            this.label146.Size = new System.Drawing.Size(87, 16);
+            this.label146.TabIndex = 151;
+            this.label146.Text = "Orientation:";
+            // 
+            // label148
+            // 
+            this.label148.AutoSize = true;
+            this.label148.BackColor = System.Drawing.Color.Transparent;
+            this.label148.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label148.Location = new System.Drawing.Point(237, 69);
+            this.label148.Name = "label148";
+            this.label148.Size = new System.Drawing.Size(15, 13);
+            this.label148.TabIndex = 150;
+            this.label148.Text = "z:";
+            // 
+            // label149
+            // 
+            this.label149.AutoSize = true;
+            this.label149.BackColor = System.Drawing.Color.Transparent;
+            this.label149.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label149.ForeColor = System.Drawing.Color.Red;
+            this.label149.Location = new System.Drawing.Point(168, 69);
+            this.label149.Name = "label149";
+            this.label149.Size = new System.Drawing.Size(17, 13);
+            this.label149.TabIndex = 149;
+            this.label149.Text = "y:";
+            // 
+            // numAnimRotZ
+            // 
+            this.numAnimRotZ.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numAnimRotZ.Location = new System.Drawing.Point(254, 67);
+            this.numAnimRotZ.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numAnimRotZ.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numAnimRotZ.Name = "numAnimRotZ";
+            this.numAnimRotZ.Size = new System.Drawing.Size(45, 20);
+            this.numAnimRotZ.TabIndex = 147;
+            this.numAnimRotZ.ValueChanged += new System.EventHandler(this.onNumericRotateAnimation);
+            // 
+            // numAnimRotY
+            // 
+            this.numAnimRotY.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numAnimRotY.Location = new System.Drawing.Point(185, 67);
+            this.numAnimRotY.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numAnimRotY.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numAnimRotY.Name = "numAnimRotY";
+            this.numAnimRotY.Size = new System.Drawing.Size(45, 20);
+            this.numAnimRotY.TabIndex = 146;
+            this.numAnimRotY.ValueChanged += new System.EventHandler(this.onNumericRotateAnimation);
+            // 
+            // numAnimRotX
+            // 
+            this.numAnimRotX.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numAnimRotX.Location = new System.Drawing.Point(112, 67);
+            this.numAnimRotX.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numAnimRotX.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numAnimRotX.Name = "numAnimRotX";
+            this.numAnimRotX.Size = new System.Drawing.Size(45, 20);
+            this.numAnimRotX.TabIndex = 145;
+            this.numAnimRotX.ValueChanged += new System.EventHandler(this.onNumericRotateAnimation);
             // 
             // WndProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(848, 564);
+            this.ClientSize = new System.Drawing.Size(865, 581);
+            this.Controls.Add(this.panelAnimace);
             this.Controls.Add(this.panelSphere);
+            this.Controls.Add(this.panelImage);
+            this.Controls.Add(this.panelLight);
+            this.Controls.Add(this.panelCamera);
             this.Controls.Add(this.panelBox);
             this.Controls.Add(this.panelRovina);
             this.Controls.Add(this.panelCylindr);
-            this.Controls.Add(this.panelLight);
-            this.Controls.Add(this.panelCamera);
-            this.Controls.Add(this.panelAnimace);
-            this.Controls.Add(this.panelImage);
             this.Name = "WndProperties";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
@@ -5127,10 +5294,10 @@
             this.panelSoftPasses.PerformLayout();
             this.panelLightSoft.ResumeLayout(false);
             this.panelLightSoft.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericLightEps)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarLightEps)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericLightNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarLightNum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarLightEps)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericLightEps)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericLightNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSvetloX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSvetloZ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSvetloG)).EndInit();
@@ -5158,14 +5325,16 @@
             this.panelAnimace.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericAnimationFps)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericAnimationSeconds)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericElipseCenterX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericElipseCenterZ)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericElipseB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericElipseA)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericElipseCenterY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericElipseC)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimFps)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimSecs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimCenterX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimCenterZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimElipseA)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimCenterY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimElipseB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotX)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -5342,7 +5511,6 @@
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Button btnLighColor;
-        private System.Windows.Forms.Button buttonLightSave;
         private System.Windows.Forms.NumericUpDown numericSvetloX;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
@@ -5381,7 +5549,6 @@
         private System.Windows.Forms.Label label112;
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.Panel panelImage;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label123;
         private System.Windows.Forms.NumericUpDown numericRecurs;
         private System.Windows.Forms.Label label113;
@@ -5391,38 +5558,35 @@
         private System.Windows.Forms.Label labelResCross;
         private System.Windows.Forms.TextBox txbResX;
         private System.Windows.Forms.Label label114;
-        private System.Windows.Forms.Button btnBgCol;
+        private System.Windows.Forms.Button btnImageBgr;
         private System.Windows.Forms.Label label121;
         private System.Windows.Forms.CheckBox checkAntialias;
         private System.Windows.Forms.Panel panelAnimace;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RadioButton radioImgsOnly;
-        private System.Windows.Forms.RadioButton radioBothImgVideo;
-        private System.Windows.Forms.RadioButton radioVideoOnly;
+        private System.Windows.Forms.RadioButton radioAnimImgsOnly;
+        private System.Windows.Forms.RadioButton radioAnimBothImgVideo;
+        private System.Windows.Forms.RadioButton radioAnimVideoOnly;
         private System.Windows.Forms.Label label115;
         private System.Windows.Forms.Label label116;
         private System.Windows.Forms.Button btnSaveAsFile;
-        private System.Windows.Forms.NumericUpDown numericAnimationFps;
+        private System.Windows.Forms.NumericUpDown numAnimFps;
         private System.Windows.Forms.Label label120;
-        private System.Windows.Forms.NumericUpDown numericAnimationSeconds;
+        private System.Windows.Forms.NumericUpDown numAnimSecs;
         private System.Windows.Forms.Label label118;
-        private System.Windows.Forms.TextBox textBoxAnimat;
+        private System.Windows.Forms.TextBox textBAnimFile;
         private System.Windows.Forms.Label label117;
         private System.Windows.Forms.Label label122;
         private System.Windows.Forms.Label label124;
         private System.Windows.Forms.Label label125;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.NumericUpDown numericElipseCenterX;
+        private System.Windows.Forms.NumericUpDown numAnimCenterX;
         private System.Windows.Forms.Label label126;
-        private System.Windows.Forms.Label label127;
-        private System.Windows.Forms.NumericUpDown numericElipseCenterZ;
-        private System.Windows.Forms.NumericUpDown numericElipseB;
+        private System.Windows.Forms.NumericUpDown numAnimCenterZ;
         private System.Windows.Forms.Label label128;
-        private System.Windows.Forms.NumericUpDown numericElipseA;
-        private System.Windows.Forms.NumericUpDown numericElipseCenterY;
+        private System.Windows.Forms.NumericUpDown numAnimElipseA;
+        private System.Windows.Forms.NumericUpDown numAnimCenterY;
         private System.Windows.Forms.Label label129;
         private System.Windows.Forms.Label label130;
-        private System.Windows.Forms.NumericUpDown numericElipseC;
+        private System.Windows.Forms.NumericUpDown numAnimElipseB;
         private System.Windows.Forms.Label label131;
         private System.Windows.Forms.NumericUpDown numericKamWidth;
         private System.Windows.Forms.Label label134;
@@ -5474,6 +5638,14 @@
         private System.Windows.Forms.NumericUpDown numSphRotZ;
         private System.Windows.Forms.NumericUpDown numSphRotY;
         private System.Windows.Forms.NumericUpDown numSphRotX;
+        private System.Windows.Forms.Label label147;
+        private System.Windows.Forms.Label label127;
+        private System.Windows.Forms.Label label146;
+        private System.Windows.Forms.Label label148;
+        private System.Windows.Forms.Label label149;
+        private System.Windows.Forms.NumericUpDown numAnimRotZ;
+        private System.Windows.Forms.NumericUpDown numAnimRotY;
+        private System.Windows.Forms.NumericUpDown numAnimRotX;
 
     }
 }

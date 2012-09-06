@@ -68,7 +68,7 @@ namespace RayTracerLib
 
         public override string ToString()
         {
-            return "Image; Res=" + PictureSize[IndexPictureSize] + "; " + "Recurse=" + MaxRecurse;
+            return "Res=" + CurrentSize + "; " + "Recurse=" + MaxRecurse;
         }
     }
 }
