@@ -112,7 +112,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(463, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(432, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -338,6 +338,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(156, 146);
             this.panel1.TabIndex = 5;
+            this.panel1.Visible = false;
             // 
             // btnZPlus
             // 
@@ -573,7 +574,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBoard;
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        public System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripButton toolBtnGrid;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
