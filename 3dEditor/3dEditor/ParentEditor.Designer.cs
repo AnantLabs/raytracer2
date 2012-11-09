@@ -151,8 +151,12 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "3D Editor";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.onPaint);
+            this.Scroll += new System.Windows.Forms.ScrollEventHandler(this.onScroll1);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.onMouse);
             this.Shown += new System.EventHandler(this.onShown);
             this.Activated += new System.EventHandler(this.onShown);
+            this.MdiChildActivate += new System.EventHandler(this.onMDIActive);
+            this.Click += new System.EventHandler(this.onClick);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);

@@ -152,7 +152,15 @@ namespace _3dEditor
             this.Update();
             this.Focus();
 
+            this.Invalidated += new InvalidateEventHandler(WndBoard_Invalidated);
+
             Reset();
+        }
+
+        void WndBoard_Invalidated(object sender, InvalidateEventArgs e)
+        {
+            this.toolStrip1.Invalidate(true);
+            this.toolStrip1.Refresh();
         }
 
         private void Reset()
@@ -596,11 +604,17 @@ namespace _3dEditor
 
                     Point3D[] points = drAnim.GetDrawingPoints();
                     path = new GraphicsPath();
+
+                    // vybrana animace ma jine PERO
+                    Pen penElips = DrawingAnimation.EllipsePen;
+                    if (drAnim == _Selected)
+                        penElips = DrawingAnimation.EllipseSelectedPen;
+                    
                     for (int i = 0; i < points.Length - 1; i++)
                     {
                         PointF pf1 = points[i].To2D(_scale, _zoom, _centerPoint);
                         PointF pf2 = points[i + 1].To2D(_scale, _zoom, _centerPoint);
-                        g.DrawLine(DrawingAnimation.EllipsePen, pf1, pf2);
+                        g.DrawLine(penElips, pf1, pf2);
                         path.AddLine(pf1, pf2);
                     }
 
@@ -964,6 +978,7 @@ namespace _3dEditor
                 this._isTransforming = true;
 
             this._lastMousePoint = e.Location;
+            
         }
 
 

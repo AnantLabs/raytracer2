@@ -1141,6 +1141,15 @@ namespace _3dEditor
             wnd.RotationMatrix.TransformPoints(drAnim.Points);
         }
 
+        private void OnFileAnimSelect(object sender, EventArgs e)
+        {
+            if (this.saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filename = saveFileDialog.FileName;
+                this.textBAnimFile.Text = filename;
+            }
+        }
+
         
 
     }

@@ -21,7 +21,8 @@ namespace EditorLib
 
         public Point3D CenterWorld { get; set; }
 
-        public static Pen EllipsePen = new Pen(Color.DarkSlateGray, 3.5f);
+        public static Pen EllipsePen = new Pen(Color.DimGray, 2.5f);
+        public static Pen EllipseSelectedPen = new Pen(Color.DarkSlateGray, 3.5f);
         public static Pen AxisAPen = new Pen(Color.Blue, 1.5f);
         public static Pen AxisBPen = new Pen(Color.Red, 1.5f);
         /// <summary>
@@ -77,6 +78,7 @@ namespace EditorLib
         {
             A = a;
             B = b;
+            CenterWorld = new Point3D(center);
 
             _ShiftMatrix = Matrix3D.PosunutiNewMatrix(center.X, center.Y, center.Z);
             Point3D a1 = new Point3D(a, 0, 0);
@@ -85,8 +87,7 @@ namespace EditorLib
             Point3D c1 = new Point3D(0, b, 0);
             Point3D c2 = new Point3D(0, -b, 0);
             Line3D line2 = new Line3D(c1, c2);  // axis B
-
-            CenterWorld = new Point3D(center);
+            
             List<Point3D> points = new List<Point3D>();
             points.Add(new Point3D(0, 0, 0));
             points.Add(a1); points.Add(a2);

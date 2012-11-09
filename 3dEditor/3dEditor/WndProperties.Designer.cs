@@ -299,12 +299,18 @@
             this.label114 = new System.Windows.Forms.Label();
             this.label123 = new System.Windows.Forms.Label();
             this.panelAnimace = new System.Windows.Forms.Panel();
+            this.label127 = new System.Windows.Forms.Label();
+            this.label146 = new System.Windows.Forms.Label();
+            this.label148 = new System.Windows.Forms.Label();
+            this.label149 = new System.Windows.Forms.Label();
+            this.numAnimRotZ = new System.Windows.Forms.NumericUpDown();
+            this.numAnimRotY = new System.Windows.Forms.NumericUpDown();
+            this.numAnimRotX = new System.Windows.Forms.NumericUpDown();
             this.panel1 = new System.Windows.Forms.Panel();
             this.radioAnimImgsOnly = new System.Windows.Forms.RadioButton();
             this.radioAnimBothImgVideo = new System.Windows.Forms.RadioButton();
             this.radioAnimVideoOnly = new System.Windows.Forms.RadioButton();
             this.label115 = new System.Windows.Forms.Label();
-            this.label116 = new System.Windows.Forms.Label();
             this.btnSaveAsFile = new System.Windows.Forms.Button();
             this.numAnimFps = new System.Windows.Forms.NumericUpDown();
             this.label120 = new System.Windows.Forms.Label();
@@ -325,14 +331,9 @@
             this.label130 = new System.Windows.Forms.Label();
             this.numAnimElipseB = new System.Windows.Forms.NumericUpDown();
             this.label131 = new System.Windows.Forms.Label();
+            this.label116 = new System.Windows.Forms.Label();
             this.label147 = new System.Windows.Forms.Label();
-            this.label127 = new System.Windows.Forms.Label();
-            this.label146 = new System.Windows.Forms.Label();
-            this.label148 = new System.Windows.Forms.Label();
-            this.label149 = new System.Windows.Forms.Label();
-            this.numAnimRotZ = new System.Windows.Forms.NumericUpDown();
-            this.numAnimRotY = new System.Windows.Forms.NumericUpDown();
-            this.numAnimRotX = new System.Windows.Forms.NumericUpDown();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.panelSphere.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSphRotZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSphRotY)).BeginInit();
@@ -448,6 +449,9 @@
             this.panelImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericRecurs)).BeginInit();
             this.panelAnimace.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotX)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimFps)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimSecs)).BeginInit();
@@ -456,9 +460,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numAnimElipseA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimCenterY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimElipseB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotX)).BeginInit();
             this.SuspendLayout();
             // 
             // panelSphere
@@ -4689,6 +4690,121 @@
             this.panelAnimace.Size = new System.Drawing.Size(378, 275);
             this.panelAnimace.TabIndex = 62;
             // 
+            // label127
+            // 
+            this.label127.AutoSize = true;
+            this.label127.BackColor = System.Drawing.Color.Transparent;
+            this.label127.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label127.ForeColor = System.Drawing.Color.Blue;
+            this.label127.Location = new System.Drawing.Point(94, 69);
+            this.label127.Name = "label127";
+            this.label127.Size = new System.Drawing.Size(17, 13);
+            this.label127.TabIndex = 148;
+            this.label127.Text = "x:";
+            // 
+            // label146
+            // 
+            this.label146.AutoSize = true;
+            this.label146.BackColor = System.Drawing.Color.Transparent;
+            this.label146.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label146.Location = new System.Drawing.Point(8, 69);
+            this.label146.Name = "label146";
+            this.label146.Size = new System.Drawing.Size(87, 16);
+            this.label146.TabIndex = 151;
+            this.label146.Text = "Orientation:";
+            // 
+            // label148
+            // 
+            this.label148.AutoSize = true;
+            this.label148.BackColor = System.Drawing.Color.Transparent;
+            this.label148.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label148.Location = new System.Drawing.Point(237, 69);
+            this.label148.Name = "label148";
+            this.label148.Size = new System.Drawing.Size(15, 13);
+            this.label148.TabIndex = 150;
+            this.label148.Text = "z:";
+            // 
+            // label149
+            // 
+            this.label149.AutoSize = true;
+            this.label149.BackColor = System.Drawing.Color.Transparent;
+            this.label149.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label149.ForeColor = System.Drawing.Color.Red;
+            this.label149.Location = new System.Drawing.Point(168, 69);
+            this.label149.Name = "label149";
+            this.label149.Size = new System.Drawing.Size(17, 13);
+            this.label149.TabIndex = 149;
+            this.label149.Text = "y:";
+            // 
+            // numAnimRotZ
+            // 
+            this.numAnimRotZ.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numAnimRotZ.Location = new System.Drawing.Point(254, 67);
+            this.numAnimRotZ.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numAnimRotZ.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numAnimRotZ.Name = "numAnimRotZ";
+            this.numAnimRotZ.Size = new System.Drawing.Size(45, 20);
+            this.numAnimRotZ.TabIndex = 147;
+            this.numAnimRotZ.ValueChanged += new System.EventHandler(this.onNumericRotateAnimation);
+            // 
+            // numAnimRotY
+            // 
+            this.numAnimRotY.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numAnimRotY.Location = new System.Drawing.Point(185, 67);
+            this.numAnimRotY.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numAnimRotY.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numAnimRotY.Name = "numAnimRotY";
+            this.numAnimRotY.Size = new System.Drawing.Size(45, 20);
+            this.numAnimRotY.TabIndex = 146;
+            this.numAnimRotY.ValueChanged += new System.EventHandler(this.onNumericRotateAnimation);
+            // 
+            // numAnimRotX
+            // 
+            this.numAnimRotX.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numAnimRotX.Location = new System.Drawing.Point(112, 67);
+            this.numAnimRotX.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numAnimRotX.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numAnimRotX.Name = "numAnimRotX";
+            this.numAnimRotX.Size = new System.Drawing.Size(45, 20);
+            this.numAnimRotX.TabIndex = 145;
+            this.numAnimRotX.ValueChanged += new System.EventHandler(this.onNumericRotateAnimation);
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
@@ -4698,7 +4814,7 @@
             this.panel1.Controls.Add(this.label115);
             this.panel1.Location = new System.Drawing.Point(17, 131);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(197, 88);
+            this.panel1.Size = new System.Drawing.Size(213, 88);
             this.panel1.TabIndex = 56;
             // 
             // radioAnimImgsOnly
@@ -4723,11 +4839,10 @@
             // 
             // radioAnimVideoOnly
             // 
-            this.radioAnimVideoOnly.AutoSize = true;
             this.radioAnimVideoOnly.Checked = true;
             this.radioAnimVideoOnly.Location = new System.Drawing.Point(6, 25);
             this.radioAnimVideoOnly.Name = "radioAnimVideoOnly";
-            this.radioAnimVideoOnly.Size = new System.Drawing.Size(74, 17);
+            this.radioAnimVideoOnly.Size = new System.Drawing.Size(196, 17);
             this.radioAnimVideoOnly.TabIndex = 58;
             this.radioAnimVideoOnly.TabStop = true;
             this.radioAnimVideoOnly.Text = "Video only";
@@ -4743,17 +4858,6 @@
             this.label115.TabIndex = 57;
             this.label115.Text = "Output type:";
             // 
-            // label116
-            // 
-            this.label116.AutoSize = true;
-            this.label116.BackColor = System.Drawing.Color.Transparent;
-            this.label116.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label116.Location = new System.Drawing.Point(156, 91);
-            this.label116.Name = "label116";
-            this.label116.Size = new System.Drawing.Size(47, 13);
-            this.label116.TabIndex = 52;
-            this.label116.Text = "seconds";
-            // 
             // btnSaveAsFile
             // 
             this.btnSaveAsFile.Location = new System.Drawing.Point(318, 219);
@@ -4762,6 +4866,7 @@
             this.btnSaveAsFile.TabIndex = 50;
             this.btnSaveAsFile.Text = "...";
             this.btnSaveAsFile.UseVisualStyleBackColor = true;
+            this.btnSaveAsFile.Click += new System.EventHandler(this.OnFileAnimSelect);
             // 
             // numAnimFps
             // 
@@ -4835,12 +4940,12 @@
             // 
             // textBAnimFile
             // 
-            this.textBAnimFile.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
+            this.textBAnimFile.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textBAnimFile.Location = new System.Drawing.Point(59, 220);
             this.textBAnimFile.Name = "textBAnimFile";
             this.textBAnimFile.Size = new System.Drawing.Size(257, 20);
             this.textBAnimFile.TabIndex = 44;
-            this.textBAnimFile.Text = "d:\\myworks\\raytracer\\out\\anim.avi";
+            this.textBAnimFile.Text = "D:\\MYWORKS\\RAYTRACER\\OUT\\ANIM.AVI";
             // 
             // label117
             // 
@@ -5053,6 +5158,17 @@
             this.label131.TabIndex = 24;
             this.label131.Text = "Y:";
             // 
+            // label116
+            // 
+            this.label116.AutoSize = true;
+            this.label116.BackColor = System.Drawing.Color.Transparent;
+            this.label116.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label116.Location = new System.Drawing.Point(156, 91);
+            this.label116.Name = "label116";
+            this.label116.Size = new System.Drawing.Size(47, 13);
+            this.label116.TabIndex = 52;
+            this.label116.Text = "seconds";
+            // 
             // label147
             // 
             this.label147.AutoSize = true;
@@ -5064,120 +5180,11 @@
             this.label147.TabIndex = 59;
             this.label147.Text = "degrees";
             // 
-            // label127
+            // saveFileDialog
             // 
-            this.label127.AutoSize = true;
-            this.label127.BackColor = System.Drawing.Color.Transparent;
-            this.label127.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label127.ForeColor = System.Drawing.Color.Blue;
-            this.label127.Location = new System.Drawing.Point(94, 69);
-            this.label127.Name = "label127";
-            this.label127.Size = new System.Drawing.Size(17, 13);
-            this.label127.TabIndex = 148;
-            this.label127.Text = "x:";
-            // 
-            // label146
-            // 
-            this.label146.AutoSize = true;
-            this.label146.BackColor = System.Drawing.Color.Transparent;
-            this.label146.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label146.Location = new System.Drawing.Point(8, 69);
-            this.label146.Name = "label146";
-            this.label146.Size = new System.Drawing.Size(87, 16);
-            this.label146.TabIndex = 151;
-            this.label146.Text = "Orientation:";
-            // 
-            // label148
-            // 
-            this.label148.AutoSize = true;
-            this.label148.BackColor = System.Drawing.Color.Transparent;
-            this.label148.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label148.Location = new System.Drawing.Point(237, 69);
-            this.label148.Name = "label148";
-            this.label148.Size = new System.Drawing.Size(15, 13);
-            this.label148.TabIndex = 150;
-            this.label148.Text = "z:";
-            // 
-            // label149
-            // 
-            this.label149.AutoSize = true;
-            this.label149.BackColor = System.Drawing.Color.Transparent;
-            this.label149.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label149.ForeColor = System.Drawing.Color.Red;
-            this.label149.Location = new System.Drawing.Point(168, 69);
-            this.label149.Name = "label149";
-            this.label149.Size = new System.Drawing.Size(17, 13);
-            this.label149.TabIndex = 149;
-            this.label149.Text = "y:";
-            // 
-            // numAnimRotZ
-            // 
-            this.numAnimRotZ.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numAnimRotZ.Location = new System.Drawing.Point(254, 67);
-            this.numAnimRotZ.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.numAnimRotZ.Minimum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            -2147483648});
-            this.numAnimRotZ.Name = "numAnimRotZ";
-            this.numAnimRotZ.Size = new System.Drawing.Size(45, 20);
-            this.numAnimRotZ.TabIndex = 147;
-            this.numAnimRotZ.ValueChanged += new System.EventHandler(this.onNumericRotateAnimation);
-            // 
-            // numAnimRotY
-            // 
-            this.numAnimRotY.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numAnimRotY.Location = new System.Drawing.Point(185, 67);
-            this.numAnimRotY.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.numAnimRotY.Minimum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            -2147483648});
-            this.numAnimRotY.Name = "numAnimRotY";
-            this.numAnimRotY.Size = new System.Drawing.Size(45, 20);
-            this.numAnimRotY.TabIndex = 146;
-            this.numAnimRotY.ValueChanged += new System.EventHandler(this.onNumericRotateAnimation);
-            // 
-            // numAnimRotX
-            // 
-            this.numAnimRotX.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numAnimRotX.Location = new System.Drawing.Point(112, 67);
-            this.numAnimRotX.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.numAnimRotX.Minimum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            -2147483648});
-            this.numAnimRotX.Name = "numAnimRotX";
-            this.numAnimRotX.Size = new System.Drawing.Size(45, 20);
-            this.numAnimRotX.TabIndex = 145;
-            this.numAnimRotX.ValueChanged += new System.EventHandler(this.onNumericRotateAnimation);
+            this.saveFileDialog.DefaultExt = "avi";
+            this.saveFileDialog.FileName = "anim";
+            this.saveFileDialog.Filter = "AVI|*.avi";
             // 
             // WndProperties
             // 
@@ -5323,6 +5330,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericRecurs)).EndInit();
             this.panelAnimace.ResumeLayout(false);
             this.panelAnimace.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotX)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimFps)).EndInit();
@@ -5332,9 +5342,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numAnimElipseA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimCenterY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimElipseB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numAnimRotX)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -5646,6 +5653,7 @@
         private System.Windows.Forms.NumericUpDown numAnimRotZ;
         private System.Windows.Forms.NumericUpDown numAnimRotY;
         private System.Windows.Forms.NumericUpDown numAnimRotX;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
 
     }
 }
