@@ -2160,7 +2160,7 @@ namespace RayTracerForm
                 bool antialias = checkAntialias.Checked;
                 string ext = Path.GetExtension(saveFileDialog.FileName);
                 ext = ext.ToLower();
-                Renderer renderer = new Renderer(new RayTracing(_rayTracer), size, recursion, antialias);
+                Renderer renderer = new Renderer(new RayTracing(_rayTracer), new RayImage(size, recursion, antialias));
                 //    switch (ext)
                 //    {
                 //        case ".png":
