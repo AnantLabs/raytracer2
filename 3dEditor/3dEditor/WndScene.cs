@@ -18,6 +18,11 @@ namespace _3dEditor
             Objects, Lights, Camera, Images, Animations, // top level nodes
             Spheres, Planes, Cubes, Cylinders}
 
+        /// <summary>
+        /// zda je prave meneho zaskrtnuti pro vsechny sousedy
+        /// </summary>
+        private bool isChecking = false;
+
         public WndScene()
         {
             InitializeComponent();
@@ -141,7 +146,7 @@ namespace _3dEditor
                     TreeNode novyNode = new TreeNode(img.ToString());
                     novyNode.Tag = img;
                     novyNode.Checked = true;
-                    node.Checked = true;
+                    //node.Checked = true;
                     node.Nodes.Add(novyNode);
                 }
                 else if ((TreeNodeTypes)node.Tag == rootTyp && rootTyp == TreeNodeTypes.Animations)
@@ -150,7 +155,7 @@ namespace _3dEditor
                     TreeNode novyNode = new TreeNode(drAnim.ToString());
                     novyNode.Tag = drAnim;
                     novyNode.Checked = drAnim.ShowAnimation;
-                    node.Checked = true;
+                    //node.Checked = true;
                     node.Nodes.Add(novyNode);
                 }
                 else if ((TreeNodeTypes)node.Tag == rootTyp)
@@ -450,8 +455,25 @@ namespace _3dEditor
             }
             else if (e.Node.Tag is DrawingAnimation)
             {
-                DrawingAnimation drAnim = (DrawingAnimation)e.Node.Tag;
-                drAnim.ShowAnimation = e.Node.Checked;
+                if (!isChecking)
+                {
+                    isChecking = true;
+                    this.UncheckChildren(e.Node.Parent);
+                    e.Node.Checked = true;
+                    isChecking = false;
+                    DrawingAnimation drAnim = (DrawingAnimation)e.Node.Tag;
+                    drAnim.ShowAnimation = e.Node.Checked;
+                }
+            }
+            else if (e.Node.Tag is RayImage)
+            {
+                if (!isChecking)
+                {
+                    isChecking = true;
+                    this.UncheckChildren(e.Node.Parent);
+                    e.Node.Checked = true;
+                    isChecking = false;
+                }
             }
             else
             {
@@ -577,6 +599,36 @@ namespace _3dEditor
         {
             WndBoard wndBoard = GetWndBoard();
             wndBoard.AddAnimation(new DrawingAnimation());
+        }
+
+        public RayImage GetSelectedImage()
+        {
+            RayImage sel = null;
+
+            foreach (TreeNode node in treeView1.Nodes)
+            {
+                if ((TreeNodeTypes)node.Tag == TreeNodeTypes.Images)
+                {
+                    foreach (TreeNode n in node.Nodes)
+                    {
+                        if (n.Checked)
+                            sel = (RayImage)n.Tag;
+                    }
+                }
+            }
+            return sel;
+        }
+
+        private void UncheckChildren(TreeNode root)
+        {
+            foreach (TreeNode node in root.Nodes)
+                node.Checked = false;
+        }
+
+        private void CheckChildren(TreeNode root)
+        {
+            foreach (TreeNode node in root.Nodes)
+                node.Checked = true;
         }
 
 
