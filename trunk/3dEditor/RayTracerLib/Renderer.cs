@@ -13,8 +13,7 @@ namespace RayTracerLib
 
         BackgroundWorker _bw;
         RayTracing _rayTracer;
-        int _recurse;
-        bool _antialias;
+        RayImage _rayImg;
 
         /// <summary>
         /// minimalni povolena velikost obrazku
@@ -25,11 +24,6 @@ namespace RayTracerLib
         /// minimalni povolena velikost obrazku
         /// </summary>
         public static Size MaxSize = new Size(2000, 2000);
-
-        /// <summary>
-        /// velikost vysledneho obrazku
-        /// </summary>
-        Size _size;
         
         /// <summary>
         /// nazev souboru, do ktereho se ulozi obrazek
@@ -54,17 +48,17 @@ namespace RayTracerLib
         }
 
         /// <summary>
-        /// </summary>
         /// <param name="raytracer">odkaz na raytracer, z ktereho budeme vykreslovat</param>
         /// <param name="size">velikost vysledneho obrazku</param>
         /// <param name="recurse">hloubka rekurze</param>
         /// <param name="antialias">zapnuty antialiasing</param>
-        public Renderer(RayTracing raytracer, Size size, int recurse, bool antialias)
+        /// </summary>
+        public Renderer(RayTracing raytracer, RayImage rayImg)
         {
             _rayTracer = raytracer;
-            _size = new Size(size.Width, size.Height);
-            _antialias = antialias;
-            _recurse = recurse;
+            _rayTracer.RScene.SetRtree();
+            _rayTracer.RScene.IsOptimizing = rayImg.IsOptimalizing;
+            _rayImg = rayImg;
             InitAll();
         }
 
@@ -113,19 +107,19 @@ namespace RayTracerLib
         private void RenderImage()
         {
 
-            if (_size.Width < MinSize.Width || _size.Height < MinSize.Height)
+            if (_rayImg.CurrentSize.Width < MinSize.Width || _rayImg.CurrentSize.Height < MinSize.Height)
                 throw new Exception("size is smaller than minimum size");
 
-            int rawWidth = _size.Width;
-            int rawHeigh = _size.Height;
+            int rawWidth = _rayImg.CurrentSize.Width;
+            int rawHeigh = _rayImg.CurrentSize.Height;
 
             RayTracerLib.Colour resCol;
             System.Drawing.Color color;
 
-            if (_antialias)
+            if (_rayImg.IsAntialiasing)
             {
-                rawWidth = _size.Width * 3;
-                rawHeigh = _size.Height * 3;
+                rawWidth = _rayImg.CurrentSize.Width * 3;
+                rawHeigh = _rayImg.CurrentSize.Height * 3;
             }
 
             _rayTracer.SetBoundValues(0, rawWidth, 0, rawHeigh);
@@ -152,18 +146,18 @@ namespace RayTracerLib
 
                 for (int x = 0; x < rawWidth; x++)
                 {
-                    if (_recurse == -1)
+                    if (_rayImg.MaxRecurse == -1)
                     {
                         resCol = _rayTracer.RayCast(x + 0.5, y + 0.5);
                     }
                     else
                     {
-                        resCol = _rayTracer.RayTrace(_recurse, x + 0.5, y + 0.5);
+                        resCol = _rayTracer.RayTrace(_rayImg.MaxRecurse, x + 0.5, y + 0.5);
                     }
 
                     _rawImgColours[y, x] = resCol;
 
-                    if (_antialias)
+                    if (_rayImg.IsAntialiasing)
                     {
                         if (y % 3 == 0 && x % 3 == 0)
                         {
@@ -181,7 +175,7 @@ namespace RayTracerLib
                 }
             }
 
-            if (_antialias)
+            if (_rayImg.IsAntialiasing)
                 AntializeArrayCols();
         }
 
@@ -237,10 +231,10 @@ namespace RayTracerLib
             if (Bitmap != null)
                 Bitmap.Dispose();
 
-            Bitmap = new Bitmap(_size.Width, _size.Height);
-            for (int y = 0; y < _size.Height; y++)
+            Bitmap = new Bitmap(_rayImg.CurrentSize.Width, _rayImg.CurrentSize.Height);
+            for (int y = 0; y < _rayImg.CurrentSize.Height; y++)
             {
-                for (int x = 0; x < _size.Width; x++)
+                for (int x = 0; x < _rayImg.CurrentSize.Width; x++)
                 {
                     resCol = new Colour(0, 0, 0, 0);
                     for (int i = -1; i < 2; i++)
@@ -265,7 +259,7 @@ namespace RayTracerLib
             _isBusy = true;
             if (Bitmap != null)
                 Bitmap.Dispose();
-            Bitmap = new Bitmap(_size.Width, _size.Height);
+            Bitmap = new Bitmap(_rayImg.CurrentSize.Width, _rayImg.CurrentSize.Height);
             _bw.RunWorkerAsync();
         }
 
@@ -281,7 +275,7 @@ namespace RayTracerLib
             //_bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(_bw_SaveRunWorkerCompleted);
             if (Bitmap != null)
                 Bitmap.Dispose();
-            Bitmap = new Bitmap(_size.Width, _size.Height);
+            Bitmap = new Bitmap(_rayImg.CurrentSize.Width, _rayImg.CurrentSize.Height);
             RenderImage();
             Bitmap.Save(fileName, imageFormat);
             //_bw.RunWorkerAsync();
@@ -295,7 +289,7 @@ namespace RayTracerLib
         {
             if (Bitmap != null)
                 Bitmap.Dispose();
-            Bitmap = new Bitmap(_size.Width, _size.Height);
+            Bitmap = new Bitmap(_rayImg.CurrentSize.Width, _rayImg.CurrentSize.Height);
             RenderImage();
             return Bitmap;
         }
