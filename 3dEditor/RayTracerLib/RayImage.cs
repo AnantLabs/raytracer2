@@ -10,10 +10,22 @@ namespace RayTracerLib
     {
         /// <summary>
         /// seznam prednastavenych velikosti vykreslovaneho obrazku
+        /// posledni musi byt nulova velikost - pro volbu vlastniho nastaveni rozliseni
         /// </summary>
-        public Size[] PictureSize { get; private set; }
+        public readonly Size[] PictureSize = {
+                new Size(320,240),
+                new Size(512,384),
+                new Size(640,480),
+                new Size(854,480), //856x480
+                new Size(1024,768),
+                new Size(1280,720),
+                new Size()
+            };
 
         public Size CurrentSize { get; set; }
+        public const int SizeWidthExtent = 10;
+        public const int SizeHeightExtent = 60;
+        private RayImage _rayImg;
 
         /// <summary>
         /// Aktualne vybrany index rozliseni
@@ -35,6 +47,11 @@ namespace RayTracerLib
         /// </summary>
         public bool IsAntialiasing { get; set; }
 
+        /// <summary>
+        /// Zda se ma pouzit pri renderovani optimalizace
+        /// </summary>
+        public bool IsOptimalizing { get; set; }
+
         public RayImage() : this(1, new Colour(0.1, 0.1, 0.1, 1), false) { }
 
         
@@ -47,23 +64,30 @@ namespace RayTracerLib
         /// <param name="antial">indikator zapnuti antialiasingu pri vykreslovani</param>
         public RayImage(int maxRecurse, Colour bgCol, bool antial)
         {
-            // nastaveni rozliseni velikosti pro obrazek
-            // posledni musi byt nulova velikost - pro volbu vlastniho nastaveni rozliseni
-            PictureSize = new Size[]{
-                new Size(320,240),
-                new Size(512,384),
-                new Size(640,480),
-                new Size(854,480), //856x480
-                new Size(1024,768),
-                new Size(1280,720),
-                new Size()
-            };
-
             MaxRecurse = maxRecurse;
             BackgroundColor = bgCol;
             IsAntialiasing = antial;
             IndexPictureSize = 0;
             CurrentSize = PictureSize[0];
+        }
+
+
+        public RayImage(Size size, int recurse, bool isAntialias)
+        {
+            CurrentSize = size;
+            MaxRecurse = recurse;
+            IsAntialiasing = isAntialias;
+            BackgroundColor = Colour.Black;
+            this.IndexPictureSize = PictureSize.Length - 1;
+        }
+        public RayImage(RayImage old)
+        {
+            this.BackgroundColor = new Colour(old.BackgroundColor);
+            this.CurrentSize = new Size(old.CurrentSize.Width, old.CurrentSize.Height);
+            this.IndexPictureSize = old.IndexPictureSize;
+            this.MaxRecurse = old.MaxRecurse;
+            this.IsAntialiasing = old.IsAntialiasing;
+            this.IsOptimalizing = old.IsOptimalizing;
         }
 
         public override string ToString()

@@ -44,6 +44,9 @@ namespace RayTracerLib
         /// </summary>
         public List<DefaultShape> SceneObjects { get; set; }
 
+        public RTree R_Tree { get; set; }
+        public bool IsOptimizing { get; set; }
+
         private string _caption;
 
         /// <summary>
@@ -229,17 +232,32 @@ namespace RayTracerLib
 
             //P1.Normalize();
 
-            // pro kazdy objekt ve scene otestujeme, zda je protnut paprskem a zjistime body pruniku
-            foreach (DefaultShape obj in this.SceneObjects)
+            if (IsOptimizing)
             {
-                obj.Intersects(P0, P1, ref interSolids);
+                R_Tree.TestIntersection(P0, P1, ref interSolids);
+
+                // rovina se do RStromu nepridava - nutno overit zlvast vsechny roviny
+                foreach (DefaultShape obj in this.SceneObjects)
+                {
+                    if (obj is Plane)
+                        obj.Intersects(P0, P1, ref interSolids);
+                }
+            }
+            else
+            {
+                // pro kazdy objekt ve scene otestujeme, zda je protnut paprskem a zjistime body pruniku
+                foreach (DefaultShape obj in this.SceneObjects)
+                {
+                    obj.Intersects(P0, P1, ref interSolids);
+                }
             }
 
             // paprsek neprotina zadny objekt ve scene:
             if (interSolids.Count == 0)
                 return null;
 
-            interSolids.Sort();
+            if (interSolids.Count > 1)
+                interSolids.Sort();
 
             // vybereme prvni bod pruniku, jenz je protnut
             foreach (SolidPoint sp in interSolids)
@@ -285,6 +303,10 @@ namespace RayTracerLib
             return lightsList.ToArray();
         }
 
+        internal void SetRtree()
+        {
+            this.R_Tree = new RTree(SceneObjects.ToArray());
+        }
 
         public override string ToString()
         {
@@ -730,5 +752,9 @@ namespace RayTracerLib
 
             this.Caption = "Logo";
         }
+
+
+
+        
     }
 }

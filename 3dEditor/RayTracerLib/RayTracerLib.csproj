@@ -84,6 +84,8 @@
     <Compile Include="Camera.cs" />
     <Compile Include="Colour.cs" />
     <Compile Include="Cube.cs" />
+    <Compile Include="Cuboid.cs" />
+    <Compile Include="CuboidNode.cs" />
     <Compile Include="Cylinder.cs" />
     <Compile Include="DefaultShape.cs" />
     <Compile Include="RayImage.cs" />
@@ -97,6 +99,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RayTracing.cs" />
     <Compile Include="Renderer.cs" />
+    <Compile Include="RTree.cs" />
+    <Compile Include="RtreeNode.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="SolidPoint.cs" />
     <Compile Include="Sphere.cs" />

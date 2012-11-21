@@ -194,9 +194,8 @@ namespace RayTracerLib
 
         private AnimationType _animType;
 
-        Size _size;
-        int _recursion;
-        bool _antialias;
+        RayImage _rayImg;
+
         double _fps;
         bool _generateImages;
 
@@ -226,9 +225,7 @@ namespace RayTracerLib
             _pathPoints = new List<Vektor>(old._pathPoints);
             _counter = old._counter;
             _fileName = old._fileName;
-            _size = new Size(old._size.Width, old._size.Height);
-            _recursion = old._recursion;
-            _antialias = old._antialias;
+            _rayImg = new RayImage(_rayImg);
             _fps = old._fps;
             _bw = old._bw;
         }
@@ -302,14 +299,11 @@ namespace RayTracerLib
         /// <param name="antialias">antialiasing</param>
         /// <param name="file">soubor animace</param>
         /// <param name="generateImages">maji-li se s animaci generovat i obrazky</param>
-        public void StartAnimation(Size size, int recursion, bool antialias, string file, AnimationType animType)
+        public void StartAnimation(Size size, string file, AnimationType animType)
         {
             if ((_bw.IsBusy == true))
                 return;
 
-            _size = new Size(size.Width, size.Height);
-            _recursion = recursion;
-            _antialias = antialias;
             _fileName = file;
             _animType = animType;
 
@@ -352,14 +346,14 @@ namespace RayTracerLib
         /// </summary>
         void _bw_DoWork_Static(object sender, DoWorkEventArgs e)
         {
-            Renderer renderer = new Renderer(_rayTracer, _size, _recursion, _antialias);
+            Renderer renderer = new Renderer(_rayTracer, _rayImg);
             int i = 0;
             List<Bitmap> images = new List<Bitmap>(this._numPoints);
             Bitmap bmp;
             StreamWriter str = new StreamWriter(Path.Combine(Path.GetDirectoryName(_fileName), "out.txt"));
 
             ITimeline timeline = new DefaultTimeline(_fps);
-            IGroup group = timeline.AddVideoGroup(24, _size.Width, _size.Height);
+            IGroup group = timeline.AddVideoGroup(24, _rayImg.CurrentSize.Width, _rayImg.CurrentSize.Height);
             ITrack videoTrack = group.AddTrack();
 
             double secs = (double)(1.0 / _fps);     // doba obrazku v sekundach
@@ -431,11 +425,11 @@ namespace RayTracerLib
             ITimeline timeline = null;
             try
             {
-                Renderer renderer = new Renderer(_rayTracer, _size, _recursion, _antialias);
+                Renderer renderer = new Renderer(_rayTracer, _rayImg);
                 renderer.AddRenderCompletedEventHandler(new RunWorkerCompletedEventHandler(this.OnRenderedImage));
 
                 timeline = new DefaultTimeline(_fps);
-                IGroup group = timeline.AddVideoGroup(24, _size.Width, _size.Height);
+                IGroup group = timeline.AddVideoGroup(24, _rayImg.CurrentSize.Width, _rayImg.CurrentSize.Height);
                 _videoTrack = group.AddTrack();
 
                 _iter = 0;
@@ -459,7 +453,7 @@ namespace RayTracerLib
                         continue;
                     }
 
-                    renderer = new Renderer(_rayTracer, _size, _recursion, _antialias);
+                    renderer = new Renderer(_rayTracer,_rayImg);
                     renderer.AddRenderCompletedEventHandler(new RunWorkerCompletedEventHandler(this.OnRenderedImage));
 
                     MoveToNextImage();              //posuneme se do dalsiho bodu cesty

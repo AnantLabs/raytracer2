@@ -151,6 +151,7 @@ namespace RayTracerLib
         private BackgroundWorker _bw;
 
         private RayTracing _rayTracer;
+        private RayImage _rayImage;
 
         /// <summary>
         /// Elipsa popisujici drahu kamery
@@ -173,9 +174,6 @@ namespace RayTracerLib
 
         private AnimationType _animType;
 
-        Size _size;
-        int _recursion;
-        bool _antialias;
         double _fps;
 
         bool _isBusy;
@@ -205,9 +203,7 @@ namespace RayTracerLib
             _pathPoints = new List<Vektor>(old._pathPoints);
             _counter = old._counter;
             _fileName = old._fileName;
-            _size = new Size(old._size.Width, old._size.Height);
-            _recursion = old._recursion;
-            _antialias = old._antialias;
+            _rayImage = new RayImage(old._rayImage);
             _fps = old._fps;
             _bw = old._bw;
         }
@@ -282,14 +278,11 @@ namespace RayTracerLib
         /// <param name="antialias">antialiasing</param>
         /// <param name="file">soubor animace</param>
         /// <param name="generateImages">maji-li se s animaci generovat i obrazky</param>
-        public void StartAnimation(Size size, int recursion, bool antialias, string file, AnimationType animType)
+        public void StartAnimation(RayImage rayImage, string file, AnimationType animType)
         {
             if ((_bw.IsBusy == true))
                 return;
 
-            _size = new Size(size.Width, size.Height);
-            _recursion = recursion;
-            _antialias = antialias;
             _fileName = file;
             _animType = animType;
 
@@ -303,7 +296,7 @@ namespace RayTracerLib
 
             _counter = 0;
             _isBusy = true;
-            Bitmap = new Bitmap(_size.Width, _size.Height);
+            Bitmap = new Bitmap(rayImage.CurrentSize.Width, rayImage.CurrentSize.Height);
             if (_bw.IsBusy != true)
                 _bw.RunWorkerAsync();
         }
@@ -343,7 +336,7 @@ namespace RayTracerLib
             try
             {
                 ITimeline timeline = new DefaultTimeline(_fps);
-                IGroup group = timeline.AddVideoGroup(24, _size.Width, _size.Height);
+                IGroup group = timeline.AddVideoGroup(24, _rayImage.CurrentSize.Width, _rayImage.CurrentSize.Height);
                 ITrack videoTrack = group.AddTrack();
 
                 while (MoveToNextImage() && !_bw.CancellationPending)
@@ -412,11 +405,11 @@ namespace RayTracerLib
             ITimeline timeline = null;
             try
             {
-                Renderer renderer = new Renderer(_rayTracer, _size, _recursion, _antialias);
+                Renderer renderer = new Renderer(_rayTracer,_rayImage);
                 renderer.AddRenderCompletedEventHandler(new RunWorkerCompletedEventHandler(this.OnRenderedImage));
 
                 timeline = new DefaultTimeline(_fps);
-                IGroup group = timeline.AddVideoGroup(24, _size.Width, _size.Height);
+                IGroup group = timeline.AddVideoGroup(24, _rayImage.CurrentSize.Width, _rayImage.CurrentSize.Height);
                 _videoTrack = group.AddTrack();
 
                 _iter = 0;
@@ -439,7 +432,7 @@ namespace RayTracerLib
                         continue;
                     }
 
-                    renderer = new Renderer(_rayTracer, _size, _recursion, _antialias);
+                    renderer = new Renderer(_rayTracer, _rayImage);
                     renderer.AddRenderCompletedEventHandler(new RunWorkerCompletedEventHandler(this.OnRenderedImage));
 
                     MoveToNextImage();              //posuneme se do dalsiho bodu cesty
@@ -542,16 +535,16 @@ namespace RayTracerLib
 
         private void RenderImage()
         {
-            int rawWidth = _size.Width;
-            int rawHeigh = _size.Height;
+            int rawWidth = _rayImage.CurrentSize.Width;
+            int rawHeigh = _rayImage.CurrentSize.Height;
 
             RayTracerLib.Colour resCol;
             System.Drawing.Color color;
 
-            if (_antialias)
+            if (_rayImage.IsAntialiasing)
             {
-                rawWidth = _size.Width * 3;
-                rawHeigh = _size.Height * 3;
+                rawWidth = _rayImage.CurrentSize.Width * 3;
+                rawHeigh = _rayImage.CurrentSize.Height * 3;
             }
             
             _rayTracer.SetBoundValues(0, rawWidth, 0, rawHeigh);
@@ -559,7 +552,7 @@ namespace RayTracerLib
             if (Bitmap != null)
                 Bitmap.Dispose();
 
-            Bitmap = new Bitmap(_size.Width, _size.Height);
+            Bitmap = new Bitmap(_rayImage.CurrentSize.Width, _rayImage.CurrentSize.Height);
 
             _rawImgColours = new Colour[rawHeigh, rawWidth];
 
@@ -581,18 +574,18 @@ namespace RayTracerLib
                     if (_bw.CancellationPending)
                         return;
 
-                    if (_recursion == -1)
+                    if (_rayImage.MaxRecurse == -1)
                     {
                         resCol = _rayTracer.RayCast(x + 0.5, y + 0.5);
                     }
                     else
                     {
-                        resCol = _rayTracer.RayTrace(_recursion, x + 0.5, y + 0.5);
+                        resCol = _rayTracer.RayTrace(_rayImage.MaxRecurse, x + 0.5, y + 0.5);
                     }
 
                     _rawImgColours[y, x] = resCol;
 
-                    if (!_antialias)
+                    if (!_rayImage.IsAntialiasing)
                     {
                         color = resCol.SystemColor();
                         Bitmap.SetPixel(x, y, color);
@@ -600,7 +593,7 @@ namespace RayTracerLib
                 }
             }
 
-            if (_antialias)
+            if (_rayImage.IsAntialiasing)
                 AntializeArrayCols();
         }
         /// <summary>
@@ -615,10 +608,10 @@ namespace RayTracerLib
             if (Bitmap != null)
                 Bitmap.Dispose();
 
-            Bitmap = new Bitmap(_size.Width, _size.Height);
-            for (int y = 0; y < _size.Height; y++)
+            Bitmap = new Bitmap(_rayImage.CurrentSize.Width, _rayImage.CurrentSize.Height);
+            for (int y = 0; y < _rayImage.CurrentSize.Height; y++)
             {
-                for (int x = 0; x < _size.Width; x++)
+                for (int x = 0; x < _rayImage.CurrentSize.Width; x++)
                 {
                     resCol = new Colour(0, 0, 0, 0);
                     for (int i = -1; i < 2; i++)

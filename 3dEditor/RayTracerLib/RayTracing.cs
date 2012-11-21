@@ -202,7 +202,7 @@ namespace RayTracerLib
             {
                 barvaVysled = Colour.Black;
                 if (depth == 0)
-                barvaVysled = new Colour(this.RScene.BgColor);
+                    barvaVysled = new Colour(this.RScene.BgColor);
                 return barvaVysled;
             }
 
