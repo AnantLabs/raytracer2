@@ -89,10 +89,14 @@ namespace _3dEditor
             vs.Scroll += new ScrollEventHandler(this.onScroll);
             vs.Dock = DockStyle.Right;
             Controls.Add(vs);
-
             
             InitRayTracer();
             //LayoutMdi(MdiLayout.Cascade);
+
+            //// TESTING
+            //bool test1 = RTree.Testing1();
+            //bool test2 = RTree.Testing2();
+            //Cuboid.TestCuboidRayFromInside();
         }
 
         protected override void WndProc(ref Message m)
@@ -128,28 +132,35 @@ namespace _3dEditor
         {
             _rayTracer = new RayTracing();
             _rayTracer.RScene = new Scene();
-            Sphere sph1 = new Sphere(new Vektor(1, 2, 1), 1, new Colour(1, 0.5, 0.1, 1));
-            Sphere sph2 = new Sphere(new Vektor(-2, -1, 2), 1.5);
-            Cube cube1 = new Cube(new Vektor(-3, 5, 2), new Vektor(1, 1, 1), 1);
+            Sphere sph1 = new Sphere(new Vektor(0, 0.5, -6), 1, new Colour(1, 0.5, 0.1, 1));
+            Sphere sph2 = new Sphere(new Vektor(-2, -1, -10), 1.5);
+            Cube cube1 = new Cube(new Vektor(0.1, 0.7, -3), new Vektor(1, 1, 1), 1);
+            Cube cube2 = new Cube(new Vektor(1.6, -0.1, -5.2), new Vektor(1, 1, 1), 1);
+            cube2.Material.Color = Colour.ColourCreate(Color.Gold);
             Plane plane1 = new Plane(new Vektor(1, 1, 0), 3);
             Cylinder cyl = new Cylinder(new Vektor(3, 2, 1), new Vektor(1, 1, 1), 1, 8);
             _rayTracer.RScene.SceneObjects.Clear();
+            _rayTracer.RScene.Lights[0].Coord = new Vektor(-4.2, 2.1, 0.6);
+            _rayTracer.RScene.Lights[1].Coord = new Vektor(5.5, -0.4, -5.2);
+            _rayTracer.RCamera.Source = new Vektor(0.5, 0.7, 0);
             //_rayTracer.RScene.SceneObjects.Add(sph1);
             //_rayTracer.RScene.SceneObjects.Add(sph2);
             _rayTracer.RScene.SceneObjects.Add(cube1);
-            _rayTracer.RScene.SceneObjects.Add(plane1);
+            _rayTracer.RScene.SceneObjects.Add(cube2);
+            //_rayTracer.RScene.SceneObjects.Add(plane1);
             //_rayTracer.RScene.SceneObjects.Add(cyl);
-            sph2.IsActive = false;
+            //sph2.IsActive = false;
 
             //_rayTracer.RScene.SetDefaultScene4();
 
             this._WndBoard.AddRaytrScene(_rayTracer.RScene);
 
-            RayImage img = new RayImage(1, new Colour(1, 0, 0, 0), false);
+            RayImage img = new RayImage(1, new Colour(0.8, 0.1, 0.5, 0), false);
             this._WndScene.AddItem(img);
+            _WndScene.ShowNode(img);
 
             DrawingAnimation drAnim = new DrawingAnimation();
-            this._WndBoard.AddAnimation(drAnim);
+            //this._WndBoard.AddAnimation(drAnim);
             
         }
 
@@ -234,6 +245,16 @@ namespace _3dEditor
             //this.MdiChildren[1].Invalidate(true);
             //this.MdiChildren[2].Invalidate(true);
             //this.Invalidate(true);
+        }
+
+        private void BtnDraw_Click(object sender, EventArgs e)
+        {
+            RayImage img = _WndScene.GetSelectedImage();
+            _rayTracer.RScene.BgColor = img.BackgroundColor;
+            DrawingBoard form = new DrawingBoard();
+            form.Size = new Size(img.CurrentSize.Width + RayImage.SizeWidthExtent, img.CurrentSize.Height + RayImage.SizeHeightExtent);
+            form.Set(new RayTracing(_rayTracer), new RayImage(img));
+            form.Show();
         }
 
     }

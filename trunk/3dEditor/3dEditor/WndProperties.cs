@@ -352,6 +352,7 @@ namespace _3dEditor
 
             this.numericRecurs.Value = (decimal)MyMath.Clamp(img.MaxRecurse, -1, 100);
             this.checkAntialias.Checked = img.IsAntialiasing;
+            this.checkOptimize.Checked = img.IsOptimalizing;
             this.btnImageBgr.BackColor = img.BackgroundColor.SystemColor();
         }
 
@@ -445,7 +446,15 @@ namespace _3dEditor
 
         private void btnImageBgCol_Click(object sender, EventArgs e)
         {
-            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            //this.colorDialog.ShowDialog();
+            //this.ParentForm.Visible = false;
+            //this.Parent.Parent.Hide();
+            this.SendToBack();
+            this.ParentForm.Hide();
+            //this.ParentForm.Parent.SendToBack();
+            
+            
+            if (this.colorDialog.ShowDialog(this.Parent.Parent) == DialogResult.OK)
             {
                 if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(RayImage))
                     return;
@@ -459,6 +468,7 @@ namespace _3dEditor
                 Colour col = Colour.ColourCreate(colorDialog.Color);
                 img.BackgroundColor = col;
             }
+            this.ParentForm.Show();
         }
 
         #endregion
@@ -943,6 +953,7 @@ namespace _3dEditor
 
             img.MaxRecurse = (int)this.numericRecurs.Value;
             img.IsAntialiasing = this.checkAntialias.Checked;
+            img.IsOptimalizing = this.checkOptimize.Checked;
 
             img.IndexPictureSize = this.comboResolution.SelectedIndex;
             int w = 100;
