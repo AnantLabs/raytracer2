@@ -322,7 +322,7 @@ namespace RayTracerForm
             _graphics = this.pictureBoard.CreateGraphics();
             _bitmap = new Bitmap(this.pictureBoard.Width, this.pictureBoard.Height, _graphics);
             _startTime = DateTime.Now;
-            _renderer = new Renderer(_rayTracer, new Size(_bitmap.Width, _bitmap.Height), _recurse, _antialias);
+            _renderer = new Renderer(_rayTracer, new RayImage(new Size(_bitmap.Width, _bitmap.Height), _recurse, _antialias));
             _renderer.AddProgressChangeEventHandler(new ProgressChangedEventHandler(_bw_ProgressChanged));
             _renderer.AddRenderCompletedEventHandler(new RunWorkerCompletedEventHandler(_bw_RunWorkerCompleted));
             _renderer.RenderAsyncImage();

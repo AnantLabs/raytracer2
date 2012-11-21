@@ -104,7 +104,7 @@ namespace RayTracerForm
             this.progressBar1.Value = 0;
             _startAnimTime = DateTime.Now;
             _animation.SetPath(elipsa, fps, time);
-            _animation.StartAnimation(_size, _recursion, _antialias, name, animType);
+            _animation.StartAnimation(new RayImage(_recursion, Colour.Black,_antialias), name, animType);
 
             this.btnStart.Enabled = false;
             panelProgress.Visible = true;
