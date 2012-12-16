@@ -129,5 +129,10 @@ namespace EditorLib
         //    this._RotatMatrix = newRot;
         //    this.SetModelObject(this.ModelObject);
         //}
+
+        public override Point3D GetCenter()
+        {
+            return new Point3D(-10, -10, 10);
+        }
     }
 }

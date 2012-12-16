@@ -32,5 +32,21 @@ namespace EditorLib
             this.Center = new Point3D(light.Coord.X, light.Coord.Y, light.Coord.Z);
             this.ModelObject = light;
         }
+
+        public override void SetModelObject(object modelObject)
+        {
+            if (modelObject is Light)
+            {
+                Light light = (Light)modelObject;
+                this.ModelObject = light;
+                this.Center = new Point3D(light.Coord.X, light.Coord.Y, light.Coord.Z);
+            }
+
+        }
+
+        public override Point3D GetCenter()
+        {
+            return new Point3D(this.Center);
+        }
     }
 }

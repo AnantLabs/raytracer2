@@ -97,10 +97,10 @@ namespace EditorLib
             Vektor cp = cam.Norm * Dist + cam.Source;
             Point3D cp_ = new Point3D(cp.X, cp.Y, cp.Z);     // stred kuzele
 
-            Vektor p12 = cp - cam.Dy * (Height / 2);
+            Vektor p12 = cp - cam.Up * (Height / 2);
             Point3D p12_ = new Point3D(p12.X, p12.Y, p12.Z);
 
-            Vektor p34 = cp + cam.Dy * (Height / 2);
+            Vektor p34 = cp + cam.Up * (Height / 2);
             Point3D p34_ = new Point3D(p34.X, p34.Y, p34.Z);
 
             Vektor p23 = cp + cam.Dx * (Width / 2);
@@ -126,6 +126,10 @@ namespace EditorLib
 
 
             Points = points.ToArray();
+        }
+        public override Point3D GetCenter()
+        {
+            return new Point3D(this.Center);
         }
     }
 }

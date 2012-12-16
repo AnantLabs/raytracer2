@@ -144,5 +144,10 @@ namespace EditorLib
         {
             return "Center= " + CenterWorld + ";A= " + A + ";B= " + B + ";";
         }
+
+        public override Point3D GetCenter()
+        {
+            return new Point3D(this.CenterWorld);
+        }
     }
 }

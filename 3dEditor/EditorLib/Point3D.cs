@@ -29,6 +29,13 @@ namespace EditorLib
             this.Z = old.Z;
             this.ZZ = old.ZZ;
         }
+
+        public double Size()
+        {
+            double len = X * X + Y * Y + Z * Z;
+            len = Math.Sqrt(len);
+            return len;
+        }
         public Point3D Normalize()
         {
             double len = X * X + Y * Y + Z * Z;
