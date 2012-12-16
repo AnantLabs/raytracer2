@@ -44,7 +44,7 @@ namespace RayTracerLib
         /// </summary>
         public List<DefaultShape> SceneObjects { get; set; }
 
-        public RTree R_Tree { get; set; }
+        public RTree R_Tree { get; private set; }
         public bool IsOptimizing { get; set; }
 
         private string _caption;
@@ -187,6 +187,11 @@ namespace RayTracerLib
             Lights.Add(l);
         }
 
+        public void AddSceneObject(DefaultShape ds)
+        {
+            SceneObjects.Add(ds);
+        }
+
         /// <summary>
         /// nastavi zakladni barvy sceny: barvu pozadi a ambientni
         /// </summary>
@@ -234,6 +239,7 @@ namespace RayTracerLib
 
             if (IsOptimizing)
             {
+                if (R_Tree == null) this.SetRtree();
                 R_Tree.TestIntersection(P0, P1, ref interSolids);
 
                 // rovina se do RStromu nepridava - nutno overit zlvast vsechny roviny
@@ -266,6 +272,46 @@ namespace RayTracerLib
                     return sp;
             }
 
+            return null;
+        }
+
+        public SolidPoint GetIntersectPointForShadow(Vektor P0, Vektor P1)
+        {
+            if (P0 == null || P1 == null)
+                return null;
+
+            List<SolidPoint> interSolids = new List<SolidPoint>();
+            bool isIntersected = false;
+
+            if (IsOptimizing)
+            {
+                R_Tree.TestIntersection(P0, P1, ref interSolids);
+
+                if (interSolids.Count == 0)
+                {
+
+                    // rovina se do RStromu nepridava - nutno overit zlvast vsechny roviny
+                    foreach (DefaultShape obj in this.SceneObjects)
+                    {
+                        if (obj is Plane)
+                        {
+                            isIntersected = obj.Intersects(P0, P1, ref interSolids);
+                            if (isIntersected) break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // pro kazdy objekt ve scene otestujeme, zda je protnut paprskem a zjistime body pruniku
+                foreach (DefaultShape obj in this.SceneObjects)
+                {
+                    isIntersected = obj.Intersects(P0, P1, ref interSolids);
+                    if (isIntersected) break;
+                }
+            }
+
+            if (interSolids.Count > 0) return interSolids[0];
             return null;
         }
 

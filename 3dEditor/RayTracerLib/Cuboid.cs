@@ -227,6 +227,25 @@ namespace RayTracerLib
                 double size = cyl.H / 2 > cyl.R ? cyl.H / 2 : cyl.R;
                 cluster = new Cuboid(cyl.Center, size * 2);
             }
+            else if (item is Triangle)
+            {
+                Triangle tr = (Triangle)item;
+                double minX = Math.Min(tr.A.X, tr.B.X);
+                minX = Math.Min(minX, tr.C.X);
+                double minY = Math.Min(tr.A.Y, tr.B.Y);
+                minY = Math.Min(minY, tr.C.Y);
+                double minZ = Math.Min(tr.A.Z, tr.B.Z);
+                minZ = Math.Min(minZ, tr.C.Z);
+
+                double maxX = Math.Max(tr.A.X, tr.B.X);
+                maxX = Math.Max(maxX, tr.C.X);
+                double maxY = Math.Max(tr.A.Y, tr.B.Y);
+                maxY = Math.Max(maxY, tr.C.Y);
+                double maxZ = Math.Max(tr.A.Z, tr.B.Z);
+                maxZ = Math.Max(maxZ, tr.C.Z);
+
+                cluster = new Cuboid(new Vektor(minX, minY, minZ), new Vektor(maxX, maxY, maxZ));
+            }
             else if (item is Plane)
             {
                 //cluster = new Cuboid(1);

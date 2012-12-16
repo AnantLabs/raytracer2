@@ -56,7 +56,6 @@ namespace RayTracerLib
         public Renderer(RayTracing raytracer, RayImage rayImg)
         {
             _rayTracer = raytracer;
-            _rayTracer.RScene.SetRtree();
             _rayTracer.RScene.IsOptimizing = rayImg.IsOptimalizing;
             _rayImg = rayImg;
             InitAll();
