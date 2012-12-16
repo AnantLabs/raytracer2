@@ -42,6 +42,7 @@ namespace _3dEditor
             this.panelCamera.Location = new Point(0, 0);
             this.panelImage.Location = new Point(0, 0);
             this.panelAnimace.Location = new Point(0, 0);
+            this.panelTriangle.Location = new Point(0, 0);
 
             _permissionToModify = true;
         }
@@ -74,6 +75,9 @@ namespace _3dEditor
             else if (obj.GetType() == typeof(DrawingCylinder))
                 ShowCylinder((DrawingCylinder)obj);
 
+            else if (obj.GetType() == typeof(DrawingTriangle))
+                ShowTriangle((DrawingTriangle)obj);
+
             else if (obj.GetType() == typeof(RayImage))
                 ShowImage((RayImage)obj);
 
@@ -105,6 +109,7 @@ namespace _3dEditor
             this.panelCamera.Visible = false;
             this.panelImage.Visible = false;
             this.panelAnimace.Visible = false;
+            this.panelTriangle.Visible = false;
         }
 
         private void ShowSphere(DrawingSphere drSphere)
@@ -265,6 +270,43 @@ namespace _3dEditor
             this.numCylColR.Value = (decimal)c.Material.Color.R;
             this.numCylColG.Value = (decimal)c.Material.Color.G;
             this.numCylColB.Value = (decimal)c.Material.Color.B;
+        }
+
+        private void ShowTriangle(DrawingTriangle drTriangl)
+        {
+            // zabraneni neustalemu blikani pri modifikaci stejne koule
+            if (!this.panelTriangle.Visible)
+            {
+                SetAllInvisible();
+                this.panelTriangle.Visible = true;
+                this.Text = "Properties: Triangle";
+            }
+
+            Triangle triangl = (Triangle)drTriangl.ModelObject;
+
+               this.numericTriangleAX.Value = (decimal)triangl.A.X;
+            this.numericTriangleAY.Value = (decimal)triangl.A.Y;
+            this.numericTriangleAZ.Value = (decimal)triangl.A.Z;
+
+            this.numericTriangleBX.Value = (decimal)triangl.B.X;
+            this.numericTriangleBY.Value = (decimal)triangl.B.Y;
+            this.numericTriangleBZ.Value = (decimal)triangl.B.Z;
+
+            this.numericTriangleCX.Value = (decimal)triangl.C.X;
+            this.numericTriangleCY.Value = (decimal)triangl.C.Y;
+            this.numericTriangleCZ.Value = (decimal)triangl.C.Z;
+
+            Material mat = triangl.Material;
+            this.numTriangKa.Value = (decimal)mat.Ka;
+            this.numTriangKs.Value = (decimal)mat.Ks;
+            this.numTriangKd.Value = (decimal)mat.Kd;
+            this.numTriangKt.Value = (decimal)mat.KT;
+            this.numTriangH.Value = (decimal)mat.SpecularExponent;
+            this.numTriangN.Value = (decimal)mat.N;
+
+            this.numTriangColR.Value = (decimal)mat.Color.R;
+            this.numTriangColG.Value = (decimal)mat.Color.G;
+            this.numTriangColB.Value = (decimal)mat.Color.B;
         }
 
         private void ShowCamera(DrawingCamera drCam)
@@ -783,7 +825,7 @@ namespace _3dEditor
         //////// C A M E R A
         //////////////////////////////////////////////
         #region CAMERA
-        private void actionKameraSet(object sender, EventArgs e)
+        private void actionCameraSet(object sender, EventArgs e)
         {
             if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingCamera))
                 return;
@@ -1161,6 +1203,78 @@ namespace _3dEditor
             }
         }
 
+        ///////////////////////////////////////////////
+        //////// T R I A N G L E
+        //////////////////////////////////////////////
+
+        private void actionTriangleSet(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingTriangle))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            DrawingTriangle drTriang = (DrawingTriangle)_currentlyDisplayed;
+            Triangle triangl = (Triangle)drTriang.ModelObject;
+
+            Vektor A = new Vektor(
+                (double)this.numericTriangleAX.Value,
+                (double)this.numericTriangleAY.Value,
+                (double)this.numericTriangleAZ.Value);
+
+            Vektor B = new Vektor(
+                (double)this.numericTriangleBX.Value,
+                (double)this.numericTriangleBY.Value,
+                (double)this.numericTriangleBZ.Value);
+
+            Vektor C = new Vektor(
+                (double)this.numericTriangleCX.Value,
+                (double)this.numericTriangleCY.Value,
+                (double)this.numericTriangleCZ.Value);
+
+
+            Material mat = triangl.Material;
+            mat.Ka = (double)this.numTriangKa.Value;
+            mat.Ks = (double)this.numTriangKs.Value;
+            mat.Kd = (double)this.numTriangKd.Value;
+            mat.KT = (double)this.numTriangKt.Value;
+            mat.SpecularExponent = (int)this.numTriangH.Value;
+            mat.N = (double)this.numTriangN.Value;
+
+            mat.Color.R = (double)this.numTriangColR.Value;
+            mat.Color.G = (double)this.numTriangColG.Value;
+            mat.Color.B = (double)this.numTriangColB.Value;
+
+            triangl.Material = mat;
+            triangl.Set(A, B, C);
+            
+
+            drTriang.SetModelObject(triangl);
+            WndBoard wndB = GetWndBoard();
+            drTriang.ApplyRotationMatrix(wndB.RotationMatrix);
+            WndScene wndSc = GetWndScene();
+            wndSc.UpdateRecords();
+        }
+
+        private void btnTriangMaterialColor_Click(object sender, EventArgs e)
+        {
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                double r = colorDialog.Color.R / (double)255;
+                double g = colorDialog.Color.G / (double)255;
+                double b = colorDialog.Color.B / (double)255;
+                double a = colorDialog.Color.A / (double)255;
+
+                RayTracerLib.Colour col = new RayTracerLib.Colour(r, g, b, a);
+
+                _permissionToModify = false;
+                this.numTriangColR.Value = (decimal)col.R;
+                this.numTriangColG.Value = (decimal)col.G;
+                _permissionToModify = true;
+                this.numTriangColB.Value = (decimal)col.B;
+            }
+        }
         
 
     }

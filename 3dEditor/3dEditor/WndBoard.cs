@@ -41,7 +41,8 @@ namespace _3dEditor
         /// </summary>
         DrawingObject _Selected;
 
-        Point3D _axisC3, _axisX3, _axisY3, _axisZ3;
+        Point3D _axisC3, _axisX3, _axisY3, _axisZ3, _axisXY;
+        Point3D _POV;
         /// <summary>
         /// zda mame stisknute nejake (L | P) tlacitko mysi a zda posouvame mysi po platne
         /// </summary>
@@ -195,10 +196,12 @@ namespace _3dEditor
             // resetuje body na hlavnich osach
             //
             _axisC3 = new Point3D(0, 0, 0);
-            _axisX3 = new Point3D(1, 0, 0);
-            _axisY3 = new Point3D(0, 1, 0);
-            _axisZ3 = new Point3D(0, 0, 1);
-
+            _axisX3 = new Point3D(2, 0, 0);
+            _axisY3 = new Point3D(0, 2, 0);
+            _axisZ3 = new Point3D(0, 0, 2);
+            _axisXY = new Point3D(_axisX3.X, _axisY3.Y, _axisX3.Z);
+            _POV = new Point3D(_axisX3.X, _axisXY.Y, _axisZ3.Z);
+            _POV.Scale(50, 50, 50);
             // vyplni potrebne primky
             //
             Line3D l1 = new Line3D(_axisC3, _axisX3);
@@ -218,6 +221,9 @@ namespace _3dEditor
             _axisX3 = _matrix.Transform2NewPoint(_axisX3);
             _axisY3 = _matrix.Transform2NewPoint(_axisY3);
             _axisZ3 = _matrix.Transform2NewPoint(_axisZ3);
+            _axisXY = _matrix.Transform2NewPoint(_axisXY);
+            Matrix3D trp = _matrix.Transpose();
+            _POV = trp * _POV;
             _matrixForever = _matrix;
 
             
@@ -317,7 +323,7 @@ namespace _3dEditor
                         _penObject = new Pen(color, EditHelper.PenNormalWidth);
                     }
                 }
-
+                ////////////////////////////////////////////////////////////////////////////////////////////////
                 if (obj.GetType() == typeof(DrawingSphere)) // ================= SPHERE
                 {
                     DrawingSphere sph = (DrawingSphere)obj;
@@ -348,7 +354,7 @@ namespace _3dEditor
                     editorObject.AddPath(path);
                     _editHelp.AddClickableObject(editorObject);                        
                 }
-
+                ////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (obj.GetType() == typeof(DrawingPlane)) // ================= PLANE
                 {
                     DrawingPlane plane = (DrawingPlane)obj;
@@ -373,7 +379,7 @@ namespace _3dEditor
                     editorObject.AddPath(path);
                     _editHelp.AddClickableObject(editorObject);
                 }
-
+                ////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (obj.GetType() == typeof(DrawingCube))      //=============== CUBE
                 {
                     DrawingCube cube = (DrawingCube)obj;
@@ -402,7 +408,7 @@ namespace _3dEditor
                     }
                     _editHelp.AddClickableObject(editorObject);
                 }
-
+                    /////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (obj.GetType() == typeof(DrawingCylinder)) // =============== CYLINDER
                 {
                     DrawingCylinder cyl = (DrawingCylinder)obj;
@@ -467,6 +473,41 @@ namespace _3dEditor
 
                     _editHelp.AddClickableObject(editorObject);
                 }
+                    /////////////////////////////////////////////////////////////////////////////////////////////////
+                else if (obj.GetType() == typeof(DrawingTriangle)) // =============== TRIANGLE
+                {
+                    DrawingTriangle drTiangl = (DrawingTriangle)obj;
+                    EditorObject editorObject = new EditorObject(drTiangl);
+                    GraphicsPath path;
+
+                    
+                    
+
+                    Point3D[] points3 = drTiangl.GetDrawingPoints();
+                    PointF[] pointsF = new PointF[3];
+                    for (int i = 0; i < points3.Length; i++)
+                    {
+                        pointsF[i] = points3[i].To2D(_scale, _zoom, _centerPoint);
+                    }
+                    g.FillPolygon(drTiangl.FillBrush, pointsF);
+
+                    if (_Selected == obj)
+                    {
+                        _penObject.Color = Color.Black;
+                    }
+                    foreach (Line3D l in drTiangl.Lines)
+                    {
+                        a = l.A.To2D(_scale, _zoom, _centerPoint);
+                        b = l.B.To2D(_scale, _zoom, _centerPoint);
+                        g.DrawLine(_penObject, a, b);
+                    }
+
+                    path = new GraphicsPath();
+                    path.AddPolygon(pointsF);
+                    editorObject.AddPath(path);
+                    _editHelp.AddClickableObject(editorObject);
+                }
+                /////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (obj.GetType() == typeof(DrawingLight)) // ================ LIGHT
                 {
                     if (_showLights == false)           // neni-li zaskrtnuta volba zobrazeni svetel, konec
@@ -488,6 +529,7 @@ namespace _3dEditor
                     editorObject.AddPath(path);
                     _editHelp.AddClickableObject(editorObject);
                 }
+                /////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (obj.GetType() == typeof(DrawingCamera))    // ============ CAMERA
                 {
                     if (_showCamera == false)       // neni-li zaskrtnuta volba zobrazeni kamery, konec
@@ -510,6 +552,14 @@ namespace _3dEditor
                     
                     Line3D line;
 
+                    // podstava
+                    PointF[] pointsF = new PointF[4];
+                    for (int i = 2; i < 6; i++)
+                    {
+                        pointsF[i - 2] = drCam.Points[i].To2D(_scale, _zoom, _centerPoint);
+                    }
+                    g.DrawClosedCurve(_editHelp.CameraPenEllips, pointsF, 1F, System.Drawing.Drawing2D.FillMode.Winding);
+
                     // cara ze stredu kamery do stredu elipsy -- osa kuzele
                     // tato cara ma i sipku ukazujici smer kamery
                     line = drCam.Lines[0];
@@ -525,7 +575,7 @@ namespace _3dEditor
                         line = drCam.Lines[1];
                         a = line.A.To2D(_scale, _zoom, _centerPoint);
                         b = line.B.To2D(_scale, _zoom, _centerPoint);
-                        g.DrawLine(_editHelp.CameraPenLight, a, b);
+                        g.DrawLine(_editHelp.CameraPenUp, a, b);
 
                         // druha line
                         line = drCam.Lines[2];
@@ -564,15 +614,11 @@ namespace _3dEditor
                         g.DrawLine(_editHelp.CameraPenLight, a, b);
                     }
 
-                    // podstava
-                    PointF[] pointsF = new PointF[4];
-                    for (int i = 2; i < 6; i++)
-                    {
-                        pointsF[i - 2] = drCam.Points[i].To2D(_scale, _zoom, _centerPoint);
-                    }
+                    
 
-                    g.DrawClosedCurve(_editHelp.CameraPenEllips, pointsF, 1F, System.Drawing.Drawing2D.FillMode.Winding);
-                }                                                       ///////////////////////////
+                    
+                }
+                /////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (obj.GetType() == typeof(DrawingAnimation))     // ========== ANIMATION
                 {
                     DrawingAnimation drAnim = (DrawingAnimation)obj;
@@ -697,6 +743,10 @@ namespace _3dEditor
             g.DrawString("X", _fontAxis, Brushes.Black, x);
             g.DrawString("Y", _fontAxis, Brushes.Black, y);
             g.DrawString("Z", _fontAxis, Brushes.Black, z);
+
+
+            PointF xy = _axisXY.To2D(_scale, _zoom, _centerPoint);
+            //g.FillPolygon(Brushes.Tomato, new PointF[] { c, x, xy, y, c}, FillMode.Alternate);
         }
 
         private void DrawGrid(Graphics g, List<Line3D> lines)
@@ -785,6 +835,22 @@ namespace _3dEditor
                             //drCyl.ShiftCyl(-xDel, -yDel, 0);
                             Point3D centerTransp = transp.Transform2NewPoint(drCyl.Center);
                             cyl.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                        }
+                        else if (ds is Triangle)
+                        {
+                            DrawingTriangle drTriangl = _Selected as DrawingTriangle;
+                            Triangle triangl = ds as Triangle;
+                            Matrix3D transp = this._matrixForever.Transpose();
+                            Point3D[] pointsOld = drTriangl.GetDrawingPoints();
+                            Point3D[] pointsNew = new Point3D[pointsOld.Length];
+                            for (int i = 0; i < pointsOld.Length; i++)
+                            {
+                                pointsNew[i] = transp.Transform2NewPoint(pointsOld[i]);
+                            }
+                            if (pointsNew.Length == 3)
+                                triangl.Set(new Vektor(pointsNew[0].X, pointsNew[0].Y, pointsNew[0].Z),
+                                    new Vektor(pointsNew[1].X, pointsNew[1].Y, pointsNew[1].Z),
+                                    new Vektor(pointsNew[2].X, pointsNew[2].Y, pointsNew[2].Z));
                         }
                         // aktualizace seznamu objektu ve scene
                         WndScene wnd = GetWndScene();
@@ -896,6 +962,11 @@ namespace _3dEditor
             _axisY3 = newY3d;
             Point3D newZ3d = _matrix * _axisZ3;
             _axisZ3 = newZ3d;
+            Point3D newXY = _matrix * _axisXY;
+            _axisXY = newXY;
+
+            Matrix3D transpMatrix = _matrix.Transpose();
+            _POV = transpMatrix * _POV;
 
             this._lastMousePoint = currePoint;
 
@@ -930,6 +1001,11 @@ namespace _3dEditor
             _axisY3 = newY3d;
             Point3D newZ3d = rotationMatrix * (transp * _axisZ3);
             _axisZ3 = newZ3d;
+            Point3D newXY = rotationMatrix * (transp * _axisXY);
+            _axisXY = newXY;
+
+            Matrix3D trp = rotationMatrix.Transpose();
+            _POV = trp * (_matrixForever * _POV);
 
             this._matrixForever = rotationMatrix;
 
@@ -952,15 +1028,24 @@ namespace _3dEditor
                     {
                         WndScene wndsc = GetWndScene();
                         wndsc.ShowNode(drObj);
-                        wasSelectedBefore = true;
+                        //wasSelectedBefore = true;
                         break;
                     }
                 }
                 if (!wasSelectedBefore && drawingList[0] is DrawingObject)
                 {
+                    DrawingObject closestObj = GetClosestDrawingObj(drawingList);
                     WndScene wndsc = GetWndScene();
-                    wndsc.ShowNode(drawingList[0]);
-                    _Selected = drawingList[0];   // vybereme prvni ze seznamu
+                    if (closestObj != null)
+                    {
+                        wndsc.ShowNode(closestObj);
+                        _Selected = closestObj;
+                    }
+                    else
+                    {
+                        wndsc.ShowNode(drawingList[0]);
+                        _Selected = drawingList[0];   // vybereme prvni ze seznamu
+                    }
                 }
                 labelClick.Text = "Mouse Down";
             }
@@ -981,6 +1066,23 @@ namespace _3dEditor
             
         }
 
+        private DrawingObject GetClosestDrawingObj(List<DrawingObject> drawingList)
+        {
+            double minlen = Double.MaxValue;
+            DrawingObject closestObj = null;
+            foreach (DrawingObject drob in drawingList)
+            {
+                Point3D vec = drob.GetCenter();
+                vec = _POV - vec;
+                double len = vec.Size();
+                if (len < minlen)
+                {
+                    minlen = len;
+                    closestObj = drob;
+                }
+            }
+            return closestObj;
+        }
 
         /// <summary>
         /// ulozi do souboru obrazek pozadi okna properties
@@ -1197,6 +1299,16 @@ namespace _3dEditor
                     WndScene wndScene = GetWndScene();
                     wndScene.AddItem(drCyl);
                     wndScene.ShowNode(drCyl);
+                }
+                else if (shape.GetType() == typeof(Triangle))
+                {
+                    Triangle triangle = (Triangle)shape;
+                    DrawingTriangle drTriangl = new DrawingTriangle(triangle);
+                    drTriangl.ApplyRotationMatrix(_matrixForever); // nastaveni do souradnic editoru
+                    _objectsToDraw.Add(drTriangl);
+                    WndScene wndScene = GetWndScene();
+                    wndScene.AddItem(drTriangl);
+                    wndScene.ShowNode(drTriangl);
                 }
             }
             else if (shape is Light)

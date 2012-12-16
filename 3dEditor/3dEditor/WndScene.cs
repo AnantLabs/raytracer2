@@ -16,7 +16,7 @@ namespace _3dEditor
     {
         enum TreeNodeTypes { 
             Objects, Lights, Camera, Images, Animations, // top level nodes
-            Spheres, Planes, Cubes, Cylinders}
+            Spheres, Planes, Cubes, Cylinders, Triangles}
 
         /// <summary>
         /// zda je prave meneho zaskrtnuti pro vsechny sousedy
@@ -55,11 +55,14 @@ namespace _3dEditor
             nodeCubes.Tag = TreeNodeTypes.Cubes;
             TreeNode nodeCyls = new TreeNode(TreeNodeTypes.Cylinders.ToString());
             nodeCyls.Tag = TreeNodeTypes.Cylinders;
+            TreeNode nodeTriangs = new TreeNode(TreeNodeTypes.Triangles.ToString());
+            nodeTriangs.Tag = TreeNodeTypes.Triangles;
 
             nodeObjects.Nodes.Add(nodeSpheres);
             nodeObjects.Nodes.Add(nodePlanes);
             nodeObjects.Nodes.Add(nodeCubes);
             nodeObjects.Nodes.Add(nodeCyls);
+            nodeObjects.Nodes.Add(nodeTriangs);
 
             TreeNode nodeLights = new TreeNode(TreeNodeTypes.Lights.ToString());
             nodeLights.Tag = TreeNodeTypes.Lights;
@@ -88,7 +91,7 @@ namespace _3dEditor
 
             TreeNodeTypes rootTyp = typ;
             if (typ == TreeNodeTypes.Cubes || typ == TreeNodeTypes.Spheres ||
-                typ == TreeNodeTypes.Planes || typ == TreeNodeTypes.Cylinders)
+                typ == TreeNodeTypes.Planes || typ == TreeNodeTypes.Cylinders || typ == TreeNodeTypes.Triangles)
                 rootTyp = TreeNodeTypes.Objects;
 
             foreach (TreeNode node in treeView1.Nodes)
@@ -241,6 +244,10 @@ namespace _3dEditor
             else if (drawObj.GetType() == typeof(DrawingCylinder))
             {
                 this.AddItem(drawObj, TreeNodeTypes.Cylinders);
+            }
+            else if (drawObj.GetType() == typeof(DrawingTriangle))
+            {
+                this.AddItem(drawObj, TreeNodeTypes.Triangles);
             }
             else if (drawObj.GetType() == typeof(DrawingAnimation))
             {
@@ -561,31 +568,54 @@ namespace _3dEditor
         private void OnAddSphere(object sender, EventArgs e)
         {
             WndBoard wndBoard = GetWndBoard();
-            wndBoard.AddRaytrObject(new Sphere(new Vektor(), 1));
+            Sphere sph = new Sphere(new Vektor(), 1);
+            wndBoard.AddRaytrObject(sph);
+            ParentEditor pared = (ParentEditor)this.ParentForm;
+            pared.AddRaytrObject(sph);
         }
 
         private void OnAddPlane(object sender, EventArgs e)
         {
             WndBoard wndBoard = GetWndBoard();
-            wndBoard.AddRaytrObject(new Plane(new Vektor(1, 0, 0), 2));
+            Plane plane = new Plane(new Vektor(1, 0, 0), 2);
+            wndBoard.AddRaytrObject(plane);
+            ParentEditor pared = (ParentEditor)this.ParentForm;
+            pared.AddRaytrObject(plane);
         }
 
         private void onAddCube(object sender, EventArgs e)
         {
             WndBoard wndBoard = GetWndBoard();
-            wndBoard.AddRaytrObject(new Cube(new Vektor(), new Vektor(1, 0, 0), 1));
+            Cube cube = new Cube(new Vektor(), new Vektor(1, 0, 0), 1);
+            wndBoard.AddRaytrObject(cube);
+            ParentEditor pared = (ParentEditor)this.ParentForm;
+            pared.AddRaytrObject(cube);
         }
 
         private void onAddCylinder(object sender, EventArgs e)
         {
             WndBoard wndBoard = GetWndBoard();
-            wndBoard.AddRaytrObject(new Cylinder(new Vektor(), new Vektor(1, 0, 0), 1, 5));
+            Cylinder cyl = new Cylinder(new Vektor(), new Vektor(1, 0, 0), 1, 5);
+            wndBoard.AddRaytrObject(cyl);
+            ParentEditor pared = (ParentEditor)this.ParentForm;
+            pared.AddRaytrObject(cyl);
+        }
+        private void onAddTriangle(object sender, EventArgs e)
+        {
+            WndBoard wndBoard = GetWndBoard();
+            Triangle triangl = new Triangle();
+            wndBoard.AddRaytrObject(triangl);
+            ParentEditor pared = (ParentEditor)this.ParentForm;
+            pared.AddRaytrObject(triangl);
         }
 
         private void onAddLight(object sender, EventArgs e)
         {
             WndBoard wndBoard = GetWndBoard();
-            wndBoard.AddRaytrObject(new Light());
+            Light l = new Light();
+            wndBoard.AddRaytrObject(l);
+            ParentEditor pared = (ParentEditor)this.ParentForm;
+            pared.AddRaytrObject(l);
         }
 
         private void onAddImage(object sender, EventArgs e)

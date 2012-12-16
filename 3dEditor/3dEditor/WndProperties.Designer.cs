@@ -335,6 +335,57 @@
             this.numericCylCentY = new System.Windows.Forms.NumericUpDown();
             this.label77 = new System.Windows.Forms.Label();
             this.label78 = new System.Windows.Forms.Label();
+            this.panelTriangle = new System.Windows.Forms.Panel();
+            this.label150 = new System.Windows.Forms.Label();
+            this.label151 = new System.Windows.Forms.Label();
+            this.label152 = new System.Windows.Forms.Label();
+            this.label166 = new System.Windows.Forms.Label();
+            this.numTrRotZ = new System.Windows.Forms.NumericUpDown();
+            this.numTrRotY = new System.Windows.Forms.NumericUpDown();
+            this.numTrRotX = new System.Windows.Forms.NumericUpDown();
+            this.label167 = new System.Windows.Forms.Label();
+            this.numTriangN = new System.Windows.Forms.NumericUpDown();
+            this.label168 = new System.Windows.Forms.Label();
+            this.numTriangKt = new System.Windows.Forms.NumericUpDown();
+            this.label169 = new System.Windows.Forms.Label();
+            this.btnTriangMaterialCol = new System.Windows.Forms.Button();
+            this.numTriangH = new System.Windows.Forms.NumericUpDown();
+            this.numTriangColR = new System.Windows.Forms.NumericUpDown();
+            this.numTriangColB = new System.Windows.Forms.NumericUpDown();
+            this.label170 = new System.Windows.Forms.Label();
+            this.numTriangColG = new System.Windows.Forms.NumericUpDown();
+            this.label171 = new System.Windows.Forms.Label();
+            this.label172 = new System.Windows.Forms.Label();
+            this.label173 = new System.Windows.Forms.Label();
+            this.numTriangKa = new System.Windows.Forms.NumericUpDown();
+            this.label174 = new System.Windows.Forms.Label();
+            this.numTriangKd = new System.Windows.Forms.NumericUpDown();
+            this.label175 = new System.Windows.Forms.Label();
+            this.numTriangKs = new System.Windows.Forms.NumericUpDown();
+            this.label176 = new System.Windows.Forms.Label();
+            this.label177 = new System.Windows.Forms.Label();
+            this.numericTriangleCX = new System.Windows.Forms.NumericUpDown();
+            this.numericTriangleCZ = new System.Windows.Forms.NumericUpDown();
+            this.label153 = new System.Windows.Forms.Label();
+            this.numericTriangleCY = new System.Windows.Forms.NumericUpDown();
+            this.label154 = new System.Windows.Forms.Label();
+            this.label155 = new System.Windows.Forms.Label();
+            this.label156 = new System.Windows.Forms.Label();
+            this.numericTriangleBX = new System.Windows.Forms.NumericUpDown();
+            this.numericTriangleBZ = new System.Windows.Forms.NumericUpDown();
+            this.label157 = new System.Windows.Forms.Label();
+            this.numericTriangleBY = new System.Windows.Forms.NumericUpDown();
+            this.label158 = new System.Windows.Forms.Label();
+            this.label159 = new System.Windows.Forms.Label();
+            this.label160 = new System.Windows.Forms.Label();
+            this.label161 = new System.Windows.Forms.Label();
+            this.numericTriangleAX = new System.Windows.Forms.NumericUpDown();
+            this.label162 = new System.Windows.Forms.Label();
+            this.numericTriangleAZ = new System.Windows.Forms.NumericUpDown();
+            this.label163 = new System.Windows.Forms.Label();
+            this.numericTriangleAY = new System.Windows.Forms.NumericUpDown();
+            this.label164 = new System.Windows.Forms.Label();
+            this.label165 = new System.Windows.Forms.Label();
             this.panelAnimace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).BeginInit();
@@ -461,6 +512,28 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericCylCentX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCylCentZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCylCentY)).BeginInit();
+            this.panelTriangle.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numTrRotZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTrRotY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTrRotX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangN)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangKt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangH)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangColR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangColB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangColG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangKa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangKd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangKs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleCX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleCZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleCY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleBX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleBZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleBY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleAX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleAZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleAY)).BeginInit();
             this.SuspendLayout();
             // 
             // colorDialog
@@ -1050,7 +1123,7 @@
             this.panelSphere.Controls.Add(this.numericKouleY);
             this.panelSphere.Controls.Add(this.label18);
             this.panelSphere.Controls.Add(this.label19);
-            this.panelSphere.Location = new System.Drawing.Point(295, 63);
+            this.panelSphere.Location = new System.Drawing.Point(404, 35);
             this.panelSphere.Name = "panelSphere";
             this.panelSphere.Size = new System.Drawing.Size(419, 293);
             this.panelSphere.TabIndex = 41;
@@ -1398,9 +1471,9 @@
             // 
             // numSphColR
             // 
-            this.numSphColR.DecimalPlaces = 5;
+            this.numSphColR.DecimalPlaces = 4;
             this.numSphColR.Increment = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             131072});
@@ -1412,9 +1485,9 @@
             // 
             // numSphColB
             // 
-            this.numSphColB.DecimalPlaces = 5;
+            this.numSphColB.DecimalPlaces = 4;
             this.numSphColB.Increment = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             131072});
@@ -1437,9 +1510,9 @@
             // 
             // numSphColG
             // 
-            this.numSphColG.DecimalPlaces = 5;
+            this.numSphColG.DecimalPlaces = 4;
             this.numSphColG.Increment = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             131072});
@@ -1750,7 +1823,7 @@
             this.checkOptimize.AutoSize = true;
             this.checkOptimize.BackColor = System.Drawing.Color.Transparent;
             this.checkOptimize.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.checkOptimize.Location = new System.Drawing.Point(19, 90);
+            this.checkOptimize.Location = new System.Drawing.Point(19, 112);
             this.checkOptimize.Name = "checkOptimize";
             this.checkOptimize.Size = new System.Drawing.Size(87, 20);
             this.checkOptimize.TabIndex = 74;
@@ -1786,7 +1859,7 @@
             this.checkAntialias.AutoSize = true;
             this.checkAntialias.BackColor = System.Drawing.Color.Transparent;
             this.checkAntialias.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.checkAntialias.Location = new System.Drawing.Point(19, 69);
+            this.checkAntialias.Location = new System.Drawing.Point(19, 90);
             this.checkAntialias.Name = "checkAntialias";
             this.checkAntialias.Size = new System.Drawing.Size(108, 20);
             this.checkAntialias.TabIndex = 71;
@@ -1833,7 +1906,7 @@
             this.labelResPixels.AutoSize = true;
             this.labelResPixels.BackColor = System.Drawing.Color.Transparent;
             this.labelResPixels.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelResPixels.Location = new System.Drawing.Point(207, 157);
+            this.labelResPixels.Location = new System.Drawing.Point(207, 179);
             this.labelResPixels.Name = "labelResPixels";
             this.labelResPixels.Size = new System.Drawing.Size(49, 16);
             this.labelResPixels.TabIndex = 66;
@@ -1844,7 +1917,7 @@
             this.comboResolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboResolution.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboResolution.FormattingEnabled = true;
-            this.comboResolution.Location = new System.Drawing.Point(92, 133);
+            this.comboResolution.Location = new System.Drawing.Point(92, 155);
             this.comboResolution.Name = "comboResolution";
             this.comboResolution.Size = new System.Drawing.Size(178, 21);
             this.comboResolution.TabIndex = 65;
@@ -1853,7 +1926,7 @@
             // 
             // txbResY
             // 
-            this.txbResY.Location = new System.Drawing.Point(159, 155);
+            this.txbResY.Location = new System.Drawing.Point(159, 177);
             this.txbResY.Name = "txbResY";
             this.txbResY.Size = new System.Drawing.Size(46, 20);
             this.txbResY.TabIndex = 64;
@@ -1865,7 +1938,7 @@
             this.labelResCross.AutoSize = true;
             this.labelResCross.BackColor = System.Drawing.Color.Transparent;
             this.labelResCross.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelResCross.Location = new System.Drawing.Point(141, 157);
+            this.labelResCross.Location = new System.Drawing.Point(141, 179);
             this.labelResCross.Name = "labelResCross";
             this.labelResCross.Size = new System.Drawing.Size(15, 16);
             this.labelResCross.TabIndex = 63;
@@ -1873,7 +1946,7 @@
             // 
             // txbResX
             // 
-            this.txbResX.Location = new System.Drawing.Point(92, 155);
+            this.txbResX.Location = new System.Drawing.Point(92, 177);
             this.txbResX.Name = "txbResX";
             this.txbResX.Size = new System.Drawing.Size(46, 20);
             this.txbResX.TabIndex = 62;
@@ -1885,7 +1958,7 @@
             this.label114.AutoSize = true;
             this.label114.BackColor = System.Drawing.Color.Transparent;
             this.label114.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label114.Location = new System.Drawing.Point(4, 136);
+            this.label114.Location = new System.Drawing.Point(4, 158);
             this.label114.Name = "label114";
             this.label114.Size = new System.Drawing.Size(86, 16);
             this.label114.TabIndex = 60;
@@ -2369,7 +2442,7 @@
             this.numericKamWidth.Name = "numericKamWidth";
             this.numericKamWidth.Size = new System.Drawing.Size(61, 20);
             this.numericKamWidth.TabIndex = 62;
-            this.numericKamWidth.ValueChanged += new System.EventHandler(this.actionKameraSet);
+            this.numericKamWidth.ValueChanged += new System.EventHandler(this.actionCameraSet);
             // 
             // label134
             // 
@@ -2399,7 +2472,7 @@
             this.numericKamHeight.Name = "numericKamHeight";
             this.numericKamHeight.Size = new System.Drawing.Size(61, 20);
             this.numericKamHeight.TabIndex = 60;
-            this.numericKamHeight.ValueChanged += new System.EventHandler(this.actionKameraSet);
+            this.numericKamHeight.ValueChanged += new System.EventHandler(this.actionCameraSet);
             // 
             // label133
             // 
@@ -2429,7 +2502,7 @@
             this.numericKamDist.Name = "numericKamDist";
             this.numericKamDist.Size = new System.Drawing.Size(61, 20);
             this.numericKamDist.TabIndex = 58;
-            this.numericKamDist.ValueChanged += new System.EventHandler(this.actionKameraSet);
+            this.numericKamDist.ValueChanged += new System.EventHandler(this.actionCameraSet);
             // 
             // label132
             // 
@@ -2452,7 +2525,7 @@
             this.checkSide2.TabIndex = 56;
             this.checkSide2.Text = "Show Side 2";
             this.checkSide2.UseVisualStyleBackColor = false;
-            this.checkSide2.CheckedChanged += new System.EventHandler(this.actionKameraSet);
+            this.checkSide2.CheckedChanged += new System.EventHandler(this.actionCameraSet);
             // 
             // checkSide1
             // 
@@ -2464,7 +2537,7 @@
             this.checkSide1.TabIndex = 55;
             this.checkSide1.Text = "Show Side 1";
             this.checkSide1.UseVisualStyleBackColor = false;
-            this.checkSide1.CheckedChanged += new System.EventHandler(this.actionKameraSet);
+            this.checkSide1.CheckedChanged += new System.EventHandler(this.actionCameraSet);
             // 
             // checkCross
             // 
@@ -2476,7 +2549,7 @@
             this.checkCross.TabIndex = 54;
             this.checkCross.Text = "Show Cross";
             this.checkCross.UseVisualStyleBackColor = false;
-            this.checkCross.CheckedChanged += new System.EventHandler(this.actionKameraSet);
+            this.checkCross.CheckedChanged += new System.EventHandler(this.actionCameraSet);
             // 
             // numericKameraUpX
             // 
@@ -2495,7 +2568,7 @@
             this.numericKameraUpX.Name = "numericKameraUpX";
             this.numericKameraUpX.Size = new System.Drawing.Size(61, 20);
             this.numericKameraUpX.TabIndex = 50;
-            this.numericKameraUpX.ValueChanged += new System.EventHandler(this.actionKameraSet);
+            this.numericKameraUpX.ValueChanged += new System.EventHandler(this.actionCameraSet);
             // 
             // numericKameraUpZ
             // 
@@ -2514,7 +2587,7 @@
             this.numericKameraUpZ.Name = "numericKameraUpZ";
             this.numericKameraUpZ.Size = new System.Drawing.Size(61, 20);
             this.numericKameraUpZ.TabIndex = 48;
-            this.numericKameraUpZ.ValueChanged += new System.EventHandler(this.actionKameraSet);
+            this.numericKameraUpZ.ValueChanged += new System.EventHandler(this.actionCameraSet);
             // 
             // label32
             // 
@@ -2549,7 +2622,7 @@
             0,
             0,
             -2147483648});
-            this.numericKameraUpY.ValueChanged += new System.EventHandler(this.actionKameraSet);
+            this.numericKameraUpY.ValueChanged += new System.EventHandler(this.actionCameraSet);
             // 
             // label33
             // 
@@ -2602,7 +2675,7 @@
             this.numericKameraDirX.Name = "numericKameraDirX";
             this.numericKameraDirX.Size = new System.Drawing.Size(61, 20);
             this.numericKameraDirX.TabIndex = 43;
-            this.numericKameraDirX.ValueChanged += new System.EventHandler(this.actionKameraSet);
+            this.numericKameraDirX.ValueChanged += new System.EventHandler(this.actionCameraSet);
             // 
             // numericKameraDirZ
             // 
@@ -2626,7 +2699,7 @@
             0,
             0,
             -2147483648});
-            this.numericKameraDirZ.ValueChanged += new System.EventHandler(this.actionKameraSet);
+            this.numericKameraDirZ.ValueChanged += new System.EventHandler(this.actionCameraSet);
             // 
             // label56
             // 
@@ -2656,7 +2729,7 @@
             this.numericKameraDirY.Name = "numericKameraDirY";
             this.numericKameraDirY.Size = new System.Drawing.Size(61, 20);
             this.numericKameraDirY.TabIndex = 44;
-            this.numericKameraDirY.ValueChanged += new System.EventHandler(this.actionKameraSet);
+            this.numericKameraDirY.ValueChanged += new System.EventHandler(this.actionCameraSet);
             // 
             // label100
             // 
@@ -2719,7 +2792,7 @@
             this.numericKameraStredX.Name = "numericKameraStredX";
             this.numericKameraStredX.Size = new System.Drawing.Size(61, 20);
             this.numericKameraStredX.TabIndex = 20;
-            this.numericKameraStredX.ValueChanged += new System.EventHandler(this.actionKameraSet);
+            this.numericKameraStredX.ValueChanged += new System.EventHandler(this.actionCameraSet);
             // 
             // label109
             // 
@@ -2749,7 +2822,7 @@
             this.numericKameraStredZ.Name = "numericKameraStredZ";
             this.numericKameraStredZ.Size = new System.Drawing.Size(61, 20);
             this.numericKameraStredZ.TabIndex = 16;
-            this.numericKameraStredZ.ValueChanged += new System.EventHandler(this.actionKameraSet);
+            this.numericKameraStredZ.ValueChanged += new System.EventHandler(this.actionCameraSet);
             // 
             // label110
             // 
@@ -2784,7 +2857,7 @@
             0,
             0,
             0});
-            this.numericKameraStredY.ValueChanged += new System.EventHandler(this.actionKameraSet);
+            this.numericKameraStredY.ValueChanged += new System.EventHandler(this.actionCameraSet);
             // 
             // label111
             // 
@@ -3197,9 +3270,9 @@
             // 
             // numBoxColR
             // 
-            this.numBoxColR.DecimalPlaces = 5;
+            this.numBoxColR.DecimalPlaces = 4;
             this.numBoxColR.Increment = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             131072});
@@ -3211,9 +3284,9 @@
             // 
             // numBoxColB
             // 
-            this.numBoxColB.DecimalPlaces = 5;
+            this.numBoxColB.DecimalPlaces = 4;
             this.numBoxColB.Increment = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             131072});
@@ -3236,9 +3309,9 @@
             // 
             // numBoxColG
             // 
-            this.numBoxColG.DecimalPlaces = 5;
+            this.numBoxColG.DecimalPlaces = 4;
             this.numBoxColG.Increment = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             131072});
@@ -4107,9 +4180,9 @@
             // 
             // numPlaneColR
             // 
-            this.numPlaneColR.DecimalPlaces = 5;
+            this.numPlaneColR.DecimalPlaces = 4;
             this.numPlaneColR.Increment = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             131072});
@@ -4121,9 +4194,9 @@
             // 
             // numPlaneColB
             // 
-            this.numPlaneColB.DecimalPlaces = 5;
+            this.numPlaneColB.DecimalPlaces = 4;
             this.numPlaneColB.Increment = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             131072});
@@ -4146,9 +4219,9 @@
             // 
             // numPlaneColG
             // 
-            this.numPlaneColG.DecimalPlaces = 5;
+            this.numPlaneColG.DecimalPlaces = 4;
             this.numPlaneColG.Increment = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             131072});
@@ -4734,9 +4807,9 @@
             // 
             // numCylColR
             // 
-            this.numCylColR.DecimalPlaces = 5;
+            this.numCylColR.DecimalPlaces = 4;
             this.numCylColR.Increment = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             131072});
@@ -4748,9 +4821,9 @@
             // 
             // numCylColB
             // 
-            this.numCylColB.DecimalPlaces = 5;
+            this.numCylColB.DecimalPlaces = 4;
             this.numCylColB.Increment = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             131072});
@@ -4773,9 +4846,9 @@
             // 
             // numCylColG
             // 
-            this.numCylColG.DecimalPlaces = 5;
+            this.numCylColG.DecimalPlaces = 4;
             this.numCylColG.Increment = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             131072});
@@ -5201,20 +5274,808 @@
             this.label78.TabIndex = 89;
             this.label78.Text = "Y:";
             // 
+            // panelTriangle
+            // 
+            this.panelTriangle.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelTriangle.Controls.Add(this.label150);
+            this.panelTriangle.Controls.Add(this.label151);
+            this.panelTriangle.Controls.Add(this.label152);
+            this.panelTriangle.Controls.Add(this.label166);
+            this.panelTriangle.Controls.Add(this.numTrRotZ);
+            this.panelTriangle.Controls.Add(this.numTrRotY);
+            this.panelTriangle.Controls.Add(this.numTrRotX);
+            this.panelTriangle.Controls.Add(this.label167);
+            this.panelTriangle.Controls.Add(this.numTriangN);
+            this.panelTriangle.Controls.Add(this.label168);
+            this.panelTriangle.Controls.Add(this.numTriangKt);
+            this.panelTriangle.Controls.Add(this.label169);
+            this.panelTriangle.Controls.Add(this.btnTriangMaterialCol);
+            this.panelTriangle.Controls.Add(this.numTriangH);
+            this.panelTriangle.Controls.Add(this.numTriangColR);
+            this.panelTriangle.Controls.Add(this.numTriangColB);
+            this.panelTriangle.Controls.Add(this.label170);
+            this.panelTriangle.Controls.Add(this.numTriangColG);
+            this.panelTriangle.Controls.Add(this.label171);
+            this.panelTriangle.Controls.Add(this.label172);
+            this.panelTriangle.Controls.Add(this.label173);
+            this.panelTriangle.Controls.Add(this.numTriangKa);
+            this.panelTriangle.Controls.Add(this.label174);
+            this.panelTriangle.Controls.Add(this.numTriangKd);
+            this.panelTriangle.Controls.Add(this.label175);
+            this.panelTriangle.Controls.Add(this.numTriangKs);
+            this.panelTriangle.Controls.Add(this.label176);
+            this.panelTriangle.Controls.Add(this.label177);
+            this.panelTriangle.Controls.Add(this.numericTriangleCX);
+            this.panelTriangle.Controls.Add(this.numericTriangleCZ);
+            this.panelTriangle.Controls.Add(this.label153);
+            this.panelTriangle.Controls.Add(this.numericTriangleCY);
+            this.panelTriangle.Controls.Add(this.label154);
+            this.panelTriangle.Controls.Add(this.label155);
+            this.panelTriangle.Controls.Add(this.label156);
+            this.panelTriangle.Controls.Add(this.numericTriangleBX);
+            this.panelTriangle.Controls.Add(this.numericTriangleBZ);
+            this.panelTriangle.Controls.Add(this.label157);
+            this.panelTriangle.Controls.Add(this.numericTriangleBY);
+            this.panelTriangle.Controls.Add(this.label158);
+            this.panelTriangle.Controls.Add(this.label159);
+            this.panelTriangle.Controls.Add(this.label160);
+            this.panelTriangle.Controls.Add(this.label161);
+            this.panelTriangle.Controls.Add(this.numericTriangleAX);
+            this.panelTriangle.Controls.Add(this.label162);
+            this.panelTriangle.Controls.Add(this.numericTriangleAZ);
+            this.panelTriangle.Controls.Add(this.label163);
+            this.panelTriangle.Controls.Add(this.numericTriangleAY);
+            this.panelTriangle.Controls.Add(this.label164);
+            this.panelTriangle.Controls.Add(this.label165);
+            this.panelTriangle.Location = new System.Drawing.Point(12, 338);
+            this.panelTriangle.Name = "panelTriangle";
+            this.panelTriangle.Size = new System.Drawing.Size(417, 343);
+            this.panelTriangle.TabIndex = 63;
+            // 
+            // label150
+            // 
+            this.label150.AutoSize = true;
+            this.label150.BackColor = System.Drawing.Color.Transparent;
+            this.label150.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label150.Location = new System.Drawing.Point(103, 92);
+            this.label150.Name = "label150";
+            this.label150.Size = new System.Drawing.Size(15, 13);
+            this.label150.TabIndex = 169;
+            this.label150.Text = "x:";
+            // 
+            // label151
+            // 
+            this.label151.AutoSize = true;
+            this.label151.BackColor = System.Drawing.Color.Transparent;
+            this.label151.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label151.Location = new System.Drawing.Point(14, 91);
+            this.label151.Name = "label151";
+            this.label151.Size = new System.Drawing.Size(87, 16);
+            this.label151.TabIndex = 172;
+            this.label151.Text = "Orientation:";
+            // 
+            // label152
+            // 
+            this.label152.AutoSize = true;
+            this.label152.BackColor = System.Drawing.Color.Transparent;
+            this.label152.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label152.Location = new System.Drawing.Point(243, 92);
+            this.label152.Name = "label152";
+            this.label152.Size = new System.Drawing.Size(15, 13);
+            this.label152.TabIndex = 171;
+            this.label152.Text = "z:";
+            // 
+            // label166
+            // 
+            this.label166.AutoSize = true;
+            this.label166.BackColor = System.Drawing.Color.Transparent;
+            this.label166.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label166.Location = new System.Drawing.Point(174, 92);
+            this.label166.Name = "label166";
+            this.label166.Size = new System.Drawing.Size(15, 13);
+            this.label166.TabIndex = 170;
+            this.label166.Text = "y:";
+            // 
+            // numTrRotZ
+            // 
+            this.numTrRotZ.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numTrRotZ.Location = new System.Drawing.Point(260, 89);
+            this.numTrRotZ.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numTrRotZ.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numTrRotZ.Name = "numTrRotZ";
+            this.numTrRotZ.Size = new System.Drawing.Size(45, 20);
+            this.numTrRotZ.TabIndex = 168;
+            this.numTrRotZ.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // numTrRotY
+            // 
+            this.numTrRotY.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numTrRotY.Location = new System.Drawing.Point(191, 89);
+            this.numTrRotY.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numTrRotY.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numTrRotY.Name = "numTrRotY";
+            this.numTrRotY.Size = new System.Drawing.Size(45, 20);
+            this.numTrRotY.TabIndex = 167;
+            this.numTrRotY.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // numTrRotX
+            // 
+            this.numTrRotX.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numTrRotX.Location = new System.Drawing.Point(121, 89);
+            this.numTrRotX.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numTrRotX.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numTrRotX.Name = "numTrRotX";
+            this.numTrRotX.Size = new System.Drawing.Size(45, 20);
+            this.numTrRotX.TabIndex = 166;
+            this.numTrRotX.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // label167
+            // 
+            this.label167.AutoSize = true;
+            this.label167.BackColor = System.Drawing.Color.Transparent;
+            this.label167.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label167.Location = new System.Drawing.Point(96, 245);
+            this.label167.Name = "label167";
+            this.label167.Size = new System.Drawing.Size(104, 13);
+            this.label167.TabIndex = 165;
+            this.label167.Text = "Refractive index (N):";
+            // 
+            // numTriangN
+            // 
+            this.numTriangN.DecimalPlaces = 1;
+            this.numTriangN.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numTriangN.Location = new System.Drawing.Point(202, 243);
+            this.numTriangN.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numTriangN.Name = "numTriangN";
+            this.numTriangN.Size = new System.Drawing.Size(61, 20);
+            this.numTriangN.TabIndex = 164;
+            this.numTriangN.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numTriangN.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // label168
+            // 
+            this.label168.AutoSize = true;
+            this.label168.BackColor = System.Drawing.Color.Transparent;
+            this.label168.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label168.Location = new System.Drawing.Point(63, 223);
+            this.label168.Name = "label168";
+            this.label168.Size = new System.Drawing.Size(137, 13);
+            this.label168.TabIndex = 163;
+            this.label168.Text = " Refractive coefficient (KT):";
+            // 
+            // numTriangKt
+            // 
+            this.numTriangKt.DecimalPlaces = 1;
+            this.numTriangKt.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numTriangKt.Location = new System.Drawing.Point(202, 221);
+            this.numTriangKt.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numTriangKt.Name = "numTriangKt";
+            this.numTriangKt.Size = new System.Drawing.Size(61, 20);
+            this.numTriangKt.TabIndex = 162;
+            this.numTriangKt.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // label169
+            // 
+            this.label169.AutoSize = true;
+            this.label169.BackColor = System.Drawing.Color.Transparent;
+            this.label169.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label169.Location = new System.Drawing.Point(85, 201);
+            this.label169.Name = "label169";
+            this.label169.Size = new System.Drawing.Size(115, 13);
+            this.label169.TabIndex = 161;
+            this.label169.Text = "Specular reflection (H):";
+            // 
+            // btnTriangMaterialCol
+            // 
+            this.btnTriangMaterialCol.Location = new System.Drawing.Point(319, 264);
+            this.btnTriangMaterialCol.Name = "btnTriangMaterialCol";
+            this.btnTriangMaterialCol.Size = new System.Drawing.Size(61, 23);
+            this.btnTriangMaterialCol.TabIndex = 154;
+            this.btnTriangMaterialCol.Text = "choose";
+            this.btnTriangMaterialCol.UseVisualStyleBackColor = true;
+            this.btnTriangMaterialCol.Click += new System.EventHandler(this.btnTriangMaterialColor_Click);
+            // 
+            // numTriangH
+            // 
+            this.numTriangH.Location = new System.Drawing.Point(202, 199);
+            this.numTriangH.Name = "numTriangH";
+            this.numTriangH.Size = new System.Drawing.Size(61, 20);
+            this.numTriangH.TabIndex = 160;
+            this.numTriangH.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.numTriangH.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // numTriangColR
+            // 
+            this.numTriangColR.DecimalPlaces = 4;
+            this.numTriangColR.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numTriangColR.Location = new System.Drawing.Point(81, 265);
+            this.numTriangColR.Name = "numTriangColR";
+            this.numTriangColR.Size = new System.Drawing.Size(61, 20);
+            this.numTriangColR.TabIndex = 156;
+            this.numTriangColR.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // numTriangColB
+            // 
+            this.numTriangColB.DecimalPlaces = 4;
+            this.numTriangColB.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numTriangColB.Location = new System.Drawing.Point(254, 265);
+            this.numTriangColB.Name = "numTriangColB";
+            this.numTriangColB.Size = new System.Drawing.Size(61, 20);
+            this.numTriangColB.TabIndex = 153;
+            this.numTriangColB.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // label170
+            // 
+            this.label170.AutoSize = true;
+            this.label170.BackColor = System.Drawing.Color.Transparent;
+            this.label170.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label170.Location = new System.Drawing.Point(61, 268);
+            this.label170.Name = "label170";
+            this.label170.Size = new System.Drawing.Size(18, 13);
+            this.label170.TabIndex = 155;
+            this.label170.Text = "R:";
+            // 
+            // numTriangColG
+            // 
+            this.numTriangColG.DecimalPlaces = 4;
+            this.numTriangColG.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numTriangColG.Location = new System.Drawing.Point(168, 265);
+            this.numTriangColG.Name = "numTriangColG";
+            this.numTriangColG.Size = new System.Drawing.Size(61, 20);
+            this.numTriangColG.TabIndex = 157;
+            this.numTriangColG.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // label171
+            // 
+            this.label171.AutoSize = true;
+            this.label171.BackColor = System.Drawing.Color.Transparent;
+            this.label171.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label171.Location = new System.Drawing.Point(235, 268);
+            this.label171.Name = "label171";
+            this.label171.Size = new System.Drawing.Size(17, 13);
+            this.label171.TabIndex = 158;
+            this.label171.Text = "B:";
+            // 
+            // label172
+            // 
+            this.label172.AutoSize = true;
+            this.label172.BackColor = System.Drawing.Color.Transparent;
+            this.label172.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label172.Location = new System.Drawing.Point(148, 268);
+            this.label172.Name = "label172";
+            this.label172.Size = new System.Drawing.Size(18, 13);
+            this.label172.TabIndex = 159;
+            this.label172.Text = "G:";
+            // 
+            // label173
+            // 
+            this.label173.AutoSize = true;
+            this.label173.BackColor = System.Drawing.Color.Transparent;
+            this.label173.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label173.Location = new System.Drawing.Point(6, 267);
+            this.label173.Name = "label173";
+            this.label173.Size = new System.Drawing.Size(57, 16);
+            this.label173.TabIndex = 152;
+            this.label173.Text = "Colour:";
+            // 
+            // numTriangKa
+            // 
+            this.numTriangKa.DecimalPlaces = 1;
+            this.numTriangKa.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numTriangKa.Location = new System.Drawing.Point(202, 133);
+            this.numTriangKa.Name = "numTriangKa";
+            this.numTriangKa.Size = new System.Drawing.Size(61, 20);
+            this.numTriangKa.TabIndex = 148;
+            this.numTriangKa.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            65536});
+            this.numTriangKa.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // label174
+            // 
+            this.label174.AutoSize = true;
+            this.label174.BackColor = System.Drawing.Color.Transparent;
+            this.label174.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label174.Location = new System.Drawing.Point(18, 113);
+            this.label174.Name = "label174";
+            this.label174.Size = new System.Drawing.Size(68, 16);
+            this.label174.TabIndex = 145;
+            this.label174.Text = "Material:";
+            // 
+            // numTriangKd
+            // 
+            this.numTriangKd.DecimalPlaces = 1;
+            this.numTriangKd.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numTriangKd.Location = new System.Drawing.Point(202, 177);
+            this.numTriangKd.Name = "numTriangKd";
+            this.numTriangKd.Size = new System.Drawing.Size(61, 20);
+            this.numTriangKd.TabIndex = 146;
+            this.numTriangKd.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numTriangKd.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // label175
+            // 
+            this.label175.AutoSize = true;
+            this.label175.BackColor = System.Drawing.Color.Transparent;
+            this.label175.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label175.Location = new System.Drawing.Point(77, 135);
+            this.label175.Name = "label175";
+            this.label175.Size = new System.Drawing.Size(123, 13);
+            this.label175.TabIndex = 147;
+            this.label175.Text = "Ambient coefficient (KA):";
+            // 
+            // numTriangKs
+            // 
+            this.numTriangKs.DecimalPlaces = 1;
+            this.numTriangKs.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numTriangKs.Location = new System.Drawing.Point(202, 155);
+            this.numTriangKs.Name = "numTriangKs";
+            this.numTriangKs.Size = new System.Drawing.Size(61, 20);
+            this.numTriangKs.TabIndex = 149;
+            this.numTriangKs.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            65536});
+            this.numTriangKs.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // label176
+            // 
+            this.label176.AutoSize = true;
+            this.label176.BackColor = System.Drawing.Color.Transparent;
+            this.label176.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label176.Location = new System.Drawing.Point(81, 179);
+            this.label176.Name = "label176";
+            this.label176.Size = new System.Drawing.Size(119, 13);
+            this.label176.TabIndex = 150;
+            this.label176.Text = "Diffuse coefficient (KD):";
+            // 
+            // label177
+            // 
+            this.label177.AutoSize = true;
+            this.label177.BackColor = System.Drawing.Color.Transparent;
+            this.label177.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label177.Location = new System.Drawing.Point(73, 157);
+            this.label177.Name = "label177";
+            this.label177.Size = new System.Drawing.Size(127, 13);
+            this.label177.TabIndex = 151;
+            this.label177.Text = "Specular coefficient (KS):";
+            // 
+            // numericTriangleCX
+            // 
+            this.numericTriangleCX.DecimalPlaces = 5;
+            this.numericTriangleCX.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericTriangleCX.Location = new System.Drawing.Point(70, 67);
+            this.numericTriangleCX.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericTriangleCX.Name = "numericTriangleCX";
+            this.numericTriangleCX.Size = new System.Drawing.Size(61, 20);
+            this.numericTriangleCX.TabIndex = 50;
+            this.numericTriangleCX.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // numericTriangleCZ
+            // 
+            this.numericTriangleCZ.DecimalPlaces = 5;
+            this.numericTriangleCZ.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericTriangleCZ.Location = new System.Drawing.Point(243, 67);
+            this.numericTriangleCZ.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericTriangleCZ.Name = "numericTriangleCZ";
+            this.numericTriangleCZ.Size = new System.Drawing.Size(61, 20);
+            this.numericTriangleCZ.TabIndex = 48;
+            this.numericTriangleCZ.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // label153
+            // 
+            this.label153.AutoSize = true;
+            this.label153.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label153.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label153.Location = new System.Drawing.Point(49, 70);
+            this.label153.Name = "label153";
+            this.label153.Size = new System.Drawing.Size(17, 13);
+            this.label153.TabIndex = 49;
+            this.label153.Text = "X:";
+            // 
+            // numericTriangleCY
+            // 
+            this.numericTriangleCY.DecimalPlaces = 5;
+            this.numericTriangleCY.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericTriangleCY.Location = new System.Drawing.Point(157, 67);
+            this.numericTriangleCY.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericTriangleCY.Name = "numericTriangleCY";
+            this.numericTriangleCY.Size = new System.Drawing.Size(61, 20);
+            this.numericTriangleCY.TabIndex = 51;
+            this.numericTriangleCY.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.numericTriangleCY.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // label154
+            // 
+            this.label154.AutoSize = true;
+            this.label154.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label154.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label154.Location = new System.Drawing.Point(223, 70);
+            this.label154.Name = "label154";
+            this.label154.Size = new System.Drawing.Size(17, 13);
+            this.label154.TabIndex = 52;
+            this.label154.Text = "Z:";
+            // 
+            // label155
+            // 
+            this.label155.AutoSize = true;
+            this.label155.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label155.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label155.Location = new System.Drawing.Point(136, 70);
+            this.label155.Name = "label155";
+            this.label155.Size = new System.Drawing.Size(17, 13);
+            this.label155.TabIndex = 53;
+            this.label155.Text = "Y:";
+            // 
+            // label156
+            // 
+            this.label156.AutoSize = true;
+            this.label156.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label156.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label156.Location = new System.Drawing.Point(23, 68);
+            this.label156.Name = "label156";
+            this.label156.Size = new System.Drawing.Size(20, 15);
+            this.label156.TabIndex = 47;
+            this.label156.Text = "C:";
+            this.label156.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // numericTriangleBX
+            // 
+            this.numericTriangleBX.DecimalPlaces = 5;
+            this.numericTriangleBX.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericTriangleBX.Location = new System.Drawing.Point(70, 45);
+            this.numericTriangleBX.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericTriangleBX.Name = "numericTriangleBX";
+            this.numericTriangleBX.Size = new System.Drawing.Size(61, 20);
+            this.numericTriangleBX.TabIndex = 43;
+            this.numericTriangleBX.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // numericTriangleBZ
+            // 
+            this.numericTriangleBZ.DecimalPlaces = 5;
+            this.numericTriangleBZ.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericTriangleBZ.Location = new System.Drawing.Point(243, 45);
+            this.numericTriangleBZ.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericTriangleBZ.Name = "numericTriangleBZ";
+            this.numericTriangleBZ.Size = new System.Drawing.Size(61, 20);
+            this.numericTriangleBZ.TabIndex = 41;
+            this.numericTriangleBZ.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.numericTriangleBZ.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // label157
+            // 
+            this.label157.AutoSize = true;
+            this.label157.BackColor = System.Drawing.Color.Gainsboro;
+            this.label157.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label157.Location = new System.Drawing.Point(49, 49);
+            this.label157.Name = "label157";
+            this.label157.Size = new System.Drawing.Size(17, 13);
+            this.label157.TabIndex = 42;
+            this.label157.Text = "X:";
+            // 
+            // numericTriangleBY
+            // 
+            this.numericTriangleBY.DecimalPlaces = 5;
+            this.numericTriangleBY.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericTriangleBY.Location = new System.Drawing.Point(157, 45);
+            this.numericTriangleBY.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericTriangleBY.Name = "numericTriangleBY";
+            this.numericTriangleBY.Size = new System.Drawing.Size(61, 20);
+            this.numericTriangleBY.TabIndex = 44;
+            this.numericTriangleBY.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // label158
+            // 
+            this.label158.AutoSize = true;
+            this.label158.BackColor = System.Drawing.Color.Gainsboro;
+            this.label158.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label158.Location = new System.Drawing.Point(223, 49);
+            this.label158.Name = "label158";
+            this.label158.Size = new System.Drawing.Size(17, 13);
+            this.label158.TabIndex = 45;
+            this.label158.Text = "Z:";
+            // 
+            // label159
+            // 
+            this.label159.AutoSize = true;
+            this.label159.BackColor = System.Drawing.Color.Gainsboro;
+            this.label159.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label159.Location = new System.Drawing.Point(136, 49);
+            this.label159.Name = "label159";
+            this.label159.Size = new System.Drawing.Size(17, 13);
+            this.label159.TabIndex = 46;
+            this.label159.Text = "Y:";
+            // 
+            // label160
+            // 
+            this.label160.AutoSize = true;
+            this.label160.BackColor = System.Drawing.Color.Gainsboro;
+            this.label160.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label160.Location = new System.Drawing.Point(21, 46);
+            this.label160.Name = "label160";
+            this.label160.Size = new System.Drawing.Size(22, 16);
+            this.label160.TabIndex = 40;
+            this.label160.Text = "B:";
+            // 
+            // label161
+            // 
+            this.label161.AutoSize = true;
+            this.label161.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label161.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label161.Location = new System.Drawing.Point(21, 24);
+            this.label161.Name = "label161";
+            this.label161.Size = new System.Drawing.Size(22, 16);
+            this.label161.TabIndex = 39;
+            this.label161.Text = "A:";
+            // 
+            // numericTriangleAX
+            // 
+            this.numericTriangleAX.DecimalPlaces = 5;
+            this.numericTriangleAX.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericTriangleAX.Location = new System.Drawing.Point(70, 23);
+            this.numericTriangleAX.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericTriangleAX.Name = "numericTriangleAX";
+            this.numericTriangleAX.Size = new System.Drawing.Size(61, 20);
+            this.numericTriangleAX.TabIndex = 20;
+            this.numericTriangleAX.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // label162
+            // 
+            this.label162.AutoSize = true;
+            this.label162.BackColor = System.Drawing.Color.Gainsboro;
+            this.label162.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label162.Location = new System.Drawing.Point(3, 2);
+            this.label162.Name = "label162";
+            this.label162.Size = new System.Drawing.Size(98, 20);
+            this.label162.TabIndex = 15;
+            this.label162.Text = "TRIANGLE";
+            // 
+            // numericTriangleAZ
+            // 
+            this.numericTriangleAZ.DecimalPlaces = 5;
+            this.numericTriangleAZ.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericTriangleAZ.Location = new System.Drawing.Point(243, 23);
+            this.numericTriangleAZ.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericTriangleAZ.Name = "numericTriangleAZ";
+            this.numericTriangleAZ.Size = new System.Drawing.Size(61, 20);
+            this.numericTriangleAZ.TabIndex = 16;
+            this.numericTriangleAZ.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // label163
+            // 
+            this.label163.AutoSize = true;
+            this.label163.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label163.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label163.Location = new System.Drawing.Point(49, 26);
+            this.label163.Name = "label163";
+            this.label163.Size = new System.Drawing.Size(17, 13);
+            this.label163.TabIndex = 17;
+            this.label163.Text = "X:";
+            // 
+            // numericTriangleAY
+            // 
+            this.numericTriangleAY.DecimalPlaces = 5;
+            this.numericTriangleAY.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericTriangleAY.Location = new System.Drawing.Point(157, 23);
+            this.numericTriangleAY.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericTriangleAY.Name = "numericTriangleAY";
+            this.numericTriangleAY.Size = new System.Drawing.Size(61, 20);
+            this.numericTriangleAY.TabIndex = 21;
+            this.numericTriangleAY.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericTriangleAY.ValueChanged += new System.EventHandler(this.actionTriangleSet);
+            // 
+            // label164
+            // 
+            this.label164.AutoSize = true;
+            this.label164.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label164.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label164.Location = new System.Drawing.Point(223, 26);
+            this.label164.Name = "label164";
+            this.label164.Size = new System.Drawing.Size(17, 13);
+            this.label164.TabIndex = 23;
+            this.label164.Text = "Z:";
+            // 
+            // label165
+            // 
+            this.label165.AutoSize = true;
+            this.label165.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label165.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label165.Location = new System.Drawing.Point(136, 26);
+            this.label165.Name = "label165";
+            this.label165.Size = new System.Drawing.Size(17, 13);
+            this.label165.TabIndex = 24;
+            this.label165.Text = "Y:";
+            // 
             // WndProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1188, 778);
-            this.Controls.Add(this.panelAnimace);
+            this.Controls.Add(this.panelCylindr);
+            this.Controls.Add(this.panelRovina);
             this.Controls.Add(this.panelSphere);
+            this.Controls.Add(this.panelTriangle);
+            this.Controls.Add(this.panelAnimace);
             this.Controls.Add(this.panelImage);
             this.Controls.Add(this.panelLight);
             this.Controls.Add(this.panelCamera);
             this.Controls.Add(this.panelBox);
-            this.Controls.Add(this.panelRovina);
-            this.Controls.Add(this.panelCylindr);
             this.Name = "WndProperties";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
@@ -5357,6 +6218,29 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericCylCentX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCylCentZ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCylCentY)).EndInit();
+            this.panelTriangle.ResumeLayout(false);
+            this.panelTriangle.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numTrRotZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTrRotY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTrRotX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangN)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangKt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangH)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangColR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangColB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangColG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangKa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangKd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTriangKs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleCX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleCZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleCY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleBX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleBZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleBY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleAX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleAZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericTriangleAY)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -5670,6 +6554,57 @@
         private System.Windows.Forms.NumericUpDown numAnimRotX;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.CheckBox checkOptimize;
+        private System.Windows.Forms.Panel panelTriangle;
+        private System.Windows.Forms.Label label150;
+        private System.Windows.Forms.Label label151;
+        private System.Windows.Forms.Label label152;
+        private System.Windows.Forms.Label label166;
+        private System.Windows.Forms.NumericUpDown numTrRotZ;
+        private System.Windows.Forms.NumericUpDown numTrRotY;
+        private System.Windows.Forms.NumericUpDown numTrRotX;
+        private System.Windows.Forms.Label label167;
+        private System.Windows.Forms.NumericUpDown numTriangN;
+        private System.Windows.Forms.Label label168;
+        private System.Windows.Forms.NumericUpDown numTriangKt;
+        private System.Windows.Forms.Label label169;
+        private System.Windows.Forms.Button btnTriangMaterialCol;
+        private System.Windows.Forms.NumericUpDown numTriangH;
+        private System.Windows.Forms.NumericUpDown numTriangColR;
+        private System.Windows.Forms.NumericUpDown numTriangColB;
+        private System.Windows.Forms.Label label170;
+        private System.Windows.Forms.NumericUpDown numTriangColG;
+        private System.Windows.Forms.Label label171;
+        private System.Windows.Forms.Label label172;
+        private System.Windows.Forms.Label label173;
+        private System.Windows.Forms.NumericUpDown numTriangKa;
+        private System.Windows.Forms.Label label174;
+        private System.Windows.Forms.NumericUpDown numTriangKd;
+        private System.Windows.Forms.Label label175;
+        private System.Windows.Forms.NumericUpDown numTriangKs;
+        private System.Windows.Forms.Label label176;
+        private System.Windows.Forms.Label label177;
+        private System.Windows.Forms.NumericUpDown numericTriangleCX;
+        private System.Windows.Forms.NumericUpDown numericTriangleCZ;
+        private System.Windows.Forms.Label label153;
+        private System.Windows.Forms.NumericUpDown numericTriangleCY;
+        private System.Windows.Forms.Label label154;
+        private System.Windows.Forms.Label label155;
+        private System.Windows.Forms.Label label156;
+        private System.Windows.Forms.NumericUpDown numericTriangleBX;
+        private System.Windows.Forms.NumericUpDown numericTriangleBZ;
+        private System.Windows.Forms.Label label157;
+        private System.Windows.Forms.NumericUpDown numericTriangleBY;
+        private System.Windows.Forms.Label label158;
+        private System.Windows.Forms.Label label159;
+        private System.Windows.Forms.Label label160;
+        private System.Windows.Forms.Label label161;
+        private System.Windows.Forms.NumericUpDown numericTriangleAX;
+        private System.Windows.Forms.Label label162;
+        private System.Windows.Forms.NumericUpDown numericTriangleAZ;
+        private System.Windows.Forms.Label label163;
+        private System.Windows.Forms.NumericUpDown numericTriangleAY;
+        private System.Windows.Forms.Label label164;
+        private System.Windows.Forms.Label label165;
 
     }
 }

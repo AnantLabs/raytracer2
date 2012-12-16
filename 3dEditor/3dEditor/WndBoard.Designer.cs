@@ -89,10 +89,10 @@
             this.pictureBoard.Size = new System.Drawing.Size(832, 611);
             this.pictureBoard.TabIndex = 0;
             this.pictureBoard.TabStop = false;
-            this.pictureBoard.MouseMove += new System.Windows.Forms.MouseEventHandler(this.onPicMouseMove);
+            this.pictureBoard.Paint += new System.Windows.Forms.PaintEventHandler(this.onPaintBoard);
             this.pictureBoard.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.OnMouseDoubleClick);
             this.pictureBoard.MouseDown += new System.Windows.Forms.MouseEventHandler(this.onPicMouseDown);
-            this.pictureBoard.Paint += new System.Windows.Forms.PaintEventHandler(this.onPaintBoard);
+            this.pictureBoard.MouseMove += new System.Windows.Forms.MouseEventHandler(this.onPicMouseMove);
             this.pictureBoard.MouseUp += new System.Windows.Forms.MouseEventHandler(this.onPicMouseUp);
             // 
             // toolStrip1
@@ -112,14 +112,14 @@
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(432, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(451, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(33, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(35, 22);
             this.toolStripLabel1.Text = "View:";
             // 
             // toolsComboViewAngle
@@ -170,7 +170,7 @@
             this.toolBtnGrid.Image = ((System.Drawing.Image)(resources.GetObject("toolBtnGrid.Image")));
             this.toolBtnGrid.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolBtnGrid.Name = "toolBtnGrid";
-            this.toolBtnGrid.Size = new System.Drawing.Size(30, 22);
+            this.toolBtnGrid.Size = new System.Drawing.Size(33, 22);
             this.toolBtnGrid.Text = "Grid";
             // 
             // toolsComboGridSize
@@ -197,7 +197,7 @@
             this.toolStripBtnLights.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBtnLights.Image")));
             this.toolStripBtnLights.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnLights.Name = "toolStripBtnLights";
-            this.toolStripBtnLights.Size = new System.Drawing.Size(68, 22);
+            this.toolStripBtnLights.Size = new System.Drawing.Size(75, 22);
             this.toolStripBtnLights.Text = "Show Lights";
             this.toolStripBtnLights.Click += new System.EventHandler(this.OnShowLights);
             // 
@@ -208,7 +208,7 @@
             this.toolStripBtnCamera.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBtnCamera.Image")));
             this.toolStripBtnCamera.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnCamera.Name = "toolStripBtnCamera";
-            this.toolStripBtnCamera.Size = new System.Drawing.Size(77, 22);
+            this.toolStripBtnCamera.Size = new System.Drawing.Size(84, 22);
             this.toolStripBtnCamera.Text = "Show Camera";
             this.toolStripBtnCamera.Click += new System.EventHandler(this.onShowCamera);
             // 
@@ -234,7 +234,7 @@
             // 
             this.statusLabelZoomConst.Name = "statusLabelZoomConst";
             this.statusLabelZoomConst.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.statusLabelZoomConst.Size = new System.Drawing.Size(37, 17);
+            this.statusLabelZoomConst.Size = new System.Drawing.Size(42, 17);
             this.statusLabelZoomConst.Text = "Zoom:";
             this.statusLabelZoomConst.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -338,7 +338,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(156, 146);
             this.panel1.TabIndex = 5;
-            this.panel1.Visible = false;
             // 
             // btnZPlus
             // 
