@@ -35,6 +35,7 @@
             this.bToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cylinderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cubeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.triangleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.animationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,10 +54,10 @@
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(424, 288);
             this.treeView1.TabIndex = 0;
-            this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.NodeMouseDblClick);
+            this.treeView1.BeforeCheck += new System.Windows.Forms.TreeViewCancelEventHandler(this.BeforeCheck);
             this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.AfterCheck);
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.OnAfterSelect);
-            this.treeView1.BeforeCheck += new System.Windows.Forms.TreeViewCancelEventHandler(this.BeforeCheck);
+            this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.NodeMouseDblClick);
             // 
             // toolStrip1
             // 
@@ -78,6 +79,7 @@
             this.bToolStripMenuItem,
             this.cylinderToolStripMenuItem,
             this.cubeToolStripMenuItem,
+            this.triangleToolStripMenuItem,
             this.lightToolStripMenuItem,
             this.imageToolStripMenuItem,
             this.animationToolStripMenuItem});
@@ -123,6 +125,14 @@
             this.cubeToolStripMenuItem.Text = "Cube";
             this.cubeToolStripMenuItem.ToolTipText = "Add cube to scene";
             this.cubeToolStripMenuItem.Click += new System.EventHandler(this.onAddCube);
+            // 
+            // triangleToolStripMenuItem
+            // 
+            this.triangleToolStripMenuItem.Image = global::_3dEditor.Properties.Resources.TriangleMagenta16;
+            this.triangleToolStripMenuItem.Name = "triangleToolStripMenuItem";
+            this.triangleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.triangleToolStripMenuItem.Text = "Triangle";
+            this.triangleToolStripMenuItem.Click += new System.EventHandler(this.onAddTriangle);
             // 
             // lightToolStripMenuItem
             // 
@@ -196,6 +206,7 @@
         private System.Windows.Forms.ToolStripMenuItem lightToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem imageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem animationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem triangleToolStripMenuItem;
 
 
     }

@@ -67,6 +67,7 @@ namespace _3dEditor
             _WndScene.Update();
             _WndScene.Activate();
             _WndScene.Invalidate();
+            _WndScene.Anchor = AnchorStyles.Right;
 
 
             //
@@ -79,6 +80,7 @@ namespace _3dEditor
             _WndProperties.Height = (int)(_WndBoard.Height * (1 - _ratioSize));
             _WndProperties.Show();
             _WndProperties.Invalidate();
+            //_WndProperties.Anchor = AnchorStyles.Right;
             //_WndScene.Paint += new PaintEventHandler
 
             Form[] fs = this.MdiChildren;
@@ -135,18 +137,23 @@ namespace _3dEditor
             Sphere sph1 = new Sphere(new Vektor(0, 0.5, -6), 1, new Colour(1, 0.5, 0.1, 1));
             Sphere sph2 = new Sphere(new Vektor(-2, -1, -10), 1.5);
             Cube cube1 = new Cube(new Vektor(0.1, 0.7, -3), new Vektor(1, 1, 1), 1);
-            Cube cube2 = new Cube(new Vektor(1.6, -0.1, -5.2), new Vektor(1, 1, 1), 1);
+            //Cube cube2 = new Cube(new Vektor(1.6, -0.1, -5.2), new Vektor(1, 1, 1), 1);
+            Cube cube2 = new Cube(new Vektor(0, 0, 0), new Vektor(1, 1, 1), 1);
             cube2.Material.Color = Colour.ColourCreate(Color.Gold);
             Plane plane1 = new Plane(new Vektor(1, 1, 0), 3);
             Cylinder cyl = new Cylinder(new Vektor(3, 2, 1), new Vektor(1, 1, 1), 1, 8);
+
+            Triangle tr1 = new Triangle(new Vektor(-1, -2, 0), new Vektor(0, -1 , 1), new Vektor(0, 1, 3));
             _rayTracer.RScene.SceneObjects.Clear();
+
             _rayTracer.RScene.Lights[0].Coord = new Vektor(-4.2, 2.1, 0.6);
             _rayTracer.RScene.Lights[1].Coord = new Vektor(5.5, -0.4, -5.2);
-            _rayTracer.RCamera.Source = new Vektor(0.5, 0.7, 0);
+            _rayTracer.RCamera.Source = new Vektor(0.5, 0.7, 10);
             //_rayTracer.RScene.SceneObjects.Add(sph1);
             //_rayTracer.RScene.SceneObjects.Add(sph2);
-            _rayTracer.RScene.SceneObjects.Add(cube1);
-            _rayTracer.RScene.SceneObjects.Add(cube2);
+            //_rayTracer.RScene.SceneObjects.Add(cube1);
+            //_rayTracer.RScene.SceneObjects.Add(cube2);
+            _rayTracer.RScene.SceneObjects.Add(tr1);
             //_rayTracer.RScene.SceneObjects.Add(plane1);
             //_rayTracer.RScene.SceneObjects.Add(cyl);
             //sph2.IsActive = false;
@@ -257,5 +264,13 @@ namespace _3dEditor
             form.Show();
         }
 
+        public void AddRaytrObject(object obj)
+        {
+            if (obj is DefaultShape)
+                _rayTracer.RScene.AddSceneObject(obj as DefaultShape);
+            else if (obj is Light)
+                _rayTracer.RScene.AddLight(obj as Light);
+            
+        }
     }
 }
