@@ -174,5 +174,11 @@ namespace EditorLib
             }
             return list;
         }
+
+        public override Point3D GetCenter()
+        {
+
+            return new Point3D(Center.X, Center.Y, Center.Z);
+        }
     }
 }

@@ -35,6 +35,8 @@ namespace EditorLib
         /// <param name="rotationMatrix">rotacni matice sveta Editoru; muze byt null, pak bude matice jednotokva</param>
         public virtual void SetModelObject(object modelObject) { }
 
+        public abstract Point3D GetCenter();
+
         public void Rotate(double degAroundX, double degAroundY, double degAroundZ)
         {
             Matrix3D newRot = Matrix3D.NewRotateByDegrees(degAroundX, degAroundY, degAroundZ);

@@ -295,5 +295,10 @@ namespace EditorLib
             List<Point3D> ls = new List<Point3D>(Points);
             return ls.GetRange(1, ls.Count-1).ToArray();
         }
+
+        public override Point3D GetCenter()
+        {
+            return new Point3D(this.Center);
+        }
     }
 }

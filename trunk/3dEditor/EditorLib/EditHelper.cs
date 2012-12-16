@@ -30,6 +30,7 @@ namespace EditorLib
         public int Zoom { get; set; }
 
         public Pen CameraPenMain { get; set; }
+        public Pen CameraPenUp { get; set; }
         public Pen CameraPenLight { get; set; }
         public Pen CameraPenEllips { get; set; }
 
@@ -67,6 +68,11 @@ namespace EditorLib
             CameraPenMain.EndCap = LineCap.Custom;
             CameraPenMain.CustomEndCap = new AdjustableArrowCap(3f, 3f, false);
             CameraPenMain.DashStyle = DashStyle.DashDot;
+
+            CameraPenUp = new Pen(Color.SaddleBrown, 2f);
+            CameraPenUp.EndCap = LineCap.Custom;
+            CameraPenUp.CustomEndCap = new AdjustableArrowCap(4f, 6f, false);
+            CameraPenUp.DashStyle = DashStyle.DashDot;
 
             CameraPenLight = new Pen(Color.Black, 1);
             CameraPenLight.EndCap = LineCap.NoAnchor;
