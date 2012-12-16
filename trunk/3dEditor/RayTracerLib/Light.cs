@@ -134,11 +134,13 @@ namespace RayTracerLib
             if (sp == null)
                 return true;
 
-            Vektor a = Vektor.ToDirectionVektor(point.Coord, Coord);
-            Vektor lenVek = sp.Coord - point.Coord;
-            double len = lenVek.Size();
+            Vektor keSvetlu = Vektor.ToDirectionVektor(point.Coord, Coord); // paprsek od daneho bodu ke svetlu
+            double keSvetluSize = keSvetlu.Size();                          // vzdalenost ke svetlu
+            Vektor kBoduPruniku = sp.Coord - point.Coord;                   // paprsek k bodu pruniku
+            double kBoduPrunikuSize = kBoduPruniku.Size();                  // vzdalenost k bodu pruniku
 
-            return (a.Size() < len);
+            // je-li stinici bod za svetlem (ve vetsi vzdalenosti, nez svetlo), vratime true - bod bude osvetlen
+            return (keSvetluSize < kBoduPrunikuSize);                       
         }
 
         /// <summary>

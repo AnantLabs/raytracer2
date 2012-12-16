@@ -104,6 +104,7 @@
     <Compile Include="Scene.cs" />
     <Compile Include="SolidPoint.cs" />
     <Compile Include="Sphere.cs" />
+    <Compile Include="Triangle.cs" />
     <Compile Include="Vektor.cs" />
   </ItemGroup>
   <ItemGroup>

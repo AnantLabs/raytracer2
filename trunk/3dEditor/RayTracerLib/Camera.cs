@@ -70,8 +70,9 @@ namespace RayTracerLib
         {
             Source = new Vektor(0, 1, 0);
             Norm = new Vektor(0, 0, -1);
-            Up = new Vektor(0, -1, 0);
+            Up = new Vektor(0, 1, 0);
             Dx = Vektor.CrossProduct(Up, Norm);
+            Dx.MultiplyBy(-1);
             Dy = new Vektor(Vektor.ZeroVektor - Up);
 
             // zorny uhel:
@@ -99,8 +100,11 @@ namespace RayTracerLib
         {
             Norm = norm;
             Up = up;
-            Dx = Vektor.CrossProduct(Up, _normNormalized);
-            Dy = new Vektor(Vektor.ZeroVektor - Up);
+            Vektor upNormalized = new Vektor(up);
+            upNormalized.Normalize();
+            Dx = Vektor.CrossProduct(upNormalized, _normNormalized);
+            Dx.MultiplyBy(-1);
+            Dy = new Vektor(Vektor.ZeroVektor - upNormalized);
         }
 
 

@@ -214,7 +214,12 @@ namespace RayTracerLib
 
             if (vysl.Count > 0)
             {
-                InterPoint.AddRange(vysl);
+                foreach (SolidPoint sp in vysl)
+                {
+                    if (sp.T > 0 && sp.T * sp.T > MyMath.EPSILON)
+                        InterPoint.Add(sp);
+                }
+                //InterPoint.AddRange(vysl);
                 //SolidPoint s = InterPoint.Find(sp => sp.T > 0);
             }
             return intersected;
