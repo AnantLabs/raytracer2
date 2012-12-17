@@ -83,6 +83,7 @@
     <Compile Include="Box.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Colour.cs" />
+    <Compile Include="Cone.cs" />
     <Compile Include="Cube.cs" />
     <Compile Include="Cuboid.cs" />
     <Compile Include="CuboidNode.cs" />
