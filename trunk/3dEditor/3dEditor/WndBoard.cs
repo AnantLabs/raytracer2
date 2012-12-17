@@ -1310,6 +1310,16 @@ namespace _3dEditor
                     wndScene.AddItem(drTriangl);
                     wndScene.ShowNode(drTriangl);
                 }
+                else if (shape.GetType() == typeof(Cone))
+                {
+                    Cone cone = (Cone)shape;
+                    DrawingCone drCone = new DrawingCone(cone);
+                    drCone.ApplyRotationMatrix(_matrixForever); // nastaveni do souradnic editoru
+                    _objectsToDraw.Add(drCone);
+                    WndScene wndScene = GetWndScene();
+                    wndScene.AddItem(drCone);
+                    wndScene.ShowNode(drCone);
+                }
             }
             else if (shape is Light)
             {
