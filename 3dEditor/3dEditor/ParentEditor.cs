@@ -144,16 +144,19 @@ namespace _3dEditor
             Cylinder cyl = new Cylinder(new Vektor(3, 2, 1), new Vektor(1, 1, 1), 1, 8);
 
             Triangle tr1 = new Triangle(new Vektor(-1, -2, 0), new Vektor(0, -1 , 1), new Vektor(0, 1, 3));
+
+            Cone cone = new Cone();
             _rayTracer.RScene.SceneObjects.Clear();
 
             _rayTracer.RScene.Lights[0].Coord = new Vektor(-4.2, 2.1, 0.6);
             _rayTracer.RScene.Lights[1].Coord = new Vektor(5.5, -0.4, -5.2);
-            _rayTracer.RCamera.Source = new Vektor(0.5, 0.7, 10);
+            _rayTracer.RCamera.Source = new Vektor(2.5, 0.7, 10);
             //_rayTracer.RScene.SceneObjects.Add(sph1);
             //_rayTracer.RScene.SceneObjects.Add(sph2);
             //_rayTracer.RScene.SceneObjects.Add(cube1);
             //_rayTracer.RScene.SceneObjects.Add(cube2);
-            _rayTracer.RScene.SceneObjects.Add(tr1);
+            //_rayTracer.RScene.SceneObjects.Add(tr1);
+            _rayTracer.RScene.SceneObjects.Add(cone);
             //_rayTracer.RScene.SceneObjects.Add(plane1);
             //_rayTracer.RScene.SceneObjects.Add(cyl);
             //sph2.IsActive = false;
