@@ -167,6 +167,42 @@ namespace EditorLib
                    );
         }
 
+        public static Matrix3D NewRotateByAxis_Degs(Point3D axis, double theta)
+        {
+            Point3D ax = new Point3D(axis);
+            ax = ax.Normalize();
+            double a = ax.X;
+            double b = ax.Y;
+            double c = ax.Z;
+            double sin = Math.Sin(-theta);
+            double cos = Math.Cos(theta);
+
+            double k = 1 - cos;
+            Point3D row1 = new Point3D();
+            row1[0] = a * a * k + cos;
+            row1[1] = a * b * k - c * sin;
+            row1[2] = a * c * k + b * sin;
+            row1[3] = 0;
+
+            Point3D row2 = new Point3D();
+            row2[0] = a * b * k - c * sin;
+            row2[1] = b * b * k + cos;
+            row2[2] = b * c * k - a * sin;
+            row2[3] = 0;
+
+            Point3D row3 = new Point3D();
+            row3[0] = a * c * k - b * sin;
+            row3[1] = b * c * k + a * sin;
+            row3[2] = c * c * k + cos;
+            row3[3] = 0;
+
+            Point3D row4 = new Point3D(0, 0, 0, 1);
+            Matrix3D matrix = new Matrix3D(row1, row2, row3, row4);
+
+            return matrix;
+        }
+
+
 
         public void SetOnDegrees(double degX, double degY, double degZ)
         {
@@ -406,6 +442,81 @@ namespace EditorLib
             mRotCorrect.TransformPoint(pRot1);
             mRot2.TransformPoint(pRot2);
             mRot3.TransformPoint(pRot3);
+        }
+
+
+        /// <summary>
+        /// Z rotacni matice vrati seznam uhlu, pres ktere lze matici vypocitat
+        /// Uhlu je v principu vzdy vice trojic
+        /// </summary>
+        /// <returns></returns>
+        public double[] GetAnglesFromMatrix()
+        {
+            double[] angles1 = new double[3];
+            double[] angles2 = new double[3];
+
+            double theta1, theta2;  // rotace kolem X
+            double psi1, psi2;      // rotace kolem Y
+            double fi1,fi2;         //rotace kolem Z
+
+            if (Matrix[2, 0] != -1 && Matrix[2, 0] != 1)
+            {
+                theta1 = -Math.Asin(Matrix[2, 0]);
+                theta2 = Math.PI - theta1;
+                psi1 = Math.Atan2(Matrix[2, 1] / Math.Cos(theta1), Matrix[2, 2] / Math.Cos(theta1));
+                psi2 = Math.Atan2(Matrix[2, 1] / Math.Cos(theta2), Matrix[2, 2] / Math.Cos(theta2));
+                fi1 = Math.Atan2(Matrix[1, 0] / Math.Cos(theta1), Matrix[0, 0] / Math.Cos(theta1));
+                fi2 = Math.Atan2(Matrix[1, 0] / Math.Cos(theta2), Matrix[0, 0] / Math.Cos(theta2));
+
+                angles1[0] = EditorMath.Radians2Deg(-psi1);
+                angles1[1] = EditorMath.Radians2Deg(-theta1);
+                angles1[2] = EditorMath.Radians2Deg(-fi1);
+
+                angles2[0] = EditorMath.Radians2Deg(-psi2);
+                angles2[1] = EditorMath.Radians2Deg(-theta2);
+                angles2[2] = EditorMath.Radians2Deg(-fi2);
+                return angles1;
+            }
+            else
+            {
+                fi1 = 0;
+                if (Matrix[2, 0] == -1)
+                {
+                    theta1 = Math.PI / 2;
+                    psi1 = fi1 + Math.Atan2(Matrix[0, 1], Matrix[0, 2]);
+                }
+                else
+                {
+                    theta1 = -Math.PI / 2;
+                    psi1 = -fi1 + Math.Atan2(-Matrix[0, 1], -Matrix[0, 2]);
+                }
+                angles1[0] = EditorMath.Radians2Deg(-psi1);
+                angles1[1] = EditorMath.Radians2Deg(-theta1);
+                angles1[2] = EditorMath.Radians2Deg(-fi1);
+            }
+            return angles1;
+        }
+
+        public static bool TestMatrixAnglesBack(double angX, double angY, double angZ)
+        {
+            angX = angX % 180;
+            angY = angY % 180;
+            angZ = angZ % 180;
+            double[] angles = new double[] { angX, angY, angZ };
+            Point3D point = new Point3D(4, 2, 3);
+            Matrix3D m1 = Matrix3D.NewRotateByDegrees(angX, angY, angZ);
+            Point3D point1 = m1.Transform2NewPoint(point);
+            double[] angles1 = m1.GetAnglesFromMatrix();
+
+            Matrix3D m2 = Matrix3D.NewRotateByDegrees(angles1[0], angles1[1], angles1[2]);
+            Point3D point2 = m2.Transform2NewPoint(point);
+            double[] angles2 = m2.GetAnglesFromMatrix();
+
+            Matrix3D m3 = Matrix3D.NewRotateByDegrees(angles2[0], angles2[1], angles2[2]);
+            Point3D point3 = m3.Transform2NewPoint(point);
+            double[] angles3 = m3.GetAnglesFromMatrix();
+
+            return true;
         }
     }
 }

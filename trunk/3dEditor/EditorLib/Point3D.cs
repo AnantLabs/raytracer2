@@ -13,6 +13,25 @@ namespace EditorLib
         public double Z { get; set; }
         public double ZZ { get; set; }
 
+        public double this[int i]
+        {
+            get
+            {
+                if (i == 0) return X;
+                if (i == 1) return Y;
+                if (i == 2) return Z;
+                if (i == 3) return ZZ;
+                return 0;
+            }
+            set
+            {
+                if (i == 0) X = value;
+                if (i == 1) Y = value;
+                if (i == 2) Z = value;
+                if (i == 3) ZZ = value;
+            }
+        }
+
         public Point3D() : this(0, 0, 0) { }
 
         public Point3D(double x, double y, double z): this(x, y, z, 1) { }
@@ -76,6 +95,8 @@ namespace EditorLib
             this.Z = newPoint.Z;
             this.ZZ = newPoint.ZZ;
         }
+
+
 
         /// <summary>
         /// vzdalenost od pocatku
