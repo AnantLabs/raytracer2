@@ -246,6 +246,30 @@ namespace RayTracerLib
 
                 cluster = new Cuboid(new Vektor(minX, minY, minZ), new Vektor(maxX, maxY, maxZ));
             }
+            else if (item is Cone)
+            {
+                Cone cone = (Cone)item;
+
+                Vektor point1 = cone.C;
+                Vektor point2 = cone.Dir + new Vektor(cone.Rad, cone.Rad, cone.Rad);
+                Vektor point3 = cone.Dir - new Vektor(cone.Rad, cone.Rad, cone.Rad);
+
+                double minX = Math.Min(point1.X, point2.X);
+                minX = Math.Min(minX, point3.X);
+                double minY = Math.Min(point1.Y, point2.Y);
+                minY = Math.Min(minY, point3.Y);
+                double minZ = Math.Min(point1.Z, point2.Z);
+                minZ = Math.Min(minZ, point3.Z);
+
+                double maxX = Math.Max(point1.X, point2.X);
+                maxX = Math.Max(maxX, point3.X);
+                double maxY = Math.Max(point1.Y, point2.Y);
+                maxY = Math.Max(maxY, point3.Y);
+                double maxZ = Math.Max(point1.Z, point2.Z);
+                maxZ = Math.Max(maxZ, point3.Z);
+
+                cluster = new Cuboid(new Vektor(minX, minY, minZ), new Vektor(maxX, maxY, maxZ));
+            }
             else if (item is Plane)
             {
                 //cluster = new Cuboid(1);
