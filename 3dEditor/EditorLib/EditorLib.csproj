@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="DrawingAnimation.cs" />
     <Compile Include="DrawingCamera.cs" />
+    <Compile Include="DrawingCone.cs" />
     <Compile Include="DrawingCylinder.cs" />
     <Compile Include="DrawingDefaultShape.cs" />
     <Compile Include="DrawingLight.cs" />
