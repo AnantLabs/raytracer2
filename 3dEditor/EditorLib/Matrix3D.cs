@@ -32,6 +32,13 @@ namespace EditorLib
             Matrix[3, 0] = row4.X; Matrix[3, 1] = row4.Y; Matrix[3, 2] = row4.Z; Matrix[3, 3] = row4.ZZ;
         }
 
+        public void Set(Point3D row1, Point3D row2, Point3D row3)
+        {
+            Matrix[0, 0] = row1.X; Matrix[0, 1] = row1.Y; Matrix[0, 2] = row1.Z;
+            Matrix[1, 0] = row2.X; Matrix[1, 1] = row2.Y; Matrix[1, 2] = row2.Z;
+            Matrix[2, 0] = row3.X; Matrix[2, 1] = row3.Y; Matrix[2, 2] = row3.Z;
+        }
+
         public static Point3D operator *(Matrix3D matrix, Point3D point3D)
         {
 
@@ -301,6 +308,27 @@ namespace EditorLib
             }
         }
 
+        public void NormalizeRows()
+        {
+            Point3D row1 = new Point3D(Matrix[0, 0], Matrix[0, 1], Matrix[0, 2]);
+            row1 = row1.Normalize();
+            Point3D row2 = new Point3D(Matrix[1, 0], Matrix[1, 1], Matrix[1, 2]);
+            row2 = row2.Normalize();
+            Point3D row3 = new Point3D(Matrix[2, 0], Matrix[2, 1], Matrix[2, 2]);
+            row3 = row3.Normalize();
+            this.Set(row1, row2, row3);
+        }
+        public void NormalizeCols()
+        {
+            Matrix3D mtransp = this.Transpose();
+            mtransp.NormalizeRows();
+
+            Point3D row1 = new Point3D(mtransp.Matrix[0, 0], mtransp.Matrix[0, 1], mtransp.Matrix[0, 2]);
+            Point3D row2 = new Point3D(mtransp.Matrix[1, 0], mtransp.Matrix[1, 1], mtransp.Matrix[1, 2]);
+            Point3D row3 = new Point3D(mtransp.Matrix[2, 0], mtransp.Matrix[2, 1], mtransp.Matrix[2, 2]);
+            this.Set(row1, row2, row3);
+        }
+
         /// OPERACE POSUNUTI - TRANSLACE:
         /// vektor posunuti: [Px, Py, Pz]
         /// matice:
@@ -449,7 +477,7 @@ namespace EditorLib
         /// Z rotacni matice vrati seznam uhlu, pres ktere lze matici vypocitat
         /// Uhlu je v principu vzdy vice trojic
         /// </summary>
-        /// <returns></returns>
+        /// <returns>vrati pole uhlu: [0] = uhel okolo osy X. [1] = Y, [2] = Z</returns>
         public double[] GetAnglesFromMatrix()
         {
             double[] angles1 = new double[3];
@@ -475,7 +503,6 @@ namespace EditorLib
                 angles2[0] = EditorMath.Radians2Deg(-psi2);
                 angles2[1] = EditorMath.Radians2Deg(-theta2);
                 angles2[2] = EditorMath.Radians2Deg(-fi2);
-                return angles1;
             }
             else
             {
@@ -494,6 +521,10 @@ namespace EditorLib
                 angles1[1] = EditorMath.Radians2Deg(-theta1);
                 angles1[2] = EditorMath.Radians2Deg(-fi1);
             }
+            for (int i = 0; i < angles1.Length; i++)
+            {
+                angles1[i] = Math.Round(angles1[i], 0);
+            }
             return angles1;
         }
 
@@ -507,6 +538,7 @@ namespace EditorLib
             Matrix3D m1 = Matrix3D.NewRotateByDegrees(angX, angY, angZ);
             Point3D point1 = m1.Transform2NewPoint(point);
             double[] angles1 = m1.GetAnglesFromMatrix();
+            
 
             Matrix3D m2 = Matrix3D.NewRotateByDegrees(angles1[0], angles1[1], angles1[2]);
             Point3D point2 = m2.Transform2NewPoint(point);
