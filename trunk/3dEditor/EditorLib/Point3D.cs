@@ -116,9 +116,15 @@ namespace EditorLib
             return new Point3D(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
         }
 
-        public static Point3D operator *(Point3D a, Point3D b)
+        /// <summary>
+        /// skalarni soucin
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static double operator *(Point3D a, Point3D b)
         {
-            return new Point3D(a.X * b.X, a.Y * b.Y, a.Z * b.Z);
+            return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
         }
 
         public static Point3D operator *(Point3D point3d, double coefficient)
@@ -154,6 +160,23 @@ namespace EditorLib
             Matrix3D m = Matrix3D.ScalingNewMatrix(Sx, Sy, Sz);
             this.MultiplyByMatrix(m);
         }
-       
+
+        public Point3D CrossProduct(Point3D p)
+        {
+            return Point3D.CrossProduct(this, p);
+        }
+        /// <summary>
+        /// Vektorovy soucin
+        /// </summary>
+        /// <returns>vektor kolmy na oba vektory</returns>
+        public static Point3D CrossProduct(Point3D a, Point3D b)
+        {
+            Point3D vysl = new Point3D();
+            vysl.X = a.Y * b.Z - a.Z * b.Y;
+            vysl.Y = a.Z * b.X - a.X * b.Z;
+            vysl.Z = a.X * b.Y - a.Y * b.X;
+            return vysl;
+        }
+
     }
 }

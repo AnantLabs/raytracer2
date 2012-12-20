@@ -22,8 +22,7 @@ namespace EditorLib
             Point3D p1 = l1.B - l1.A;
             Point3D p2 = l2.B - l2.A;
 
-            Point3D prod = p1 * p2;
-            double dotProd = prod.X + prod.Y + prod.Z;
+            double dotProd = p1 * p2;
             double p1Len = p1.Length();
             double p2Len = p2.Length();
             double rads = dotProd / (p1Len * p2Len);
@@ -36,8 +35,7 @@ namespace EditorLib
 
         public static double GetDegreesX(Point3D p1, Point3D p2)
         {
-            Point3D prod = p1 * p2;
-            double dotProd = prod.X + prod.Y + prod.Z;
+            double dotProd = p1 * p2;
             double p1Len = p1.Length();
             double p2Len = p2.Length();
             double rads = dotProd / (p1Len * p2Len);
