@@ -473,6 +473,7 @@ namespace _3dEditor
 
                     _editHelp.AddClickableObject(editorObject);
                 }
+
                     /////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (obj.GetType() == typeof(DrawingTriangle)) // =============== TRIANGLE
                 {
@@ -507,6 +508,42 @@ namespace _3dEditor
                     editorObject.AddPath(path);
                     _editHelp.AddClickableObject(editorObject);
                 }
+
+                    /////////////////////////////////////////////////////////////////////////////////////////////////
+                else if (obj.GetType() == typeof(DrawingCone)) // =============== CONE
+                {
+                    DrawingCone drCone = (DrawingCone)obj;
+                    EditorObject editorObject = new EditorObject(drCone);
+                    GraphicsPath path;
+
+                    Point3D[] basePoints = drCone.GetBasePoints();
+                    PointF[] pointsF = new PointF[basePoints.Length];
+                    for (int i = 0; i < pointsF.Length; i++)
+                    {
+                        pointsF[i] = basePoints[i].To2D(_scale, _zoom, _centerPoint);
+                    }
+                    g.DrawClosedCurve(_penObject, pointsF);
+                    path = new GraphicsPath();
+                    path.AddClosedCurve(pointsF);
+                    editorObject.AddPath(path);
+
+                    PointF start,end;
+                    PointF previous = drCone.Lines[0].A.To2D(_scale, _zoom, _centerPoint);
+                    foreach (Line3D line in drCone.Lines)
+                    {
+                        start = line.A.To2D(_scale, _zoom, _centerPoint);
+                        end = line.B.To2D(_scale, _zoom, _centerPoint);
+                        g.DrawLine(_penObject, start, end);
+
+                        path = new GraphicsPath();
+                        path.AddPolygon(new PointF[] { start, end, previous });
+                        editorObject.AddPath(path);
+
+                        previous = start;
+                    }
+                    _editHelp.AddClickableObject(editorObject);
+                }
+
                 /////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (obj.GetType() == typeof(DrawingLight)) // ================ LIGHT
                 {
@@ -521,11 +558,11 @@ namespace _3dEditor
                     GraphicsPath path = new GraphicsPath();
 
                     a = drLight.Center.To2D(_scale, _zoom, _centerPoint);
-                    float upperX = a.X - (float)( Properties.Resources.bulb_transp.Width / 2 );
-                    float upperY = a.Y - (float)( Properties.Resources.bulb_transp.Height / 2 );
+                    float upperX = a.X - (float)(Properties.Resources.bulb_transp.Width / 2);
+                    float upperY = a.Y - (float)(Properties.Resources.bulb_transp.Height / 2);
                     g.DrawImage(Properties.Resources.bulb_transp, new PointF(upperX, upperY));
                     path.AddRectangle(new RectangleF(upperX, upperY, Properties.Resources.bulb_transp.Width, Properties.Resources.bulb_transp.Height));
-                    
+
                     editorObject.AddPath(path);
                     _editHelp.AddClickableObject(editorObject);
                 }
@@ -549,7 +586,7 @@ namespace _3dEditor
                     editorObject.AddPath(path);
                     _editHelp.AddClickableObject(editorObject);
 
-                    
+
                     Line3D line;
 
                     // podstava
@@ -614,9 +651,9 @@ namespace _3dEditor
                         g.DrawLine(_editHelp.CameraPenLight, a, b);
                     }
 
-                    
 
-                    
+
+
                 }
                 /////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (obj.GetType() == typeof(DrawingAnimation))     // ========== ANIMATION
@@ -655,7 +692,7 @@ namespace _3dEditor
                     Pen penElips = DrawingAnimation.EllipsePen;
                     if (drAnim == _Selected)
                         penElips = DrawingAnimation.EllipseSelectedPen;
-                    
+
                     for (int i = 0; i < points.Length - 1; i++)
                     {
                         PointF pf1 = points[i].To2D(_scale, _zoom, _centerPoint);
@@ -664,11 +701,11 @@ namespace _3dEditor
                         path.AddLine(pf1, pf2);
                     }
 
-                    
-                    
+
+
                     //path.AddEllipse(a.X - rad, a.Y - rad, 2 * rad, 2 * rad);
                     editorObject.AddPath(path);
-                    _editHelp.AddClickableObject(editorObject);   
+                    _editHelp.AddClickableObject(editorObject);
 
                 }
 
@@ -676,34 +713,26 @@ namespace _3dEditor
 
             pictureBoard.Image = _editorBmp;
 
-            //
+            // ///////////////////////////////////////////////////////////////
             // STATUS BAR
-            //
+            // ///////////////////////////////////////////////////////////////
 
             // ZOOM LABEL
             this.statusLabelZoom.Text = _zoom.ToString();
 
             // ANGLES
-            Matrix3D matrTransp = _matrixForever.Transpose();
-            //Point3D xTr = matrTransp.Transform2NewPoint(_axisX3);
-            //_matrixForever.TransformPoint(xTr);
+            double[] angles = _matrixForever.GetAnglesFromMatrix();
+            double degsX = angles[0];
+            double degsY = angles[1];
+            double degsZ = angles[2];
 
-            //double degsX = Line3D.GetDegrees2D(_axisZ3.Y, _axisZ3.Z, 1, 0);
-            double degsX = MyMath.Rads2Deg(Math.Acos(_matrixForever.Matrix[0, 2]));
-            double degsY = MyMath.Rads2Deg(Math.Acos(_matrixForever.Matrix[1, 2]));
-            double degsZ = MyMath.Rads2Deg(Math.Acos(_matrixForever.Matrix[2, 2]));
-            //double degsY = Line3D.GetDegrees2D(_axisZ3.Y, _axisZ3.Z, 0, 1);
-            //double degsZ = Line3D.GetDegrees2D(_axisX3.X, _axisX3.Y, 1, 0);
-            //double degsX = Line3D.GetDegreesX(_axisX3, new Point3D(1, 1, 0));
-            //double degsY = Line3D.GetDegreesX(_axisY3, new Point3D(1, 0, 1 ));
-            //double degsZ = Line3D.GetDegreesX(_axisZ3, new Point3D(0, 1, 1));
             this.statusLabelX.Text = Math.Round(degsX, 1).ToString() + "°";
             this.statusLabelY.Text = Math.Round(degsY, 1).ToString() + "°";
             this.statusLabelZ.Text = Math.Round(degsZ, 1).ToString() + "°";
 
             //////////////////////////////////////////////////////////////
-            /// UPDATING REST OF EDITOR
-            /// ////////////////////////////////////////////////////////
+            // UPDATING REST OF EDITOR
+            // ///////////////////////////////////////////////////////////
             
             // aktualizujeme seznam objektu
             if (_updateAll)

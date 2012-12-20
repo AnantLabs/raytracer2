@@ -14,9 +14,12 @@ namespace _3dEditor
 {
     public partial class WndScene : Form
     {
-        enum TreeNodeTypes { 
+        enum TreeNodeTypes
+        {
             Objects, Lights, Camera, Images, Animations, // top level nodes
-            Spheres, Planes, Cubes, Cylinders, Triangles}
+            Spheres, Planes, Cubes, Cylinders, Triangles,
+            Cones
+        }
 
         /// <summary>
         /// zda je prave meneho zaskrtnuti pro vsechny sousedy
@@ -248,6 +251,10 @@ namespace _3dEditor
             else if (drawObj.GetType() == typeof(DrawingTriangle))
             {
                 this.AddItem(drawObj, TreeNodeTypes.Triangles);
+            }
+            else if (drawObj.GetType() == typeof(DrawingCone))
+            {
+                this.AddItem(drawObj, TreeNodeTypes.Cones);
             }
             else if (drawObj.GetType() == typeof(DrawingAnimation))
             {
