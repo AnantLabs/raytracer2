@@ -10,12 +10,17 @@ namespace RayTracerLib
         /// <summary>
         /// Vrchol kuzele
         /// </summary>
-        public Vektor C { get; private set; }
+        public Vektor Peak { get; private set; }
 
         /// <summary>
-        /// Osa kuzele - smerucijici z vrcholu C
+        /// Osa kuzele - smerujici z vrcholu k podstave
         /// </summary>
         public Vektor Dir { get; private set; }
+
+        /// <summary>
+        /// Stred kuzele na podstave
+        /// </summary>
+        public Vektor Center { get; private set; }
 
         /// <summary>
         /// polomer podstravy
@@ -44,14 +49,14 @@ namespace RayTracerLib
         {
             IsActive = true;
             Material = new Material();
-            this.Set(c, dir, rad, height);
+            this.SetValues(c, dir, rad, height);
         }
 
         public Cone(Cone old)
         {
             this.IsActive = old.IsActive;
-            this.C = new Vektor(old.C);
-            this.Dir = new Vektor(old.Dir);
+            this.Peak = new Vektor(old.Peak);
+            this.Center = new Vektor(old.Center);
             this.DirNom = new Vektor(old.DirNom);
             this.Height = old.Height;
             this.Material = new Material(old.Material);
@@ -59,18 +64,20 @@ namespace RayTracerLib
             this.S = old.S;
         }
 
-        public void Set(Vektor c, Vektor dir, double rad, double height)
+        public void SetValues(Vektor c, Vektor dir, double rad, double height)
         {
-            C = c;
+            Peak = c;
             
             Rad = rad;
             Height = height;
 
+            Dir = dir;
             this.DirNom = new Vektor(dir);
             DirNom.Normalize();
 
-            Dir = C + DirNom * height;
-            double T = Rad / Dir.Size();
+            Center = Peak + DirNom * height;
+            double tt = Center.Size();
+            double T = Rad / Height;
             S = 1 + T * T;
 
             // rovina podstavy: C*Norm = D
@@ -78,8 +85,9 @@ namespace RayTracerLib
             // vime: C .. stred roviny
             //       Norm .. normala roviny = Dir nebo -Dir
             // chceme: D
+            // D = Center * DirNorm
 
-            Bottom = new Plane(DirNom, -(Dir * DirNom), this.Material);
+            Bottom = new Plane(DirNom, -(Center * DirNom), this.Material);
         }
 
         public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
@@ -92,9 +100,10 @@ namespace RayTracerLib
             
             List<SolidPoint> BasePoints = new List<SolidPoint>();
             Bottom.Intersects(P0, Pd, ref BasePoints);
+            
             foreach (SolidPoint sps in BasePoints)
             {
-                if (MyMath.Distance2Points(sps.Coord, Dir) <= this.Rad)
+                if (MyMath.Distance2Points(sps.Coord, Center) <= this.Rad)
                 {
                     sps.Shape = this;
                     InterPoint.Add(sps);
@@ -106,7 +115,7 @@ namespace RayTracerLib
             /////////////////////////////////////////
             // 2) prunik paprsku s plastem
             
-            Vektor p = P0 - C;
+            Vektor p = P0 - Peak;
 
             double pp = p * p;
             double pu = p * Pd;
@@ -137,7 +146,7 @@ namespace RayTracerLib
                 return toReturn;
 
             Vektor Point = P0 + Pd * t;
-            Vektor q = Point - C;
+            Vektor q = Point - Peak;
             Vektor q0 = q - DirNom * (q * DirNom);
             //q0.Normalize();
             Vektor qt = Vektor.CrossProduct(DirNom, q0);
@@ -172,7 +181,13 @@ namespace RayTracerLib
 
         public override string ToString()
         {
-            return "Center: " + this.C + "; Dir: " + this.Dir;
+            return "Peak: " + this.Peak + "; Dir: " + this.Dir;
+        }
+
+        public void MoveToPoint(double p1, double p2, double p3)
+        {
+            Vektor newPeak = new Vektor(p1, p2, p3);
+            this.SetValues(newPeak, this.Dir, this.Rad, this.Height);
         }
     }
 }

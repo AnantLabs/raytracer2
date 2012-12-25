@@ -386,6 +386,54 @@
             this.numericTriangleAY = new System.Windows.Forms.NumericUpDown();
             this.label164 = new System.Windows.Forms.Label();
             this.label165 = new System.Windows.Forms.Label();
+            this.panelCone = new System.Windows.Forms.Panel();
+            this.label178 = new System.Windows.Forms.Label();
+            this.label179 = new System.Windows.Forms.Label();
+            this.label180 = new System.Windows.Forms.Label();
+            this.label181 = new System.Windows.Forms.Label();
+            this.label182 = new System.Windows.Forms.Label();
+            this.numericConeAngleZ = new System.Windows.Forms.NumericUpDown();
+            this.numericConeAngleY = new System.Windows.Forms.NumericUpDown();
+            this.numericConeAngleX = new System.Windows.Forms.NumericUpDown();
+            this.label183 = new System.Windows.Forms.Label();
+            this.numericConeN = new System.Windows.Forms.NumericUpDown();
+            this.label184 = new System.Windows.Forms.Label();
+            this.numericConeKt = new System.Windows.Forms.NumericUpDown();
+            this.label185 = new System.Windows.Forms.Label();
+            this.btnConeColor = new System.Windows.Forms.Button();
+            this.numericConeH = new System.Windows.Forms.NumericUpDown();
+            this.numericConeColR = new System.Windows.Forms.NumericUpDown();
+            this.numericConeColB = new System.Windows.Forms.NumericUpDown();
+            this.label186 = new System.Windows.Forms.Label();
+            this.numericConeColG = new System.Windows.Forms.NumericUpDown();
+            this.label187 = new System.Windows.Forms.Label();
+            this.label188 = new System.Windows.Forms.Label();
+            this.label189 = new System.Windows.Forms.Label();
+            this.numericConeKa = new System.Windows.Forms.NumericUpDown();
+            this.label190 = new System.Windows.Forms.Label();
+            this.numericConeKd = new System.Windows.Forms.NumericUpDown();
+            this.label191 = new System.Windows.Forms.Label();
+            this.numericConeKs = new System.Windows.Forms.NumericUpDown();
+            this.label192 = new System.Windows.Forms.Label();
+            this.label193 = new System.Windows.Forms.Label();
+            this.numericConeHeight = new System.Windows.Forms.NumericUpDown();
+            this.numericConeRadius = new System.Windows.Forms.NumericUpDown();
+            this.label194 = new System.Windows.Forms.Label();
+            this.label195 = new System.Windows.Forms.Label();
+            this.numericConeDirX = new System.Windows.Forms.NumericUpDown();
+            this.numericConeDirZ = new System.Windows.Forms.NumericUpDown();
+            this.label196 = new System.Windows.Forms.Label();
+            this.numericConeDirY = new System.Windows.Forms.NumericUpDown();
+            this.label197 = new System.Windows.Forms.Label();
+            this.label198 = new System.Windows.Forms.Label();
+            this.label199 = new System.Windows.Forms.Label();
+            this.label200 = new System.Windows.Forms.Label();
+            this.numericConePeakX = new System.Windows.Forms.NumericUpDown();
+            this.numericConePeakZ = new System.Windows.Forms.NumericUpDown();
+            this.label201 = new System.Windows.Forms.Label();
+            this.numericConePeakY = new System.Windows.Forms.NumericUpDown();
+            this.label202 = new System.Windows.Forms.Label();
+            this.label203 = new System.Windows.Forms.Label();
             this.panelAnimace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).BeginInit();
@@ -534,6 +582,27 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericTriangleAX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericTriangleAZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericTriangleAY)).BeginInit();
+            this.panelCone.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeAngleZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeAngleY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeAngleX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeN)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeKt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeH)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeColR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeColB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeColG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeKa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeKd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeKs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeRadius)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeDirX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeDirZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeDirY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConePeakX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConePeakZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConePeakY)).BeginInit();
             this.SuspendLayout();
             // 
             // colorDialog
@@ -4739,7 +4808,7 @@
             0,
             0,
             0});
-            this.numCylN.ValueChanged += new System.EventHandler(this.actionCylinderSet);
+            this.numCylN.ValueChanged += new System.EventHandler(this.actionCylinderSetMaterial);
             // 
             // label4
             // 
@@ -4769,7 +4838,7 @@
             this.numCylKt.Name = "numCylKt";
             this.numCylKt.Size = new System.Drawing.Size(61, 20);
             this.numCylKt.TabIndex = 119;
-            this.numCylKt.ValueChanged += new System.EventHandler(this.actionCylinderSet);
+            this.numCylKt.ValueChanged += new System.EventHandler(this.actionCylinderSetMaterial);
             // 
             // label36
             // 
@@ -4803,7 +4872,7 @@
             0,
             0,
             0});
-            this.numCylH.ValueChanged += new System.EventHandler(this.actionCylinderSet);
+            this.numCylH.ValueChanged += new System.EventHandler(this.actionCylinderSetMaterial);
             // 
             // numCylColR
             // 
@@ -4817,7 +4886,7 @@
             this.numCylColR.Name = "numCylColR";
             this.numCylColR.Size = new System.Drawing.Size(61, 20);
             this.numCylColR.TabIndex = 113;
-            this.numCylColR.ValueChanged += new System.EventHandler(this.actionCylinderSet);
+            this.numCylColR.ValueChanged += new System.EventHandler(this.actionCylinderSetMaterial);
             // 
             // numCylColB
             // 
@@ -4831,7 +4900,7 @@
             this.numCylColB.Name = "numCylColB";
             this.numCylColB.Size = new System.Drawing.Size(61, 20);
             this.numCylColB.TabIndex = 110;
-            this.numCylColB.ValueChanged += new System.EventHandler(this.actionCylinderSet);
+            this.numCylColB.ValueChanged += new System.EventHandler(this.actionCylinderSetMaterial);
             // 
             // label37
             // 
@@ -4856,7 +4925,7 @@
             this.numCylColG.Name = "numCylColG";
             this.numCylColG.Size = new System.Drawing.Size(61, 20);
             this.numCylColG.TabIndex = 114;
-            this.numCylColG.ValueChanged += new System.EventHandler(this.actionCylinderSet);
+            this.numCylColG.ValueChanged += new System.EventHandler(this.actionCylinderSetMaterial);
             // 
             // label38
             // 
@@ -4908,7 +4977,7 @@
             0,
             0,
             65536});
-            this.numCylKa.ValueChanged += new System.EventHandler(this.actionCylinderSet);
+            this.numCylKa.ValueChanged += new System.EventHandler(this.actionCylinderSetMaterial);
             // 
             // label41
             // 
@@ -4938,7 +5007,7 @@
             0,
             0,
             65536});
-            this.numCylKd.ValueChanged += new System.EventHandler(this.actionCylinderSet);
+            this.numCylKd.ValueChanged += new System.EventHandler(this.actionCylinderSetMaterial);
             // 
             // label42
             // 
@@ -4968,7 +5037,7 @@
             0,
             0,
             65536});
-            this.numCylKs.ValueChanged += new System.EventHandler(this.actionCylinderSet);
+            this.numCylKs.ValueChanged += new System.EventHandler(this.actionCylinderSetMaterial);
             // 
             // label49
             // 
@@ -6061,12 +6130,757 @@
             this.label165.TabIndex = 24;
             this.label165.Text = "Y:";
             // 
+            // panelCone
+            // 
+            this.panelCone.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelCone.Controls.Add(this.label178);
+            this.panelCone.Controls.Add(this.label179);
+            this.panelCone.Controls.Add(this.label180);
+            this.panelCone.Controls.Add(this.label181);
+            this.panelCone.Controls.Add(this.label182);
+            this.panelCone.Controls.Add(this.numericConeAngleZ);
+            this.panelCone.Controls.Add(this.numericConeAngleY);
+            this.panelCone.Controls.Add(this.numericConeAngleX);
+            this.panelCone.Controls.Add(this.label183);
+            this.panelCone.Controls.Add(this.numericConeN);
+            this.panelCone.Controls.Add(this.label184);
+            this.panelCone.Controls.Add(this.numericConeKt);
+            this.panelCone.Controls.Add(this.label185);
+            this.panelCone.Controls.Add(this.btnConeColor);
+            this.panelCone.Controls.Add(this.numericConeH);
+            this.panelCone.Controls.Add(this.numericConeColR);
+            this.panelCone.Controls.Add(this.numericConeColB);
+            this.panelCone.Controls.Add(this.label186);
+            this.panelCone.Controls.Add(this.numericConeColG);
+            this.panelCone.Controls.Add(this.label187);
+            this.panelCone.Controls.Add(this.label188);
+            this.panelCone.Controls.Add(this.label189);
+            this.panelCone.Controls.Add(this.numericConeKa);
+            this.panelCone.Controls.Add(this.label190);
+            this.panelCone.Controls.Add(this.numericConeKd);
+            this.panelCone.Controls.Add(this.label191);
+            this.panelCone.Controls.Add(this.numericConeKs);
+            this.panelCone.Controls.Add(this.label192);
+            this.panelCone.Controls.Add(this.label193);
+            this.panelCone.Controls.Add(this.numericConeHeight);
+            this.panelCone.Controls.Add(this.numericConeRadius);
+            this.panelCone.Controls.Add(this.label194);
+            this.panelCone.Controls.Add(this.label195);
+            this.panelCone.Controls.Add(this.numericConeDirX);
+            this.panelCone.Controls.Add(this.numericConeDirZ);
+            this.panelCone.Controls.Add(this.label196);
+            this.panelCone.Controls.Add(this.numericConeDirY);
+            this.panelCone.Controls.Add(this.label197);
+            this.panelCone.Controls.Add(this.label198);
+            this.panelCone.Controls.Add(this.label199);
+            this.panelCone.Controls.Add(this.label200);
+            this.panelCone.Controls.Add(this.numericConePeakX);
+            this.panelCone.Controls.Add(this.numericConePeakZ);
+            this.panelCone.Controls.Add(this.label201);
+            this.panelCone.Controls.Add(this.numericConePeakY);
+            this.panelCone.Controls.Add(this.label202);
+            this.panelCone.Controls.Add(this.label203);
+            this.panelCone.Location = new System.Drawing.Point(365, 208);
+            this.panelCone.Name = "panelCone";
+            this.panelCone.Size = new System.Drawing.Size(458, 362);
+            this.panelCone.TabIndex = 64;
+            // 
+            // label178
+            // 
+            this.label178.AutoSize = true;
+            this.label178.BackColor = System.Drawing.Color.Gainsboro;
+            this.label178.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label178.Location = new System.Drawing.Point(1, 1);
+            this.label178.Name = "label178";
+            this.label178.Size = new System.Drawing.Size(58, 20);
+            this.label178.TabIndex = 63;
+            this.label178.Text = "CONE";
+            // 
+            // label179
+            // 
+            this.label179.AutoSize = true;
+            this.label179.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label179.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label179.Location = new System.Drawing.Point(112, 114);
+            this.label179.Name = "label179";
+            this.label179.Size = new System.Drawing.Size(15, 13);
+            this.label179.TabIndex = 126;
+            this.label179.Text = "x:";
+            // 
+            // label180
+            // 
+            this.label180.AutoSize = true;
+            this.label180.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label180.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label180.Location = new System.Drawing.Point(6, 113);
+            this.label180.Name = "label180";
+            this.label180.Size = new System.Drawing.Size(87, 16);
+            this.label180.TabIndex = 129;
+            this.label180.Text = "Orientation:";
+            // 
+            // label181
+            // 
+            this.label181.AutoSize = true;
+            this.label181.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label181.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label181.Location = new System.Drawing.Point(289, 114);
+            this.label181.Name = "label181";
+            this.label181.Size = new System.Drawing.Size(15, 13);
+            this.label181.TabIndex = 128;
+            this.label181.Text = "z:";
+            // 
+            // label182
+            // 
+            this.label182.AutoSize = true;
+            this.label182.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label182.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label182.Location = new System.Drawing.Point(197, 114);
+            this.label182.Name = "label182";
+            this.label182.Size = new System.Drawing.Size(15, 13);
+            this.label182.TabIndex = 127;
+            this.label182.Text = "y:";
+            // 
+            // numericConeAngleZ
+            // 
+            this.numericConeAngleZ.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericConeAngleZ.Location = new System.Drawing.Point(306, 111);
+            this.numericConeAngleZ.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numericConeAngleZ.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numericConeAngleZ.Name = "numericConeAngleZ";
+            this.numericConeAngleZ.Size = new System.Drawing.Size(45, 20);
+            this.numericConeAngleZ.TabIndex = 125;
+            // 
+            // numericConeAngleY
+            // 
+            this.numericConeAngleY.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericConeAngleY.Location = new System.Drawing.Point(214, 111);
+            this.numericConeAngleY.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numericConeAngleY.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numericConeAngleY.Name = "numericConeAngleY";
+            this.numericConeAngleY.Size = new System.Drawing.Size(45, 20);
+            this.numericConeAngleY.TabIndex = 124;
+            // 
+            // numericConeAngleX
+            // 
+            this.numericConeAngleX.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericConeAngleX.Location = new System.Drawing.Point(129, 111);
+            this.numericConeAngleX.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numericConeAngleX.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numericConeAngleX.Name = "numericConeAngleX";
+            this.numericConeAngleX.Size = new System.Drawing.Size(45, 20);
+            this.numericConeAngleX.TabIndex = 123;
+            // 
+            // label183
+            // 
+            this.label183.AutoSize = true;
+            this.label183.BackColor = System.Drawing.Color.Gainsboro;
+            this.label183.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label183.Location = new System.Drawing.Point(112, 267);
+            this.label183.Name = "label183";
+            this.label183.Size = new System.Drawing.Size(104, 13);
+            this.label183.TabIndex = 122;
+            this.label183.Text = "Refractive index (N):";
+            // 
+            // numericConeN
+            // 
+            this.numericConeN.DecimalPlaces = 1;
+            this.numericConeN.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericConeN.Location = new System.Drawing.Point(219, 265);
+            this.numericConeN.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericConeN.Name = "numericConeN";
+            this.numericConeN.Size = new System.Drawing.Size(61, 20);
+            this.numericConeN.TabIndex = 121;
+            this.numericConeN.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericConeN.ValueChanged += new System.EventHandler(this.actionConeSetMaterial);
+            // 
+            // label184
+            // 
+            this.label184.AutoSize = true;
+            this.label184.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label184.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label184.Location = new System.Drawing.Point(82, 244);
+            this.label184.Name = "label184";
+            this.label184.Size = new System.Drawing.Size(134, 13);
+            this.label184.TabIndex = 120;
+            this.label184.Text = "Refractive coefficient (KT):";
+            // 
+            // numericConeKt
+            // 
+            this.numericConeKt.DecimalPlaces = 1;
+            this.numericConeKt.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericConeKt.Location = new System.Drawing.Point(219, 243);
+            this.numericConeKt.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericConeKt.Name = "numericConeKt";
+            this.numericConeKt.Size = new System.Drawing.Size(61, 20);
+            this.numericConeKt.TabIndex = 119;
+            this.numericConeKt.ValueChanged += new System.EventHandler(this.actionConeSetMaterial);
+            // 
+            // label185
+            // 
+            this.label185.AutoSize = true;
+            this.label185.BackColor = System.Drawing.Color.Gainsboro;
+            this.label185.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label185.Location = new System.Drawing.Point(101, 223);
+            this.label185.Name = "label185";
+            this.label185.Size = new System.Drawing.Size(115, 13);
+            this.label185.TabIndex = 118;
+            this.label185.Text = "Specular reflection (H):";
+            // 
+            // btnConeColor
+            // 
+            this.btnConeColor.Location = new System.Drawing.Point(311, 285);
+            this.btnConeColor.Name = "btnConeColor";
+            this.btnConeColor.Size = new System.Drawing.Size(61, 23);
+            this.btnConeColor.TabIndex = 111;
+            this.btnConeColor.Text = "choose";
+            this.btnConeColor.UseVisualStyleBackColor = true;
+            this.btnConeColor.Click += new System.EventHandler(this.btnConeMaterialColor_Click);
+            // 
+            // numericConeH
+            // 
+            this.numericConeH.Location = new System.Drawing.Point(219, 221);
+            this.numericConeH.Name = "numericConeH";
+            this.numericConeH.Size = new System.Drawing.Size(61, 20);
+            this.numericConeH.TabIndex = 117;
+            this.numericConeH.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.numericConeH.ValueChanged += new System.EventHandler(this.actionConeSetMaterial);
+            // 
+            // numericConeColR
+            // 
+            this.numericConeColR.DecimalPlaces = 4;
+            this.numericConeColR.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericConeColR.Location = new System.Drawing.Point(84, 287);
+            this.numericConeColR.Name = "numericConeColR";
+            this.numericConeColR.Size = new System.Drawing.Size(61, 20);
+            this.numericConeColR.TabIndex = 113;
+            this.numericConeColR.ValueChanged += new System.EventHandler(this.actionConeSetMaterial);
+            // 
+            // numericConeColB
+            // 
+            this.numericConeColB.DecimalPlaces = 4;
+            this.numericConeColB.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericConeColB.Location = new System.Drawing.Point(244, 287);
+            this.numericConeColB.Name = "numericConeColB";
+            this.numericConeColB.Size = new System.Drawing.Size(61, 20);
+            this.numericConeColB.TabIndex = 110;
+            this.numericConeColB.ValueChanged += new System.EventHandler(this.actionConeSetMaterial);
+            // 
+            // label186
+            // 
+            this.label186.AutoSize = true;
+            this.label186.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label186.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label186.Location = new System.Drawing.Point(66, 290);
+            this.label186.Name = "label186";
+            this.label186.Size = new System.Drawing.Size(18, 13);
+            this.label186.TabIndex = 112;
+            this.label186.Text = "R:";
+            // 
+            // numericConeColG
+            // 
+            this.numericConeColG.DecimalPlaces = 4;
+            this.numericConeColG.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericConeColG.Location = new System.Drawing.Point(164, 287);
+            this.numericConeColG.Name = "numericConeColG";
+            this.numericConeColG.Size = new System.Drawing.Size(61, 20);
+            this.numericConeColG.TabIndex = 114;
+            this.numericConeColG.ValueChanged += new System.EventHandler(this.actionConeSetMaterial);
+            // 
+            // label187
+            // 
+            this.label187.AutoSize = true;
+            this.label187.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label187.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label187.Location = new System.Drawing.Point(225, 290);
+            this.label187.Name = "label187";
+            this.label187.Size = new System.Drawing.Size(17, 13);
+            this.label187.TabIndex = 115;
+            this.label187.Text = "B:";
+            // 
+            // label188
+            // 
+            this.label188.AutoSize = true;
+            this.label188.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label188.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label188.Location = new System.Drawing.Point(147, 290);
+            this.label188.Name = "label188";
+            this.label188.Size = new System.Drawing.Size(18, 13);
+            this.label188.TabIndex = 116;
+            this.label188.Text = "G:";
+            // 
+            // label189
+            // 
+            this.label189.AutoSize = true;
+            this.label189.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label189.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label189.Location = new System.Drawing.Point(10, 288);
+            this.label189.Name = "label189";
+            this.label189.Size = new System.Drawing.Size(57, 16);
+            this.label189.TabIndex = 109;
+            this.label189.Text = "Colour:";
+            // 
+            // numericConeKa
+            // 
+            this.numericConeKa.DecimalPlaces = 1;
+            this.numericConeKa.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericConeKa.Location = new System.Drawing.Point(219, 155);
+            this.numericConeKa.Name = "numericConeKa";
+            this.numericConeKa.Size = new System.Drawing.Size(61, 20);
+            this.numericConeKa.TabIndex = 105;
+            this.numericConeKa.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            65536});
+            this.numericConeKa.ValueChanged += new System.EventHandler(this.actionConeSetMaterial);
+            // 
+            // label190
+            // 
+            this.label190.AutoSize = true;
+            this.label190.BackColor = System.Drawing.Color.Gainsboro;
+            this.label190.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label190.Location = new System.Drawing.Point(25, 135);
+            this.label190.Name = "label190";
+            this.label190.Size = new System.Drawing.Size(68, 16);
+            this.label190.TabIndex = 102;
+            this.label190.Text = "Material:";
+            // 
+            // numericConeKd
+            // 
+            this.numericConeKd.DecimalPlaces = 1;
+            this.numericConeKd.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericConeKd.Location = new System.Drawing.Point(219, 199);
+            this.numericConeKd.Name = "numericConeKd";
+            this.numericConeKd.Size = new System.Drawing.Size(61, 20);
+            this.numericConeKd.TabIndex = 103;
+            this.numericConeKd.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericConeKd.ValueChanged += new System.EventHandler(this.actionConeSetMaterial);
+            // 
+            // label191
+            // 
+            this.label191.AutoSize = true;
+            this.label191.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label191.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label191.Location = new System.Drawing.Point(93, 157);
+            this.label191.Name = "label191";
+            this.label191.Size = new System.Drawing.Size(123, 13);
+            this.label191.TabIndex = 104;
+            this.label191.Text = "Ambient coefficient (KA):";
+            // 
+            // numericConeKs
+            // 
+            this.numericConeKs.DecimalPlaces = 1;
+            this.numericConeKs.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericConeKs.Location = new System.Drawing.Point(219, 177);
+            this.numericConeKs.Name = "numericConeKs";
+            this.numericConeKs.Size = new System.Drawing.Size(61, 20);
+            this.numericConeKs.TabIndex = 106;
+            this.numericConeKs.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            65536});
+            this.numericConeKs.ValueChanged += new System.EventHandler(this.actionConeSetMaterial);
+            // 
+            // label192
+            // 
+            this.label192.AutoSize = true;
+            this.label192.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label192.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label192.Location = new System.Drawing.Point(97, 201);
+            this.label192.Name = "label192";
+            this.label192.Size = new System.Drawing.Size(119, 13);
+            this.label192.TabIndex = 107;
+            this.label192.Text = "Diffuse coefficient (KD):";
+            // 
+            // label193
+            // 
+            this.label193.AutoSize = true;
+            this.label193.BackColor = System.Drawing.Color.Gainsboro;
+            this.label193.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label193.Location = new System.Drawing.Point(89, 179);
+            this.label193.Name = "label193";
+            this.label193.Size = new System.Drawing.Size(127, 13);
+            this.label193.TabIndex = 108;
+            this.label193.Text = "Specular coefficient (KS):";
+            // 
+            // numericConeHeight
+            // 
+            this.numericConeHeight.DecimalPlaces = 5;
+            this.numericConeHeight.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericConeHeight.Location = new System.Drawing.Point(113, 67);
+            this.numericConeHeight.Name = "numericConeHeight";
+            this.numericConeHeight.Size = new System.Drawing.Size(61, 20);
+            this.numericConeHeight.TabIndex = 101;
+            this.numericConeHeight.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericConeHeight.ValueChanged += new System.EventHandler(this.actionConeSet);
+            // 
+            // numericConeRadius
+            // 
+            this.numericConeRadius.DecimalPlaces = 5;
+            this.numericConeRadius.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericConeRadius.Location = new System.Drawing.Point(113, 45);
+            this.numericConeRadius.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericConeRadius.Name = "numericConeRadius";
+            this.numericConeRadius.Size = new System.Drawing.Size(61, 20);
+            this.numericConeRadius.TabIndex = 100;
+            this.numericConeRadius.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericConeRadius.ValueChanged += new System.EventHandler(this.actionConeSet);
+            // 
+            // label194
+            // 
+            this.label194.AutoSize = true;
+            this.label194.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label194.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label194.Location = new System.Drawing.Point(36, 69);
+            this.label194.Name = "label194";
+            this.label194.Size = new System.Drawing.Size(57, 16);
+            this.label194.TabIndex = 99;
+            this.label194.Text = "Height:";
+            // 
+            // label195
+            // 
+            this.label195.AutoSize = true;
+            this.label195.BackColor = System.Drawing.Color.Gainsboro;
+            this.label195.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label195.Location = new System.Drawing.Point(32, 47);
+            this.label195.Name = "label195";
+            this.label195.Size = new System.Drawing.Size(61, 16);
+            this.label195.TabIndex = 98;
+            this.label195.Text = "Radius:";
+            // 
+            // numericConeDirX
+            // 
+            this.numericConeDirX.DecimalPlaces = 5;
+            this.numericConeDirX.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericConeDirX.Location = new System.Drawing.Point(113, 89);
+            this.numericConeDirX.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericConeDirX.Name = "numericConeDirX";
+            this.numericConeDirX.Size = new System.Drawing.Size(61, 20);
+            this.numericConeDirX.TabIndex = 94;
+            this.numericConeDirX.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericConeDirX.ValueChanged += new System.EventHandler(this.actionConeSet);
+            // 
+            // numericConeDirZ
+            // 
+            this.numericConeDirZ.DecimalPlaces = 5;
+            this.numericConeDirZ.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericConeDirZ.Location = new System.Drawing.Point(290, 89);
+            this.numericConeDirZ.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericConeDirZ.Name = "numericConeDirZ";
+            this.numericConeDirZ.Size = new System.Drawing.Size(61, 20);
+            this.numericConeDirZ.TabIndex = 92;
+            this.numericConeDirZ.ValueChanged += new System.EventHandler(this.actionConeSet);
+            // 
+            // label196
+            // 
+            this.label196.AutoSize = true;
+            this.label196.BackColor = System.Drawing.Color.Gainsboro;
+            this.label196.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label196.Location = new System.Drawing.Point(92, 93);
+            this.label196.Name = "label196";
+            this.label196.Size = new System.Drawing.Size(17, 13);
+            this.label196.TabIndex = 93;
+            this.label196.Text = "X:";
+            // 
+            // numericConeDirY
+            // 
+            this.numericConeDirY.DecimalPlaces = 5;
+            this.numericConeDirY.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericConeDirY.Location = new System.Drawing.Point(198, 89);
+            this.numericConeDirY.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericConeDirY.Name = "numericConeDirY";
+            this.numericConeDirY.Size = new System.Drawing.Size(61, 20);
+            this.numericConeDirY.TabIndex = 95;
+            this.numericConeDirY.ValueChanged += new System.EventHandler(this.actionConeSet);
+            // 
+            // label197
+            // 
+            this.label197.AutoSize = true;
+            this.label197.BackColor = System.Drawing.Color.Gainsboro;
+            this.label197.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label197.Location = new System.Drawing.Point(270, 93);
+            this.label197.Name = "label197";
+            this.label197.Size = new System.Drawing.Size(17, 13);
+            this.label197.TabIndex = 96;
+            this.label197.Text = "Z:";
+            // 
+            // label198
+            // 
+            this.label198.AutoSize = true;
+            this.label198.BackColor = System.Drawing.Color.Gainsboro;
+            this.label198.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label198.Location = new System.Drawing.Point(178, 93);
+            this.label198.Name = "label198";
+            this.label198.Size = new System.Drawing.Size(17, 13);
+            this.label198.TabIndex = 97;
+            this.label198.Text = "Y:";
+            // 
+            // label199
+            // 
+            this.label199.AutoSize = true;
+            this.label199.BackColor = System.Drawing.Color.Gainsboro;
+            this.label199.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label199.Location = new System.Drawing.Point(19, 91);
+            this.label199.Name = "label199";
+            this.label199.Size = new System.Drawing.Size(74, 16);
+            this.label199.TabIndex = 91;
+            this.label199.Text = "Direction:";
+            // 
+            // label200
+            // 
+            this.label200.AutoSize = true;
+            this.label200.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label200.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label200.Location = new System.Drawing.Point(36, 25);
+            this.label200.Name = "label200";
+            this.label200.Size = new System.Drawing.Size(48, 16);
+            this.label200.TabIndex = 90;
+            this.label200.Text = "Peak:";
+            // 
+            // numericConePeakX
+            // 
+            this.numericConePeakX.DecimalPlaces = 5;
+            this.numericConePeakX.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericConePeakX.Location = new System.Drawing.Point(113, 23);
+            this.numericConePeakX.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericConePeakX.Name = "numericConePeakX";
+            this.numericConePeakX.Size = new System.Drawing.Size(61, 20);
+            this.numericConePeakX.TabIndex = 86;
+            this.numericConePeakX.ValueChanged += new System.EventHandler(this.actionConeSet);
+            // 
+            // numericConePeakZ
+            // 
+            this.numericConePeakZ.DecimalPlaces = 5;
+            this.numericConePeakZ.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericConePeakZ.Location = new System.Drawing.Point(290, 23);
+            this.numericConePeakZ.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericConePeakZ.Name = "numericConePeakZ";
+            this.numericConePeakZ.Size = new System.Drawing.Size(61, 20);
+            this.numericConePeakZ.TabIndex = 84;
+            this.numericConePeakZ.Value = new decimal(new int[] {
+            9,
+            0,
+            0,
+            -2147483648});
+            this.numericConePeakZ.ValueChanged += new System.EventHandler(this.actionConeSet);
+            // 
+            // label201
+            // 
+            this.label201.AutoSize = true;
+            this.label201.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label201.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label201.Location = new System.Drawing.Point(93, 27);
+            this.label201.Name = "label201";
+            this.label201.Size = new System.Drawing.Size(17, 13);
+            this.label201.TabIndex = 85;
+            this.label201.Text = "X:";
+            // 
+            // numericConePeakY
+            // 
+            this.numericConePeakY.DecimalPlaces = 5;
+            this.numericConePeakY.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericConePeakY.Location = new System.Drawing.Point(198, 23);
+            this.numericConePeakY.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numericConePeakY.Name = "numericConePeakY";
+            this.numericConePeakY.Size = new System.Drawing.Size(61, 20);
+            this.numericConePeakY.TabIndex = 87;
+            this.numericConePeakY.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericConePeakY.ValueChanged += new System.EventHandler(this.actionConeSet);
+            // 
+            // label202
+            // 
+            this.label202.AutoSize = true;
+            this.label202.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label202.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label202.Location = new System.Drawing.Point(270, 27);
+            this.label202.Name = "label202";
+            this.label202.Size = new System.Drawing.Size(17, 13);
+            this.label202.TabIndex = 88;
+            this.label202.Text = "Z:";
+            // 
+            // label203
+            // 
+            this.label203.AutoSize = true;
+            this.label203.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label203.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label203.Location = new System.Drawing.Point(178, 27);
+            this.label203.Name = "label203";
+            this.label203.Size = new System.Drawing.Size(17, 13);
+            this.label203.TabIndex = 89;
+            this.label203.Text = "Y:";
+            // 
             // WndProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1188, 778);
+            this.Controls.Add(this.panelCone);
             this.Controls.Add(this.panelCylindr);
             this.Controls.Add(this.panelRovina);
             this.Controls.Add(this.panelSphere);
@@ -6241,6 +7055,28 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericTriangleAX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericTriangleAZ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericTriangleAY)).EndInit();
+            this.panelCone.ResumeLayout(false);
+            this.panelCone.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeAngleZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeAngleY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeAngleX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeN)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeKt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeH)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeColR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeColB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeColG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeKa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeKd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeKs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeRadius)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeDirX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeDirZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConeDirY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConePeakX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConePeakZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericConePeakY)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -6605,6 +7441,54 @@
         private System.Windows.Forms.NumericUpDown numericTriangleAY;
         private System.Windows.Forms.Label label164;
         private System.Windows.Forms.Label label165;
+        private System.Windows.Forms.Panel panelCone;
+        private System.Windows.Forms.Label label178;
+        private System.Windows.Forms.Label label179;
+        private System.Windows.Forms.Label label180;
+        private System.Windows.Forms.Label label181;
+        private System.Windows.Forms.Label label182;
+        private System.Windows.Forms.NumericUpDown numericConeAngleZ;
+        private System.Windows.Forms.NumericUpDown numericConeAngleY;
+        private System.Windows.Forms.NumericUpDown numericConeAngleX;
+        private System.Windows.Forms.Label label183;
+        private System.Windows.Forms.NumericUpDown numericConeN;
+        private System.Windows.Forms.Label label184;
+        private System.Windows.Forms.NumericUpDown numericConeKt;
+        private System.Windows.Forms.Label label185;
+        private System.Windows.Forms.Button btnConeColor;
+        private System.Windows.Forms.NumericUpDown numericConeH;
+        private System.Windows.Forms.NumericUpDown numericConeColR;
+        private System.Windows.Forms.NumericUpDown numericConeColB;
+        private System.Windows.Forms.Label label186;
+        private System.Windows.Forms.NumericUpDown numericConeColG;
+        private System.Windows.Forms.Label label187;
+        private System.Windows.Forms.Label label188;
+        private System.Windows.Forms.Label label189;
+        private System.Windows.Forms.NumericUpDown numericConeKa;
+        private System.Windows.Forms.Label label190;
+        private System.Windows.Forms.NumericUpDown numericConeKd;
+        private System.Windows.Forms.Label label191;
+        private System.Windows.Forms.NumericUpDown numericConeKs;
+        private System.Windows.Forms.Label label192;
+        private System.Windows.Forms.Label label193;
+        private System.Windows.Forms.NumericUpDown numericConeHeight;
+        private System.Windows.Forms.NumericUpDown numericConeRadius;
+        private System.Windows.Forms.Label label194;
+        private System.Windows.Forms.Label label195;
+        private System.Windows.Forms.NumericUpDown numericConeDirX;
+        private System.Windows.Forms.NumericUpDown numericConeDirZ;
+        private System.Windows.Forms.Label label196;
+        private System.Windows.Forms.NumericUpDown numericConeDirY;
+        private System.Windows.Forms.Label label197;
+        private System.Windows.Forms.Label label198;
+        private System.Windows.Forms.Label label199;
+        private System.Windows.Forms.Label label200;
+        private System.Windows.Forms.NumericUpDown numericConePeakX;
+        private System.Windows.Forms.NumericUpDown numericConePeakZ;
+        private System.Windows.Forms.Label label201;
+        private System.Windows.Forms.NumericUpDown numericConePeakY;
+        private System.Windows.Forms.Label label202;
+        private System.Windows.Forms.Label label203;
 
     }
 }

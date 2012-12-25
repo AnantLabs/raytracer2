@@ -122,11 +122,12 @@ namespace RayTracerLib
         /// <summary>
         /// vynasobi vektor skalarem
         /// </summary>
-        public void MultiplyBy(double c)
+        public Vektor MultiplyBy(double c)
         {
             this.X *= c;
             this.Y *= c;
             this.Z *= c;
+            return this;
         }
 
         /// <summary>

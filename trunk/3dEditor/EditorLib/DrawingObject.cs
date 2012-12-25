@@ -63,6 +63,11 @@ namespace EditorLib
         public void Scale(double scale) { }
 
 
+        public double[] GetRotationAngles()
+        {
+            return _RotatMatrix.GetAnglesFromMatrix();
+        }
+
         public override string ToString()
         {
             return ModelObject.ToString();
