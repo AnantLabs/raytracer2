@@ -60,11 +60,14 @@ namespace _3dEditor
             nodeCyls.Tag = TreeNodeTypes.Cylinders;
             TreeNode nodeTriangs = new TreeNode(TreeNodeTypes.Triangles.ToString());
             nodeTriangs.Tag = TreeNodeTypes.Triangles;
+            TreeNode nodeCones = new TreeNode(TreeNodeTypes.Cones.ToString());
+            nodeCones.Tag = TreeNodeTypes.Cones;
 
             nodeObjects.Nodes.Add(nodeSpheres);
             nodeObjects.Nodes.Add(nodePlanes);
             nodeObjects.Nodes.Add(nodeCubes);
             nodeObjects.Nodes.Add(nodeCyls);
+            nodeObjects.Nodes.Add(nodeCones);
             nodeObjects.Nodes.Add(nodeTriangs);
 
             TreeNode nodeLights = new TreeNode(TreeNodeTypes.Lights.ToString());
@@ -94,7 +97,8 @@ namespace _3dEditor
 
             TreeNodeTypes rootTyp = typ;
             if (typ == TreeNodeTypes.Cubes || typ == TreeNodeTypes.Spheres ||
-                typ == TreeNodeTypes.Planes || typ == TreeNodeTypes.Cylinders || typ == TreeNodeTypes.Triangles)
+                typ == TreeNodeTypes.Planes || typ == TreeNodeTypes.Cylinders ||
+                typ == TreeNodeTypes.Triangles || typ == TreeNodeTypes.Cones)
                 rootTyp = TreeNodeTypes.Objects;
 
             foreach (TreeNode node in treeView1.Nodes)
@@ -615,7 +619,14 @@ namespace _3dEditor
             ParentEditor pared = (ParentEditor)this.ParentForm;
             pared.AddRaytrObject(triangl);
         }
-
+        private void onAddCone(object sender, EventArgs e)
+        {
+            WndBoard wndBoard = GetWndBoard();
+            Cone cone = new Cone(new Vektor(), new Vektor(1, 0, 0), 2, 5);
+            wndBoard.AddRaytrObject(cone);
+            ParentEditor pared = (ParentEditor)this.ParentForm;
+            pared.AddRaytrObject(cone);
+        }
         private void onAddLight(object sender, EventArgs e)
         {
             WndBoard wndBoard = GetWndBoard();

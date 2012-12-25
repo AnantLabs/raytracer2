@@ -103,6 +103,16 @@ namespace _3dEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cone_gray16 {
+            get {
+                object obj = ResourceManager.GetObject("cone_gray16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cube_icon24 {
             get {
                 object obj = ResourceManager.GetObject("cube_icon24", resourceCulture);

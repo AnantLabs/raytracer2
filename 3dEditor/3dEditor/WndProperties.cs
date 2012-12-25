@@ -43,6 +43,7 @@ namespace _3dEditor
             this.panelImage.Location = new Point(0, 0);
             this.panelAnimace.Location = new Point(0, 0);
             this.panelTriangle.Location = new Point(0, 0);
+            this.panelCone.Location = new Point(0, 0);
 
             _permissionToModify = true;
         }
@@ -75,6 +76,9 @@ namespace _3dEditor
             else if (obj.GetType() == typeof(DrawingCylinder))
                 ShowCylinder((DrawingCylinder)obj);
 
+            else if (obj.GetType() == typeof(DrawingCone))
+                ShowCone((DrawingCone)obj);
+
             else if (obj.GetType() == typeof(DrawingTriangle))
                 ShowTriangle((DrawingTriangle)obj);
 
@@ -103,6 +107,7 @@ namespace _3dEditor
         {
             this.panelSphere.Visible = false;
             this.panelCylindr.Visible = false;
+            this.panelCone.Visible = false;
             this.panelRovina.Visible = false;
             this.panelBox.Visible = false;
             this.panelLight.Visible = false;
@@ -145,6 +150,7 @@ namespace _3dEditor
             this.numSphPhi.Value = (decimal)drSphere.DecremPhi;
             this.numSphTheta.Value = (decimal)drSphere.DecremTheta;
 
+            btnSphMaterialColor.BackColor = sph.Material.Color.SystemColor();
         }
         private void ShowPlane(DrawingPlane drPlane)
         {
@@ -173,6 +179,8 @@ namespace _3dEditor
             this.numPlaneColR.Value = (decimal)pl.Material.Color.R;
             this.numPlaneColG.Value = (decimal)pl.Material.Color.G;
             this.numPlaneColB.Value = (decimal)pl.Material.Color.B;
+
+            btnPlaneMaterialColor.BackColor = pl.Material.Color.SystemColor();
 
             checkBoxMinX.Checked = (pl.MinX != Double.NegativeInfinity);
             if (checkBoxMinX.Checked)
@@ -235,6 +243,8 @@ namespace _3dEditor
             this.numBoxColR.Value = (decimal)c.Material.Color.R;
             this.numBoxColG.Value = (decimal)c.Material.Color.G;
             this.numBoxColB.Value = (decimal)c.Material.Color.B;
+
+            btnBoxMaterialColor.BackColor = c.Material.Color.SystemColor();
         }
 
         private void ShowCylinder(DrawingCylinder drCyl)
@@ -270,6 +280,8 @@ namespace _3dEditor
             this.numCylColR.Value = (decimal)c.Material.Color.R;
             this.numCylColG.Value = (decimal)c.Material.Color.G;
             this.numCylColB.Value = (decimal)c.Material.Color.B;
+
+            btnCylMaterialColor.BackColor = c.Material.Color.SystemColor();
         }
 
         private void ShowTriangle(DrawingTriangle drTriangl)
@@ -307,6 +319,8 @@ namespace _3dEditor
             this.numTriangColR.Value = (decimal)mat.Color.R;
             this.numTriangColG.Value = (decimal)mat.Color.G;
             this.numTriangColB.Value = (decimal)mat.Color.B;
+
+            btnTriangMaterialCol.BackColor = mat.Color.SystemColor();
         }
 
         private void ShowCamera(DrawingCamera drCam)
@@ -364,6 +378,7 @@ namespace _3dEditor
 
             this.checkBoxLightIsSoft.Checked = l.IsSoftLight;
 
+            btnLighColor.BackColor = l.Color.SystemColor();
 
             this.numericLightNum.Value = l.SoftNumSize;
             this.numericLightEps.Value = (decimal)l.SoftEpsilon;
@@ -560,6 +575,8 @@ namespace _3dEditor
             int theta = (int)this.numSphTheta.Value;
             int phi = (int)this.numSphPhi.Value;
 
+            btnSphMaterialColor.BackColor = mat.Color.SystemColor();
+
             drSph.SetModelObject(sph, size, theta, phi);
             WndBoard wndB = GetWndBoard();
             drSph.ApplyRotationMatrix(wndB.RotationMatrix);
@@ -655,6 +672,8 @@ namespace _3dEditor
             plane.Material = mat;
             plane.CreateBoundVektors();
 
+            btnPlaneMaterialColor.BackColor = mat.Color.SystemColor();
+
             drPlane.SetModelObject(plane, size, dist);
             WndBoard wndB = GetWndBoard();
             drPlane.ApplyRotationMatrix(wndB.RotationMatrix);
@@ -725,6 +744,8 @@ namespace _3dEditor
             cube.Material = mat;
             cube.SetValues(center, dir, size);
 
+            btnBoxMaterialColor.BackColor = mat.Color.SystemColor();
+
             drCube.SetModelObject(cube);
             WndBoard wndB = GetWndBoard();
             drCube.ApplyRotationMatrix(wndB.RotationMatrix);
@@ -748,6 +769,9 @@ namespace _3dEditor
                 this.numBoxColG.Value = (decimal)col.G;
                 _permissionToModify = true;
                 this.numBoxColB.Value = (decimal)col.B;
+
+                Button btn = sender as Button;
+                btn.BackColor = colorDialog.Color;
             }
         }
 
@@ -779,6 +803,26 @@ namespace _3dEditor
             double r = (double)this.numericCylR.Value;
             double h = (double)this.numericCylH.Value;
 
+
+            cyl.SetValues(center, dir, r, h);
+
+            drCyl.SetModelObject(cyl);
+            WndBoard wndB = GetWndBoard();
+            drCyl.ApplyRotationMatrix(wndB.RotationMatrix);
+            WndScene wndSc = GetWndScene();
+            wndSc.UpdateRecords();
+        }
+        private void actionCylinderSetMaterial(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingCylinder))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            DrawingCylinder drCyl = (DrawingCylinder)_currentlyDisplayed;
+            Cylinder cyl = (Cylinder)drCyl.ModelObject;
+
             Material mat = new Material();
             mat.Ka = (double)this.numCylKa.Value;
             mat.Ks = (double)this.numCylKs.Value;
@@ -792,15 +836,13 @@ namespace _3dEditor
             mat.Color.B = (double)this.numCylColB.Value;
 
             cyl.Material = mat;
-            cyl.SetValues(center, dir, r, h);
+
+            btnCylMaterialColor.BackColor = mat.Color.SystemColor();
 
             drCyl.SetModelObject(cyl);
             WndBoard wndB = GetWndBoard();
             drCyl.ApplyRotationMatrix(wndB.RotationMatrix);
-            WndScene wndSc = GetWndScene();
-            wndSc.UpdateRecords();
         }
-        
 
         private void btnCylMaterialColor_Click(object sender, EventArgs e)
         {
@@ -818,9 +860,149 @@ namespace _3dEditor
                 this.numCylColG.Value = (decimal)col.G;
                 _permissionToModify = true;
                 this.numCylColB.Value = (decimal)col.B;
+                Button btn = sender as Button;
+                btn.BackColor = colorDialog.Color;
             }
         }
         #endregion
+
+
+        ///////////////////////////////////////////////
+        //////// C O N E
+        //////////////////////////////////////////////
+        private void ShowCone(DrawingCone drCone)
+        {
+            // zabraneni neustalemu blikani pri modifikaci stejne koule
+            if (!this.panelCone.Visible)
+            {
+                SetAllInvisible();
+                this.panelCone.Visible = true;
+                this.Text = "Properties: Cone";
+            }
+
+            Cone c = (Cone)drCone.ModelObject;
+
+            this.numericConePeakX.Value = (decimal)MyMath.Clamp(c.Peak.X, -100, 100);
+            this.numericConePeakY.Value = (decimal)MyMath.Clamp(c.Peak.Y, -100, 100);
+            this.numericConePeakZ.Value = (decimal)MyMath.Clamp(c.Peak.Z, -100, 100);
+
+            this.numericConeDirX.Value = (decimal)MyMath.Clamp(c.Dir.X, -100, 100);
+            this.numericConeDirY.Value = (decimal)MyMath.Clamp(c.Dir.Y, -100, 100);
+            this.numericConeDirZ.Value = (decimal)MyMath.Clamp(c.Dir.Z, -100, 100);
+
+            this.numericConeHeight.Value = (decimal)c.Height;
+            this.numericConeRadius.Value = (decimal)c.Rad;
+
+            double[] angles = drCone.GetRotationAngles();
+            this.numericConeAngleX.Value = (decimal)MyMath.Clamp(angles[0], -180, 180);
+            this.numericConeAngleY.Value = (decimal)MyMath.Clamp(angles[1], -180, 180);
+            this.numericConeAngleZ.Value = (decimal)MyMath.Clamp(angles[2], -180, 180);
+
+            this.numericConeKa.Value = (decimal)c.Material.Ka;
+            this.numericConeKs.Value = (decimal)c.Material.Ks;
+            this.numericConeKd.Value = (decimal)c.Material.Kd;
+            this.numericConeKt.Value = (decimal)c.Material.KT;
+            this.numericConeH.Value = (decimal)c.Material.SpecularExponent;
+            this.numericConeN.Value = (decimal)c.Material.N;
+
+            this.numericConeColR.Value = (decimal)c.Material.Color.R;
+            this.numericConeColG.Value = (decimal)c.Material.Color.G;
+            this.numericConeColB.Value = (decimal)c.Material.Color.B;
+
+            btnConeColor.BackColor = c.Material.Color.SystemColor();
+        }
+
+        private void actionConeSet(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingCone))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            DrawingCone drCone = (DrawingCone)_currentlyDisplayed;
+            Cone cone = (Cone)drCone.ModelObject;
+
+            Vektor peak = new Vektor(
+                (double)this.numericConePeakX.Value,
+                (double)this.numericConePeakY.Value,
+                (double)this.numericConePeakZ.Value);
+            
+            Vektor dir = new Vektor(
+                (double)this.numericConeDirX.Value,
+                (double)this.numericConeDirY.Value,
+                (double)this.numericConeDirZ.Value);
+            
+            double rad = (double)this.numericConeRadius.Value;
+            double height = (double)this.numericConeHeight.Value;
+
+            double[] angles = new double[]{
+                (double)this.numericConeAngleX.Value,
+                (double)this.numericConeAngleY.Value,
+                (double)this.numericConeAngleZ.Value};
+
+            cone.SetValues(peak, dir, rad, height);
+
+            drCone.SetModelObject(cone);
+            WndBoard wndB = GetWndBoard();
+            drCone.ApplyRotationMatrix(wndB.RotationMatrix);
+            WndScene wndSc = GetWndScene();
+            wndSc.UpdateRecords();
+        }
+
+        private void actionConeSetMaterial(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingCone))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            DrawingCone drCone = (DrawingCone)_currentlyDisplayed;
+            Cone cone = (Cone)drCone.ModelObject;
+
+            Material mat = new Material();
+            mat.Ka = (double)this.numericConeKa.Value;
+            mat.Ks = (double)this.numericConeKs.Value;
+            mat.Kd = (double)this.numericConeKd.Value;
+            mat.KT = (double)this.numericConeKt.Value;
+            mat.SpecularExponent = (int)this.numericConeH.Value;
+            mat.N = (double)this.numericConeN.Value;
+
+            mat.Color.R = (double)this.numericConeColR.Value;
+            mat.Color.G = (double)this.numericConeColG.Value;
+            mat.Color.B = (double)this.numericConeColB.Value;
+
+            cone.Material = mat;
+
+            btnConeColor.BackColor = mat.Color.SystemColor();
+            
+            drCone.SetModelObject(cone);
+            WndBoard wndB = GetWndBoard();
+            drCone.ApplyRotationMatrix(wndB.RotationMatrix);
+        }
+
+        private void btnConeMaterialColor_Click(object sender, EventArgs e)
+        {
+            if (this.colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                double r = colorDialog.Color.R / (double)255;
+                double g = colorDialog.Color.G / (double)255;
+                double b = colorDialog.Color.B / (double)255;
+                double a = colorDialog.Color.A / (double)255;
+
+                RayTracerLib.Colour col = new RayTracerLib.Colour(r, g, b, a);
+
+                _permissionToModify = false;
+                this.numericConeColR.Value = (decimal)col.R;
+                this.numericConeColG.Value = (decimal)col.G;
+                _permissionToModify = true;
+                this.numericConeColB.Value = (decimal)col.B;
+                Button btn = sender as Button;
+                btn.BackColor = colorDialog.Color;
+            }
+        }
+
         ///////////////////////////////////////////////
         //////// C A M E R A
         //////////////////////////////////////////////
@@ -917,6 +1099,8 @@ namespace _3dEditor
             bool isSinglePass = this.radioSinglePass.Checked;
             if (light.IsSoftLight)
                 light.SetSoftLights(numSoftLights, epsSoftLights, isSinglePass);
+
+            btnLighColor.BackColor = light.Color.SystemColor();
 
             drLight.SetModelObject(light);
             WndBoard wndB = GetWndBoard();
@@ -1248,7 +1432,8 @@ namespace _3dEditor
 
             triangl.Material = mat;
             triangl.Set(A, B, C);
-            
+
+            btnTriangMaterialCol.BackColor = mat.Color.SystemColor();
 
             drTriang.SetModelObject(triangl);
             WndBoard wndB = GetWndBoard();

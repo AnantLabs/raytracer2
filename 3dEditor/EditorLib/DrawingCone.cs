@@ -28,9 +28,22 @@ namespace EditorLib
 
         public DrawingCone(Cone cone)
         {
+            SetModelObject(cone);
+        }
+
+        public override void SetModelObject(object modelObject)
+        {
+            if (modelObject != null && modelObject.GetType() == typeof(RayTracerLib.Cone))
+                this.SetModelObject((RayTracerLib.Cone)modelObject);
+        }
+
+        public void SetModelObject(Cone cone)
+        {
+            this.ModelObject = cone;
+
             Lines = new List<Line3D>();
             List<Point3D> points = new List<Point3D>();
-            points.Add(new Point3D(0, 0, 0));
+            points.Add(new Point3D(0, cone.Height, 0));
 
             double rad = cone.Rad;
             double pi4 = Math.PI / 4;
@@ -55,15 +68,15 @@ namespace EditorLib
                 Lines.Add(line);
             }
 
-            Vektor c = cone.C;
-            
-            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(c.X, c.Y, c.Z);
 
-            Point3D c3 = new Point3D(c.X, c.Y, c.Z);
             Vektor dir = new Vektor(cone.Dir);
+            dir.MultiplyBy(-1);
             dir.Normalize();
             Point3D cDir3 = new Point3D(dir.X, dir.Y, dir.Z);
             Point3D yAxe = new Point3D(0, 1, 0);
+
+            Vektor c = cone.Center;
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(c.X, c.Y, c.Z);
 
 
             Point3D crossProd = cDir3.CrossProduct(yAxe);
@@ -90,7 +103,7 @@ namespace EditorLib
 
 
 
-            
+
 
 
 
@@ -130,7 +143,7 @@ namespace EditorLib
             Matrix3D.TestMatrixAnglesBack(10, 40, 90);
             */
 
-            
+
 
 
 

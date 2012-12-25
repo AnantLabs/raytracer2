@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3dEditor", "3dEditor\3dEditor.csproj", "{A58244ED-5CFD-4972-BDD5-B7B579DADD30}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorLib", "EditorLib\EditorLib.csproj", "{910F9DBC-754D-47AE-BAB4-F24EC4268ACF}"
@@ -8,8 +8,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RayTracerLib", "RayTracerLib\RayTracerLib.csproj", "{1276C07D-7BA3-466C-8D0E-3B4342F3583E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RayTracerForm", "RayTracerForm\RayTracerForm.csproj", "{076963B2-ABF6-47E9-85C8-A7D268DA9E9D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTree", "RTree\RTree.csproj", "{46A9A4EF-0537-4A2B-92A2-090BDF6B022F}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -37,10 +35,6 @@ Global
 		{076963B2-ABF6-47E9-85C8-A7D268DA9E9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{076963B2-ABF6-47E9-85C8-A7D268DA9E9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{076963B2-ABF6-47E9-85C8-A7D268DA9E9D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{46A9A4EF-0537-4A2B-92A2-090BDF6B022F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46A9A4EF-0537-4A2B-92A2-090BDF6B022F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{46A9A4EF-0537-4A2B-92A2-090BDF6B022F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{46A9A4EF-0537-4A2B-92A2-090BDF6B022F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

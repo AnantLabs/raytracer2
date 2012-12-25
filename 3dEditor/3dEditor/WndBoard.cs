@@ -865,6 +865,14 @@ namespace _3dEditor
                             Point3D centerTransp = transp.Transform2NewPoint(drCyl.Center);
                             cyl.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
                         }
+                        else if (ds is Cone)
+                        {
+                            DrawingCone drCone = _Selected as DrawingCone;
+                            Cone cone = ds as Cone;
+                            Matrix3D transp = this._matrixForever.Transpose();
+                            Point3D centerTransp = transp.Transform2NewPoint(drCone.Center);
+                            cone.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                        }
                         else if (ds is Triangle)
                         {
                             DrawingTriangle drTriangl = _Selected as DrawingTriangle;

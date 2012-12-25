@@ -250,9 +250,9 @@ namespace RayTracerLib
             {
                 Cone cone = (Cone)item;
 
-                Vektor point1 = cone.C;
-                Vektor point2 = cone.Dir + new Vektor(cone.Rad, cone.Rad, cone.Rad);
-                Vektor point3 = cone.Dir - new Vektor(cone.Rad, cone.Rad, cone.Rad);
+                Vektor point1 = cone.Peak;
+                Vektor point2 = cone.Center + new Vektor(cone.Rad, cone.Rad, cone.Rad);
+                Vektor point3 = cone.Center - new Vektor(cone.Rad, cone.Rad, cone.Rad);
 
                 double minX = Math.Min(point1.X, point2.X);
                 minX = Math.Min(minX, point3.X);
