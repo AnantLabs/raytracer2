@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using RayTracerLib;
 using System.Drawing;
+using Mathematics;
 
 namespace EditorLib
 {
@@ -19,7 +20,7 @@ namespace EditorLib
 
         private const int _SIDE_NUM = 50;
 
-        public Point3D CenterWorld { get; set; }
+        public Vektor CenterWorld { get; set; }
 
         public static Pen EllipsePen = new Pen(Color.DimGray, 2.5f);
         public static Pen EllipseSelectedPen = new Pen(Color.DarkSlateGray, 3.5f);
@@ -28,7 +29,7 @@ namespace EditorLib
         /// <summary>
         /// stred elipsy v editoru
         /// </summary>
-        public Point3D Center
+        public Vektor Center
         {
             get { return Points[0]; }
             private set { Points[0] = value; }
@@ -58,9 +59,9 @@ namespace EditorLib
         public AnimationType TypeAnim { get; set; }
 
 
-        public DrawingAnimation() : this(new Point3D(1, 0, 1), _INIT_A, _INIT_B) { }
+        public DrawingAnimation() : this(new Vektor(1, 0, 1), _INIT_A, _INIT_B) { }
 
-        public DrawingAnimation(Point3D center, double a, double b)
+        public DrawingAnimation(Vektor center, double a, double b)
         {
             ShowAnimation = true;
             FileFullPath = _INIT_FILE_FULL_PATH;
@@ -74,22 +75,22 @@ namespace EditorLib
         /// <summary>
         /// vytvori body pro vykresleni trajektorie v editoru
         /// </summary>
-        public void Set(Point3D center, double a, double b)
+        public void Set(Vektor center, double a, double b)
         {
             A = a;
             B = b;
-            CenterWorld = new Point3D(center);
+            CenterWorld = new Vektor(center);
 
             _ShiftMatrix = Matrix3D.PosunutiNewMatrix(center.X, center.Y, center.Z);
-            Point3D a1 = new Point3D(a, 0, 0);
-            Point3D a2 = new Point3D(-a, 0, 0);
+            Vektor a1 = new Vektor(a, 0, 0);
+            Vektor a2 = new Vektor(-a, 0, 0);
             Line3D line1 = new Line3D(a1, a2);  // axis A
-            Point3D c1 = new Point3D(0, b, 0);
-            Point3D c2 = new Point3D(0, -b, 0);
+            Vektor c1 = new Vektor(0, b, 0);
+            Vektor c2 = new Vektor(0, -b, 0);
             Line3D line2 = new Line3D(c1, c2);  // axis B
             
-            List<Point3D> points = new List<Point3D>();
-            points.Add(new Point3D(0, 0, 0));
+            List<Vektor> points = new List<Vektor>();
+            points.Add(new Vektor(0, 0, 0));
             points.Add(a1); points.Add(a2);
             points.Add(c1); points.Add(c2);
 
@@ -97,8 +98,8 @@ namespace EditorLib
             Lines.Add(line1);
             Lines.Add(line2);
 
-            List<Point3D> poledniky = getPoledniky();
-            //List<Point3D> poledniky = getPolednikyElipsy(Theta);
+            List<Vektor> poledniky = getPoledniky();
+            //List<Vektor> poledniky = getPolednikyElipsy(Theta);
             
             points.AddRange(poledniky);
             Points = points.ToArray();
@@ -108,24 +109,24 @@ namespace EditorLib
         }
 
 
-        private List<Point3D> getPoledniky()
+        private List<Vektor> getPoledniky()
         {
             int sides = _SIDE_NUM;  // The amount of segment to create the circle
             //double theta = 360;
 
             //double thetaRads = theta * Math.PI / 180;
             double thetaRads = 0;
-            List<Point3D> points = new List<Point3D>();
+            List<Vektor> points = new List<Vektor>();
             for (int a = 0; a < 360; a += 360 / sides)
             {
                 double phi = a * Math.PI / 180;
                 float x = (float)(Math.Cos(thetaRads) * Math.Sin(phi) * A);
                 float y = (float)(Math.Sin(phi) * Math.Sin(thetaRads));
                 float z = (float)(Math.Cos(phi) * B);
-                Point3D p = new Point3D(x, z, y);
+                Vektor p = new Vektor(x, z, y);
                 points.Add(p);
             }
-            points.Add(new Point3D(points[0].X, points[0].Y, points[0].Z));
+            points.Add(new Vektor(points[0].X, points[0].Y, points[0].Z));
 
             return points;
         }
@@ -134,9 +135,9 @@ namespace EditorLib
         {
             this.Set(CenterWorld, A, B);
         }
-        public Point3D[] GetDrawingPoints()
+        public Vektor[] GetDrawingPoints()
         {
-            List<Point3D> ls = new List<Point3D>(Points);
+            List<Vektor> ls = new List<Vektor>(Points);
             return ls.GetRange(5, ls.Count - 5).ToArray();
         }
 
@@ -145,9 +146,9 @@ namespace EditorLib
             return "Center= " + CenterWorld + ";A= " + A + ";B= " + B + ";";
         }
 
-        public override Point3D GetCenter()
+        public override Vektor GetCenter()
         {
-            return new Point3D(this.CenterWorld);
+            return new Vektor(this.CenterWorld);
         }
     }
 }

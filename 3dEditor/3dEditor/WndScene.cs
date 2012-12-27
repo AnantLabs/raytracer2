@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 using EditorLib;
 using RayTracerLib;
+using Mathematics;
 
 namespace _3dEditor
 {

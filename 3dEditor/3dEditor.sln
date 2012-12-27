@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RayTracerLib", "RayTracerLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RayTracerForm", "RayTracerForm\RayTracerForm.csproj", "{076963B2-ABF6-47E9-85C8-A7D268DA9E9D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mathematics", "Mathematics\Mathematics.csproj", "{5D8D6B50-76B0-4A34-B5D5-6B5DFDD5BE34}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -35,6 +37,10 @@ Global
 		{076963B2-ABF6-47E9-85C8-A7D268DA9E9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{076963B2-ABF6-47E9-85C8-A7D268DA9E9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{076963B2-ABF6-47E9-85C8-A7D268DA9E9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D8D6B50-76B0-4A34-B5D5-6B5DFDD5BE34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D8D6B50-76B0-4A34-B5D5-6B5DFDD5BE34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D8D6B50-76B0-4A34-B5D5-6B5DFDD5BE34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D8D6B50-76B0-4A34-B5D5-6B5DFDD5BE34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

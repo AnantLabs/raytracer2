@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using RayTracerLib;
 using System.IO;
 using System.Threading;
+using Mathematics;
 
 namespace RayTracerForm
 {

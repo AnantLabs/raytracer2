@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using RayTracerLib;
+using Mathematics;
 
 namespace EditorLib
 {
@@ -65,19 +66,19 @@ namespace EditorLib
         private void Set()
         {
             Plane plane = (Plane)ModelObject;
-            Point3D leftCorner = new Point3D(plane.Pocatek.X, plane.Pocatek.Y, plane.Pocatek.Z);
+            Vektor leftCorner = new Vektor(plane.Pocatek.X, plane.Pocatek.Y, plane.Pocatek.Z);
 
-            List<Point3D> points = new List<Point3D>();
+            List<Vektor> points = new List<Vektor>();
             List<Line3D> lines = new List<Line3D>(2 * (Size + 1));
             Line3D line;
             if (leftCorner == null)
-                leftCorner = new Point3D(-5, 0, -5);
+                leftCorner = new Vektor(-5, 0, -5);
 
             // MRIZKA
             for (float i = 0; i <= Size; i += Distance)
             {
-                Point3D p1 = new Point3D(leftCorner.X + i, leftCorner.Y, leftCorner.Z);
-                Point3D p2 = new Point3D(leftCorner.X + i, leftCorner.Y, leftCorner.Z + Size);
+                Vektor p1 = new Vektor(leftCorner.X + i, leftCorner.Y, leftCorner.Z);
+                Vektor p2 = new Vektor(leftCorner.X + i, leftCorner.Y, leftCorner.Z + Size);
                 points.Add(p1);
                 points.Add(p2);
                 line = new Line3D(p1, p2);
@@ -85,8 +86,8 @@ namespace EditorLib
             }
             for (float i = 0; i <= Size; i += Distance)
             {
-                Point3D p1 = new Point3D(leftCorner.X, leftCorner.Y, leftCorner.Z + i);
-                Point3D p2 = new Point3D(leftCorner.X + Size, leftCorner.Y, leftCorner.Z + i);
+                Vektor p1 = new Vektor(leftCorner.X, leftCorner.Y, leftCorner.Z + i);
+                Vektor p2 = new Vektor(leftCorner.X + Size, leftCorner.Y, leftCorner.Z + i);
                 points.Add(p1);
                 points.Add(p2);
                 line = new Line3D(p1, p2);
@@ -130,9 +131,9 @@ namespace EditorLib
         //    this.SetModelObject(this.ModelObject);
         //}
 
-        public override Point3D GetCenter()
+        public override Vektor GetCenter()
         {
-            return new Point3D(-10, -10, 10);
+            return new Vektor(-10, -10, 10);
         }
     }
 }

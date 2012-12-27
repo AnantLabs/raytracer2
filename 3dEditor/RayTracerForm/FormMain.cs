@@ -12,6 +12,7 @@ using System.Resources;
 using System.IO;
 using System.Threading;
 using System.Drawing.Imaging;
+using Mathematics;
 
 namespace RayTracerForm
 {

@@ -5,6 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
+using Mathematics;
 
 namespace RayTracerLib
 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RayTracerLib;
+using Mathematics;
 
 namespace EditorLib
 {
@@ -50,7 +51,7 @@ namespace EditorLib
         /// <summary>
         /// umisteni v editoru = poloha
         /// </summary>
-        public Point3D Center
+        public Vektor Center
         {
             get
             {
@@ -89,25 +90,25 @@ namespace EditorLib
 
             Lines = new List<Line3D>();
 
-            List<Point3D> points = new List<Point3D>();
+            List<Vektor> points = new List<Vektor>();
             // prida stred - musi ho pridat jako prvni - je pak v Points[0]
-            Point3D center = new Point3D(cam.Source.X, cam.Source.Y, cam.Source.Z);
+            Vektor center = new Vektor(cam.Source.X, cam.Source.Y, cam.Source.Z);
             points.Add(center);
 
             Vektor cp = cam.Norm * Dist + cam.Source;
-            Point3D cp_ = new Point3D(cp.X, cp.Y, cp.Z);     // stred kuzele
+            Vektor cp_ = new Vektor(cp.X, cp.Y, cp.Z);     // stred kuzele
 
             Vektor p12 = cp - cam.Up * (Height / 2);
-            Point3D p12_ = new Point3D(p12.X, p12.Y, p12.Z);
+            Vektor p12_ = new Vektor(p12.X, p12.Y, p12.Z);
 
             Vektor p34 = cp + cam.Up * (Height / 2);
-            Point3D p34_ = new Point3D(p34.X, p34.Y, p34.Z);
+            Vektor p34_ = new Vektor(p34.X, p34.Y, p34.Z);
 
             Vektor p23 = cp + cam.Dx * (Width / 2);
-            Point3D p23_ = new Point3D(p23.X, p23.Y, p23.Z);
+            Vektor p23_ = new Vektor(p23.X, p23.Y, p23.Z);
 
             Vektor p14 = cp - cam.Dx * (Width / 2);
-            Point3D p14_ = new Point3D(p14.X, p14.Y, p14.Z);
+            Vektor p14_ = new Vektor(p14.X, p14.Y, p14.Z);
 
             points.Add(cp_);
             points.Add(p12_);
@@ -127,9 +128,9 @@ namespace EditorLib
 
             Points = points.ToArray();
         }
-        public override Point3D GetCenter()
+        public override Vektor GetCenter()
         {
-            return new Point3D(this.Center);
+            return new Vektor(this.Center);
         }
     }
 }

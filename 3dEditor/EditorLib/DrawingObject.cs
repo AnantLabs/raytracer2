@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using RayTracerLib;
+using Mathematics;
 
 namespace EditorLib
 {
@@ -16,7 +17,7 @@ namespace EditorLib
         /// All currently transformed points of the object.
         /// Souradnice objektu v editoru
         /// </summary>
-        public Point3D[] Points { get; protected set; }
+        public Vektor[] Points { get; protected set; }
 
         /// <summary>
         /// All currently transformed lines of the object, that will be drawn in editor
@@ -35,7 +36,7 @@ namespace EditorLib
         /// <param name="rotationMatrix">rotacni matice sveta Editoru; muze byt null, pak bude matice jednotokva</param>
         public virtual void SetModelObject(object modelObject) { }
 
-        public abstract Point3D GetCenter();
+        public abstract Vektor GetCenter();
 
         public void Rotate(double degAroundX, double degAroundY, double degAroundZ)
         {

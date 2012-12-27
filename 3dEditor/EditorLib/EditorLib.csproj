@@ -56,6 +56,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Mathematics">
+      <HintPath>..\Mathematics\bin\Debug\Mathematics.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -83,13 +86,8 @@
     <Compile Include="DrawingSphere.cs" />
     <Compile Include="DrawingTriangle.cs" />
     <Compile Include="EditHelper.cs" />
-    <Compile Include="EditorMath.cs" />
     <Compile Include="EditorObject.cs" />
-    <Compile Include="Line3D.cs" />
-    <Compile Include="Matrix3D.cs" />
-    <Compile Include="Point3D.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Quaternion.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RayTracerLib\RayTracerLib.csproj">

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using RayTracerLib;
+using Mathematics;
 
 namespace EditorLib
 {
@@ -11,7 +12,7 @@ namespace EditorLib
         /// <summary>
         /// umisteni v editoru = poloha
         /// </summary>
-        public Point3D Center
+        public Vektor Center
         {
             get
             {
@@ -28,8 +29,8 @@ namespace EditorLib
 
         public DrawingLight(Light light)
         {
-            Points = new Point3D[1];
-            this.Center = new Point3D(light.Coord.X, light.Coord.Y, light.Coord.Z);
+            Points = new Vektor[1];
+            this.Center = new Vektor(light.Coord.X, light.Coord.Y, light.Coord.Z);
             this.ModelObject = light;
         }
 
@@ -39,14 +40,14 @@ namespace EditorLib
             {
                 Light light = (Light)modelObject;
                 this.ModelObject = light;
-                this.Center = new Point3D(light.Coord.X, light.Coord.Y, light.Coord.Z);
+                this.Center = new Vektor(light.Coord.X, light.Coord.Y, light.Coord.Z);
             }
 
         }
 
-        public override Point3D GetCenter()
+        public override Vektor GetCenter()
         {
-            return new Point3D(this.Center);
+            return new Vektor(this.Center);
         }
     }
 }

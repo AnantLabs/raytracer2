@@ -11,6 +11,7 @@ using System.Drawing.Drawing2D;
 
 using EditorLib;
 using RayTracerLib;
+using Mathematics;
 
 
 namespace _3dEditor
@@ -41,8 +42,8 @@ namespace _3dEditor
         /// </summary>
         DrawingObject _Selected;
 
-        Point3D _axisC3, _axisX3, _axisY3, _axisZ3, _axisXY;
-        Point3D _POV;
+        Vektor _axisC3, _axisX3, _axisY3, _axisZ3, _axisXY;
+        Vektor _POV;
         /// <summary>
         /// zda mame stisknute nejake (L | P) tlacitko mysi a zda posouvame mysi po platne
         /// </summary>
@@ -76,7 +77,7 @@ namespace _3dEditor
 
         Point _lastMousePoint;
 
-        List<Point3D> _pointsList;
+        List<Vektor> _pointsList;
         List<Line3D> _linesList;
         List<Line3D> _grid;
 
@@ -195,12 +196,12 @@ namespace _3dEditor
 
             // resetuje body na hlavnich osach
             //
-            _axisC3 = new Point3D(0, 0, 0);
-            _axisX3 = new Point3D(2, 0, 0);
-            _axisY3 = new Point3D(0, 2, 0);
-            _axisZ3 = new Point3D(0, 0, 2);
-            _axisXY = new Point3D(_axisX3.X, _axisY3.Y, _axisX3.Z);
-            _POV = new Point3D(_axisX3.X, _axisXY.Y, _axisZ3.Z);
+            _axisC3 = new Vektor(0, 0, 0);
+            _axisX3 = new Vektor(2, 0, 0);
+            _axisY3 = new Vektor(0, 2, 0);
+            _axisZ3 = new Vektor(0, 0, 2);
+            _axisXY = new Vektor(_axisX3.X, _axisY3.Y, _axisX3.Z);
+            _POV = new Vektor(_axisX3.X, _axisXY.Y, _axisZ3.Z);
             _POV.Scale(50, 50, 50);
             // vyplni potrebne primky
             //
@@ -230,10 +231,10 @@ namespace _3dEditor
 
             _objectsToDraw.Clear();
             //_objectsToDraw.Add(new DrawingCube(1, 1, -2));
-            //_objectsToDraw.Add(new DrawingSphere(new Point3D(1, 2, 1), 1));
-            //_objectsToDraw.Add(new DrawingCylinder(new Point3D(1, 2, 1), 1, 3));
+            //_objectsToDraw.Add(new DrawingSphere(new Vektor(1, 2, 1), 1));
+            //_objectsToDraw.Add(new DrawingCylinder(new Vektor(1, 2, 1), 1, 3));
             //_objectsToDraw.Add(new DrawingPlane(20, 0.5f, 45, 0, 0, null));
-            //_objectsToDraw.Add(new DrawingSphere(new Point3D(2, 1, 0), 2));
+            //_objectsToDraw.Add(new DrawingSphere(new Vektor(2, 1, 0), 2));
 
             //
             //  ROTACE VSECH OBJEKTU V EDITORU
@@ -244,7 +245,7 @@ namespace _3dEditor
                 obj.ApplyRotationMatrix(_matrix);
             }
 
-            this._matrix = EditorLib.Matrix3D.Identity;
+            this._matrix = Matrix3D.Identity;
 
             this.toolsComboGridSize.SelectedIndex = _GRID_SIZE_INIT - 2;      // init nastaveni typu mrizky
             this.toolsComboViewAngle.SelectedIndex = 0;
@@ -340,7 +341,7 @@ namespace _3dEditor
                     a = sph.Center.To2D(_scale, _zoom, _centerPoint);
                     float rad = ((float)sph.Radius * _scale) / _scale *_zoom;
 
-                    Point3D[] points = sph.GetDrawingPoints();
+                    Vektor[] points = sph.GetDrawingPoints();
 
                     for (int i = 0; i < points.Length - 2; i++)
                     {
@@ -393,8 +394,8 @@ namespace _3dEditor
                         g.DrawLine(_penObject, a, b);
                     }
 
-                    List<Point3D[]> quarts = cube.GetQuarts();
-                    foreach (Point3D[] arr in quarts)
+                    List<Vektor[]> quarts = cube.GetQuarts();
+                    foreach (Vektor[] arr in quarts)
                     {
                         PointF[] pfArr = new PointF[arr.Length];
                         for (int j = 0; j < arr.Length; j++)
@@ -422,8 +423,8 @@ namespace _3dEditor
                         g.DrawLine(_penObject, a, b);
                     }
 
-                    List<Point3D[]> quarts = cyl.GetQuartets();
-                    foreach (Point3D[] arr in quarts)
+                    List<Vektor[]> quarts = cyl.GetQuartets();
+                    foreach (Vektor[] arr in quarts)
                     {
                         PointF[] pfArr = new PointF[arr.Length];
                         for (int j = 0; j < arr.Length; j++)
@@ -438,9 +439,9 @@ namespace _3dEditor
                         g.DrawClosedCurve(_penObject, pfArr, 0.9F, System.Drawing.Drawing2D.FillMode.Winding);
                     }
 
-                    Point3D[] bottomPts = quarts[0];
-                    Point3D[] upperPts = quarts[quarts.Count - 1];
-                    Point3D[] poly1 = new Point3D[4];
+                    Vektor[] bottomPts = quarts[0];
+                    Vektor[] upperPts = quarts[quarts.Count - 1];
+                    Vektor[] poly1 = new Vektor[4];
                     poly1[0] = bottomPts[0];
                     poly1[1] = bottomPts[2];
                     poly1[2] = upperPts[2];
@@ -451,7 +452,7 @@ namespace _3dEditor
                         poly1F[j] = poly1[j].To2D(_scale, _zoom, _centerPoint);
                     }
 
-                    Point3D[] poly2 = new Point3D[4];
+                    Vektor[] poly2 = new Vektor[4];
                     poly2[0] = bottomPts[1];
                     poly2[1] = bottomPts[3];
                     poly2[2] = upperPts[3];
@@ -484,7 +485,7 @@ namespace _3dEditor
                     
                     
 
-                    Point3D[] points3 = drTiangl.GetDrawingPoints();
+                    Vektor[] points3 = drTiangl.GetDrawingPoints();
                     PointF[] pointsF = new PointF[3];
                     for (int i = 0; i < points3.Length; i++)
                     {
@@ -516,7 +517,7 @@ namespace _3dEditor
                     EditorObject editorObject = new EditorObject(drCone);
                     GraphicsPath path;
 
-                    Point3D[] basePoints = drCone.GetBasePoints();
+                    Vektor[] basePoints = drCone.GetBasePoints();
                     PointF[] pointsF = new PointF[basePoints.Length];
                     for (int i = 0; i < pointsF.Length; i++)
                     {
@@ -685,7 +686,7 @@ namespace _3dEditor
                     //g.DrawLine(_penObject, a, PointF.Subtract(a, new Size(2, 2)));
                     //float rad = ((float)sph.Radius * _scale) / _scale * _zoom;
 
-                    Point3D[] points = drAnim.GetDrawingPoints();
+                    Vektor[] points = drAnim.GetDrawingPoints();
                     path = new GraphicsPath();
 
                     // vybrana animace ma jine PERO
@@ -825,7 +826,7 @@ namespace _3dEditor
                     int s = _scale;
                     double xDel = ((double)(_lastMousePoint.X - currPoint.X)) / _zoom;
                     double yDel = ((double)(_lastMousePoint.Y - currPoint.Y)) / _zoom;
-                    //foreach (Point3D p in _Selected.Points)
+                    //foreach (Vektor p in _Selected.Points)
                     //{
                     //    p.Posunuti(-xDel, -yDel, 0);
                     //}
@@ -835,7 +836,7 @@ namespace _3dEditor
                         DefaultShape ds = _Selected.ModelObject as DefaultShape;
                         //if (!(ds is Cylinder))
                         //{
-                            foreach (Point3D p in _Selected.Points)
+                            foreach (Vektor p in _Selected.Points)
                             {
                                 p.Posunuti(-xDel, -yDel, 0);    // potreba nahradit zpusobem s matici a nasobeni rotacni matice
                             }
@@ -845,7 +846,7 @@ namespace _3dEditor
                             DrawingSphere drawSphere = _Selected as DrawingSphere;
                             Sphere sph = ds as Sphere;
                             Matrix3D transp = this._matrixForever.Transpose();
-                            Point3D centerTransp = transp.Transform2NewPoint(drawSphere.Center);
+                            Vektor centerTransp = transp.Transform2NewPoint(drawSphere.Center);
                             sph.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
                         }
                         else if (ds is Cube)
@@ -853,7 +854,7 @@ namespace _3dEditor
                             DrawingCube drCube = _Selected as DrawingCube;
                             Cube cube = ds as Cube;
                             Matrix3D transp = this._matrixForever.Transpose();
-                            Point3D centerTransp = transp.Transform2NewPoint(drCube.Center);
+                            Vektor centerTransp = transp.Transform2NewPoint(drCube.Center);
                             cube.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
                         }
                         else if (ds is Cylinder)
@@ -862,7 +863,7 @@ namespace _3dEditor
                             Cylinder cyl = ds as Cylinder;
                             Matrix3D transp = this._matrixForever.Transpose();
                             //drCyl.ShiftCyl(-xDel, -yDel, 0);
-                            Point3D centerTransp = transp.Transform2NewPoint(drCyl.Center);
+                            Vektor centerTransp = transp.Transform2NewPoint(drCyl.Center);
                             cyl.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
                         }
                         else if (ds is Cone)
@@ -870,7 +871,7 @@ namespace _3dEditor
                             DrawingCone drCone = _Selected as DrawingCone;
                             Cone cone = ds as Cone;
                             Matrix3D transp = this._matrixForever.Transpose();
-                            Point3D centerTransp = transp.Transform2NewPoint(drCone.Center);
+                            Vektor centerTransp = transp.Transform2NewPoint(drCone.Center);
                             cone.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
                         }
                         else if (ds is Triangle)
@@ -878,8 +879,8 @@ namespace _3dEditor
                             DrawingTriangle drTriangl = _Selected as DrawingTriangle;
                             Triangle triangl = ds as Triangle;
                             Matrix3D transp = this._matrixForever.Transpose();
-                            Point3D[] pointsOld = drTriangl.GetDrawingPoints();
-                            Point3D[] pointsNew = new Point3D[pointsOld.Length];
+                            Vektor[] pointsOld = drTriangl.GetDrawingPoints();
+                            Vektor[] pointsNew = new Vektor[pointsOld.Length];
                             for (int i = 0; i < pointsOld.Length; i++)
                             {
                                 pointsNew[i] = transp.Transform2NewPoint(pointsOld[i]);
@@ -897,12 +898,12 @@ namespace _3dEditor
                     {
                         DrawingCamera drCam = _Selected as DrawingCamera;
                         Camera cam = _Selected.ModelObject as Camera;
-                        foreach (Point3D p in _Selected.Points)
+                        foreach (Vektor p in _Selected.Points)
                         {
                             p.Posunuti(-xDel, -yDel, 0);
                         }
                         Matrix3D transp = this._matrixForever.Transpose();
-                        Point3D centerTransp = transp.Transform2NewPoint(drCam.Center);
+                        Vektor centerTransp = transp.Transform2NewPoint(drCam.Center);
                         cam.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
 
                         WndScene wnd = GetWndScene();
@@ -913,12 +914,12 @@ namespace _3dEditor
                     {
                         DrawingLight drLight = _Selected as DrawingLight;
                         Light light = _Selected.ModelObject as Light;
-                        foreach (Point3D p in _Selected.Points)
+                        foreach (Vektor p in _Selected.Points)
                         {
                             p.Posunuti(-xDel, -yDel, 0);
                         }
                         Matrix3D transp = this._matrixForever.Transpose();
-                        Point3D centerTransp = transp.Transform2NewPoint(drLight.Center);
+                        Vektor centerTransp = transp.Transform2NewPoint(drLight.Center);
                         light.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
 
                         WndScene wnd = GetWndScene();
@@ -928,12 +929,12 @@ namespace _3dEditor
                     else if (_Selected is DrawingAnimation)
                     {
                         DrawingAnimation drAnim = _Selected as DrawingAnimation;
-                        foreach (Point3D p in _Selected.Points)
+                        foreach (Vektor p in _Selected.Points)
                         {
                             p.Posunuti(-xDel, -yDel, 0);
                         }
                         Matrix3D transp = this._matrixForever.Transpose();
-                        Point3D centerTransp = transp.Transform2NewPoint(drAnim.Center);
+                        Vektor centerTransp = transp.Transform2NewPoint(drAnim.Center);
                         drAnim.CenterWorld = centerTransp;
                         WndScene wnd = GetWndScene();
                         wnd.UpdateRecords();
@@ -952,7 +953,7 @@ namespace _3dEditor
 
 
             this._lastMousePoint = currPoint;
-            this._matrix = EditorLib.Matrix3D.Identity;
+            this._matrix = Matrix3D.Identity;
             this.Redraw();
         }
 
@@ -977,9 +978,9 @@ namespace _3dEditor
                 return;
             }
 
-            double radiansX = EditorMath.Degrees2Rad(degreesX);
-            double radiansY = EditorMath.Degrees2Rad(degreesY);
-            double radiansZ = EditorMath.Degrees2Rad(degreesZ);
+            double radiansX = MyMath.Degrees2Rad(degreesX);
+            double radiansY = MyMath.Degrees2Rad(degreesY);
+            double radiansZ = MyMath.Degrees2Rad(degreesZ);
 
 
             Matrix3D matr = Matrix3D.NewRotateByRads(-radiansY, radiansX, radiansZ);
@@ -993,13 +994,13 @@ namespace _3dEditor
             if (toolBtnGrid.Checked)
                 _matrix.TransformLines(_grid);
 
-            Point3D newX3d = _matrix * _axisX3;
+            Vektor newX3d = _matrix * _axisX3;
             _axisX3 = newX3d;
-            Point3D newY3d = _matrix * _axisY3;
+            Vektor newY3d = _matrix * _axisY3;
             _axisY3 = newY3d;
-            Point3D newZ3d = _matrix * _axisZ3;
+            Vektor newZ3d = _matrix * _axisZ3;
             _axisZ3 = newZ3d;
-            Point3D newXY = _matrix * _axisXY;
+            Vektor newXY = _matrix * _axisXY;
             _axisXY = newXY;
 
             Matrix3D transpMatrix = _matrix.Transpose();
@@ -1007,7 +1008,7 @@ namespace _3dEditor
 
             this._lastMousePoint = currePoint;
 
-            this._matrix = EditorLib.Matrix3D.Identity;
+            this._matrix = Matrix3D.Identity;
         }
 
         /// <summary>
@@ -1032,13 +1033,13 @@ namespace _3dEditor
                 rotationMatrix.TransformLines(_grid);
             }
 
-            Point3D newX3d = rotationMatrix * (transp * _axisX3);
+            Vektor newX3d = rotationMatrix * (transp * _axisX3);
             _axisX3 = newX3d;
-            Point3D newY3d = rotationMatrix * (transp * _axisY3);
+            Vektor newY3d = rotationMatrix * (transp * _axisY3);
             _axisY3 = newY3d;
-            Point3D newZ3d = rotationMatrix * (transp * _axisZ3);
+            Vektor newZ3d = rotationMatrix * (transp * _axisZ3);
             _axisZ3 = newZ3d;
-            Point3D newXY = rotationMatrix * (transp * _axisXY);
+            Vektor newXY = rotationMatrix * (transp * _axisXY);
             _axisXY = newXY;
 
             Matrix3D trp = rotationMatrix.Transpose();
@@ -1109,7 +1110,7 @@ namespace _3dEditor
             DrawingObject closestObj = null;
             foreach (DrawingObject drob in drawingList)
             {
-                Point3D vec = drob.GetCenter();
+                Vektor vec = drob.GetCenter();
                 vec = _POV - vec;
                 double len = vec.Size();
                 if (len < minlen)
@@ -1146,7 +1147,7 @@ namespace _3dEditor
         {
             this._isDragging = false;
             _isTransforming = false;
-            this._matrix = EditorLib.Matrix3D.Identity;
+            this._matrix = Matrix3D.Identity;
         }
 
         private void toolBtnReset_Click(object sender, EventArgs e)
@@ -1238,9 +1239,9 @@ namespace _3dEditor
                 {
                     DrawingCube cube = (DrawingCube)obj;
                     Matrix3D foreverPuvodni = _matrixForever.Transpose();
-                    Point3D oldCenterForever = foreverPuvodni * cube.Center;
+                    Vektor oldCenterForever = foreverPuvodni * cube.Center;
 
-                    foreach (Point3D p in cube.Points)
+                    foreach (Vektor p in cube.Points)
                     {
                         p.Posunuti(0.2, 0, 0);
                     }
@@ -1256,9 +1257,9 @@ namespace _3dEditor
                 {
                     DrawingCube cube = (DrawingCube)obj;
                     Matrix3D foreverPuvodni = _matrixForever.Transpose();
-                    Point3D oldCenterForever = foreverPuvodni * cube.Center;
+                    Vektor oldCenterForever = foreverPuvodni * cube.Center;
 
-                    foreach (Point3D p in cube.Points)
+                    foreach (Vektor p in cube.Points)
                     {
                         p.Posunuti(-0.2, 0, 0);
                     }
@@ -1481,13 +1482,13 @@ namespace _3dEditor
             btnZMinus.Enabled = true;
             btnZPlus.Enabled = true;
 
-            Point3D zpoint = new Point3D(0, 0, 1);
+            Vektor zpoint = new Vektor(0, 0, 1);
             this._matrixForever.TransformPoint(zpoint);
-            Point3D zpointNorm = new Point3D(zpoint);
+            Vektor zpointNorm = new Vektor(zpoint);
             zpointNorm.Normalize();
             
             PointF pf1 = _Selected.Points[0].To2D(_scale, _zoom, _centerPoint);
-            Point3D p3d = Point3D.To3D_From2D(pf1, zpoint.Z, _scale, _zoom, _centerPoint);
+            Vektor p3d = Vektor.To3D_From2D(pf1, zpoint.Z, _scale, _zoom, _centerPoint);
             int asd = 2;
 
             //MoveSelectedObject();
