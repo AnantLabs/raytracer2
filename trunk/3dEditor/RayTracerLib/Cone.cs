@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Mathematics;
 
 namespace RayTracerLib
 {
@@ -88,6 +89,7 @@ namespace RayTracerLib
             // D = Center * DirNorm
 
             Bottom = new Plane(DirNom, -(Center * DirNom), this.Material);
+
         }
 
         public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)

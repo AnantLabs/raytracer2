@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Mathematics;
 
 namespace RayTracerLib
 {
@@ -70,18 +71,32 @@ namespace RayTracerLib
         {
             if (root == null) return false;
 
+            //// JE OTAZKA, ZDA V LISTU DRIVE TESTOVAT PRUNIK S CUBOIDEM, NEBO PRUNIK S DATA OBJEKTEM
+            //// 1) nejdrive objekt: prave C testu slozitejsich
+            //// 2) nejdrive cuboid: minimalne C testu jednodussich + maximalne C testu slozitejsich = celkem maximalne 2*C testu
+            //// byla zvolena prvni varianta jako efektivnejsi
+
+
+            /// UZEL JE LIST
+            /// 
+            // je-li uzel list, je vetsi pravdepodobnost, ze paprsek protina objekt, 
+            // proto rovnou testujeme objekt uvnitr cuboidu
+            if (root.IsLeaf)                            // je-li uzel list, otestujeme, zda paprsek protina prirazeny objekt
+                return root.DataItem.Intersects(P0, Pd, ref intersPts);
+
+
+            /// UZEL NENI LIST
+            /// 
             // nejdrive otestujeme prunik paprsku s cuboiudem uzlu
             if (!root.MBR.IntersectsRay(P0, Pd))        // neprotina-li paprsek cuboid - konec prohledavani
                 return false;
-            
-            if (root.IsLeaf)                            // je-li uzel list, otestujeme, zda paprsek protina prirazeny objekt
-                return root.DataItem.Intersects(P0, Pd, ref intersPts);
+
 
             bool isInters = false;
             foreach (RtreeNode child in root.ChildList) // neni-li uzel list, zavolame rekurzivne na vsechny potomky uzlu
             {
                 if (child == null) continue;
-                isInters = TestIntersection(child, P0, Pd, ref intersPts)|| isInters;
+                isInters = TestIntersection(child, P0, Pd, ref intersPts) || isInters;
             }
             return isInters;
         }

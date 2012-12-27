@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Mathematics;
 
 namespace RayTracerLib
 {
@@ -15,11 +16,8 @@ namespace RayTracerLib
     /// </summary>
     public abstract class DefaultShape
     {
-        /// <summary>
-        /// Barva objektu
-        /// </summary>
-        //public Color Color { get; set; }
 
+        protected Matrix3D _localMatrix;
         /// <summary>
         /// Materialove vlastnosti objektu
         /// </summary>

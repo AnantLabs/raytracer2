@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 
 using RayTracerLib;
+using Mathematics;
 
 namespace EditorLib
 {
     public class DrawingCone : DrawingDefaultShape
     {
 
-        public Point3D Center
+        public Vektor Center
         {
             get
             {
@@ -21,7 +22,7 @@ namespace EditorLib
                 Points[0] = value;
             }
         }
-        public Point3D Dir { get; private set; }
+        public Vektor Dir { get; private set; }
         public double Height { get; private set; }
         public double Radius { get; private set; }
 
@@ -42,25 +43,25 @@ namespace EditorLib
             this.ModelObject = cone;
 
             Lines = new List<Line3D>();
-            List<Point3D> points = new List<Point3D>();
-            points.Add(new Point3D(0, cone.Height, 0));
+            List<Vektor> points = new List<Vektor>();
+            points.Add(new Vektor(0, cone.Height, 0));
 
             double rad = cone.Rad;
             double pi4 = Math.PI / 4;
             double x = Math.Sin(pi4) * rad;
             double z = Math.Cos(pi4) * rad;
-            Point3D[] baseline = new Point3D[8];
-            baseline[0] = new Point3D(rad, 0, 0);
-            baseline[1] = new Point3D(x, 0, z);
-            baseline[2] = new Point3D(0, 0, rad);
-            baseline[3] = new Point3D(-x, 0, z);
-            baseline[4] = new Point3D(-rad, 0, 0);
-            baseline[5] = new Point3D(-x, 0, -z);
-            baseline[6] = new Point3D(0, 0, -rad);
-            baseline[7] = new Point3D(x, 0, -z);
+            Vektor[] baseline = new Vektor[8];
+            baseline[0] = new Vektor(rad, 0, 0);
+            baseline[1] = new Vektor(x, 0, z);
+            baseline[2] = new Vektor(0, 0, rad);
+            baseline[3] = new Vektor(-x, 0, z);
+            baseline[4] = new Vektor(-rad, 0, 0);
+            baseline[5] = new Vektor(-x, 0, -z);
+            baseline[6] = new Vektor(0, 0, -rad);
+            baseline[7] = new Vektor(x, 0, -z);
             points.AddRange(baseline);
 
-            Point3D top = new Point3D(0, cone.Height, 0);
+            Vektor top = new Vektor(0, cone.Height, 0);
             points.Add(top);
             for (int i = 0; i < baseline.Length; i++)
             {
@@ -72,19 +73,19 @@ namespace EditorLib
             Vektor dir = new Vektor(cone.Dir);
             dir.MultiplyBy(-1);
             dir.Normalize();
-            Point3D cDir3 = new Point3D(dir.X, dir.Y, dir.Z);
-            Point3D yAxe = new Point3D(0, 1, 0);
+            Vektor cDir3 = new Vektor(dir.X, dir.Y, dir.Z);
+            Vektor yAxe = new Vektor(0, 1, 0);
 
             Vektor c = cone.Center;
             _ShiftMatrix = Matrix3D.PosunutiNewMatrix(c.X, c.Y, c.Z);
 
 
-            Point3D crossProd = cDir3.CrossProduct(yAxe);
+            Vektor crossProd = cDir3.CrossProduct(yAxe);
             double theta = Math.Acos(cDir3 * yAxe);
-            Quaternion quatern = new Quaternion(crossProd, MyMath.Rads2Deg(theta));
+            Quaternion quatern = new Quaternion(crossProd, MyMath.Radians2Deg(theta));
             double[] degss = quatern.ToEulerDegs();
             Matrix3D matQrt = quatern.Matrix();
-            Point3D pointTest = matQrt.Transform2NewPoint(cDir3);
+            Vektor pointTest = matQrt.Transform2NewPoint(cDir3);
             matQrt = matQrt.Transpose();
             pointTest = matQrt.Transform2NewPoint(yAxe);
 
@@ -104,16 +105,12 @@ namespace EditorLib
 
 
 
-
-
-
-
             /*
             Matrix3D.TestMatrixAnglesBack(10, 40, 90);
 
             // rotace okolo Z a 90 stupnu:
-            Point3D p = new Point3D(1.3, 0.6, 2.5);
-            Point3D pRot1;
+            Vektor p = new Vektor(1.3, 0.6, 2.5);
+            Vektor pRot1;
             Matrix3D matrixOwn = Matrix3D.NewRotateByDegrees(0, 0, 90);
             matrixOwn = matrixOwn * Matrix3D.NewRotateByDegrees(0, 40, 0);
             matrixOwn = matrixOwn * Matrix3D.NewRotateByDegrees(10, 0, 0);
@@ -123,16 +120,16 @@ namespace EditorLib
             pRot1 = matrixOwn.Transform2NewPoint(p);
             degss = matrixOwn.GetAnglesFromMatrix();
 
-            Quaternion q = new Quaternion(new Point3D(1, 0, 0), 10);
+            Quaternion q = new Quaternion(new Vektor(1, 0, 0), 10);
             matrixOwn = q.Matrix();
-            Quaternion qq = new Quaternion(new Point3D(0, 1, 0), 40);
+            Quaternion qq = new Quaternion(new Vektor(0, 1, 0), 40);
             matrixOwn = qq.Matrix() * matrixOwn;
-            Quaternion qqq = new Quaternion(new Point3D(0, 0, 1), 90);
+            Quaternion qqq = new Quaternion(new Vektor(0, 0, 1), 90);
             matrixOwn = qqq.Matrix() * matrixOwn;
 
             //matrixOwn = qqq.Matrix();
             matrixOwn = matrixOwn.Transpose();
-            Point3D pRot2 = matrixOwn.Transform2NewPoint(p);
+            Vektor pRot2 = matrixOwn.Transform2NewPoint(p);
             degss = q.ToEulerDegs();
             degss = qq.ToEulerDegs();
             degss = qqq.ToEulerDegs();
@@ -150,14 +147,14 @@ namespace EditorLib
 
             Points = points.ToArray();
         }
-        public override Point3D GetCenter()
+        public override Vektor GetCenter()
         {
             return Center;
         }
 
-        public Point3D[] GetBasePoints()
+        public Vektor[] GetBasePoints()
         {
-            Point3D[] ps = new Point3D[8];
+            Vektor[] ps = new Vektor[8];
             Array.Copy(Points, 1, ps, 0, 8);
             return ps;
         }

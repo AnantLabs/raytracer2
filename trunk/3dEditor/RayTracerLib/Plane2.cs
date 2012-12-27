@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Mathematics;
 
 namespace RayTracerLib
 {
@@ -13,8 +14,8 @@ namespace RayTracerLib
         Vektor Normal;
         public double D { get; set; }
 
-        MatrixRayTr Matrix;
-        MatrixRayTr TranspMat;
+        Matrix3D Matrix;
+        Matrix3D TranspMat;
 
         public double MinX, MinY, MinZ, MaxX, MaxY, MaxZ;
 
@@ -27,7 +28,7 @@ namespace RayTracerLib
         public Plane2()
         {
             IsActive = true;
-            Matrix = new MatrixRayTr();
+            Matrix = new Matrix3D();
 
             Material = new Material();
             Material.Color = new Colour(1, 0.2, 0.4, 0);
@@ -87,7 +88,7 @@ namespace RayTracerLib
             Normal = new Vektor(0, 1, 0);
             D = d;
 
-            Matrix = new MatrixRayTr();
+            Matrix = new Matrix3D();
             Matrix.SetOnDegrees(degX, degY, degZ);
             TranspMat = Matrix.Transpose();
 

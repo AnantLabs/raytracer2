@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Mathematics;
 
 namespace RayTracerLib
 {
@@ -226,6 +227,28 @@ namespace RayTracerLib
                 Cylinder cyl = (Cylinder)item;
                 double size = cyl.H / 2 > cyl.R ? cyl.H / 2 : cyl.R;
                 cluster = new Cuboid(cyl.Center, size * 2);
+            }
+            else if (item is Cone)
+            {
+                Cone cone = (Cone)item;
+                double s = Math.Sqrt(cone.Rad * cone.Rad + cone.Height * cone.Height);
+                double spul = s / 2;
+                Vektor dirNorm = cone.Dir;
+                dirNorm.Normalize();
+                Vektor center = cone.Peak + dirNorm * (cone.Height / 2);
+
+                Vektor point1 = center - new Vektor(spul);
+                Vektor point2 = center + new Vektor(spul);
+
+                double minX = Math.Min(point1.X, point2.X);
+                double minY = Math.Min(point1.Y, point2.Y);
+                double minZ = Math.Min(point1.Z, point2.Z);
+
+                double maxX = Math.Max(point1.X, point2.X);
+                double maxY = Math.Max(point1.Y, point2.Y);
+                double maxZ = Math.Max(point1.Z, point2.Z);
+
+                cluster = new Cuboid(new Vektor(minX, minY, minZ), new Vektor(maxX, maxY, maxZ));
             }
             else if (item is Triangle)
             {

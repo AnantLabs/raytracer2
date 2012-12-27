@@ -6261,6 +6261,7 @@
             this.numericConeAngleZ.Name = "numericConeAngleZ";
             this.numericConeAngleZ.Size = new System.Drawing.Size(45, 20);
             this.numericConeAngleZ.TabIndex = 125;
+            this.numericConeAngleZ.ValueChanged += new System.EventHandler(this.actionConeRotate);
             // 
             // numericConeAngleY
             // 
@@ -6283,6 +6284,7 @@
             this.numericConeAngleY.Name = "numericConeAngleY";
             this.numericConeAngleY.Size = new System.Drawing.Size(45, 20);
             this.numericConeAngleY.TabIndex = 124;
+            this.numericConeAngleY.ValueChanged += new System.EventHandler(this.actionConeRotate);
             // 
             // numericConeAngleX
             // 
@@ -6305,6 +6307,7 @@
             this.numericConeAngleX.Name = "numericConeAngleX";
             this.numericConeAngleX.Size = new System.Drawing.Size(45, 20);
             this.numericConeAngleX.TabIndex = 123;
+            this.numericConeAngleX.ValueChanged += new System.EventHandler(this.actionConeRotate);
             // 
             // label183
             // 

@@ -9,6 +9,7 @@ using System.Drawing.Imaging;
 using Splicer.Timeline;
 using Splicer.Renderer;
 using System.Threading;
+using Mathematics;
 
 namespace RayTracerLib
 {

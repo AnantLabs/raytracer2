@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 
 using RayTracerLib;
+using Mathematics;
 
 namespace EditorLib
 {
     public class DrawingCylinder : DrawingDefaultShape
     {
 
-        public Point3D Center
+        public Vektor Center
         {
             get
             {
@@ -21,7 +22,7 @@ namespace EditorLib
                 Points[0] = value;
             }
         }
-        public Point3D Norm { get; private set; }
+        public Vektor Norm { get; private set; }
         public double Lenght { get; private set; }
         public double Radius { get; private set; }
 
@@ -33,48 +34,48 @@ namespace EditorLib
             this.SetModelObject(cylinder);
         }
 
-        public DrawingCylinder(Point3D origin, double radius, double lenght)
+        public DrawingCylinder(Vektor origin, double radius, double lenght)
         {
             _RotatMatrix = Matrix3D.Identity;
             this.Set(origin, radius, lenght);
         }
 
-        private void Set(Point3D origin, double radius, double lenght)
+        private void Set(Vektor origin, double radius, double lenght)
         {
             //double pulLen = lenght / 2.0;
-            //Point3D c1 = center + norm * pulLen;
-            //Point3D c2 = center - norm * pulLen;
+            //Vektor c1 = center + norm * pulLen;
+            //Vektor c2 = center - norm * pulLen;
 
             _ShiftMatrix = Matrix3D.PosunutiNewMatrix(origin.X, origin.Y, origin.Z);
 
             int NSplit = 10;
-            List<Point3D> listPoint = new List<Point3D>();
-            Point3D center = new Point3D(0, 0, 0);
+            List<Vektor> listPoint = new List<Vektor>();
+            Vektor center = new Vektor(0, 0, 0);
             listPoint.Add(center);
-            Point3D cUpper = new Point3D(center);
+            Vektor cUpper = new Vektor(center);
             double lenPul = lenght / 2;
             cUpper.Posunuti(0, lenPul, 0);
 
-            Point3D cLower = new Point3D(center);
+            Vektor cLower = new Vektor(center);
             cLower.Posunuti(0, -lenPul, 0);
 
-            Points = new Point3D[1 + NSplit];
+            Points = new Vektor[1 + NSplit];
             Points[0] = center;
 
             double iter = lenght / (NSplit - 1); // aby byly vykresleny obe podstavy, potrebujeme -1
             // prvni faze: kruhy - vyplnujeme zespoda - smer od cLower
             for (int i = 0; i < NSplit; i++)
             {
-                Point3D p1 = new Point3D(cLower);
+                Vektor p1 = new Vektor(cLower);
                 p1.Posunuti(-radius, i * iter, 0);
                 listPoint.Add(p1);
-                Point3D p2 = new Point3D(cLower);
+                Vektor p2 = new Vektor(cLower);
                 p2.Posunuti(0, i * iter, radius);
                 listPoint.Add(p2);
-                Point3D p3 = new Point3D(cLower);
+                Vektor p3 = new Vektor(cLower);
                 p3.Posunuti(radius, i * iter, 0);
                 listPoint.Add(p3);
-                Point3D p4 = new Point3D(cLower);
+                Vektor p4 = new Vektor(cLower);
                 p4.Posunuti(0, i * iter, -radius);
                 listPoint.Add(p4);
             }
@@ -86,9 +87,9 @@ namespace EditorLib
             Lines = new List<Line3D>();
 
             // druha faze - vytvoreni spojnic mezi podstavami
-            List<Point3D[]> quarts = GetQuartets();
-            Point3D[] lowers = quarts[0];
-            Point3D[] uppers = quarts[quarts.Count - 1];
+            List<Vektor[]> quarts = GetQuartets();
+            Vektor[] lowers = quarts[0];
+            Vektor[] uppers = quarts[quarts.Count - 1];
             for (int i = 0; i < 4; i++)
             {
                 Line3D line = new Line3D(lowers[i], uppers[i]);
@@ -106,7 +107,7 @@ namespace EditorLib
             //Matrix3D shiftMat = Matrix3D.PosunutiNewMatrix(origin.X, origin.Y, origin.Z);
             //shiftMat.TransformPoints(Points);
             // nakonec posuneme
-            //foreach (Point3D p in Points)
+            //foreach (Vektor p in Points)
             //{
             //    p.Posunuti(origin.X, origin.Y, origin.Z);
             //}
@@ -133,7 +134,7 @@ namespace EditorLib
         {
             Matrix3D mPos = Matrix3D.PosunutiNewMatrix(dx, dy, dz);
             Matrix3D m2Pos = _ShiftMatrix * mPos;
-            Point3D p1 = new Point3D(2, 3, 4);
+            Vektor p1 = new Vektor(2, 3, 4);
             m2Pos.TransformPoint(p1);
 
             mPos.TransformPoints(Points);
@@ -149,7 +150,7 @@ namespace EditorLib
             this.ModelObject = cylinder;
             double radius = cylinder.R;
             double lenght = cylinder.H;
-            Point3D origin = new Point3D(cylinder.Center.X, cylinder.Center.Y, cylinder.Center.Z);
+            Vektor origin = new Vektor(cylinder.Center.X, cylinder.Center.Y, cylinder.Center.Z);
             this.Set(origin, radius, lenght);
         } 
 
@@ -159,13 +160,13 @@ namespace EditorLib
         /// Tyto body jsou vraceny v poli delky 4
         /// </summary>
         /// <returns></returns>
-        public List<Point3D[]> GetQuartets()
+        public List<Vektor[]> GetQuartets()
         {
-            List<Point3D[]> list = new List<Point3D[]>();
+            List<Vektor[]> list = new List<Vektor[]>();
 
             for (int i = 1; i < Points.Length; i += 4)
             {
-                Point3D[] arr = new Point3D[4];
+                Vektor[] arr = new Vektor[4];
                 arr[0] = Points[i];
                 arr[1] = Points[i + 1];
                 arr[2] = Points[i + 2];
@@ -175,10 +176,10 @@ namespace EditorLib
             return list;
         }
 
-        public override Point3D GetCenter()
+        public override Vektor GetCenter()
         {
 
-            return new Point3D(Center.X, Center.Y, Center.Z);
+            return new Vektor(Center.X, Center.Y, Center.Z);
         }
     }
 }

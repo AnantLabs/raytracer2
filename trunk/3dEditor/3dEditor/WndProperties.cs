@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 using EditorLib;
 using RayTracerLib;
+using Mathematics;
 
 namespace _3dEditor
 {
@@ -1214,7 +1215,7 @@ namespace _3dEditor
 
             DrawingAnimation drAnim = (DrawingAnimation)_currentlyDisplayed;
 
-            Point3D center = new Point3D();
+            Vektor center = new Vektor();
             center.X = (double)this.numAnimCenterX.Value;
             center.Y = (double)this.numAnimCenterY.Value;
             center.Z = (double)this.numAnimCenterZ.Value;
@@ -1459,6 +1460,35 @@ namespace _3dEditor
                 _permissionToModify = true;
                 this.numTriangColB.Value = (decimal)col.B;
             }
+        }
+
+        private void actionConeRotate(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingCone))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            NumericUpDown num = sender as NumericUpDown;
+            if (num.Value > 359)
+                num.Value = num.Value % 360;
+            else if (num.Value < 0)
+                num.Value = 360 + num.Value;
+
+            DrawingCone drCone = (DrawingCone)_currentlyDisplayed;
+            Cone cone = (Cone)drCone.ModelObject;
+
+            double[] angles = new double[]{
+                (double)this.numericConeAngleX.Value,
+                (double)this.numericConeAngleY.Value,
+                (double)this.numericConeAngleZ.Value};
+
+            Matrix3D m = Matrix3D.NewRotateByDegrees(angles[0], angles[1], angles[2]);
+
+            WndBoard wnd = GetWndBoard();
+            drCone.Rotate(angles[0], angles[1], angles[2]);
+            wnd.RotationMatrix.TransformPoints(drCone.Points);
         }
         
 
