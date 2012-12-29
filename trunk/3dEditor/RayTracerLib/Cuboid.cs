@@ -225,7 +225,7 @@ namespace RayTracerLib
             else if (item is Cylinder)
             {
                 Cylinder cyl = (Cylinder)item;
-                double size = cyl.H / 2 > cyl.R ? cyl.H / 2 : cyl.R;
+                double size = cyl.Height / 2 > cyl.Rad ? cyl.Height / 2 : cyl.Rad;
                 cluster = new Cuboid(cyl.Center, size * 2);
             }
             else if (item is Cone)

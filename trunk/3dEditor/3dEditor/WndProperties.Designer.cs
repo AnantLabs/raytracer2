@@ -3120,7 +3120,7 @@
             this.numBoxRotateZ.Name = "numBoxRotateZ";
             this.numBoxRotateZ.Size = new System.Drawing.Size(45, 20);
             this.numBoxRotateZ.TabIndex = 132;
-            this.numBoxRotateZ.ValueChanged += new System.EventHandler(this.onNumericRotateCube);
+            this.numBoxRotateZ.ValueChanged += new System.EventHandler(this.actionCubeRotate);
             // 
             // numericBoxOsaZ
             // 
@@ -3167,7 +3167,7 @@
             this.numBoxRotateY.Name = "numBoxRotateY";
             this.numBoxRotateY.Size = new System.Drawing.Size(45, 20);
             this.numBoxRotateY.TabIndex = 131;
-            this.numBoxRotateY.ValueChanged += new System.EventHandler(this.onNumericRotateCube);
+            this.numBoxRotateY.ValueChanged += new System.EventHandler(this.actionCubeRotate);
             // 
             // numericBoxOsaY
             // 
@@ -3214,7 +3214,7 @@
             this.numBoxRotateX.Name = "numBoxRotateX";
             this.numBoxRotateX.Size = new System.Drawing.Size(45, 20);
             this.numBoxRotateX.TabIndex = 130;
-            this.numBoxRotateX.ValueChanged += new System.EventHandler(this.onNumericRotateCube);
+            this.numBoxRotateX.ValueChanged += new System.EventHandler(this.actionCubeRotate);
             // 
             // label103
             // 
@@ -4727,7 +4727,7 @@
             this.numCylRotateZ.Name = "numCylRotateZ";
             this.numCylRotateZ.Size = new System.Drawing.Size(45, 20);
             this.numCylRotateZ.TabIndex = 125;
-            this.numCylRotateZ.ValueChanged += new System.EventHandler(this.onNumericRotateCylinder);
+            this.numCylRotateZ.ValueChanged += new System.EventHandler(this.actionCylinderRotate);
             // 
             // numCylRotateY
             // 
@@ -4750,7 +4750,7 @@
             this.numCylRotateY.Name = "numCylRotateY";
             this.numCylRotateY.Size = new System.Drawing.Size(45, 20);
             this.numCylRotateY.TabIndex = 124;
-            this.numCylRotateY.ValueChanged += new System.EventHandler(this.onNumericRotateCylinder);
+            this.numCylRotateY.ValueChanged += new System.EventHandler(this.actionCylinderRotate);
             // 
             // numCylRotateX
             // 
@@ -4773,7 +4773,7 @@
             this.numCylRotateX.Name = "numCylRotateX";
             this.numCylRotateX.Size = new System.Drawing.Size(45, 20);
             this.numCylRotateX.TabIndex = 123;
-            this.numCylRotateX.ValueChanged += new System.EventHandler(this.onNumericRotateCylinder);
+            this.numCylRotateX.ValueChanged += new System.EventHandler(this.actionCylinderRotate);
             // 
             // label13
             // 
@@ -6883,6 +6883,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1188, 778);
+            this.Controls.Add(this.panelBox);
             this.Controls.Add(this.panelCone);
             this.Controls.Add(this.panelCylindr);
             this.Controls.Add(this.panelRovina);
@@ -6892,7 +6893,6 @@
             this.Controls.Add(this.panelImage);
             this.Controls.Add(this.panelLight);
             this.Controls.Add(this.panelCamera);
-            this.Controls.Add(this.panelBox);
             this.Name = "WndProperties";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

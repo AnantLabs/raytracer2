@@ -1066,8 +1066,8 @@ namespace RayTracerForm
                     Color col = cyl.Material.Color.SystemColor();
                     Pen p = new Pen(col);
                     Brush br = new SolidBrush(col);
-                    double heigh = cyl.H * _editorHelper.Meritko;
-                    double rad = cyl.R * _editorHelper.Meritko;
+                    double heigh = cyl.Height * _editorHelper.Meritko;
+                    double rad = cyl.Rad * _editorHelper.Meritko;
                     
                     Point[] polyPoints;
 
@@ -1085,8 +1085,8 @@ namespace RayTracerForm
 
                         Vektor DirNom = new Vektor(cyl.Dir);
                         DirNom.Normalize();
-                        Vektor lowerC = new Vektor(cyl.Center - DirNom * (cyl.H / 2));
-                        Vektor upperC = new Vektor(cyl.Center + DirNom * (cyl.H / 2));
+                        Vektor lowerC = new Vektor(cyl.Center - DirNom * (cyl.Height / 2));
+                        Vektor upperC = new Vektor(cyl.Center + DirNom * (cyl.Height / 2));
 
 
                         lowerCenter = new Point((int)(lowerC.X * _editorHelper.Meritko), (int)(lowerC.Y * _editorHelper.Meritko));
@@ -1098,10 +1098,10 @@ namespace RayTracerForm
                         Vektor kolmyNaDir = new Vektor(-DirNom.Y, DirNom.X, DirNom.Z);
 
 
-                        Vektor p1C = lowerC + kolmyNaDir * cyl.R;
-                        Vektor p2C = lowerC - kolmyNaDir * cyl.R;
-                        Vektor p3C = upperC + kolmyNaDir * cyl.R;
-                        Vektor p4C = upperC - kolmyNaDir * cyl.R;
+                        Vektor p1C = lowerC + kolmyNaDir * cyl.Rad;
+                        Vektor p2C = lowerC - kolmyNaDir * cyl.Rad;
+                        Vektor p3C = upperC + kolmyNaDir * cyl.Rad;
+                        Vektor p4C = upperC - kolmyNaDir * cyl.Rad;
 
                         polyPoints = new Point[4];
                         polyPoints[0] = new Point((int)(p1C.X * _editorHelper.Meritko), (int)(p1C.Y * _editorHelper.Meritko));
@@ -1121,8 +1121,8 @@ namespace RayTracerForm
 
                         Vektor DirNom = new Vektor(cyl.Dir);
                         DirNom.Normalize();
-                        Vektor lowerC = new Vektor(cyl.Center - DirNom * (cyl.H / 2));
-                        Vektor upperC = new Vektor(cyl.Center + DirNom * (cyl.H / 2));
+                        Vektor lowerC = new Vektor(cyl.Center - DirNom * (cyl.Height / 2));
+                        Vektor upperC = new Vektor(cyl.Center + DirNom * (cyl.Height / 2));
 
 
                         lowerCenter = new Point((int)(lowerC.Z * _editorHelper.Meritko), (int)(lowerC.Y * _editorHelper.Meritko));
@@ -1135,10 +1135,10 @@ namespace RayTracerForm
                         Vektor kolmyNaDir = new Vektor(DirNom.X, -DirNom.Z, DirNom.Y);
 
 
-                        Vektor p1C = lowerC + kolmyNaDir * cyl.R;
-                        Vektor p2C = lowerC - kolmyNaDir * cyl.R;
-                        Vektor p3C = upperC + kolmyNaDir * cyl.R;
-                        Vektor p4C = upperC - kolmyNaDir * cyl.R;
+                        Vektor p1C = lowerC + kolmyNaDir * cyl.Rad;
+                        Vektor p2C = lowerC - kolmyNaDir * cyl.Rad;
+                        Vektor p3C = upperC + kolmyNaDir * cyl.Rad;
+                        Vektor p4C = upperC - kolmyNaDir * cyl.Rad;
 
                         polyPoints = new Point[4];
                         polyPoints[0] = new Point((int)(p1C.Z * _editorHelper.Meritko), (int)(p1C.Y * _editorHelper.Meritko));
@@ -1158,8 +1158,8 @@ namespace RayTracerForm
 
                         Vektor DirNom = new Vektor(cyl.Dir);
                         DirNom.Normalize();
-                        Vektor lowerC = new Vektor(cyl.Center - DirNom * (cyl.H / 2));
-                        Vektor upperC = new Vektor(cyl.Center + DirNom * (cyl.H / 2));
+                        Vektor lowerC = new Vektor(cyl.Center - DirNom * (cyl.Height / 2));
+                        Vektor upperC = new Vektor(cyl.Center + DirNom * (cyl.Height / 2));
 
 
                         lowerCenter = new Point((int)(lowerC.X * _editorHelper.Meritko), (int)(lowerC.Z * _editorHelper.Meritko));
@@ -1173,10 +1173,10 @@ namespace RayTracerForm
                         Vektor kolmyNaDir = new Vektor(-DirNom.Z, DirNom.Y, DirNom.X);
 
 
-                        Vektor p1C = lowerC + kolmyNaDir * cyl.R;
-                        Vektor p2C = lowerC - kolmyNaDir * cyl.R;
-                        Vektor p3C = upperC + kolmyNaDir * cyl.R;
-                        Vektor p4C = upperC - kolmyNaDir * cyl.R;
+                        Vektor p1C = lowerC + kolmyNaDir * cyl.Rad;
+                        Vektor p2C = lowerC - kolmyNaDir * cyl.Rad;
+                        Vektor p3C = upperC + kolmyNaDir * cyl.Rad;
+                        Vektor p4C = upperC - kolmyNaDir * cyl.Rad;
 
                         polyPoints = new Point[4];
                         polyPoints[0] = new Point((int)(p1C.X * _editorHelper.Meritko), (int)(p1C.Z * _editorHelper.Meritko));
@@ -1594,8 +1594,8 @@ namespace RayTracerForm
             this.numericCylDirY.Value = (decimal)MyMath.Clamp(c.Dir.Y, -100, 100);
             this.numericCylDirZ.Value = (decimal)MyMath.Clamp(c.Dir.Z, -100, 100);
 
-            this.numericCylH.Value = (decimal)c.H;
-            this.numericCylR.Value = (decimal)c.R;
+            this.numericCylH.Value = (decimal)c.Height;
+            this.numericCylR.Value = (decimal)c.Rad;
 
             this.numCylKa.Value = (decimal)c.Material.Ka;
             this.numCylKs.Value = (decimal)c.Material.Ks;

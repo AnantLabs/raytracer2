@@ -388,6 +388,32 @@ public class Matrix3D
 
             return matrix;
         }
+        public static Matrix3D PosunutiNewMatrix(Vektor shift)
+        {
+            Matrix3D matrix = new Matrix3D();
+            //matrix = new Matrix3D(
+            //    new Vektor(1, 0, 0),
+            //    new Vektor(0, 1, 0),
+            //    new Vektor(Px, Py, Pz));
+
+            matrix = new Matrix3D(
+                new Vektor(1, 0, 0, shift[0]),
+                new Vektor(0, 1, 0, shift[1]),
+                new Vektor(0, 0, 1, shift[2]),
+                new Vektor(0, 0, 0, 1));
+
+            return matrix;
+        }
+
+        public Matrix3D GetOppositeShiftMatrix()
+        {
+            Matrix3D matrix = Matrix3D.Identity;
+            matrix.Matrix[0, 3] = -this.Matrix[0, 3];
+            matrix.Matrix[1, 3] = -this.Matrix[1, 3];
+            matrix.Matrix[2, 3] = -this.Matrix[2, 3];
+            matrix.Matrix[3, 3] = 1;
+            return matrix;
+        }
 
         /// SCALING / zmena meritka
         /// matice:

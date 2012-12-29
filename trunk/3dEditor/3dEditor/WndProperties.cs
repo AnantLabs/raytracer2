@@ -20,6 +20,13 @@ namespace _3dEditor
         object _currentlyDisplayed;
 
         /// <summary>
+        /// Indikuje, zda se maji uhly rotace objektu zobrazit jako vypoctene z matice rotace,
+        /// nebo zda maji byt ponechany - potreba pri zmene uhlu rotace okolo osy Y, ktera se nemuze behem nastavovani 
+        /// v editoru vypocitavat z matice rotace, jelikoz by nebyl plynuly prechod pri presahu 90, nebo -90 stupnu.
+        /// Proto se uhly prepocitavaji az po jine zmene vlastnosti objektu - to jsou vsechny zmeny krome one rotace.
+        /// </summary>
+        bool _showAngles = true;
+        /// <summary>
         /// IMPORTANT!
         /// Indikuje povoleni zmeneni zobrazovaneho objektu.
         /// Je-li nastaveno na false, tak se objekt pouze zobrazuje zavolanim z jineho okna.
@@ -234,6 +241,14 @@ namespace _3dEditor
 
             this.numericBoxSize.Value = (decimal)c.Size;
 
+            if (_showAngles)
+            {
+                double[] angles = drCube.GetRotationAngles();
+                this.numBoxRotateX.Value = (decimal)MyMath.Clamp(angles[0], -360, 360);
+                this.numBoxRotateY.Value = (decimal)MyMath.Clamp(angles[1], -360, 360);
+                this.numBoxRotateZ.Value = (decimal)MyMath.Clamp(angles[2], -360, 360);
+            }
+
             this.numBoxKa.Value = (decimal)c.Material.Ka;
             this.numBoxKs.Value = (decimal)c.Material.Ks;
             this.numBoxKd.Value = (decimal)c.Material.Kd;
@@ -268,8 +283,16 @@ namespace _3dEditor
             this.numericCylDirY.Value = (decimal)MyMath.Clamp(c.Dir.Y, -100, 100);
             this.numericCylDirZ.Value = (decimal)MyMath.Clamp(c.Dir.Z, -100, 100);
 
-            this.numericCylH.Value = (decimal)c.H;
-            this.numericCylR.Value = (decimal)c.R;
+            this.numericCylH.Value = (decimal)c.Height;
+            this.numericCylR.Value = (decimal)c.Rad;
+
+            if (_showAngles)
+            {
+                double[] angles = drCyl.GetRotationAngles();
+                this.numCylRotateX.Value = (decimal)MyMath.Clamp(angles[0], -360, 360);
+                this.numCylRotateY.Value = (decimal)MyMath.Clamp(angles[1], -360, 360);
+                this.numCylRotateZ.Value = (decimal)MyMath.Clamp(angles[2], -360, 360);
+            }
 
             this.numCylKa.Value = (decimal)c.Material.Ka;
             this.numCylKs.Value = (decimal)c.Material.Ks;
@@ -752,6 +775,7 @@ namespace _3dEditor
             drCube.ApplyRotationMatrix(wndB.RotationMatrix);
             WndScene wndSc = GetWndScene();
             wndSc.UpdateRecords();
+            this.ShowCube(drCube);
         }
 
         private void btnCubeMaterialColor_Click(object sender, EventArgs e)
@@ -871,6 +895,7 @@ namespace _3dEditor
         ///////////////////////////////////////////////
         //////// C O N E
         //////////////////////////////////////////////
+        
         private void ShowCone(DrawingCone drCone)
         {
             // zabraneni neustalemu blikani pri modifikaci stejne koule
@@ -894,10 +919,13 @@ namespace _3dEditor
             this.numericConeHeight.Value = (decimal)c.Height;
             this.numericConeRadius.Value = (decimal)c.Rad;
 
-            double[] angles = drCone.GetRotationAngles();
-            this.numericConeAngleX.Value = (decimal)MyMath.Clamp(angles[0], -180, 180);
-            this.numericConeAngleY.Value = (decimal)MyMath.Clamp(angles[1], -180, 180);
-            this.numericConeAngleZ.Value = (decimal)MyMath.Clamp(angles[2], -180, 180);
+            if (_showAngles)
+            {
+                double[] angles = drCone.GetRotationAngles();
+                this.numericConeAngleX.Value = (decimal)MyMath.Clamp(angles[0], -360, 360);
+                this.numericConeAngleY.Value = (decimal)MyMath.Clamp(angles[1], -360, 360);
+                this.numericConeAngleZ.Value = (decimal)MyMath.Clamp(angles[2], -360, 360);
+            }
 
             this.numericConeKa.Value = (decimal)c.Material.Ka;
             this.numericConeKs.Value = (decimal)c.Material.Ks;
@@ -937,11 +965,6 @@ namespace _3dEditor
             double rad = (double)this.numericConeRadius.Value;
             double height = (double)this.numericConeHeight.Value;
 
-            double[] angles = new double[]{
-                (double)this.numericConeAngleX.Value,
-                (double)this.numericConeAngleY.Value,
-                (double)this.numericConeAngleZ.Value};
-
             cone.SetValues(peak, dir, rad, height);
 
             drCone.SetModelObject(cone);
@@ -949,6 +972,7 @@ namespace _3dEditor
             drCone.ApplyRotationMatrix(wndB.RotationMatrix);
             WndScene wndSc = GetWndScene();
             wndSc.UpdateRecords();
+            this.ShowCone(drCone);
         }
 
         private void actionConeSetMaterial(object sender, EventArgs e)
@@ -1002,6 +1026,41 @@ namespace _3dEditor
                 Button btn = sender as Button;
                 btn.BackColor = colorDialog.Color;
             }
+        }
+
+        private void actionConeRotate(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingCone))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            _permissionToModify = false;
+
+            NumericUpDown num = sender as NumericUpDown;
+            if (num.Value > 359)
+                num.Value = num.Value % 360;
+            else if (num.Value < 0)
+                num.Value = 360 + num.Value;
+
+            DrawingCone drCone = (DrawingCone)_currentlyDisplayed;
+
+            double[] angles = new double[]{
+                (double)this.numericConeAngleX.Value,
+                (double)this.numericConeAngleY.Value,
+                (double)this.numericConeAngleZ.Value};
+
+            WndBoard wnd = GetWndBoard();
+            Matrix3D transp = wnd.RotationMatrix.Transpose();
+            transp.TransformPoints(drCone.Points);
+            drCone.Rotate(angles[0], angles[1], angles[2]);
+            wnd.RotationMatrix.TransformPoints(drCone.Points);
+
+            _showAngles = false;
+            this.ShowCone(drCone);
+            _permissionToModify = true;
+            _showAngles = true;
         }
 
         ///////////////////////////////////////////////
@@ -1286,33 +1345,12 @@ namespace _3dEditor
             wnd.RotationMatrix.TransformPoints(drSph.Points);
         }
 
-        private void onNumericRotateCylinder(object sender, EventArgs e)
+        private void actionCylinderRotate(object sender, EventArgs e)
         {
             if (_currentlyDisplayed.GetType() != typeof(DrawingCylinder))
                 return;
 
-            NumericUpDown num = sender as NumericUpDown;
-            if (num.Value > 359)
-                num.Value = num.Value % 360;
-            else if (num.Value < 0)
-                num.Value = 360 + num.Value;
-
-            double x = (double)this.numCylRotateX.Value;
-            double y = (double)this.numCylRotateY.Value;
-            double z = (double)this.numCylRotateZ.Value;
-            Matrix3D m = Matrix3D.NewRotateByDegrees(x, y, z);
-
-            DrawingCylinder drCyl = _currentlyDisplayed as DrawingCylinder;
-
-            WndBoard wnd = GetWndBoard();
-            //Matrix3D transp = wnd.RotationMatrix.Transpose();
-            drCyl.Rotate(x, y, z);
-            wnd.RotationMatrix.TransformPoints(drCyl.Points);
-        }
-
-        private void onNumericRotateCube(object sender, EventArgs e)
-        {
-            if (_currentlyDisplayed.GetType() != typeof(DrawingCube))
+            if (!_permissionToModify)
                 return;
 
             NumericUpDown num = sender as NumericUpDown;
@@ -1321,22 +1359,65 @@ namespace _3dEditor
             else if (num.Value < 0)
                 num.Value = 360 + num.Value;
 
-            double x = (double)this.numBoxRotateX.Value;
-            double y = (double)this.numBoxRotateY.Value;
-            double z = (double)this.numBoxRotateZ.Value;
-            Matrix3D m = Matrix3D.NewRotateByDegrees(x, y, z);
+            double[] angles = new double[]{
+            (double)this.numCylRotateX.Value,
+            (double)this.numCylRotateY.Value,
+            (double)this.numCylRotateZ.Value};
 
-            DrawingCube drCube = _currentlyDisplayed as DrawingCube;
-            drCube.Rotate(x, y, z);
+            DrawingCylinder drCyl = _currentlyDisplayed as DrawingCylinder;
 
             WndBoard wnd = GetWndBoard();
+            Matrix3D transp = wnd.RotationMatrix.Transpose();
+            transp.TransformPoints(drCyl.Points);
+            drCyl.Rotate(angles[0], angles[1], angles[2]);
+            wnd.RotationMatrix.TransformPoints(drCyl.Points);
+
+            _showAngles = false;
+            this.ShowCylinder(drCyl);
+            _permissionToModify = true;
+            _showAngles = true;
+        }
+
+        private void actionCubeRotate(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed.GetType() != typeof(DrawingCube))
+                return;
+            if (!_permissionToModify)
+                return;
+            _permissionToModify = false;
+
+            NumericUpDown num = sender as NumericUpDown;
+            if (num.Value > 359)
+                num.Value = num.Value % 360;
+            else if (num.Value < 0)
+                num.Value = 360 + num.Value;
+
+            double[] angles = new double[]{
+                (double)this.numBoxRotateX.Value,
+                (double)this.numBoxRotateY.Value,
+                (double)this.numBoxRotateZ.Value};
+
+            DrawingCube drCube = _currentlyDisplayed as DrawingCube;
+
+            WndBoard wnd = GetWndBoard();
+            Matrix3D transp = wnd.RotationMatrix.Transpose();
+            transp.TransformPoints(drCube.Points);
+            drCube.Rotate(angles[0], angles[1], angles[2]);
             wnd.RotationMatrix.TransformPoints(drCube.Points);
+
+            _showAngles = false;
+            this.ShowCube(drCube);
+            _permissionToModify = true;
+            _showAngles = true;
         }
 
         private void onNumericRotatePlane(object sender, EventArgs e)
         {
             if (_currentlyDisplayed.GetType() != typeof(DrawingPlane))
                 return;
+            if (!_permissionToModify)
+                return;
+            _permissionToModify = false;
 
             NumericUpDown num = sender as NumericUpDown;
             if (num.Value > 359)
@@ -1344,16 +1425,22 @@ namespace _3dEditor
             else if (num.Value < 0)
                 num.Value = 360 + num.Value;
 
-            double x = (double)this.numPlaneRotX.Value;
-            double y = (double)this.numPlaneRotY.Value;
-            double z = (double)this.numPlaneRotZ.Value;
-            Matrix3D m = Matrix3D.NewRotateByDegrees(x, y, z);
+            double[] angles = new double[]{
+            (double)this.numPlaneRotX.Value,
+            (double)this.numPlaneRotY.Value,
+            (double)this.numPlaneRotZ.Value};
 
             DrawingPlane drPlane = _currentlyDisplayed as DrawingPlane;
 
             WndBoard wnd = GetWndBoard();
-            drPlane.Rotate(x, y, z);
+            Matrix3D transp = wnd.RotationMatrix.Transpose();
+            transp.TransformPoints(drPlane.Points);
+            drPlane.Rotate(angles[0], angles[1], angles[2]);
             wnd.RotationMatrix.TransformPoints(drPlane.Points);
+            _showAngles = false;
+            this.ShowPlane(drPlane);
+            _permissionToModify = true;
+            _showAngles = true;
         }
 
         private void onNumericRotateAnimation(object sender, EventArgs e)
@@ -1462,34 +1549,7 @@ namespace _3dEditor
             }
         }
 
-        private void actionConeRotate(object sender, EventArgs e)
-        {
-            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingCone))
-                return;
 
-            if (!_permissionToModify)
-                return;
-
-            NumericUpDown num = sender as NumericUpDown;
-            if (num.Value > 359)
-                num.Value = num.Value % 360;
-            else if (num.Value < 0)
-                num.Value = 360 + num.Value;
-
-            DrawingCone drCone = (DrawingCone)_currentlyDisplayed;
-            Cone cone = (Cone)drCone.ModelObject;
-
-            double[] angles = new double[]{
-                (double)this.numericConeAngleX.Value,
-                (double)this.numericConeAngleY.Value,
-                (double)this.numericConeAngleZ.Value};
-
-            Matrix3D m = Matrix3D.NewRotateByDegrees(angles[0], angles[1], angles[2]);
-
-            WndBoard wnd = GetWndBoard();
-            drCone.Rotate(angles[0], angles[1], angles[2]);
-            wnd.RotationMatrix.TransformPoints(drCone.Points);
-        }
         
 
     }

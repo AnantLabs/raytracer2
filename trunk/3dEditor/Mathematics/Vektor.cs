@@ -41,12 +41,12 @@ namespace Mathematics
         /// <summary>
         /// (1,1,1)
         /// </summary>
-        public static Vektor OneVektor = new Vektor(1, 1, 1);
+        public static Vektor OneVektor { get { return new Vektor(1, 1, 1); } }
 
         /// <summary>
         /// (0,0,0)
         /// </summary>
-        public static Vektor ZeroVektor = new Vektor(0, 0, 0);
+        public static Vektor ZeroVektor { get { return new Vektor(0, 0, 0); } }
 
         public Vektor() : this(0, 0, 0) { }
 

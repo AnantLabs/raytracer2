@@ -60,9 +60,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\DirectShowLib-2005.dll</HintPath>
     </Reference>
-    <Reference Include="Mathematics">
-      <HintPath>..\Mathematics\bin\Debug\Mathematics.dll</HintPath>
-    </Reference>
     <Reference Include="Splicer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a66524ed949429f4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libs\Splicer.dll</HintPath>
@@ -127,6 +124,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mathematics\Mathematics.csproj">
+      <Project>{5d8d6b50-76b0-4a34-b5d5-6b5dfdd5be34}</Project>
+      <Name>Mathematics</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -128,5 +128,10 @@ namespace RayTracerLib
         {
             return "A:" + A.ToString() + "; B:" + B.ToString() + "; C:" + C.ToString() + ";";
         }
+
+        public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

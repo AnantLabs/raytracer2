@@ -125,6 +125,15 @@ namespace RayTracerLib
             }
 
 
+
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(Center);
+            Vektor yAxe = new Vektor(0, 1, 0);
+            Quaternion q = new Quaternion(yAxe, new Vektor(dir));
+            double[] degss = q.ToEulerDegs();
+
+            // rotace z kvaternionu je opacne orientovana, proto minuska
+            _RotatMatrix = Matrix3D.NewRotateByDegrees(-degss[0], -degss[1], -degss[2]);
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
         }
 
         /// <summary>
@@ -244,6 +253,27 @@ namespace RayTracerLib
         public override string ToString()
         {
             return "Cube: Center=" + Center + "; Axis=" + Dir;
+        }
+
+        public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)
+        {
+            Matrix3D newRot = Matrix3D.NewRotateByDegrees(degAroundX, degAroundY, degAroundZ);
+
+            Vektor yAxe = new Vektor(0, 1, 0);
+            newRot.TransformPoint(yAxe);
+
+            // 1) pretransformovat vsechny vektory do puvodniho (zakladniho) tvaru
+            // nejspis to neni potreba, jelikoz je vypocitavame cele znovu
+            //this.Peak = transpLoc.Transform2NewPoint(this.Peak);
+            //this.Center = transpLoc.Transform2NewPoint(this.Center);
+            //this.Dir = transpLoc.Transform2NewPoint(this.Dir);
+
+            // 2) nastavit novou matici
+            this._RotatMatrix = newRot;
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+
+            // 3) prenastavit objekt podle nove matice
+            this.SetValues(this.Center, yAxe, this.Size);
         }
     }
 }

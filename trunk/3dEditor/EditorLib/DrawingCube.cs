@@ -31,7 +31,6 @@ namespace EditorLib
 
         public DrawingCube(double centerX, double centerY, double centerZ)
         {
-            _RotatMatrix = Matrix3D.Identity;
             Cube cube = new Cube(new Vektor(centerX, centerY, centerZ), new Vektor(1, 0, 0), 1);
             cube.Material = new Material();
             cube.Material.Color = new Colour(1, 0.5, 0.1, 1);
@@ -42,7 +41,7 @@ namespace EditorLib
         {
             Points = new Vektor[9];
 
-            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(center.X, center.Y, center.Z);
+            //_ShiftMatrix = Matrix3D.PosunutiNewMatrix(center.X, center.Y, center.Z);
             center = new Vektor(0, 0, 0);
             Points[0] = center;
 
@@ -81,8 +80,7 @@ namespace EditorLib
             Lines.Add(new Line3D(lower3, upper3));
             Lines.Add(new Line3D(lower4, upper4));
 
-            _localMatrix = _RotatMatrix * _ShiftMatrix;
-            _localMatrix.TransformPoints(Points);
+
         }
 
         /// <summary>
@@ -148,8 +146,13 @@ namespace EditorLib
         {
             this.ModelObject = cube;
             double sideLen = cube.Size;
-            Vektor center = new Vektor(cube.Center.X, cube.Center.Y, cube.Center.Z);
+            Vektor center = new Vektor(cube.Center);
             this.Set(center, sideLen);
+
+            _RotatMatrix = cube._RotatMatrix;
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(cube.Center);
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+            _localMatrix.TransformPoints(Points);
         }
 
         //public void RotateCube(double x, double y, double z)
