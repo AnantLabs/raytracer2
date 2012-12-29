@@ -100,9 +100,9 @@ namespace EditorLib
             //_LocalMatrix = m;
             //m.TransformPoints(Points);
             //this.ApplyRotationMatrix(m);
-            _localMatrix = _RotatMatrix * _ShiftMatrix;
+            
             //_RotatMatrix.TransformPoints(Points);
-            _localMatrix.TransformPoints(Points);
+            //_localMatrix.TransformPoints(Points);
 
             //Matrix3D shiftMat = Matrix3D.PosunutiNewMatrix(origin.X, origin.Y, origin.Z);
             //shiftMat.TransformPoints(Points);
@@ -148,10 +148,13 @@ namespace EditorLib
         public void SetModelObject(Cylinder cylinder)
         {
             this.ModelObject = cylinder;
-            double radius = cylinder.R;
-            double lenght = cylinder.H;
-            Vektor origin = new Vektor(cylinder.Center.X, cylinder.Center.Y, cylinder.Center.Z);
+            double radius = cylinder.Rad;
+            double lenght = cylinder.Height;
+            Vektor origin = new Vektor(cylinder.Center);
             this.Set(origin, radius, lenght);
+            _RotatMatrix = cylinder._RotatMatrix;
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+            _localMatrix.TransformPoints(Points);
         } 
 
         /// <summary>

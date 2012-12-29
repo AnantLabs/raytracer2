@@ -48,6 +48,30 @@ namespace RayTracerLib
         /// <param name="height">vyska kuzele</param>
         public Cone(Vektor c, Vektor dir, double rad, double height)
         {
+
+            //////_ShiftMatrix = Matrix3D.PosunutiNewMatrix(c.X, c.Y, c.Z);
+
+            //////Vektor yAxe = new Vektor(0, 1, 0);
+            //////Quaternion q = new Quaternion(new Vektor (dir), yAxe);
+            //////q.Transpose();
+            //////double[] degss = q.ToEulerDegs();
+
+            //////// rotace z kvaternionu je opacne orientovana, proto minuska
+            //////Matrix3D matCr = Matrix3D.NewRotateByDegrees(-degss[0], -degss[1], -degss[2]); 
+            //////_RotatMatrix = matCr;
+            //////_localMatrix = _RotatMatrix * _ShiftMatrix;
+            //Vektor p1 = _localMatrix.Transform2NewPoint(dir);
+            //p1 = _localMatrix.Transform2NewPoint(yAxe);
+            //Matrix3D transp = _localMatrix.Transpose();
+            //Matrix3D transpShif = _ShiftMatrix.Transpose();
+            //Matrix3D transpRot = _RotatMatrix.Transpose();
+            //Vektor p2 = transpShif.Transform2NewPoint(p1);
+            //p2 = transpRot.Transform2NewPoint(p2);
+            //_ShiftMatrix.TransformPoint(p2);
+
+            //p1 = transp.Transform2NewPoint(p1);
+            //p1 = transp.Transform2NewPoint(yAxe);
+
             IsActive = true;
             Material = new Material();
             this.SetValues(c, dir, rad, height);
@@ -65,6 +89,13 @@ namespace RayTracerLib
             this.S = old.S;
         }
 
+        /// <summary>
+        /// prenastaveni kuzele
+        /// </summary>
+        /// <param name="c">vrchol kuzele</param>
+        /// <param name="dir">osa kuzele (nemusi byt normalizovana)</param>
+        /// <param name="rad">polomer podstavy</param>
+        /// <param name="height">vyska kuzele</param>
         public void SetValues(Vektor c, Vektor dir, double rad, double height)
         {
             Peak = c;
@@ -90,6 +121,80 @@ namespace RayTracerLib
 
             Bottom = new Plane(DirNom, -(Center * DirNom), this.Material);
 
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(c.X, c.Y, c.Z);
+
+            Vektor yAxe = new Vektor(0, 1, 0);
+            Quaternion q = new Quaternion( yAxe, new Vektor(dir));
+            //q.Transpose();
+            double[] degss = q.ToEulerDegs();
+
+            // rotace z kvaternionu je opacne orientovana, proto minuska
+            Matrix3D matCr = Matrix3D.NewRotateByDegrees(-degss[0], -degss[1], -degss[2]);
+            _RotatMatrix = matCr;
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+
+            //_ShiftMatrix = Matrix3D.PosunutiNewMatrix(c.X, c.Y, c.Z);
+
+            //Vektor yAxe = new Vektor(0, 1, 0);
+
+            //Quaternion q2 = new Quaternion(DirNom, yAxe);
+            //q2.Transpose();
+            //double[] degs2 = q2.ToEulerDegs();
+            //Matrix3D m2 = q2.Matrix();
+            //degs2 = m2.GetAnglesFromMatrix();
+            //Vektor p2 = m2.Transform2NewPoint(yAxe);
+            //p2 = q2.Rotate(DirNom);
+            //p2 = q2.Rotate(yAxe);
+
+            //Vektor crossProd = DirNom.CrossProduct(yAxe);
+            //double theta = Math.Acos(DirNom * yAxe);
+            //Quaternion quatern = new Quaternion(crossProd, MyMath.Radians2Deg(theta));
+            //double[] degss = quatern.ToEulerDegs();
+            //Matrix3D matQrt = quatern.Matrix();
+            //Vektor pointTest = matQrt.Transform2NewPoint(DirNom);
+            //pointTest = quatern.Rotate(DirNom);
+            //pointTest = quatern.Rotate(yAxe);
+
+            //matQrt = matQrt.Transpose();
+            //pointTest = matQrt.Transform2NewPoint(yAxe);
+
+            //Matrix3D matCr = Matrix3D.NewRotateByDegrees(-degss[0], -degss[1], -degss[2]);
+            //pointTest = matCr.Transform2NewPoint(DirNom);
+            ////matCr = matCr.Transpose();
+            //pointTest = matCr.Transform2NewPoint(yAxe);
+
+            ////matCr = matCr.Transpose();
+            //_RotatMatrix = matCr;
+            ////_RotatMatrix = q2.Matrix();
+            //double[] degss2 = _RotatMatrix.GetAnglesFromMatrix();
+            //degss2 = matCr.GetAnglesFromMatrix();
+
+
+            //_localMatrix = _RotatMatrix * _ShiftMatrix;
+
+        }
+
+        private void SetValues(Vektor peak, Matrix3D rotatMatrix, double rad, double height)
+        {
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(peak.X, peak.Y, peak.Z);
+            _RotatMatrix = rotatMatrix;
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+
+            Vektor p = Vektor.ZeroVektor;
+            Vektor dir = new Vektor(0, 1, 0);
+            _ShiftMatrix.TransformPoint(p);
+            _RotatMatrix.TransformPoint(dir);
+            this.SetValues(p, dir, rad, height);
+
+            double[] degs = _RotatMatrix.GetAnglesFromMatrix();
+            double[] degs2 = rotatMatrix.GetAnglesFromMatrix();
+
+            
+
+            //_localMatrix.TransformPoint(this.Peak);
+            //_localMatrix.TransformPoint(this.Dir);
+            //_localMatrix.TransformPoint(this.DirNom);
+            //_localMatrix.TransformPoint(this.Center);
         }
 
         public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
@@ -190,6 +295,27 @@ namespace RayTracerLib
         {
             Vektor newPeak = new Vektor(p1, p2, p3);
             this.SetValues(newPeak, this.Dir, this.Rad, this.Height);
+        }
+
+        public override void Rotate(double degX, double degY, double degZ)
+        {
+            Matrix3D newRot = Matrix3D.NewRotateByDegrees(degX, degY, degZ);
+
+            Vektor yAxe = new Vektor(0, 1, 0);
+            newRot.TransformPoint(yAxe);
+
+            // 1) pretransformovat vsechny vektory do puvodniho (zakladniho) tvaru
+            // nejspis to neni potreba, jelikoz je vypocitavame cele znovu
+            //this.Peak = transpLoc.Transform2NewPoint(this.Peak);
+            //this.Center = transpLoc.Transform2NewPoint(this.Center);
+            //this.Dir = transpLoc.Transform2NewPoint(this.Dir);
+
+            // 2) nastavit novou matici
+            this._RotatMatrix = newRot;
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+
+            // 3) prenastavit objekt podle nove matice
+            this.SetValues(this.Peak, yAxe, this.Rad, this.Height);
         }
     }
 }

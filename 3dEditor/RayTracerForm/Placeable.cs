@@ -82,7 +82,7 @@ namespace RayTracerForm
                 Cylinder cyl = (Cylinder)Object;
 
 
-                double rad = cyl.R * EditHelp.Meritko;
+                double rad = cyl.Rad * EditHelp.Meritko;
 
                 //if (x>minX && x<maxX && y>minY && y<maxY)
                 //    return true;
@@ -90,8 +90,8 @@ namespace RayTracerForm
                 Vektor DirNom = new Vektor(cyl.Dir);
                 DirNom.Normalize();
 
-                Vektor Clower = cyl.Center - DirNom * (cyl.H / 2);
-                Vektor Cupper = cyl.Center + DirNom * (cyl.H / 2);
+                Vektor Clower = cyl.Center - DirNom * (cyl.Height / 2);
+                Vektor Cupper = cyl.Center + DirNom * (cyl.Height / 2);
                 Point Plower;
                 Point Pupper;
                 Point Pcenter;
@@ -144,7 +144,7 @@ namespace RayTracerForm
                     c = -(double)(a * Pcenter.X) - (double)(b * Pcenter.Y);
 
                     vzdal = Math.Abs((double)(a * x) + (double)(b * y + c)) / Math.Sqrt(a * a + b * b);
-                    if (vzdal < (cyl.H / 2) * EditHelp.Meritko)
+                    if (vzdal < (cyl.Height / 2) * EditHelp.Meritko)
                         return true;
 
                 }
@@ -199,7 +199,7 @@ namespace RayTracerForm
                     c = -(double)(a * Pcenter.X) - (double)(b * Pcenter.Y);
 
                     vzdal = Math.Abs((double)(a * x) + (double)(b * y + c)) / Math.Sqrt(a * a + b * b);
-                    if (vzdal < (cyl.H / 2) * EditHelp.Meritko)
+                    if (vzdal < (cyl.Height / 2) * EditHelp.Meritko)
                         return true;
                 }
                 // osy X--Z
@@ -262,7 +262,7 @@ namespace RayTracerForm
                     c = -(double)(a * Pcenter.X) - (double)(b * Pcenter.Y);
 
                     vzdal = Math.Abs((double)(a * x) + (double)(b * y + c)) / Math.Sqrt(a * a + b * b);
-                    if (vzdal < (cyl.H / 2) * EditHelp.Meritko)
+                    if (vzdal < (cyl.Height / 2) * EditHelp.Meritko)
                         return true;
                 }
                 //if (MyMath.Distance2Points2d(X, Y, x, y) <= (cyl.H/2) * EditHelp.Meritko_Editoru)
@@ -403,7 +403,7 @@ namespace RayTracerForm
                     cyl.Center.Z = dy / EditHelp.Meritko;
                 }
                 
-                cyl.SetValues(cyl.Center, cyl.Dir, cyl.R, cyl.H);
+                cyl.SetValues(cyl.Center, cyl.Dir, cyl.Rad, cyl.Height);
             }
 
             else if (Object.GetType() == typeof(Light))

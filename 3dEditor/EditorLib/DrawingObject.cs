@@ -40,13 +40,22 @@ namespace EditorLib
 
         public void Rotate(double degAroundX, double degAroundY, double degAroundZ)
         {
+            DefaultShape ds = (DefaultShape)ModelObject;
+            ds.Rotate(degAroundX, degAroundY, degAroundZ);
+
             Matrix3D newRot = Matrix3D.NewRotateByDegrees(degAroundX, degAroundY, degAroundZ);
             Matrix3D transpLoc = _localMatrix.Transpose();
 
-            transpLoc.TransformPoints(Points);
+            Matrix3D transpRot = _RotatMatrix.Transpose();
+            Matrix3D transpShift = _ShiftMatrix.GetOppositeShiftMatrix();
 
+            transpShift.TransformPoints(Points);
+            transpRot.TransformPoints(Points);
+            
             this._RotatMatrix = newRot;
-            this.SetModelObject(this.ModelObject);
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+            _localMatrix.TransformPoints(Points);
+            //this.SetModelObject(this.ModelObject);
         }
 
         /// <summary>
@@ -66,7 +75,8 @@ namespace EditorLib
 
         public double[] GetRotationAngles()
         {
-            return _RotatMatrix.GetAnglesFromMatrix();
+            //return _RotatMatrix.GetAnglesFromMatrix();
+            return ((DefaultShape)ModelObject)._RotatMatrix.GetAnglesFromMatrix();
         }
 
         public override string ToString()

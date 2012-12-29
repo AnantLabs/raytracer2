@@ -167,5 +167,10 @@ namespace RayTracerLib
         {
             return "Plane: [" + Normal.X + "; " + Normal.Y + "; " + Normal.Z + "; " + this.D + "]";
         }
+
+        public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

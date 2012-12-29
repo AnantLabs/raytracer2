@@ -303,19 +303,19 @@ namespace RayTracerLib
                 // 3)
                 double d = Vektor.Size(dir * t0 - cyl.Center + point.Coord) + 0.5;
 
-                if ((cyl.R < d) && (d < cyl.R + b))
+                if ((cyl.Rad < d) && (d < cyl.Rad + b))
                 {
-                    double tau = (d - cyl.R) / b;
+                    double tau = (d - cyl.Rad) / b;
                     double s = sshadowFunc(tau);
                     Colour color = new Colour(this.Color * s);
                     vystupLight = new Light(this.Coord, color);
                     return true;
                 }
-                else if (d < cyl.R)
+                else if (d < cyl.Rad)
                 {
                     return false;
                 }
-                else if (d > cyl.R + b)
+                else if (d > cyl.Rad + b)
                 {
                     vystupLight = new Light(this);
                     return true;

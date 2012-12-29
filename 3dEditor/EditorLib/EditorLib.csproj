@@ -56,9 +56,6 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mathematics">
-      <HintPath>..\Mathematics\bin\Debug\Mathematics.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -90,6 +87,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mathematics\Mathematics.csproj">
+      <Project>{5d8d6b50-76b0-4a34-b5d5-6b5dfdd5be34}</Project>
+      <Name>Mathematics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RayTracerLib\RayTracerLib.csproj">
       <Project>{1276C07D-7BA3-466C-8D0E-3B4342F3583E}</Project>
       <Name>RayTracerLib</Name>
@@ -111,6 +112,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

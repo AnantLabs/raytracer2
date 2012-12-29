@@ -44,24 +44,25 @@ namespace EditorLib
 
             Lines = new List<Line3D>();
             List<Vektor> points = new List<Vektor>();
-            points.Add(new Vektor(0, cone.Height, 0));
+            points.Add(new Vektor(0, 0, 0));
 
+            double h = cone.Height;
             double rad = cone.Rad;
             double pi4 = Math.PI / 4;
             double x = Math.Sin(pi4) * rad;
             double z = Math.Cos(pi4) * rad;
             Vektor[] baseline = new Vektor[8];
-            baseline[0] = new Vektor(rad, 0, 0);
-            baseline[1] = new Vektor(x, 0, z);
-            baseline[2] = new Vektor(0, 0, rad);
-            baseline[3] = new Vektor(-x, 0, z);
-            baseline[4] = new Vektor(-rad, 0, 0);
-            baseline[5] = new Vektor(-x, 0, -z);
-            baseline[6] = new Vektor(0, 0, -rad);
-            baseline[7] = new Vektor(x, 0, -z);
+            baseline[0] = new Vektor(rad, h, 0);
+            baseline[1] = new Vektor(x, h, z);
+            baseline[2] = new Vektor(0, h, rad);
+            baseline[3] = new Vektor(-x, h, z);
+            baseline[4] = new Vektor(-rad, h, 0);
+            baseline[5] = new Vektor(-x, h, -z);
+            baseline[6] = new Vektor(0, h, -rad);
+            baseline[7] = new Vektor(x, h, -z);
             points.AddRange(baseline);
 
-            Vektor top = new Vektor(0, cone.Height, 0);
+            Vektor top = new Vektor(0, 0, 0);
             points.Add(top);
             for (int i = 0; i < baseline.Length; i++)
             {
@@ -69,7 +70,7 @@ namespace EditorLib
                 Lines.Add(line);
             }
 
-
+            /*
             Vektor dir = new Vektor(cone.Dir);
             dir.MultiplyBy(-1);
             dir.Normalize();
@@ -99,9 +100,20 @@ namespace EditorLib
 
 
             _localMatrix = _RotatMatrix * _ShiftMatrix;
-
+            */
+            _RotatMatrix = cone._RotatMatrix;
+            Vektor c = cone.Peak;
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(c.X, c.Y, c.Z);
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
             _localMatrix.TransformPoints(points);
 
+            /// poradi transformaci
+            /// transpozice posouvaci matice neni jeji inverze!!!!!!!!!!!!!!
+            //Matrix3D transp = _RotatMatrix.Transpose();
+            //Matrix3D transpShift = _ShiftMatrix.GetOppositeShiftMatrix();
+            //transpShift.TransformPoints(points);
+            //transp.TransformPoints(points);
+            //Matrix3D.TestTranspose();
 
 
 

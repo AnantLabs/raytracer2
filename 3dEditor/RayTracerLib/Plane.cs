@@ -19,6 +19,9 @@ namespace RayTracerLib
     /// </summary>
     public class Plane : DefaultShape
     {
+        private Vektor DirNom;
+        private double p;
+
         /// <summary>
         /// Smer roviny - jeji normala
         /// </summary>
@@ -78,6 +81,8 @@ namespace RayTracerLib
             MinZ = oldPlane.MinZ;
             MaxZ = oldPlane.MaxZ;
         }
+
+
 
         /// <summary>
         /// t = -(D + P0 * Normal) / (Pd * Normal)
@@ -145,6 +150,10 @@ namespace RayTracerLib
             return "Plane: [" + Normal.X + "; "+Normal.Y+"; " + Normal.Z+"; " + this.D +"]";
         }
 
+        public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)
+        {
+            throw new NotImplementedException();
+        }
 
         public void CreateBoundVektors()
         {

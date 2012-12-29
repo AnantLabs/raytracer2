@@ -53,6 +53,33 @@ namespace Mathematics
             Normalize();
         }
 
+        public Quaternion(Quaternion old)
+        {
+            this.W = old.W;
+            this.X = old.X;
+            this.Y = old.Y;
+            this.Z = old.Z;
+        }
+        /// <summary>
+        /// z dvou vektoru vytvori kvaternion, ktery bude prevadet prvni vektor na ten druhy
+        /// </summary>
+        /// <param name="v1">prvni vektor - zdroj</param>
+        /// <param name="v2">druhy vektor - cil</param>
+        public Quaternion(Vektor v1, Vektor v2)
+        {
+            v1.Normalize();
+            v2.Normalize();
+            Vektor r = v1.CrossProduct(v2);
+            double s = Math.Sqrt(2 * (1 + v1 * v2));
+
+            r = r.MultiplyBy(1 / s);
+            
+            W = s / 2;
+            X = r.X;
+            Y = r.Y;
+            Z = r.Z;
+            Normalize();
+        }
         public double Size()
         {
             double size = W * W + X * X + Y * Y + Z * Z;
@@ -69,6 +96,15 @@ namespace Mathematics
             Z = Z / size;
         }
 
+        /// <summary>
+        /// transpozice jednotkoveho kvaternionu je jeho inverze
+        /// </summary>
+        public void Transpose()
+        {
+            this.X = -this.X;
+            this.Y = -this.Y;
+            this.Z = -this.Z;
+        }
         /// <summary>
         /// vrati rotacni matici vytvorenou s aktualniho kvatelnionu
         /// aktualni kvaternion musi byt normalizovany
@@ -96,6 +132,18 @@ namespace Mathematics
             return m;
         }
 
+        public Vektor Rotate(Vektor v)
+        {
+            Vektor r = new Vektor(X, Y, Z);
+
+            Vektor rv = r.CrossProduct(v);
+            Vektor wv = new Vektor(v);
+            wv.MultiplyBy(W);
+            Vektor v2 = rv + wv;
+            r.MultiplyBy(2);
+            Vektor v3 = r.CrossProduct(v2);
+            return v + v3;
+        }
         /// <summary>
         /// z quaternionu vrati Eulerovy uhly ve stupnich
         /// </summary>

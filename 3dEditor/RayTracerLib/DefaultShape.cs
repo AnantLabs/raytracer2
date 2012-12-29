@@ -17,7 +17,10 @@ namespace RayTracerLib
     public abstract class DefaultShape
     {
 
-        protected Matrix3D _localMatrix;
+        public Matrix3D _localMatrix;
+        public Matrix3D _RotatMatrix;
+        public Matrix3D _ShiftMatrix;
+
         /// <summary>
         /// Materialove vlastnosti objektu
         /// </summary>
@@ -45,5 +48,7 @@ namespace RayTracerLib
         /// <param name="dy">y-direction move</param>
         /// <param name="dz">z-direction move</param>
         public abstract void Move(double dx, double dy, double dz);
+
+        public abstract void Rotate(double degAroundX, double degAroundY, double degAroundZ);
     }
 }

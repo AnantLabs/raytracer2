@@ -142,5 +142,10 @@ namespace RayTracerLib
             return "Sphere: Center=" + Origin + "; R=" + R;
         }
 
+        public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
