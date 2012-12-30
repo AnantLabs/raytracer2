@@ -215,6 +215,11 @@ namespace RayTracerLib
             throw new NotImplementedException();
         }
 
+        public override void MoveToPoint(double dx, double dy, double dz)
+        {
+            throw new NotImplementedException();
+        }
+
         public override string ToString()
         {
             return "Box: [" + Center.X + "; " + Center.Y + "; " + Center.Z + "]";

@@ -834,45 +834,57 @@ namespace _3dEditor
                     if (_Selected.ModelObject is DefaultShape)
                     {
                         DefaultShape ds = _Selected.ModelObject as DefaultShape;
-                        //if (!(ds is Cylinder))
-                        //{
-                            foreach (Vektor p in _Selected.Points)
-                            {
-                                p.Posunuti(-xDel, -yDel, 0);    // potreba nahradit zpusobem s matici a nasobeni rotacni matice
-                            }
-                        //}
+                        Matrix3D shift2DMatrix = Matrix3D.PosunutiNewMatrix(-xDel, -yDel, 0); // matice posunuti vzhledem k mysi - 2D
+
+                        //shift2DMatrix.TransformPoints(_Selected.Points);
+                            //foreach (Vektor p in _Selected.Points)
+                            //{
+                            //    p.Posunuti(-xDel, -yDel, 0);    // potreba nahradit zpusobem s matici a nasobeni rotacni matice
+                            //}
                         if (ds is Sphere)
                         {
                             DrawingSphere drawSphere = _Selected as DrawingSphere;
-                            Sphere sph = ds as Sphere;
                             Matrix3D transp = this._matrixForever.Transpose();
-                            Vektor centerTransp = transp.Transform2NewPoint(drawSphere.Center);
-                            sph.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                            // zjistime souradnice bodu v editoru - kam se v editoru dostane 2D posunutim hlavni posouvaci bod - stred
+                            Vektor center = shift2DMatrix.Transform2NewPoint(drawSphere.Center);
+                            // zjistime svetove souradnice bodu z bodu editoru
+                            Vektor centerTransp = transp.Transform2NewPoint(center);
+                            // presuneme vsechny body editoru do puvodniho tvaru - svetove souradnice
+                            transp.TransformPoints(drawSphere.Points);
+                            // posuneme body podle noveho bodu posunuti
+                            drawSphere.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                            // transformujeme body do editoru
+                            _matrixForever.TransformPoints(drawSphere.Points);
                         }
                         else if (ds is Cube)
                         {
                             DrawingCube drCube = _Selected as DrawingCube;
-                            Cube cube = ds as Cube;
                             Matrix3D transp = this._matrixForever.Transpose();
-                            Vektor centerTransp = transp.Transform2NewPoint(drCube.Center);
-                            cube.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                            Vektor center = shift2DMatrix.Transform2NewPoint(drCube.Center);
+                            Vektor centerTransp = transp.Transform2NewPoint(center);
+                            transp.TransformPoints(drCube.Points);
+                            drCube.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                            _matrixForever.TransformPoints(drCube.Points);
                         }
                         else if (ds is Cylinder)
                         {
                             DrawingCylinder drCyl = _Selected as DrawingCylinder;
-                            Cylinder cyl = ds as Cylinder;
                             Matrix3D transp = this._matrixForever.Transpose();
-                            //drCyl.ShiftCyl(-xDel, -yDel, 0);
-                            Vektor centerTransp = transp.Transform2NewPoint(drCyl.Center);
-                            cyl.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                            Vektor center = shift2DMatrix.Transform2NewPoint(drCyl.Center);
+                            Vektor centerTransp = transp.Transform2NewPoint(center);
+                            transp.TransformPoints(drCyl.Points);
+                            drCyl.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                            _matrixForever.TransformPoints(drCyl.Points);
                         }
                         else if (ds is Cone)
                         {
                             DrawingCone drCone = _Selected as DrawingCone;
-                            Cone cone = ds as Cone;
                             Matrix3D transp = this._matrixForever.Transpose();
-                            Vektor centerTransp = transp.Transform2NewPoint(drCone.Center);
-                            cone.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                            Vektor center = shift2DMatrix.Transform2NewPoint(drCone.Center);
+                            Vektor centerTransp = transp.Transform2NewPoint(center);
+                            transp.TransformPoints(drCone.Points);
+                            drCone.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                            _matrixForever.TransformPoints(drCone.Points);
                         }
                         else if (ds is Triangle)
                         {
@@ -881,14 +893,31 @@ namespace _3dEditor
                             Matrix3D transp = this._matrixForever.Transpose();
                             Vektor[] pointsOld = drTriangl.GetDrawingPoints();
                             Vektor[] pointsNew = new Vektor[pointsOld.Length];
-                            for (int i = 0; i < pointsOld.Length; i++)
-                            {
-                                pointsNew[i] = transp.Transform2NewPoint(pointsOld[i]);
-                            }
-                            if (pointsNew.Length == 3)
-                                triangl.Set(new Vektor(pointsNew[0].X, pointsNew[0].Y, pointsNew[0].Z),
-                                    new Vektor(pointsNew[1].X, pointsNew[1].Y, pointsNew[1].Z),
-                                    new Vektor(pointsNew[2].X, pointsNew[2].Y, pointsNew[2].Z));
+
+                            Triangle tr = (Triangle)drTriangl.ModelObject;
+                            Vektor center = shift2DMatrix.Transform2NewPoint(drTriangl.Center);
+                            Vektor centerTransp = transp.Transform2NewPoint(center);
+                            transp.TransformPoints(drTriangl.Points);
+                            Vektor diff = drTriangl.Center - centerTransp;
+                            diff = centerTransp - tr.A;
+                            drTriangl.Move(diff.X, diff.Y, diff.Z);
+                            //drTriangl.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                            //drTriangl.Move(-diff.X, -diff.Y, -diff.Z);
+                            //Matrix3D shift3D = Matrix3D.PosunutiNewMatrix(-diff.X, -diff.Y, -diff.Z);
+                            //shift3D.TransformPoints(drTriangl.Points);
+
+                            //for (int i = 0; i < pointsOld.Length; i++)
+                            //{
+                            //    Vektor center = shift2DMatrix.Transform2NewPoint(pointsOld[i]);
+                            //    Vektor centerTransp = transp.Transform2NewPoint(center);
+                            //    pointsNew[i] = centerTransp;
+                            //}
+                            //if (pointsNew.Length == 3)
+                            //    triangl.Set(new Vektor(pointsNew[0].X, pointsNew[0].Y, pointsNew[0].Z),
+                            //        new Vektor(pointsNew[1].X, pointsNew[1].Y, pointsNew[1].Z),
+                            //        new Vektor(pointsNew[2].X, pointsNew[2].Y, pointsNew[2].Z));
+                            //drTriangl.SetModelObject(triangl);
+                            _matrixForever.TransformPoints(drTriangl.Points);
                         }
                         // aktualizace seznamu objektu ve scene
                         WndScene wnd = GetWndScene();

@@ -239,6 +239,11 @@ namespace RayTracerLib
             return nearest;
         }
 
+        public override void MoveToPoint(double dx, double dy, double dz)
+        {
+            throw new NotImplementedException();
+        }
+
         //public bool Intersects2(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
         //{
 

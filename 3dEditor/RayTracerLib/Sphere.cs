@@ -32,6 +32,9 @@ namespace RayTracerLib
             Origin = new Vektor(origin);
             R = r;
             this.Material = new Material();
+            _RotatMatrix = Matrix3D.Identity;
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(Origin);
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
 
         }
 
@@ -46,6 +49,9 @@ namespace RayTracerLib
             this.R = sp.R;
             this.Origin = new Vektor(sp.Origin);
             this.Material = new Material(sp.Material);
+            _localMatrix = sp._localMatrix;
+            _ShiftMatrix = sp._ShiftMatrix;
+            _RotatMatrix = sp._RotatMatrix;
         }
 
         /// <summary>
@@ -125,16 +131,19 @@ namespace RayTracerLib
             //this.Origin += dVec;
             this.Origin.X += dx;
             this.Origin.Y += dy;
-            this.Origin.Z += dz; 
+            this.Origin.Z += dz;
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(Origin);
         }
 
-        public void MoveToPoint(double dx, double dy, double dz)
+        public override void MoveToPoint(double dx, double dy, double dz)
         {
             //Vektor dVec = new Vektor(dx, dy, dz);
             //this.Origin += dVec;
             this.Origin.X = dx;
             this.Origin.Y = dy;
             this.Origin.Z = dz;
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(this.Origin);
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
         }
 
         public override string ToString()
@@ -144,7 +153,8 @@ namespace RayTracerLib
 
         public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)
         {
-            throw new NotImplementedException();
+            _RotatMatrix = Matrix3D.NewRotateByDegrees(degAroundX, degAroundY, degAroundZ);
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
         }
 
     }

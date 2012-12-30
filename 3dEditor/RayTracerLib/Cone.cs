@@ -291,7 +291,7 @@ namespace RayTracerLib
             return "Peak: " + this.Peak + "; Dir: " + this.Dir;
         }
 
-        public void MoveToPoint(double p1, double p2, double p3)
+        public override void MoveToPoint(double p1, double p2, double p3)
         {
             Vektor newPeak = new Vektor(p1, p2, p3);
             this.SetValues(newPeak, this.Dir, this.Rad, this.Height);

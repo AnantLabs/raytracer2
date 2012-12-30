@@ -153,9 +153,9 @@ namespace _3dEditor
             _rayTracer.RScene.Lights[1].Coord = new Vektor(5.5, -0.4, -5.2);
             _rayTracer.RCamera.Source = new Vektor(2.5, 0.7, 10);
             //_rayTracer.RScene.SceneObjects.Add(sph1);
-            //_rayTracer.RScene.SceneObjects.Add(sph2);
+            _rayTracer.RScene.SceneObjects.Add(sph2);
             //_rayTracer.RScene.SceneObjects.Add(cube1);
-            _rayTracer.RScene.SceneObjects.Add(cube2);
+            //_rayTracer.RScene.SceneObjects.Add(cube2);
             //_rayTracer.RScene.SceneObjects.Add(tr1);
             //_rayTracer.RScene.SceneObjects.Add(cone);
             //_rayTracer.RScene.SceneObjects.Add(plane1);

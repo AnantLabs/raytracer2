@@ -336,13 +336,6 @@
             this.label77 = new System.Windows.Forms.Label();
             this.label78 = new System.Windows.Forms.Label();
             this.panelTriangle = new System.Windows.Forms.Panel();
-            this.label150 = new System.Windows.Forms.Label();
-            this.label151 = new System.Windows.Forms.Label();
-            this.label152 = new System.Windows.Forms.Label();
-            this.label166 = new System.Windows.Forms.Label();
-            this.numTrRotZ = new System.Windows.Forms.NumericUpDown();
-            this.numTrRotY = new System.Windows.Forms.NumericUpDown();
-            this.numTrRotX = new System.Windows.Forms.NumericUpDown();
             this.label167 = new System.Windows.Forms.Label();
             this.numTriangN = new System.Windows.Forms.NumericUpDown();
             this.label168 = new System.Windows.Forms.Label();
@@ -561,9 +554,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericCylCentZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCylCentY)).BeginInit();
             this.panelTriangle.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numTrRotZ)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numTrRotY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numTrRotX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTriangN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTriangKt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTriangH)).BeginInit();
@@ -1262,7 +1252,7 @@
             this.numSphRotZ.Name = "numSphRotZ";
             this.numSphRotZ.Size = new System.Drawing.Size(45, 20);
             this.numSphRotZ.TabIndex = 140;
-            this.numSphRotZ.ValueChanged += new System.EventHandler(this.onNumericRotateSphere);
+            this.numSphRotZ.ValueChanged += new System.EventHandler(this.actionSphereRotate);
             // 
             // numSphRotY
             // 
@@ -1285,7 +1275,7 @@
             this.numSphRotY.Name = "numSphRotY";
             this.numSphRotY.Size = new System.Drawing.Size(45, 20);
             this.numSphRotY.TabIndex = 139;
-            this.numSphRotY.ValueChanged += new System.EventHandler(this.onNumericRotateSphere);
+            this.numSphRotY.ValueChanged += new System.EventHandler(this.actionSphereRotate);
             // 
             // numSphRotX
             // 
@@ -1308,7 +1298,7 @@
             this.numSphRotX.Name = "numSphRotX";
             this.numSphRotX.Size = new System.Drawing.Size(45, 20);
             this.numSphRotX.TabIndex = 138;
-            this.numSphRotX.ValueChanged += new System.EventHandler(this.onNumericRotateSphere);
+            this.numSphRotX.ValueChanged += new System.EventHandler(this.actionSphereRotate);
             // 
             // numSphPhi
             // 
@@ -5346,13 +5336,6 @@
             // panelTriangle
             // 
             this.panelTriangle.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
-            this.panelTriangle.Controls.Add(this.label150);
-            this.panelTriangle.Controls.Add(this.label151);
-            this.panelTriangle.Controls.Add(this.label152);
-            this.panelTriangle.Controls.Add(this.label166);
-            this.panelTriangle.Controls.Add(this.numTrRotZ);
-            this.panelTriangle.Controls.Add(this.numTrRotY);
-            this.panelTriangle.Controls.Add(this.numTrRotX);
             this.panelTriangle.Controls.Add(this.label167);
             this.panelTriangle.Controls.Add(this.numTriangN);
             this.panelTriangle.Controls.Add(this.label168);
@@ -5400,119 +5383,6 @@
             this.panelTriangle.Name = "panelTriangle";
             this.panelTriangle.Size = new System.Drawing.Size(417, 343);
             this.panelTriangle.TabIndex = 63;
-            // 
-            // label150
-            // 
-            this.label150.AutoSize = true;
-            this.label150.BackColor = System.Drawing.Color.Transparent;
-            this.label150.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label150.Location = new System.Drawing.Point(103, 92);
-            this.label150.Name = "label150";
-            this.label150.Size = new System.Drawing.Size(15, 13);
-            this.label150.TabIndex = 169;
-            this.label150.Text = "x:";
-            // 
-            // label151
-            // 
-            this.label151.AutoSize = true;
-            this.label151.BackColor = System.Drawing.Color.Transparent;
-            this.label151.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label151.Location = new System.Drawing.Point(14, 91);
-            this.label151.Name = "label151";
-            this.label151.Size = new System.Drawing.Size(87, 16);
-            this.label151.TabIndex = 172;
-            this.label151.Text = "Orientation:";
-            // 
-            // label152
-            // 
-            this.label152.AutoSize = true;
-            this.label152.BackColor = System.Drawing.Color.Transparent;
-            this.label152.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label152.Location = new System.Drawing.Point(243, 92);
-            this.label152.Name = "label152";
-            this.label152.Size = new System.Drawing.Size(15, 13);
-            this.label152.TabIndex = 171;
-            this.label152.Text = "z:";
-            // 
-            // label166
-            // 
-            this.label166.AutoSize = true;
-            this.label166.BackColor = System.Drawing.Color.Transparent;
-            this.label166.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label166.Location = new System.Drawing.Point(174, 92);
-            this.label166.Name = "label166";
-            this.label166.Size = new System.Drawing.Size(15, 13);
-            this.label166.TabIndex = 170;
-            this.label166.Text = "y:";
-            // 
-            // numTrRotZ
-            // 
-            this.numTrRotZ.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numTrRotZ.Location = new System.Drawing.Point(260, 89);
-            this.numTrRotZ.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.numTrRotZ.Minimum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            -2147483648});
-            this.numTrRotZ.Name = "numTrRotZ";
-            this.numTrRotZ.Size = new System.Drawing.Size(45, 20);
-            this.numTrRotZ.TabIndex = 168;
-            this.numTrRotZ.ValueChanged += new System.EventHandler(this.actionTriangleSet);
-            // 
-            // numTrRotY
-            // 
-            this.numTrRotY.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numTrRotY.Location = new System.Drawing.Point(191, 89);
-            this.numTrRotY.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.numTrRotY.Minimum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            -2147483648});
-            this.numTrRotY.Name = "numTrRotY";
-            this.numTrRotY.Size = new System.Drawing.Size(45, 20);
-            this.numTrRotY.TabIndex = 167;
-            this.numTrRotY.ValueChanged += new System.EventHandler(this.actionTriangleSet);
-            // 
-            // numTrRotX
-            // 
-            this.numTrRotX.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numTrRotX.Location = new System.Drawing.Point(121, 89);
-            this.numTrRotX.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.numTrRotX.Minimum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            -2147483648});
-            this.numTrRotX.Name = "numTrRotX";
-            this.numTrRotX.Size = new System.Drawing.Size(45, 20);
-            this.numTrRotX.TabIndex = 166;
-            this.numTrRotX.ValueChanged += new System.EventHandler(this.actionTriangleSet);
             // 
             // label167
             // 
@@ -7037,9 +6907,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericCylCentY)).EndInit();
             this.panelTriangle.ResumeLayout(false);
             this.panelTriangle.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numTrRotZ)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numTrRotY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numTrRotX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTriangN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTriangKt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTriangH)).EndInit();
@@ -7394,13 +7261,6 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.CheckBox checkOptimize;
         private System.Windows.Forms.Panel panelTriangle;
-        private System.Windows.Forms.Label label150;
-        private System.Windows.Forms.Label label151;
-        private System.Windows.Forms.Label label152;
-        private System.Windows.Forms.Label label166;
-        private System.Windows.Forms.NumericUpDown numTrRotZ;
-        private System.Windows.Forms.NumericUpDown numTrRotY;
-        private System.Windows.Forms.NumericUpDown numTrRotX;
         private System.Windows.Forms.Label label167;
         private System.Windows.Forms.NumericUpDown numTriangN;
         private System.Windows.Forms.Label label168;

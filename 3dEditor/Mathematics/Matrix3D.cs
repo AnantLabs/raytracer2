@@ -388,6 +388,7 @@ public class Matrix3D
 
             return matrix;
         }
+        
         public static Matrix3D PosunutiNewMatrix(Vektor shift)
         {
             Matrix3D matrix = new Matrix3D();
@@ -413,6 +414,17 @@ public class Matrix3D
             matrix.Matrix[2, 3] = -this.Matrix[2, 3];
             matrix.Matrix[3, 3] = 1;
             return matrix;
+        }
+
+    /// <summary>
+    /// pricte k stavajici SHIFT matici novou SHIFT matici
+    /// </summary>
+    /// <param name="shiftMatrix"></param>
+        public void PosunutiAddMatrix(Matrix3D shiftMatrix)
+        {
+            this.Matrix[0, 3] += shiftMatrix.Matrix[0, 3];
+            this.Matrix[1, 3] += shiftMatrix.Matrix[1, 3];
+            this.Matrix[2, 3] += shiftMatrix.Matrix[2, 3];
         }
 
         /// SCALING / zmena meritka
