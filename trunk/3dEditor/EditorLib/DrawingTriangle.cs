@@ -58,7 +58,8 @@ namespace EditorLib
             Points[1] = new Vektor(triangle.B.X, triangle.B.Y, triangle.B.Z);
             Points[2] = new Vektor(triangle.C.X, triangle.C.Y, triangle.C.Z);
 
-            _localMatrix = _RotatMatrix;
+            _ShiftMatrix = triangle._ShiftMatrix;
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
             _localMatrix.TransformPoints(Points);
 
             this.Lines = new List<Line3D>(3);

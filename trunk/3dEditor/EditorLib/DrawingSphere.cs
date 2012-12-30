@@ -54,46 +54,36 @@ namespace EditorLib
             DecremTheta = _DECREM_THETA;
             DecremPhi = _DECREM_PHI;
 
-            _RotatMatrix = Matrix3D.Identity;
-            
-
             this.SetModelObject(sphere);
         }
         //public List<Rect
         public DrawingSphere(Vektor origin, double rad)
             : this(new Sphere(new Vektor(origin.X,origin.Y,origin.Z), rad))
-        {
-            this.Set(origin, rad);
-        }
+        {        }
 
         public override void SetModelObject(object modelObject)
         {
-            if (modelObject != null && modelObject.GetType() == typeof(RayTracerLib.Sphere))
-                this.SetModelObject((RayTracerLib.Sphere)modelObject);
+            if (modelObject != null && modelObject.GetType() == typeof(Sphere))
+                this.SetModelObject((Sphere)modelObject);
         }
         /// <summary>
         /// nastavi kouli z Raytraceru do Editoru
         /// RayTracerLib -> EditorLib
         /// </summary>
         /// <param name="sphere"></param>
-        public void SetModelObject(RayTracerLib.Sphere sphere)
+        public void SetModelObject(Sphere sphere)
         {
             this.SetModelObject(sphere, _SIDES, _DECREM_THETA, _DECREM_PHI);
         }
         
-        public void SetModelObject(RayTracerLib.Sphere sphere, int numSides, int decrTheta, int decrPhi)
+        public void SetModelObject(Sphere sphere, int numSides, int decrTheta, int decrPhi)
+        {
+            this.Set(sphere, numSides, decrTheta, decrPhi);
+        }
+
+        private void Set(Sphere sphere, int numSides, int decrTheta, int decrPhi)
         {
             this.ModelObject = sphere;
-            double rad = sphere.R;
-            Vektor origin = new Vektor(sphere.Origin.X, sphere.Origin.Y, sphere.Origin.Z);
-            this.Set(origin, rad, numSides, decrTheta, decrPhi);
-        }
-        private void Set(Vektor origin, double rad)
-        {
-            this.Set(origin, rad, Sides, DecremTheta, DecremPhi);
-        }
-        private void Set(Vektor origin, double rad, int numSides, int decrTheta, int decrPhi)
-        {
             Sides = numSides;
             DecremTheta = decrTheta;
             DecremPhi = decrPhi;
@@ -106,10 +96,11 @@ namespace EditorLib
             points.AddRange(rovnobezky);
             Points = points.ToArray();
 
-            this.Radius = rad;
-            
-            Matrix3D scale = Matrix3D.ScalingNewMatrix(rad, rad, rad);
-            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(origin.X, origin.Y, origin.Z);
+            this.Radius = sphere.R;
+
+            Matrix3D scale = Matrix3D.ScalingNewMatrix(Radius, Radius, Radius);
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(sphere.Origin);
+            _RotatMatrix = sphere._RotatMatrix;
 
             //Matrix3D mm = scale * _ShiftMatrix; // nejdrive scaling, pak posunuti
             //mm.TransformPoints(Points);

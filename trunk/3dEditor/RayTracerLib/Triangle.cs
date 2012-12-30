@@ -57,6 +57,8 @@ namespace RayTracerLib
             AC.Normalize();
             Norm = Vektor.CrossProduct(AB, AC);
             Norm.Normalize();
+            _ShiftMatrix = Matrix3D.Identity;
+            _RotatMatrix = Matrix3D.Identity;
         }
 
         /// <summary>
@@ -122,6 +124,18 @@ namespace RayTracerLib
         public override void Move(double dx, double dy, double dz)
         {
             throw new NotImplementedException();
+        }
+        public override void MoveToPoint(double dx, double dy, double dz)
+        {
+            Matrix3D transpShift = _ShiftMatrix.GetOppositeShiftMatrix();
+            transpShift.TransformPoint(A);
+            transpShift.TransformPoint(B);
+            transpShift.TransformPoint(C);
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(dx, dy, dz);
+            _ShiftMatrix.TransformPoint(A);
+            _ShiftMatrix.TransformPoint(B);
+            _ShiftMatrix.TransformPoint(C);
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
         }
 
         public override string ToString()

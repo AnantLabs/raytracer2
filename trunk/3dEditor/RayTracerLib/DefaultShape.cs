@@ -49,6 +49,8 @@ namespace RayTracerLib
         /// <param name="dz">z-direction move</param>
         public abstract void Move(double dx, double dy, double dz);
 
+        public abstract void MoveToPoint(double dx, double dy, double dz);
+
         public abstract void Rotate(double degAroundX, double degAroundY, double degAroundZ);
     }
 }

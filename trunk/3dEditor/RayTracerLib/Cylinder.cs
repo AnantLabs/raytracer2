@@ -269,7 +269,7 @@ namespace RayTracerLib
             throw new NotImplementedException();
         }
 
-        public void MoveToPoint(double dx, double dy, double dz)
+        public override void MoveToPoint(double dx, double dy, double dz)
         {
             //Vektor dVec = new Vektor(dx, dy, dz);
             //this.Origin += dVec;

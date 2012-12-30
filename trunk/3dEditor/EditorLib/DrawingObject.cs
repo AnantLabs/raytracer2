@@ -38,13 +38,22 @@ namespace EditorLib
 
         public abstract Vektor GetCenter();
 
+        /// <summary>
+        /// Aplikuje rotacni matici na vsechny body sveta editoru.
+        /// Nemeni modelovy objekt.
+        /// </summary>
+        /// <param name="rotationMatrix"></param>
+        public void ApplyRotationMatrix(Matrix3D rotationMatrix)
+        {
+            rotationMatrix.TransformPoints(Points);
+        }
+
         public void Rotate(double degAroundX, double degAroundY, double degAroundZ)
         {
             DefaultShape ds = (DefaultShape)ModelObject;
             ds.Rotate(degAroundX, degAroundY, degAroundZ);
 
             Matrix3D newRot = Matrix3D.NewRotateByDegrees(degAroundX, degAroundY, degAroundZ);
-            Matrix3D transpLoc = _localMatrix.Transpose();
 
             Matrix3D transpRot = _RotatMatrix.Transpose();
             Matrix3D transpShift = _ShiftMatrix.GetOppositeShiftMatrix();
@@ -58,17 +67,21 @@ namespace EditorLib
             //this.SetModelObject(this.ModelObject);
         }
 
-        /// <summary>
-        /// Aplikuje rotacni matici na vsechny body sveta editoru.
-        /// Nemeni modelovy objekt.
-        /// </summary>
-        /// <param name="rotationMatrix"></param>
-        public void ApplyRotationMatrix(Matrix3D rotationMatrix)
-        {
-            rotationMatrix.TransformPoints(Points);
-        }
 
-        public void Move(double moveX, double moveY, double moveZ) { }
+
+        public void Move(double moveX, double moveY, double moveZ)
+        {
+            DefaultShape ds = (DefaultShape)ModelObject;
+            ds.MoveToPoint(moveX, moveY, moveZ);
+
+            Matrix3D transpShift = _ShiftMatrix.GetOppositeShiftMatrix();
+            transpShift.TransformPoints(Points);
+
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(moveX, moveY, moveZ);
+
+            _ShiftMatrix.TransformPoints(Points);
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+        }
 
         public void Scale(double scale) { }
 

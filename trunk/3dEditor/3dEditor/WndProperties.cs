@@ -143,6 +143,11 @@ namespace _3dEditor
 
             this.numericKouleRadius.Value = (decimal)sph.R;
 
+            double[] angles = drSphere.GetRotationAngles();
+            this.numSphRotX.Value = (decimal)MyMath.Clamp(angles[0], -360, 360);
+            this.numSphRotY.Value = (decimal)MyMath.Clamp(angles[1], -360, 360);
+            this.numSphRotZ.Value = (decimal)MyMath.Clamp(angles[2], -360, 360);
+
             this.numSphKa.Value = (decimal)sph.Material.Ka;
             this.numSphKs.Value = (decimal)sph.Material.Ks;
             this.numSphKd.Value = (decimal)sph.Material.Kd;
@@ -320,7 +325,7 @@ namespace _3dEditor
 
             Triangle triangl = (Triangle)drTriangl.ModelObject;
 
-               this.numericTriangleAX.Value = (decimal)triangl.A.X;
+            this.numericTriangleAX.Value = (decimal)triangl.A.X;
             this.numericTriangleAY.Value = (decimal)triangl.A.Y;
             this.numericTriangleAZ.Value = (decimal)triangl.A.Z;
 
@@ -1322,7 +1327,7 @@ namespace _3dEditor
 
         }
 
-        private void onNumericRotateSphere(object sender, EventArgs e)
+        private void actionSphereRotate(object sender, EventArgs e)
         {
             if (_currentlyDisplayed.GetType() != typeof(DrawingSphere))
                 return;
@@ -1341,6 +1346,8 @@ namespace _3dEditor
             DrawingSphere drSph = _currentlyDisplayed as DrawingSphere;
 
             WndBoard wnd = GetWndBoard();
+            Matrix3D transp = wnd.RotationMatrix.Transpose();
+            transp.TransformPoints(drSph.Points);
             drSph.Rotate(x, y, z);
             wnd.RotationMatrix.TransformPoints(drSph.Points);
         }
