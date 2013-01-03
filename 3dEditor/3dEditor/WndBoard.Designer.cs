@@ -52,22 +52,13 @@
             this.statusLabelZ = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripContainer2 = new System.Windows.Forms.ToolStripContainer();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnZPlus = new System.Windows.Forms.Button();
-            this.btnZMinus = new System.Windows.Forms.Button();
-            this.btnXMinus = new System.Windows.Forms.Button();
-            this.btnYPlus = new System.Windows.Forms.Button();
-            this.btnXPlus = new System.Windows.Forms.Button();
-            this.btnYMinus = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.labelClick = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.labelClick = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoard)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -86,7 +77,7 @@
             this.pictureBoard.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoard.Location = new System.Drawing.Point(0, 0);
             this.pictureBoard.Name = "pictureBoard";
-            this.pictureBoard.Size = new System.Drawing.Size(832, 611);
+            this.pictureBoard.Size = new System.Drawing.Size(924, 611);
             this.pictureBoard.TabIndex = 0;
             this.pictureBoard.TabStop = false;
             this.pictureBoard.Paint += new System.Windows.Forms.PaintEventHandler(this.onPaintBoard);
@@ -226,7 +217,7 @@
             this.statusStrip1.Location = new System.Drawing.Point(0, 614);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
-            this.statusStrip1.Size = new System.Drawing.Size(832, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(924, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -302,12 +293,12 @@
             // 
             this.toolStripContainer2.ContentPanel.Controls.Add(this.panel1);
             this.toolStripContainer2.ContentPanel.Controls.Add(this.pictureBoard);
-            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(832, 611);
+            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(924, 611);
             this.toolStripContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer2.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.toolStripContainer2.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer2.Name = "toolStripContainer2";
-            this.toolStripContainer2.Size = new System.Drawing.Size(832, 636);
+            this.toolStripContainer2.Size = new System.Drawing.Size(924, 636);
             this.toolStripContainer2.TabIndex = 5;
             this.toolStripContainer2.Text = "toolStripContainer2";
             // 
@@ -318,136 +309,22 @@
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.btnZPlus);
-            this.panel1.Controls.Add(this.btnZMinus);
-            this.panel1.Controls.Add(this.btnXMinus);
-            this.panel1.Controls.Add(this.btnYPlus);
-            this.panel1.Controls.Add(this.btnXPlus);
-            this.panel1.Controls.Add(this.btnYMinus);
-            this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.labelClick);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.numericUpDown1);
             this.panel1.Controls.Add(this.numericUpDown2);
             this.panel1.Controls.Add(this.numericUpDown3);
-            this.panel1.Location = new System.Drawing.Point(676, 300);
+            this.panel1.Location = new System.Drawing.Point(824, 404);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(156, 146);
+            this.panel1.Size = new System.Drawing.Size(100, 94);
             this.panel1.TabIndex = 5;
-            // 
-            // btnZPlus
-            // 
-            this.btnZPlus.Enabled = false;
-            this.btnZPlus.Location = new System.Drawing.Point(93, 93);
-            this.btnZPlus.Name = "btnZPlus";
-            this.btnZPlus.Size = new System.Drawing.Size(25, 23);
-            this.btnZPlus.TabIndex = 18;
-            this.btnZPlus.Text = "+";
-            this.btnZPlus.UseVisualStyleBackColor = true;
-            this.btnZPlus.Click += new System.EventHandler(this.btnZPlus_Click);
-            // 
-            // btnZMinus
-            // 
-            this.btnZMinus.Enabled = false;
-            this.btnZMinus.Location = new System.Drawing.Point(93, 120);
-            this.btnZMinus.Name = "btnZMinus";
-            this.btnZMinus.Size = new System.Drawing.Size(25, 23);
-            this.btnZMinus.TabIndex = 17;
-            this.btnZMinus.Text = "-";
-            this.btnZMinus.UseVisualStyleBackColor = true;
-            this.btnZMinus.Click += new System.EventHandler(this.btnZMinus_Click);
-            // 
-            // btnXMinus
-            // 
-            this.btnXMinus.Enabled = false;
-            this.btnXMinus.Location = new System.Drawing.Point(3, 120);
-            this.btnXMinus.Name = "btnXMinus";
-            this.btnXMinus.Size = new System.Drawing.Size(25, 23);
-            this.btnXMinus.TabIndex = 16;
-            this.btnXMinus.Text = "-";
-            this.btnXMinus.UseVisualStyleBackColor = true;
-            this.btnXMinus.Click += new System.EventHandler(this.btnL_Click);
-            // 
-            // btnYPlus
-            // 
-            this.btnYPlus.Enabled = false;
-            this.btnYPlus.Location = new System.Drawing.Point(52, 93);
-            this.btnYPlus.Name = "btnYPlus";
-            this.btnYPlus.Size = new System.Drawing.Size(25, 23);
-            this.btnYPlus.TabIndex = 15;
-            this.btnYPlus.Text = "+";
-            this.btnYPlus.UseVisualStyleBackColor = true;
-            this.btnYPlus.Click += new System.EventHandler(this.btnD_Click);
-            // 
-            // btnXPlus
-            // 
-            this.btnXPlus.Enabled = false;
-            this.btnXPlus.Location = new System.Drawing.Point(3, 93);
-            this.btnXPlus.Name = "btnXPlus";
-            this.btnXPlus.Size = new System.Drawing.Size(25, 23);
-            this.btnXPlus.TabIndex = 14;
-            this.btnXPlus.Text = "+";
-            this.btnXPlus.UseVisualStyleBackColor = true;
-            this.btnXPlus.Click += new System.EventHandler(this.btnR_Click);
-            // 
-            // btnYMinus
-            // 
-            this.btnYMinus.Enabled = false;
-            this.btnYMinus.Location = new System.Drawing.Point(52, 120);
-            this.btnYMinus.Name = "btnYMinus";
-            this.btnYMinus.Size = new System.Drawing.Size(25, 23);
-            this.btnYMinus.TabIndex = 13;
-            this.btnYMinus.Text = "-";
-            this.btnYMinus.UseVisualStyleBackColor = true;
-            this.btnYMinus.Click += new System.EventHandler(this.btnU_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(93, 4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(25, 23);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "-";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // labelClick
-            // 
-            this.labelClick.AutoSize = true;
-            this.labelClick.Location = new System.Drawing.Point(81, 41);
-            this.labelClick.Name = "labelClick";
-            this.labelClick.Size = new System.Drawing.Size(29, 13);
-            this.labelClick.TabIndex = 11;
-            this.labelClick.Text = "click";
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(119, 4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(25, 23);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "+";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(84, 64);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(51, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "btn";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(5, 70);
+            this.label3.Location = new System.Drawing.Point(9, 54);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(14, 13);
             this.label3.TabIndex = 7;
@@ -456,7 +333,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 50);
+            this.label2.Location = new System.Drawing.Point(9, 34);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(14, 13);
             this.label2.TabIndex = 6;
@@ -465,7 +342,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 27);
+            this.label1.Location = new System.Drawing.Point(9, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(14, 13);
             this.label1.TabIndex = 5;
@@ -478,7 +355,7 @@
             0,
             0,
             0});
-            this.numericUpDown1.Location = new System.Drawing.Point(25, 25);
+            this.numericUpDown1.Location = new System.Drawing.Point(29, 9);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -501,7 +378,7 @@
             0,
             0,
             0});
-            this.numericUpDown2.Location = new System.Drawing.Point(25, 46);
+            this.numericUpDown2.Location = new System.Drawing.Point(29, 30);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -524,7 +401,7 @@
             0,
             0,
             0});
-            this.numericUpDown3.Location = new System.Drawing.Point(25, 67);
+            this.numericUpDown3.Location = new System.Drawing.Point(29, 51);
             this.numericUpDown3.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -540,11 +417,20 @@
             this.numericUpDown3.TabIndex = 3;
             this.numericUpDown3.ValueChanged += new System.EventHandler(this.onValNumChange);
             // 
+            // labelClick
+            // 
+            this.labelClick.AutoSize = true;
+            this.labelClick.Location = new System.Drawing.Point(9, 74);
+            this.labelClick.Name = "labelClick";
+            this.labelClick.Size = new System.Drawing.Size(29, 13);
+            this.labelClick.TabIndex = 11;
+            this.labelClick.Text = "click";
+            // 
             // WndBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(832, 636);
+            this.ClientSize = new System.Drawing.Size(924, 636);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStripContainer2);
             this.Name = "WndBoard";
@@ -596,20 +482,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label labelClick;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ToolStripButton toolStripBtnLights;
         private System.Windows.Forms.ToolStripButton toolStripBtnCamera;
-        private System.Windows.Forms.Button btnXMinus;
-        private System.Windows.Forms.Button btnYPlus;
-        private System.Windows.Forms.Button btnXPlus;
-        private System.Windows.Forms.Button btnYMinus;
-        private System.Windows.Forms.Button btnZPlus;
-        private System.Windows.Forms.Button btnZMinus;
         private System.Windows.Forms.ToolStripComboBox toolsComboViewAngle;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.Label labelClick;
     }
 }
