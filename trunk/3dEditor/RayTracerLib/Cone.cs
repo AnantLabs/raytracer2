@@ -124,7 +124,7 @@ namespace RayTracerLib
             _ShiftMatrix = Matrix3D.PosunutiNewMatrix(c.X, c.Y, c.Z);
 
             Vektor yAxe = new Vektor(0, 1, 0);
-            Quaternion q = new Quaternion( yAxe, new Vektor(dir));
+            Quaternion q = new Quaternion(yAxe, new Vektor(dir));
             //q.Transpose();
             double[] degss = q.ToEulerDegs();
 

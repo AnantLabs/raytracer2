@@ -63,12 +63,15 @@ namespace _3dEditor
             _WndScene.MdiParent = this;
             _WndScene.Location = new Point(_WndBoard.Width, _WndBoard.Location.Y);
             _WndScene.Height = (int)(_WndBoard.Height * _ratioSize);
+            int scrollWid = 2 * System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
+            if (!this.VerticalScroll.Visible) 
+                scrollWid = 10;
+            _WndScene.Width = this.Width - _WndBoard.Width - scrollWid; 
             
             _WndScene.Show();
             _WndScene.Update();
             _WndScene.Activate();
             _WndScene.Invalidate();
-            _WndScene.Anchor = AnchorStyles.Right;
 
 
             //
@@ -86,12 +89,12 @@ namespace _3dEditor
 
             Form[] fs = this.MdiChildren;
 
-            VScroll = true;
-            VScrollBar vs = new VScrollBar();
-            vs.Parent = this;
-            vs.Scroll += new ScrollEventHandler(this.onScroll);
-            vs.Dock = DockStyle.Right;
-            Controls.Add(vs);
+            //VScroll = true;
+            //VScrollBar vs = new VScrollBar();
+            //vs.Parent = this;
+            //vs.Scroll += new ScrollEventHandler(this.onScroll);
+            //vs.Dock = DockStyle.Right;
+            //Controls.Add(vs);
             
             InitRayTracer();
             //LayoutMdi(MdiLayout.Cascade);
@@ -152,7 +155,7 @@ namespace _3dEditor
             _rayTracer.RScene.Lights[0].Coord = new Vektor(-4.2, 2.1, 0.6);
             _rayTracer.RScene.Lights[1].Coord = new Vektor(5.5, -0.4, -5.2);
             _rayTracer.RCamera.Source = new Vektor(2.5, 0.7, 10);
-            //_rayTracer.RScene.SceneObjects.Add(sph1);
+            _rayTracer.RScene.SceneObjects.Add(sph1);
             _rayTracer.RScene.SceneObjects.Add(sph2);
             //_rayTracer.RScene.SceneObjects.Add(cube1);
             //_rayTracer.RScene.SceneObjects.Add(cube2);

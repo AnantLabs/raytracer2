@@ -545,6 +545,11 @@ namespace RayTracerLib
             return String.Format("Dráha: {0}", this.Ellipse);
         }
 
+
+        public void Rotate(double degAroundX, double degAroundY, double degAroundZ)
+        {
+            return;
+        }
     }
 
     

@@ -24,7 +24,7 @@ namespace EditorLib
         const int SIZE = 10;
         const float DISTANCE = 1;
 
-        public DrawingPlane(Plane plane) : this(SIZE, DISTANCE, 0, 0, 0, plane) { }
+        public DrawingPlane(Plane plane) : this(SIZE, DISTANCE, plane) { }
         /// <summary>
         /// Rovina v editoru
         /// TODO: 
@@ -33,21 +33,12 @@ namespace EditorLib
         /// </summary>
         /// <param name="size">pocet okynek na jedne strane mrizky</param>
         /// <param name="distance">vzdalenos mezi mrizkami</param>
-        /// <param name="xRotDeg">rotace podle x - stupne</param>
-        /// <param name="yRotDeg">rotace podle y - stupne</param>
-        /// <param name="zRotDeg">rotace podle z - stupne</param>
-        /// <param name="leftCorner">levy "dolni" roh roviny</param>
         public DrawingPlane(
-            int size, float distance, 
-            double xRotDeg, double yRotDeg, double zRotDeg, 
-            Plane plane)
+            int size, float distance, Plane plane)
         {
-            _RotatMatrix = Matrix3D.NewRotateByDegrees(xRotDeg, yRotDeg, zRotDeg);
-            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(plane.Pocatek.X, plane.Pocatek.Y, plane.Pocatek.Z);
-            this.ModelObject = plane;
             Size = size > 0 ? size : SIZE;
             Distance = distance > 0 ? distance : DISTANCE;
-            this.Set();
+            this.Set(plane);
         }
 
                 
@@ -57,15 +48,14 @@ namespace EditorLib
         /// --dodelat na nekonecnou rovinu
         /// --dodelat na rovinu zadanou dvema body
         /// </summary>
-        /// <param name="size">pocet okynek na jedne strane mrizky</param>
-        /// <param name="distance">vzdalenos mezi mrizkami</param>
-        /// <param name="xRotDeg">rotace podle x - stupne</param>
-        /// <param name="yRotDeg">rotace podle y - stupne</param>
-        /// <param name="zRotDeg">rotace podle z - stupne</param>
-        /// <param name="leftCorner">levy "dolni" roh roviny</param>
-        private void Set()
+        private void Set(Plane plane)
         {
-            Plane plane = (Plane)ModelObject;
+            this.ModelObject = plane;
+
+            _RotatMatrix = plane._RotatMatrix;
+            _ShiftMatrix = plane._ShiftMatrix;
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+
             Vektor leftCorner = new Vektor(plane.Pocatek.X, plane.Pocatek.Y, plane.Pocatek.Z);
 
             List<Vektor> points = new List<Vektor>();
@@ -109,27 +99,15 @@ namespace EditorLib
 
         public void SetModelObject(RayTracerLib.Plane plane, int size, float distance)
         {
-            this.ModelObject = plane;
             Size = size > 0 ? size : SIZE;
             Distance = distance > 0 ? distance : DISTANCE;
-            this.Set();
+            this.Set(plane);
         }
 
         public void SetModelObject(RayTracerLib.Plane plane)
         {
             this.SetModelObject(plane, Size, Distance);
         }
-
-        //public void RotatePlane(double x, double y, double z)
-        //{
-        //    Matrix3D newRot = Matrix3D.NewRotateByDegrees(x, y, z);
-        //    Matrix3D transpLoc = _localMatrix.Transpose();
-
-        //    transpLoc.TransformPoints(Points);
-
-        //    this._RotatMatrix = newRot;
-        //    this.SetModelObject(this.ModelObject);
-        //}
 
         public override Vektor GetCenter()
         {

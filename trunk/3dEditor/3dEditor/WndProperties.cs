@@ -143,10 +143,13 @@ namespace _3dEditor
 
             this.numericKouleRadius.Value = (decimal)sph.R;
 
-            double[] angles = drSphere.GetRotationAngles();
-            this.numSphRotX.Value = (decimal)MyMath.Clamp(angles[0], -360, 360);
-            this.numSphRotY.Value = (decimal)MyMath.Clamp(angles[1], -360, 360);
-            this.numSphRotZ.Value = (decimal)MyMath.Clamp(angles[2], -360, 360);
+            if (_showAngles)
+            {
+                double[] angles = drSphere.GetRotationAngles();
+                this.numSphRotX.Value = (decimal)MyMath.Clamp(angles[0], -360, 360);
+                this.numSphRotY.Value = (decimal)MyMath.Clamp(angles[1], -360, 360);
+                this.numSphRotZ.Value = (decimal)MyMath.Clamp(angles[2], -360, 360);
+            }
 
             this.numSphKa.Value = (decimal)sph.Material.Ka;
             this.numSphKs.Value = (decimal)sph.Material.Ks;
@@ -177,6 +180,14 @@ namespace _3dEditor
 
             Plane pl = (Plane)drPlane.ModelObject;
 
+            if (_showAngles)
+            {
+                double[] angles = drPlane.GetRotationAngles();
+                this.numPlaneRotX.Value = (decimal)MyMath.Clamp(angles[0], -360, 360);
+                this.numPlaneRotY.Value = (decimal)MyMath.Clamp(angles[1], -360, 360);
+                this.numPlaneRotZ.Value = (decimal)MyMath.Clamp(angles[2], -360, 360);
+
+            }
             this.numericRovinaA.Value = (decimal)MyMath.Clamp(pl.Normal.X, -100, 100);
             this.numericRovinaB.Value = (decimal)MyMath.Clamp(pl.Normal.Y, -100, 100);
             this.numericRovinaC.Value = (decimal)MyMath.Clamp(pl.Normal.Z, -100, 100);
@@ -442,6 +453,22 @@ namespace _3dEditor
             this.btnImageBgr.BackColor = img.BackgroundColor.SystemColor();
         }
 
+        private GroupBox CreateOptimizeGroup()
+        {
+            string[] names = Enum.GetNames(typeof(Scene.OptimizeType));
+            GroupBox gbox = new GroupBox();
+            gbox.Width = 100;
+            gbox.Height = names.Length * 18;
+            gbox.Name = "imgOptimizeGbox";
+            foreach (string name in names)
+            {
+                RadioButton rb = new RadioButton();
+                rb.Name = "imgRadioOpt" + name;
+                gbox.Controls.Add(rb);
+            }
+            return gbox;
+
+        }
         private void ShowAnimation(DrawingAnimation drAnim)
         {
             // zabraneni neustalemu blikani pri modifikaci stejne koule
@@ -673,9 +700,6 @@ namespace _3dEditor
             if (checkBoxMaxZ.Checked)
                 maxz = (double)numMaxZ.Value;
 
-            plane.Normal = norm;
-            plane.D = d;
-
             plane.MinX = minx;
             plane.MaxX = maxx;
             plane.MinY = miny;
@@ -698,10 +722,12 @@ namespace _3dEditor
             int size = (int)this.numPlaneSize.Value;
             float dist = (float)this.numPlaneDist.Value;
 
+            plane.SetValues(norm, d);
+
             plane.Material = mat;
             plane.CreateBoundVektors();
 
-            btnPlaneMaterialColor.BackColor = mat.Color.SystemColor();
+            //btnPlaneMaterialColor.BackColor = mat.Color.SystemColor();
 
             drPlane.SetModelObject(plane, size, dist);
             WndBoard wndB = GetWndBoard();
@@ -1269,6 +1295,8 @@ namespace _3dEditor
             wndSc.UpdateRecords();
         }
 
+        
+
         private void actionAnimationSet(object sender, EventArgs e)
         {
             if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingAnimation))
@@ -1332,6 +1360,11 @@ namespace _3dEditor
             if (_currentlyDisplayed.GetType() != typeof(DrawingSphere))
                 return;
 
+            if (!_permissionToModify)
+                return;
+
+            _permissionToModify = false;
+
             NumericUpDown num = sender as NumericUpDown;
             if (num.Value > 359)
                 num.Value = num.Value % 360;
@@ -1341,7 +1374,6 @@ namespace _3dEditor
             double x = (double)this.numSphRotX.Value;
             double y = (double)this.numSphRotY.Value;
             double z = (double)this.numSphRotZ.Value;
-            Matrix3D m = Matrix3D.NewRotateByDegrees(x, y, z);
 
             DrawingSphere drSph = _currentlyDisplayed as DrawingSphere;
 
@@ -1350,6 +1382,11 @@ namespace _3dEditor
             transp.TransformPoints(drSph.Points);
             drSph.Rotate(x, y, z);
             wnd.RotationMatrix.TransformPoints(drSph.Points);
+
+            _showAngles = false;
+            this.ShowSphere(drSph);
+            _permissionToModify = true;
+            _showAngles = true;
         }
 
         private void actionCylinderRotate(object sender, EventArgs e)
@@ -1359,6 +1396,8 @@ namespace _3dEditor
 
             if (!_permissionToModify)
                 return;
+
+            _permissionToModify = false;
 
             NumericUpDown num = sender as NumericUpDown;
             if (num.Value > 359)
@@ -1418,7 +1457,7 @@ namespace _3dEditor
             _showAngles = true;
         }
 
-        private void onNumericRotatePlane(object sender, EventArgs e)
+        private void actionPlaneRotate(object sender, EventArgs e)
         {
             if (_currentlyDisplayed.GetType() != typeof(DrawingPlane))
                 return;
@@ -1450,7 +1489,7 @@ namespace _3dEditor
             _showAngles = true;
         }
 
-        private void onNumericRotateAnimation(object sender, EventArgs e)
+        private void actionAnimRotate(object sender, EventArgs e)
         {
             if (_currentlyDisplayed.GetType() != typeof(DrawingAnimation))
                 return;
@@ -1469,6 +1508,8 @@ namespace _3dEditor
             DrawingAnimation drAnim = _currentlyDisplayed as DrawingAnimation;
 
             WndBoard wnd = GetWndBoard();
+            Matrix3D transp = wnd.RotationMatrix.Transpose();
+            transp.TransformPoints(drAnim.Points);
             drAnim.Rotate(x, y, z);
             wnd.RotationMatrix.TransformPoints(drAnim.Points);
         }

@@ -48,6 +48,8 @@ namespace RayTracerLib
         public RTree R_Tree { get; private set; }
         public bool IsOptimizing { get; set; }
 
+        public enum OptimizeType { None, AABBTree, QuadTree, LocalMatrices, Threading };
+
         private string _caption;
 
         /// <summary>

@@ -12,9 +12,9 @@ namespace EditorLib
 {
     public class DrawingTriangle : DrawingDefaultShape
     {
-        public Vektor A { get { return Points[0]; } private set { Points[0] = value; } }
-        public Vektor B { get { return Points[1]; } private set { Points[1] = value; } }
-        public Vektor C { get { return Points[2]; } private set { Points[2] = value; } }
+        public Vektor A { get { return Points[1]; } private set { Points[1] = value; } }
+        public Vektor B { get { return Points[2]; } private set { Points[2] = value; } }
+        public Vektor C { get { return Points[3]; } private set { Points[3] = value; } }
 
         public Brush FillBrush;
 
@@ -45,7 +45,7 @@ namespace EditorLib
                 this.SetModelObject((RayTracerLib.Triangle)modelObject);
         }
         /// <summary>
-        /// nastavi kouli z Raytraceru do Editoru
+        /// nastavi triangl z Raytraceru do Editoru
         /// RayTracerLib -> EditorLib
         /// </summary>
         /// <param name="sphere"></param>
@@ -53,10 +53,11 @@ namespace EditorLib
         {
             this.ModelObject = triangle;
             FillBrush = new SolidBrush(triangle.Material.Color.SystemColor());
-            Points = new Vektor[3];
-            Points[0] = new Vektor(triangle.A.X, triangle.A.Y, triangle.A.Z);
-            Points[1] = new Vektor(triangle.B.X, triangle.B.Y, triangle.B.Z);
-            Points[2] = new Vektor(triangle.C.X, triangle.C.Y, triangle.C.Z);
+            Points = new Vektor[4];
+            Points[0] = new Vektor(0, 0, 0);
+            Points[1] = new Vektor(triangle.A.X, triangle.A.Y, triangle.A.Z);
+            Points[2] = new Vektor(triangle.B.X, triangle.B.Y, triangle.B.Z);
+            Points[3] = new Vektor(triangle.C.X, triangle.C.Y, triangle.C.Z);
 
             _ShiftMatrix = triangle._ShiftMatrix;
             _localMatrix = _RotatMatrix * _ShiftMatrix;
@@ -70,7 +71,9 @@ namespace EditorLib
 
         public Vektor[] GetDrawingPoints()
         {
-            return Points;
+            Vektor[] ps = new Vektor[3];
+            Array.Copy(Points, 1, ps, 0, 3);
+            return ps;
         }
         public override Vektor GetCenter()
         {

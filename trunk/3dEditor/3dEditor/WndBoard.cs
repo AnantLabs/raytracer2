@@ -16,7 +16,7 @@ using Mathematics;
 
 namespace _3dEditor
 {
-    
+  
     public partial class WndBoard : Form
     {
 
@@ -43,7 +43,7 @@ namespace _3dEditor
         DrawingObject _Selected;
 
         Vektor _axisC3, _axisX3, _axisY3, _axisZ3, _axisXY;
-        Vektor _POV;
+        public static Vektor _POV;
         /// <summary>
         /// zda mame stisknute nejake (L | P) tlacitko mysi a zda posouvame mysi po platne
         /// </summary>
@@ -53,6 +53,10 @@ namespace _3dEditor
         /// zda posouvame objekt mysi
         /// </summary>
         bool _isTransforming;
+
+        bool _canRotationChange;
+        bool _canRotationChange2;
+
 
         int _scale;
         int _zoom;
@@ -191,7 +195,7 @@ namespace _3dEditor
             _isDragging = false;
             _scale = scale;
             _zoom = zoom;
-
+            _canRotationChange2 = true;
             
 
             // resetuje body na hlavnich osach
@@ -201,8 +205,9 @@ namespace _3dEditor
             _axisY3 = new Vektor(0, 2, 0);
             _axisZ3 = new Vektor(0, 0, 2);
             _axisXY = new Vektor(_axisX3.X, _axisY3.Y, _axisX3.Z);
-            _POV = new Vektor(_axisX3.X, _axisXY.Y, _axisZ3.Z);
-            _POV.Scale(50, 50, 50);
+
+            _POV = new Vektor(0, 0, -100);
+            //_POV.Scale(50, 50, 50);
             // vyplni potrebne primky
             //
             Line3D l1 = new Line3D(_axisC3, _axisX3);
@@ -723,13 +728,30 @@ namespace _3dEditor
 
             // ANGLES
             double[] angles = _matrixForever.GetAnglesFromMatrix();
-            double degsX = angles[0];
-            double degsY = angles[1];
-            double degsZ = angles[2];
+            for (int i = 0; i < angles.Length; i++)
+            {
+                if (angles[i] > 359)
+                    angles[i] = angles[i] % 360;
+                else if (angles[i] < 0)
+                    angles[i] = 360 + angles[i];
+            }
 
-            this.statusLabelX.Text = Math.Round(degsX, 1).ToString() + "°";
-            this.statusLabelY.Text = Math.Round(degsY, 1).ToString() + "°";
-            this.statusLabelZ.Text = Math.Round(degsZ, 1).ToString() + "°";
+            double degsX = Math.Round(angles[0], 1);
+            double degsY = Math.Round(angles[1], 1);
+            double degsZ = Math.Round(angles[2], 1);
+
+            this.statusLabelX.Text = degsX.ToString() + "°";
+            this.statusLabelY.Text = degsY.ToString() + "°";
+            this.statusLabelZ.Text = degsZ.ToString() + "°";
+
+            if (_canRotationChange2)
+            {
+                _canRotationChange = false;
+                this.numericUpDown1.Value = (decimal)degsX;
+                this.numericUpDown2.Value = (decimal)degsY;
+                this.numericUpDown3.Value = (decimal)degsZ;
+                _canRotationChange = true;
+            }
 
             //////////////////////////////////////////////////////////////
             // UPDATING REST OF EDITOR
@@ -831,10 +853,10 @@ namespace _3dEditor
                     //    p.Posunuti(-xDel, -yDel, 0);
                     //}
 
+                    Matrix3D shift2DMatrix = Matrix3D.PosunutiNewMatrix(-xDel, -yDel, 0); // matice posunuti vzhledem k mysi - 2D
                     if (_Selected.ModelObject is DefaultShape)
                     {
                         DefaultShape ds = _Selected.ModelObject as DefaultShape;
-                        Matrix3D shift2DMatrix = Matrix3D.PosunutiNewMatrix(-xDel, -yDel, 0); // matice posunuti vzhledem k mysi - 2D
 
                         //shift2DMatrix.TransformPoints(_Selected.Points);
                             //foreach (Vektor p in _Selected.Points)
@@ -898,10 +920,9 @@ namespace _3dEditor
                             Vektor center = shift2DMatrix.Transform2NewPoint(drTriangl.Center);
                             Vektor centerTransp = transp.Transform2NewPoint(center);
                             transp.TransformPoints(drTriangl.Points);
-                            Vektor diff = drTriangl.Center - centerTransp;
-                            diff = centerTransp - tr.A;
-                            drTriangl.Move(diff.X, diff.Y, diff.Z);
-                            //drTriangl.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                            Vektor diff = centerTransp - drTriangl.Center;
+                            //drTriangl.Move(diff.X, diff.Y, diff.Z);
+                            drTriangl.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
                             //drTriangl.Move(-diff.X, -diff.Y, -diff.Z);
                             //Matrix3D shift3D = Matrix3D.PosunutiNewMatrix(-diff.X, -diff.Y, -diff.Z);
                             //shift3D.TransformPoints(drTriangl.Points);
@@ -927,10 +948,11 @@ namespace _3dEditor
                     {
                         DrawingCamera drCam = _Selected as DrawingCamera;
                         Camera cam = _Selected.ModelObject as Camera;
-                        foreach (Vektor p in _Selected.Points)
-                        {
-                            p.Posunuti(-xDel, -yDel, 0);
-                        }
+                        shift2DMatrix.TransformPoints(_Selected.Points);
+                        //foreach (Vektor p in _Selected.Points)
+                        //{
+                        //    p.Posunuti(-xDel, -yDel, 0);
+                        //}
                         Matrix3D transp = this._matrixForever.Transpose();
                         Vektor centerTransp = transp.Transform2NewPoint(drCam.Center);
                         cam.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
@@ -943,10 +965,11 @@ namespace _3dEditor
                     {
                         DrawingLight drLight = _Selected as DrawingLight;
                         Light light = _Selected.ModelObject as Light;
-                        foreach (Vektor p in _Selected.Points)
-                        {
-                            p.Posunuti(-xDel, -yDel, 0);
-                        }
+                        shift2DMatrix.TransformPoints(_Selected.Points);
+                        //foreach (Vektor p in _Selected.Points)
+                        //{
+                        //    p.Posunuti(-xDel, -yDel, 0);
+                        //}
                         Matrix3D transp = this._matrixForever.Transpose();
                         Vektor centerTransp = transp.Transform2NewPoint(drLight.Center);
                         light.MoveToPoint(centerTransp.X, centerTransp.Y, centerTransp.Z);
@@ -958,10 +981,11 @@ namespace _3dEditor
                     else if (_Selected is DrawingAnimation)
                     {
                         DrawingAnimation drAnim = _Selected as DrawingAnimation;
-                        foreach (Vektor p in _Selected.Points)
-                        {
-                            p.Posunuti(-xDel, -yDel, 0);
-                        }
+                        shift2DMatrix.TransformPoints(_Selected.Points);
+                        //foreach (Vektor p in _Selected.Points)
+                        //{
+                        //    p.Posunuti(-xDel, -yDel, 0);
+                        //}
                         Matrix3D transp = this._matrixForever.Transpose();
                         Vektor centerTransp = transp.Transform2NewPoint(drAnim.Center);
                         drAnim.CenterWorld = centerTransp;
@@ -1032,14 +1056,37 @@ namespace _3dEditor
             Vektor newXY = _matrix * _axisXY;
             _axisXY = newXY;
 
-            Matrix3D transpMatrix = _matrix.Transpose();
-            _POV = transpMatrix * _POV;
+            DrawObjectComparer dcomp = new DrawObjectComparer(new Vektor(0, 0, -100), _matrixForever, DrawObjectComparer.SortType.DESC);
+            _objectsToDraw.Sort(0, _objectsToDraw.Count, dcomp);
 
             this._lastMousePoint = currePoint;
 
             this._matrix = Matrix3D.Identity;
+            _canRotationChange2 = true;
         }
 
+        
+        /// <summary>
+        /// provnava objekty podle vzdalenosti od bodu _POV
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        //private static int CompareObjectsToDraw(DrawingObject x, DrawingObject y)
+        //{
+
+        //    foreach (DrawingObject drob in drawingList)
+        //    {
+        //        Vektor vec = drob.GetCenter();
+        //        transp.TransformPoint(vec);
+        //        vec = _POV - vec;
+        //        double len = vec.Size();
+        //        if (len < minlen)
+        //        {
+        //            minlen = len;
+        //            closestObj = drob;
+        //        }
+        //}
         /// <summary>
         /// nastavi rotaci editoru podle zadane matice
         /// nevyuziva predchozi nastaveni. 
@@ -1071,10 +1118,10 @@ namespace _3dEditor
             Vektor newXY = rotationMatrix * (transp * _axisXY);
             _axisXY = newXY;
 
-            Matrix3D trp = rotationMatrix.Transpose();
-            _POV = trp * (_matrixForever * _POV);
-
             this._matrixForever = rotationMatrix;
+
+            DrawObjectComparer dcomp = new DrawObjectComparer(new Vektor(0, 0, -100), _matrixForever, DrawObjectComparer.SortType.DESC);
+            _objectsToDraw.Sort(0, _objectsToDraw.Count, dcomp);
 
         }
         /// <summary>
@@ -1101,18 +1148,22 @@ namespace _3dEditor
                 }
                 if (!wasSelectedBefore && drawingList[0] is DrawingObject)
                 {
-                    DrawingObject closestObj = GetClosestDrawingObj(drawingList);
                     WndScene wndsc = GetWndScene();
-                    if (closestObj != null)
-                    {
-                        wndsc.ShowNode(closestObj);
-                        _Selected = closestObj;
-                    }
-                    else
-                    {
-                        wndsc.ShowNode(drawingList[0]);
-                        _Selected = drawingList[0];   // vybereme prvni ze seznamu
-                    }
+                    _Selected = drawingList[drawingList.Count - 1];   // vybereme posledni ze seznamu - je nejbliz pozorovateli
+                    wndsc.ShowNode(_Selected);
+
+                    //DrawingObject closestObj = GetClosestDrawingObj(drawingList);
+                    //WndScene wndsc = GetWndScene();
+                    //if (closestObj != null)
+                    //{
+                    //    wndsc.ShowNode(closestObj);
+                    //    _Selected = closestObj;
+                    //}
+                    //else
+                    //{
+                    //    wndsc.ShowNode(drawingList[0]);
+                    //    _Selected = drawingList[0];   // vybereme prvni ze seznamu
+                    //}
                 }
                 labelClick.Text = "Mouse Down";
             }
@@ -1133,14 +1184,24 @@ namespace _3dEditor
             
         }
 
+        /// <summary>
+        /// ze seznamu vrati nejblizzsi objektu
+        /// </summary>
+        /// <param name="drawingList"></param>
+        /// <returns></returns>
         private DrawingObject GetClosestDrawingObj(List<DrawingObject> drawingList)
         {
             double minlen = Double.MaxValue;
             DrawingObject closestObj = null;
+            
+            Vektor pov = new Vektor(0, 0, -100);
+            Matrix3D transp = _matrixForever.Transpose();
+            transp.TransformPoint(pov);
             foreach (DrawingObject drob in drawingList)
             {
                 Vektor vec = drob.GetCenter();
-                vec = _POV - vec;
+                transp.TransformPoint(vec);
+                vec = pov - vec;
                 double len = vec.Size();
                 if (len < minlen)
                 {
@@ -1247,6 +1308,8 @@ namespace _3dEditor
         /// <param name="e"></param>
         private void onValNumChange(object sender, EventArgs e)
         {
+            if (!_canRotationChange) return;
+
             NumericUpDown num = sender as NumericUpDown;
             if (num.Value > 359)
                 num.Value = num.Value % 360;
@@ -1257,7 +1320,9 @@ namespace _3dEditor
             double y = (double)this.numericUpDown2.Value;
             double z = (double)this.numericUpDown3.Value;
             Matrix3D m = Matrix3D.NewRotateByDegrees(x, y, z);
+            _canRotationChange2 = false;
             RotateWholeEditor(m);
+            //_canRotationChange2 = true;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1504,12 +1569,6 @@ namespace _3dEditor
             _isDragging = false; // nepresouvame objekt;
 
             labelClick.Text = "Double Click";
-            btnYPlus.Enabled = true;
-            btnXMinus.Enabled = true;
-            btnXPlus.Enabled = true;
-            btnYMinus.Enabled = true;
-            btnZMinus.Enabled = true;
-            btnZPlus.Enabled = true;
 
             Vektor zpoint = new Vektor(0, 0, 1);
             this._matrixForever.TransformPoint(zpoint);

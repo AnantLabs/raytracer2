@@ -50,12 +50,7 @@ namespace RayTracerLib
         public Plane(Vektor normal, double d)
         {
             IsActive = true;
-            Normal = normal;
-            D = d;
-            this.Material = new Material();
-            this.Pocatek = new Vektor(0, 0, -10);
-            MinX = MinY = MinZ = Double.NegativeInfinity;
-            MaxX = MaxY = MaxZ = Double.PositiveInfinity;
+            this.SetValues(normal, d);
         }
 
         public Plane(Vektor normal, double d, Colour c) : this(normal, d)
@@ -71,17 +66,38 @@ namespace RayTracerLib
         public Plane(Plane oldPlane)
         {
             IsActive = oldPlane.IsActive;
-            this.Normal = oldPlane.Normal;
+            this.Normal = new Vektor(oldPlane.Normal);
             this.D = oldPlane.D;
+            SetValues(Normal, D);
             this.Material = new Material(oldPlane.Material);
-            MinX = oldPlane.MinX;
-            MaxX = oldPlane.MaxX;
-            MinY = oldPlane.MinY;
-            MaxY = oldPlane.MaxY;
-            MinZ = oldPlane.MinZ;
-            MaxZ = oldPlane.MaxZ;
         }
 
+
+        public void SetValues(Vektor normal, double d)
+        {
+            Normal = normal;
+            
+            DirNom = new Vektor(normal);
+            DirNom.Normalize();
+
+            D = d;
+            this.Material = new Material();
+            this.Pocatek = new Vektor(0, 0, -10);
+            MinX = MinY = MinZ = Double.NegativeInfinity;
+            MaxX = MaxY = MaxZ = Double.PositiveInfinity;
+
+            CreateBoundVektors();
+
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(0, -d, 0);
+            Vektor yAxe = new Vektor(0, 1, 0);
+            Quaternion q = new Quaternion(yAxe, new Vektor(normal));
+            double[] degss = q.ToEulerDegs();
+
+            // rotace z kvaternionu je opacne orientovana, proto minuska
+            Matrix3D matCr = Matrix3D.NewRotateByDegrees(-degss[0], -degss[1], -degss[2]);
+            _RotatMatrix = matCr;
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+        }
 
 
         /// <summary>
@@ -96,8 +112,7 @@ namespace RayTracerLib
             if (!IsActive)
                 return false;
 
-            Vektor normal = new Vektor(Normal);
-            normal.Normalize();
+            Vektor normal = DirNom;
             Pd.Normalize();
 
             double Vd = normal * Pd;
@@ -147,12 +162,7 @@ namespace RayTracerLib
 
         public override string ToString()
         {
-            return "Plane: [" + Normal.X + "; "+Normal.Y+"; " + Normal.Z+"; " + this.D +"]";
-        }
-
-        public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)
-        {
-            throw new NotImplementedException();
+            return "Plane: "+ Normal + "; D="  + this.D;
         }
 
         public void CreateBoundVektors()
@@ -241,7 +251,19 @@ namespace RayTracerLib
 
         public override void MoveToPoint(double dx, double dy, double dz)
         {
-            throw new NotImplementedException();
+            this.D = dy;
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(0, -this.D, 0);
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+        }
+        public override void Rotate(double degX, double degY, double degZ)
+        {
+            Matrix3D newRot = Matrix3D.NewRotateByDegrees(degX, degY, degZ);
+
+            Vektor yAxe = new Vektor(0, 1, 0);
+            newRot.TransformPoint(yAxe);
+            this._RotatMatrix = newRot;
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+            this.SetValues(yAxe, this.D);
         }
 
         //public bool Intersects2(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)

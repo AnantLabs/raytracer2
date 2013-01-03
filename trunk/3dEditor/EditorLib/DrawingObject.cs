@@ -8,6 +8,57 @@ using Mathematics;
 
 namespace EditorLib
 {
+    public class DrawObjectComparer : IComparer<DrawingObject>
+    {
+        /// <summary>
+        /// typ porovnavani: 
+        /// ASC - vzestupne
+        /// DESC - sestupne
+        /// pouzivame DESC, protoze objekty ze seznamu vykreslujeme podle poradi, v jakem jsou umisteny v seznamu, 
+        /// a tedy na zacatku seznamu ma byt nejvzdalenejsi objekt
+        /// </summary>
+        public enum SortType { ASC, DESC };
+
+        Vektor POV;
+        Matrix3D matrTransp;
+        SortType sortType;
+
+        public DrawObjectComparer(Vektor pov, Matrix3D matrFor, SortType sortType)
+        {
+            POV = new Vektor(pov);
+            matrTransp = matrFor.Transpose();
+            matrTransp.TransformPoint(POV);
+
+            this.sortType = sortType;
+        }
+
+        public int Compare(DrawingObject drob1, DrawingObject drob2)
+        {
+            Vektor vec1 = drob1.GetCenter();
+            matrTransp.TransformPoint(vec1);
+            vec1 = POV - vec1;
+            double len1 = vec1.Size();
+
+            Vektor vec2 = drob2.GetCenter();
+            matrTransp.TransformPoint(vec2);
+            vec2 = POV - vec2;
+            double len2 = vec2.Size();
+
+            if (sortType == SortType.ASC)
+            {
+                if (len1 < len2) return -1;
+                if (len1 > len2) return 1;
+                return 0;
+            }
+            else
+            {
+                if (len1 > len2) return -1;
+                if (len1 < len2) return 1;
+                return 0;
+            }
+        }
+    }
+
     public abstract class DrawingObject
     {
 
@@ -51,7 +102,8 @@ namespace EditorLib
         public void Rotate(double degAroundX, double degAroundY, double degAroundZ)
         {
             DefaultShape ds = (DefaultShape)ModelObject;
-            ds.Rotate(degAroundX, degAroundY, degAroundZ);
+            if (ds != null)
+                ds.Rotate(degAroundX, degAroundY, degAroundZ);
 
             Matrix3D newRot = Matrix3D.NewRotateByDegrees(degAroundX, degAroundY, degAroundZ);
 
@@ -96,7 +148,5 @@ namespace EditorLib
         {
             return ModelObject.ToString();
         }
-
-        
     }
 }

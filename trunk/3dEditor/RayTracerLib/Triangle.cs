@@ -127,10 +127,6 @@ namespace RayTracerLib
         }
         public override void MoveToPoint(double dx, double dy, double dz)
         {
-            Matrix3D transpShift = _ShiftMatrix.GetOppositeShiftMatrix();
-            transpShift.TransformPoint(A);
-            transpShift.TransformPoint(B);
-            transpShift.TransformPoint(C);
             _ShiftMatrix = Matrix3D.PosunutiNewMatrix(dx, dy, dz);
             _ShiftMatrix.TransformPoint(A);
             _ShiftMatrix.TransformPoint(B);
@@ -145,7 +141,7 @@ namespace RayTracerLib
 
         public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)
         {
-            throw new NotImplementedException();
+            return;
         }
     }
 }

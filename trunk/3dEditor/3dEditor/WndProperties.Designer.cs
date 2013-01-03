@@ -427,6 +427,12 @@
             this.numericConePeakY = new System.Windows.Forms.NumericUpDown();
             this.label202 = new System.Windows.Forms.Label();
             this.label203 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.imgRadioOptNone = new System.Windows.Forms.RadioButton();
+            this.imgRadioOptQuadTree = new System.Windows.Forms.RadioButton();
+            this.imgRadioOptAABBTree = new System.Windows.Forms.RadioButton();
+            this.imgRadioOptThreading = new System.Windows.Forms.RadioButton();
+            this.imgRadioOptLocalMatrices = new System.Windows.Forms.RadioButton();
             this.panelAnimace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).BeginInit();
@@ -593,6 +599,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakY)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // colorDialog
@@ -710,7 +717,7 @@
             this.numAnimRotZ.Name = "numAnimRotZ";
             this.numAnimRotZ.Size = new System.Drawing.Size(45, 20);
             this.numAnimRotZ.TabIndex = 147;
-            this.numAnimRotZ.ValueChanged += new System.EventHandler(this.onNumericRotateAnimation);
+            this.numAnimRotZ.ValueChanged += new System.EventHandler(this.actionAnimRotate);
             // 
             // numAnimRotY
             // 
@@ -733,7 +740,7 @@
             this.numAnimRotY.Name = "numAnimRotY";
             this.numAnimRotY.Size = new System.Drawing.Size(45, 20);
             this.numAnimRotY.TabIndex = 146;
-            this.numAnimRotY.ValueChanged += new System.EventHandler(this.onNumericRotateAnimation);
+            this.numAnimRotY.ValueChanged += new System.EventHandler(this.actionAnimRotate);
             // 
             // numAnimRotX
             // 
@@ -756,7 +763,7 @@
             this.numAnimRotX.Name = "numAnimRotX";
             this.numAnimRotX.Size = new System.Drawing.Size(45, 20);
             this.numAnimRotX.TabIndex = 145;
-            this.numAnimRotX.ValueChanged += new System.EventHandler(this.onNumericRotateAnimation);
+            this.numAnimRotX.ValueChanged += new System.EventHandler(this.actionAnimRotate);
             // 
             // panel1
             // 
@@ -1859,6 +1866,7 @@
             // panelImage
             // 
             this.panelImage.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelImage.Controls.Add(this.panel2);
             this.panelImage.Controls.Add(this.checkOptimize);
             this.panelImage.Controls.Add(this.btnImageBgr);
             this.panelImage.Controls.Add(this.label121);
@@ -1874,7 +1882,7 @@
             this.panelImage.Controls.Add(this.label123);
             this.panelImage.Location = new System.Drawing.Point(26, 264);
             this.panelImage.Name = "panelImage";
-            this.panelImage.Size = new System.Drawing.Size(367, 249);
+            this.panelImage.Size = new System.Drawing.Size(372, 315);
             this.panelImage.TabIndex = 61;
             // 
             // checkOptimize
@@ -1882,7 +1890,7 @@
             this.checkOptimize.AutoSize = true;
             this.checkOptimize.BackColor = System.Drawing.Color.Transparent;
             this.checkOptimize.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.checkOptimize.Location = new System.Drawing.Point(19, 112);
+            this.checkOptimize.Location = new System.Drawing.Point(19, 90);
             this.checkOptimize.Name = "checkOptimize";
             this.checkOptimize.Size = new System.Drawing.Size(87, 20);
             this.checkOptimize.TabIndex = 74;
@@ -1918,7 +1926,7 @@
             this.checkAntialias.AutoSize = true;
             this.checkAntialias.BackColor = System.Drawing.Color.Transparent;
             this.checkAntialias.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.checkAntialias.Location = new System.Drawing.Point(19, 90);
+            this.checkAntialias.Location = new System.Drawing.Point(19, 68);
             this.checkAntialias.Name = "checkAntialias";
             this.checkAntialias.Size = new System.Drawing.Size(108, 20);
             this.checkAntialias.TabIndex = 71;
@@ -1965,7 +1973,7 @@
             this.labelResPixels.AutoSize = true;
             this.labelResPixels.BackColor = System.Drawing.Color.Transparent;
             this.labelResPixels.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelResPixels.Location = new System.Drawing.Point(207, 179);
+            this.labelResPixels.Location = new System.Drawing.Point(213, 266);
             this.labelResPixels.Name = "labelResPixels";
             this.labelResPixels.Size = new System.Drawing.Size(49, 16);
             this.labelResPixels.TabIndex = 66;
@@ -1976,7 +1984,7 @@
             this.comboResolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboResolution.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboResolution.FormattingEnabled = true;
-            this.comboResolution.Location = new System.Drawing.Point(92, 155);
+            this.comboResolution.Location = new System.Drawing.Point(98, 242);
             this.comboResolution.Name = "comboResolution";
             this.comboResolution.Size = new System.Drawing.Size(178, 21);
             this.comboResolution.TabIndex = 65;
@@ -1985,7 +1993,7 @@
             // 
             // txbResY
             // 
-            this.txbResY.Location = new System.Drawing.Point(159, 177);
+            this.txbResY.Location = new System.Drawing.Point(165, 264);
             this.txbResY.Name = "txbResY";
             this.txbResY.Size = new System.Drawing.Size(46, 20);
             this.txbResY.TabIndex = 64;
@@ -1997,7 +2005,7 @@
             this.labelResCross.AutoSize = true;
             this.labelResCross.BackColor = System.Drawing.Color.Transparent;
             this.labelResCross.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelResCross.Location = new System.Drawing.Point(141, 179);
+            this.labelResCross.Location = new System.Drawing.Point(147, 266);
             this.labelResCross.Name = "labelResCross";
             this.labelResCross.Size = new System.Drawing.Size(15, 16);
             this.labelResCross.TabIndex = 63;
@@ -2005,7 +2013,7 @@
             // 
             // txbResX
             // 
-            this.txbResX.Location = new System.Drawing.Point(92, 177);
+            this.txbResX.Location = new System.Drawing.Point(98, 264);
             this.txbResX.Name = "txbResX";
             this.txbResX.Size = new System.Drawing.Size(46, 20);
             this.txbResX.TabIndex = 62;
@@ -2017,7 +2025,7 @@
             this.label114.AutoSize = true;
             this.label114.BackColor = System.Drawing.Color.Transparent;
             this.label114.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label114.Location = new System.Drawing.Point(4, 158);
+            this.label114.Location = new System.Drawing.Point(10, 245);
             this.label114.Name = "label114";
             this.label114.Size = new System.Drawing.Size(86, 16);
             this.label114.TabIndex = 60;
@@ -3868,7 +3876,7 @@
             this.numPlaneRotZ.Name = "numPlaneRotZ";
             this.numPlaneRotZ.Size = new System.Drawing.Size(45, 20);
             this.numPlaneRotZ.TabIndex = 132;
-            this.numPlaneRotZ.ValueChanged += new System.EventHandler(this.onNumericRotatePlane);
+            this.numPlaneRotZ.ValueChanged += new System.EventHandler(this.actionPlaneRotate);
             // 
             // numPlaneRotY
             // 
@@ -3891,7 +3899,7 @@
             this.numPlaneRotY.Name = "numPlaneRotY";
             this.numPlaneRotY.Size = new System.Drawing.Size(45, 20);
             this.numPlaneRotY.TabIndex = 131;
-            this.numPlaneRotY.ValueChanged += new System.EventHandler(this.onNumericRotatePlane);
+            this.numPlaneRotY.ValueChanged += new System.EventHandler(this.actionPlaneRotate);
             // 
             // numPlaneRotX
             // 
@@ -3914,7 +3922,7 @@
             this.numPlaneRotX.Name = "numPlaneRotX";
             this.numPlaneRotX.Size = new System.Drawing.Size(45, 20);
             this.numPlaneRotX.TabIndex = 130;
-            this.numPlaneRotX.ValueChanged += new System.EventHandler(this.onNumericRotatePlane);
+            this.numPlaneRotX.ValueChanged += new System.EventHandler(this.actionPlaneRotate);
             // 
             // numMinZ
             // 
@@ -6747,12 +6755,73 @@
             this.label203.TabIndex = 89;
             this.label203.Text = "Y:";
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
+            this.panel2.Controls.Add(this.imgRadioOptLocalMatrices);
+            this.panel2.Controls.Add(this.imgRadioOptThreading);
+            this.panel2.Controls.Add(this.imgRadioOptAABBTree);
+            this.panel2.Controls.Add(this.imgRadioOptQuadTree);
+            this.panel2.Controls.Add(this.imgRadioOptNone);
+            this.panel2.Location = new System.Drawing.Point(16, 108);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(302, 128);
+            this.panel2.TabIndex = 76;
+            // 
+            // imgRadioOptNone
+            // 
+            this.imgRadioOptNone.Checked = true;
+            this.imgRadioOptNone.Location = new System.Drawing.Point(6, 5);
+            this.imgRadioOptNone.Name = "imgRadioOptNone";
+            this.imgRadioOptNone.Size = new System.Drawing.Size(196, 17);
+            this.imgRadioOptNone.TabIndex = 77;
+            this.imgRadioOptNone.TabStop = true;
+            this.imgRadioOptNone.Text = "None";
+            this.imgRadioOptNone.UseVisualStyleBackColor = true;
+            // 
+            // imgRadioOptQuadTree
+            // 
+            this.imgRadioOptQuadTree.Location = new System.Drawing.Point(6, 47);
+            this.imgRadioOptQuadTree.Name = "imgRadioOptQuadTree";
+            this.imgRadioOptQuadTree.Size = new System.Drawing.Size(196, 17);
+            this.imgRadioOptQuadTree.TabIndex = 78;
+            this.imgRadioOptQuadTree.Text = "QuadTree";
+            this.imgRadioOptQuadTree.UseVisualStyleBackColor = true;
+            // 
+            // imgRadioOptAABBTree
+            // 
+            this.imgRadioOptAABBTree.Location = new System.Drawing.Point(6, 26);
+            this.imgRadioOptAABBTree.Name = "imgRadioOptAABBTree";
+            this.imgRadioOptAABBTree.Size = new System.Drawing.Size(196, 17);
+            this.imgRadioOptAABBTree.TabIndex = 79;
+            this.imgRadioOptAABBTree.Text = "AABBTree";
+            this.imgRadioOptAABBTree.UseVisualStyleBackColor = true;
+            // 
+            // imgRadioOptThreading
+            // 
+            this.imgRadioOptThreading.Location = new System.Drawing.Point(6, 91);
+            this.imgRadioOptThreading.Name = "imgRadioOptThreading";
+            this.imgRadioOptThreading.Size = new System.Drawing.Size(196, 17);
+            this.imgRadioOptThreading.TabIndex = 80;
+            this.imgRadioOptThreading.Text = "Threading";
+            this.imgRadioOptThreading.UseVisualStyleBackColor = true;
+            // 
+            // imgRadioOptLocalMatrices
+            // 
+            this.imgRadioOptLocalMatrices.Location = new System.Drawing.Point(6, 69);
+            this.imgRadioOptLocalMatrices.Name = "imgRadioOptLocalMatrices";
+            this.imgRadioOptLocalMatrices.Size = new System.Drawing.Size(196, 17);
+            this.imgRadioOptLocalMatrices.TabIndex = 81;
+            this.imgRadioOptLocalMatrices.Text = "LocalMatrices";
+            this.imgRadioOptLocalMatrices.UseVisualStyleBackColor = true;
+            // 
             // WndProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1188, 778);
+            this.Controls.Add(this.panelImage);
             this.Controls.Add(this.panelBox);
             this.Controls.Add(this.panelCone);
             this.Controls.Add(this.panelCylindr);
@@ -6760,7 +6829,6 @@
             this.Controls.Add(this.panelSphere);
             this.Controls.Add(this.panelTriangle);
             this.Controls.Add(this.panelAnimace);
-            this.Controls.Add(this.panelImage);
             this.Controls.Add(this.panelLight);
             this.Controls.Add(this.panelCamera);
             this.Name = "WndProperties";
@@ -6947,6 +7015,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakZ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakY)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -7352,6 +7421,12 @@
         private System.Windows.Forms.NumericUpDown numericConePeakY;
         private System.Windows.Forms.Label label202;
         private System.Windows.Forms.Label label203;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton imgRadioOptThreading;
+        private System.Windows.Forms.RadioButton imgRadioOptAABBTree;
+        private System.Windows.Forms.RadioButton imgRadioOptQuadTree;
+        private System.Windows.Forms.RadioButton imgRadioOptNone;
+        private System.Windows.Forms.RadioButton imgRadioOptLocalMatrices;
 
     }
 }
