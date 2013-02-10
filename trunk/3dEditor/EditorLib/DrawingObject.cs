@@ -34,13 +34,16 @@ namespace EditorLib
 
         public int Compare(DrawingObject drob1, DrawingObject drob2)
         {
+            if (drob1 == null) return 1;
+            if (drob2 == null) return -1;
+            if (drob1 == drob2) return 0;
             Vektor vec1 = drob1.GetCenter();
-            matrTransp.TransformPoint(vec1);
+            vec1 = matrTransp.Transform2NewPoint(vec1);
             vec1 = POV - vec1;
             double len1 = vec1.Size();
 
             Vektor vec2 = drob2.GetCenter();
-            matrTransp.TransformPoint(vec2);
+            vec2 = matrTransp.Transform2NewPoint(vec2);
             vec2 = POV - vec2;
             double len2 = vec2.Size();
 

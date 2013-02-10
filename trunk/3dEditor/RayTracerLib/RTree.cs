@@ -77,6 +77,9 @@ namespace RayTracerLib
             //// byla zvolena prvni varianta jako efektivnejsi
 
 
+            if (!root.MBR.IntersectsRay(P0, Pd))        // neprotina-li paprsek cuboid - konec prohledavani
+                return false;
+
             /// UZEL JE LIST
             /// 
             // je-li uzel list, je vetsi pravdepodobnost, ze paprsek protina objekt, 
@@ -88,8 +91,7 @@ namespace RayTracerLib
             /// UZEL NENI LIST
             /// 
             // nejdrive otestujeme prunik paprsku s cuboiudem uzlu
-            if (!root.MBR.IntersectsRay(P0, Pd))        // neprotina-li paprsek cuboid - konec prohledavani
-                return false;
+
 
 
             bool isInters = false;

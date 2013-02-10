@@ -138,7 +138,7 @@ namespace _3dEditor
         {
             _rayTracer = new RayTracing();
             _rayTracer.RScene = new Scene();
-            Sphere sph1 = new Sphere(new Vektor(0, 0.5, -6), 1, new Colour(1, 0.5, 0.1, 1));
+            Sphere sph1 = new Sphere(new Vektor(0, 0, -3), 1, new Colour(1, 0.5, 0.1, 1));
             Sphere sph2 = new Sphere(new Vektor(-2, -1, -10), 1.5);
             Cube cube1 = new Cube(new Vektor(0.1, 0.7, -3), new Vektor(1, 1, 1), 1);
             //Cube cube2 = new Cube(new Vektor(1.6, -0.1, -5.2), new Vektor(1, 1, 1), 1);
@@ -149,18 +149,27 @@ namespace _3dEditor
 
             Triangle tr1 = new Triangle(new Vektor(-1, -2, 0), new Vektor(0, -1 , 1), new Vektor(0, 1, 3));
 
-            Cone cone = new Cone();
+            Cone cone1 = new Cone();
+            Cone cone2 = new Cone(new Vektor(-3, 0, -3), new Vektor(1, 0, 0), 0.6, 3);
+            Cone cone3 = new Cone(new Vektor(3, 0, -3), new Vektor(-1, 0, 0), 0.6, 3);
+            Cone cone4 = new Cone(new Vektor(0, 3, -3), new Vektor(0.0001, -1, 0), 0.8, 3);
+            Cone cone5 = new Cone(new Vektor(0, -3, -3), new Vektor(0, 1, 0), 0.8, 3);
+
+
             _rayTracer.RScene.SceneObjects.Clear();
 
             _rayTracer.RScene.Lights[0].Coord = new Vektor(-4.2, 2.1, 0.6);
-            _rayTracer.RScene.Lights[1].Coord = new Vektor(5.5, -0.4, -5.2);
-            _rayTracer.RCamera.Source = new Vektor(2.5, 0.7, 10);
+            _rayTracer.RScene.Lights[1].Coord = new Vektor(5.5, -0.4, 2.2);
+            _rayTracer.RCamera.Source = new Vektor(0, 0, 5);
             _rayTracer.RScene.SceneObjects.Add(sph1);
-            _rayTracer.RScene.SceneObjects.Add(sph2);
+            //_rayTracer.RScene.SceneObjects.Add(sph2);
             //_rayTracer.RScene.SceneObjects.Add(cube1);
             //_rayTracer.RScene.SceneObjects.Add(cube2);
             //_rayTracer.RScene.SceneObjects.Add(tr1);
-            //_rayTracer.RScene.SceneObjects.Add(cone);
+            _rayTracer.RScene.SceneObjects.Add(cone2);
+            _rayTracer.RScene.SceneObjects.Add(cone3);
+            _rayTracer.RScene.SceneObjects.Add(cone4);
+            _rayTracer.RScene.SceneObjects.Add(cone5);
             //_rayTracer.RScene.SceneObjects.Add(plane1);
             //_rayTracer.RScene.SceneObjects.Add(cyl);
             //sph2.IsActive = false;

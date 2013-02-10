@@ -52,13 +52,13 @@
             this.statusLabelZ = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripContainer2 = new System.Windows.Forms.ToolStripContainer();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelClick = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.labelClick = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoard)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -77,7 +77,7 @@
             this.pictureBoard.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoard.Location = new System.Drawing.Point(0, 0);
             this.pictureBoard.Name = "pictureBoard";
-            this.pictureBoard.Size = new System.Drawing.Size(924, 611);
+            this.pictureBoard.Size = new System.Drawing.Size(924, 587);
             this.pictureBoard.TabIndex = 0;
             this.pictureBoard.TabStop = false;
             this.pictureBoard.Paint += new System.Windows.Forms.PaintEventHandler(this.onPaintBoard);
@@ -214,7 +214,7 @@
             this.statusLabelY,
             this.statusLabelXConst,
             this.statusLabelZ});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 614);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 590);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.ManagerRenderMode;
             this.statusStrip1.Size = new System.Drawing.Size(924, 22);
@@ -293,12 +293,12 @@
             // 
             this.toolStripContainer2.ContentPanel.Controls.Add(this.panel1);
             this.toolStripContainer2.ContentPanel.Controls.Add(this.pictureBoard);
-            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(924, 611);
+            this.toolStripContainer2.ContentPanel.Size = new System.Drawing.Size(924, 587);
             this.toolStripContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer2.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.toolStripContainer2.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer2.Name = "toolStripContainer2";
-            this.toolStripContainer2.Size = new System.Drawing.Size(924, 636);
+            this.toolStripContainer2.Size = new System.Drawing.Size(924, 612);
             this.toolStripContainer2.TabIndex = 5;
             this.toolStripContainer2.Text = "toolStripContainer2";
             // 
@@ -320,6 +320,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(100, 94);
             this.panel1.TabIndex = 5;
+            // 
+            // labelClick
+            // 
+            this.labelClick.AutoSize = true;
+            this.labelClick.Location = new System.Drawing.Point(9, 74);
+            this.labelClick.Name = "labelClick";
+            this.labelClick.Size = new System.Drawing.Size(29, 13);
+            this.labelClick.TabIndex = 11;
+            this.labelClick.Text = "click";
             // 
             // label3
             // 
@@ -417,20 +426,11 @@
             this.numericUpDown3.TabIndex = 3;
             this.numericUpDown3.ValueChanged += new System.EventHandler(this.onValNumChange);
             // 
-            // labelClick
-            // 
-            this.labelClick.AutoSize = true;
-            this.labelClick.Location = new System.Drawing.Point(9, 74);
-            this.labelClick.Name = "labelClick";
-            this.labelClick.Size = new System.Drawing.Size(29, 13);
-            this.labelClick.TabIndex = 11;
-            this.labelClick.Text = "click";
-            // 
             // WndBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(924, 636);
+            this.ClientSize = new System.Drawing.Size(924, 612);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStripContainer2);
             this.Name = "WndBoard";
