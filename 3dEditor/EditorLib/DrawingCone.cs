@@ -69,7 +69,7 @@ namespace EditorLib
                 Line3D line = new Line3D(baseline[i], top);
                 Lines.Add(line);
             }
-
+            Points = points.ToArray();
             /*
             Vektor dir = new Vektor(cone.Dir);
             dir.MultiplyBy(-1);
@@ -105,7 +105,7 @@ namespace EditorLib
             Vektor c = cone.Peak;
             _ShiftMatrix = Matrix3D.PosunutiNewMatrix(c.X, c.Y, c.Z);
             _localMatrix = _RotatMatrix * _ShiftMatrix;
-            _localMatrix.TransformPoints(points);
+            _localMatrix.TransformPoints(Points);
 
             /// poradi transformaci
             /// transpozice posouvaci matice neni jeji inverze!!!!!!!!!!!!!!
@@ -151,13 +151,6 @@ namespace EditorLib
 
             Matrix3D.TestMatrixAnglesBack(10, 40, 90);
             */
-
-
-
-
-
-
-            Points = points.ToArray();
         }
         public override Vektor GetCenter()
         {
