@@ -72,7 +72,8 @@ namespace Mathematics
             Vektor r = v1.CrossProduct(v2);
             double s = Math.Sqrt(2 * (1 + v1 * v2));
 
-            r = r.MultiplyBy(1 / s);
+            if (s!= 0)
+                r = r.MultiplyBy(1 / s);
             
             W = s / 2;
             X = r.X;
@@ -90,10 +91,14 @@ namespace Mathematics
         public void Normalize()
         {
             double size = Size();
-            W = W / size;
-            X = X / size;
-            Y = Y / size;
-            Z = Z / size;
+            if (size == 0)  { W = 0; X = 0; Y = 0; Z = 0; }
+            else
+            {
+                W = W / size;
+                X = X / size;
+                Y = Y / size;
+                Z = Z / size;
+            }
         }
 
         /// <summary>

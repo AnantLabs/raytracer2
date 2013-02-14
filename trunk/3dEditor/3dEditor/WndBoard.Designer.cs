@@ -103,8 +103,8 @@
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(451, 25);
-            this.toolStrip1.TabIndex = 1;
+            this.toolStrip1.Size = new System.Drawing.Size(471, 25);
+            this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripLabel1
@@ -126,7 +126,7 @@
             "Reset Y",
             "Reset Z"});
             this.toolsComboViewAngle.Name = "toolsComboViewAngle";
-            this.toolsComboViewAngle.Size = new System.Drawing.Size(80, 25);
+            this.toolsComboViewAngle.Size = new System.Drawing.Size(100, 25);
             this.toolsComboViewAngle.ToolTipText = "Select predefined view angle";
             this.toolsComboViewAngle.SelectedIndexChanged += new System.EventHandler(this.OnChangedComboAngleView);
             // 
@@ -194,7 +194,9 @@
             // 
             // toolStripBtnCamera
             // 
+            this.toolStripBtnCamera.Checked = true;
             this.toolStripBtnCamera.CheckOnClick = true;
+            this.toolStripBtnCamera.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolStripBtnCamera.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripBtnCamera.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBtnCamera.Image")));
             this.toolStripBtnCamera.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -299,7 +301,7 @@
             this.toolStripContainer2.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer2.Name = "toolStripContainer2";
             this.toolStripContainer2.Size = new System.Drawing.Size(924, 612);
-            this.toolStripContainer2.TabIndex = 5;
+            this.toolStripContainer2.TabIndex = 0;
             this.toolStripContainer2.Text = "toolStripContainer2";
             // 
             // toolStripContainer2.TopToolStripPanel
@@ -319,7 +321,7 @@
             this.panel1.Location = new System.Drawing.Point(824, 404);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(100, 94);
-            this.panel1.TabIndex = 5;
+            this.panel1.TabIndex = 0;
             // 
             // labelClick
             // 
@@ -327,7 +329,7 @@
             this.labelClick.Location = new System.Drawing.Point(9, 74);
             this.labelClick.Name = "labelClick";
             this.labelClick.Size = new System.Drawing.Size(29, 13);
-            this.labelClick.TabIndex = 11;
+            this.labelClick.TabIndex = 1;
             this.labelClick.Text = "click";
             // 
             // label3
@@ -336,7 +338,7 @@
             this.label3.Location = new System.Drawing.Point(9, 54);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(14, 13);
-            this.label3.TabIndex = 7;
+            this.label3.TabIndex = 5;
             this.label3.Text = "Z";
             // 
             // label2
@@ -345,7 +347,7 @@
             this.label2.Location = new System.Drawing.Point(9, 34);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(14, 13);
-            this.label2.TabIndex = 6;
+            this.label2.TabIndex = 2;
             this.label2.Text = "Y";
             // 
             // label1
@@ -354,7 +356,7 @@
             this.label1.Location = new System.Drawing.Point(9, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(14, 13);
-            this.label1.TabIndex = 5;
+            this.label1.TabIndex = 0;
             this.label1.Text = "X";
             // 
             // numericUpDown1
@@ -377,7 +379,7 @@
             -2147483648});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(52, 20);
-            this.numericUpDown1.TabIndex = 1;
+            this.numericUpDown1.TabIndex = 4;
             this.numericUpDown1.ValueChanged += new System.EventHandler(this.onValNumChange);
             // 
             // numericUpDown2
@@ -400,7 +402,7 @@
             -2147483648});
             this.numericUpDown2.Name = "numericUpDown2";
             this.numericUpDown2.Size = new System.Drawing.Size(52, 20);
-            this.numericUpDown2.TabIndex = 2;
+            this.numericUpDown2.TabIndex = 5;
             this.numericUpDown2.ValueChanged += new System.EventHandler(this.onValNumChange);
             // 
             // numericUpDown3
@@ -423,7 +425,7 @@
             -2147483648});
             this.numericUpDown3.Name = "numericUpDown3";
             this.numericUpDown3.Size = new System.Drawing.Size(52, 20);
-            this.numericUpDown3.TabIndex = 3;
+            this.numericUpDown3.TabIndex = 6;
             this.numericUpDown3.ValueChanged += new System.EventHandler(this.onValNumChange);
             // 
             // WndBoard

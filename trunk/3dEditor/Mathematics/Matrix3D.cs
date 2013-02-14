@@ -24,6 +24,15 @@ public class Matrix3D
         {
             this.Matrix = this.MakeIdentity().Matrix;
         }
+        public Matrix3D(Matrix3D old)
+        {
+            this.Matrix = new double[4,4];
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 4; j++)
+                {
+                    Matrix[i, j] = old.Matrix[i, j];
+                }
+        }
         public Matrix3D(Vektor row1, Vektor row2, Vektor row3) : this(row1, row2, row3, new Vektor(0, 0, 0, 1)) { }
         public Matrix3D(Vektor row1, Vektor row2, Vektor row3, Vektor row4)
         {
@@ -68,6 +77,39 @@ public class Matrix3D
             return newP3d;
         }
 
+        public static Matrix3D operator +(Matrix3D m1, Matrix3D m2)
+        {
+            Matrix3D m = new Matrix3D(m1);
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    m.Matrix[i, j] = m.Matrix[i, j] + m2.Matrix[i, j];
+                }
+            }
+            return m;
+        }
+
+    /// <summary>
+    /// Vynasobi matici cislem
+    /// </summary>
+    /// <param name="matrix"></param>
+    /// <param name="scalar"></param>
+    /// <returns></returns>
+        public static Matrix3D operator *(Matrix3D matrix, double scalar)
+        {
+            Matrix3D m = new Matrix3D(matrix);
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    m.Matrix[i, j] = m.Matrix[i, j] * scalar;
+                }
+            }
+            return m;
+        }
+
+        
         public static Matrix3D operator *(Matrix3D m1, Matrix3D m2)
         {
             Matrix3D matrix = new Matrix3D();
@@ -177,6 +219,7 @@ public class Matrix3D
 
         public static Matrix3D NewRotateByAxis_Degs(Vektor axis, double theta)
         {
+            theta = MyMath.Degrees2Rad(theta);
             Vektor ax = new Vektor(axis);
             ax.Normalize();
             double a = ax.X;
@@ -589,5 +632,33 @@ public class Matrix3D
 
             return true;
         }
+
+    ///// <summary>
+    ///// Vytvori rotacni matici, ktera rotuje okolo zadaneho vektoru a uhlu
+    ///// </summary>
+    ///// <param name="vector">vektor, kolem ktereho rotujeme</param>
+    ///// <param name="phiDegs">uhel ve stupnich</param>
+    ///// <returns></returns>
+    //    public static Matrix3D RotationAboutAxis(Vektor vector, double phiDegs)
+    //    {
+    //        Vektor vec = new Vektor(vector);
+    //        vec.Normalize();
+    //        Matrix3D m = Matrix3D.Identity;
+    //        Matrix3D w = new Matrix3D(
+    //            new Vektor(0, -vec.Z, vec.Y),
+    //            new Vektor(vec.Z, 0, -vec.X),
+    //            new Vektor(-vec.Y, vec.X, 0));
+    //        Matrix3D w2 = new Matrix3D(w);
+    //        w2 = w * w;
+
+    //        double phiRad = MyMath.Degrees2Rad(phiDegs);
+    //        double sinPhi = Math.Sin(phiRad);
+    //        double sin2Phi = Math.Sin(phiRad / 2);
+    //        sin2Phi = 2 * sin2Phi * sin2Phi;
+    //        w = w * sinPhi;
+    //        w2 = w2 * sin2Phi;
+    //        m = m + w + w2;
+    //        return m;
+    //    }
     }
 }

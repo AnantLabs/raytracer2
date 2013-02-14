@@ -40,6 +40,9 @@ namespace EditorLib
         public const float PenSelectedWidth = 1.9f;
         public const float PenNormalWidth = 1.4f;
 
+        public const String CAMERAVIEW_string = "Camera front";
+        public const String CAMERAVIEW2_string = "Camera top";
+
         public ComboViewAngle[] ComboViewObjects { get; private set; }
 
         /// <summary>
@@ -54,13 +57,16 @@ namespace EditorLib
             ClickableObjects = new List<EditorObject>();
 
             List<ComboViewAngle> listCombos = new List<ComboViewAngle>();
-            listCombos.Add(new ComboViewAngle("Front", 150, 340, 350));
-            listCombos.Add(new ComboViewAngle("Side +X", 315, 250, 135));
-            listCombos.Add(new ComboViewAngle("Side -X", 45, 255, 225));
-            listCombos.Add(new ComboViewAngle("Top", 270, 0, 0));
+            listCombos.Add(new ComboViewAngle("Side", 150, 340, 350));
+            //listCombos.Add(new ComboViewAngle("Side +X", 315, 250, 135));
+            //listCombos.Add(new ComboViewAngle("Side -X", 45, 255, 225));
+            //listCombos.Add(new ComboViewAngle("Top", 270, 0, 0));
             listCombos.Add(new ComboViewAngle("Reset X", 180, 270, 0));
             listCombos.Add(new ComboViewAngle("Reset Y", 90, 0, 0));
             listCombos.Add(new ComboViewAngle("Reset Z", 0, 180, 180));
+            listCombos.Add(new ComboViewAngle(CAMERAVIEW_string, 0, 0, 0));
+            listCombos.Add(new ComboViewAngle(CAMERAVIEW2_string, 0, 0, 0));
+
 
             ComboViewObjects = listCombos.ToArray();
 
