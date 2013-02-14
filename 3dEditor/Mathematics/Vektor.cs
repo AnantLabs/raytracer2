@@ -253,7 +253,36 @@ namespace Mathematics
             this.Z = newPoint.Z;
             this.ZZ = newPoint.ZZ;
         }
+        /// <summary>
+        /// vypocita uhel mezi dvema vektory
+        /// </summary>
+        /// <param name="vec">druhy vektor</param>
+        /// <returns>uhel ve stupnich</returns>
+        public double AngleDeg(Vektor vec)
+        {
+            double angle = this * vec;
+            angle = Math.Acos(angle);
+            angle = MyMath.Radians2Deg(angle);
+            return angle;
+        }
 
+        /// <summary>
+        /// vrati kolmy vektor
+        /// </summary>
+        /// <returns></returns>
+        public Vektor GetOrthogonal()
+        {
+            Vektor orto = new Vektor(this.Z, this.Z, -this.X - this.Y);
+            if (Math.Abs(orto * this) > MyMath.EPSILON)
+            {
+                orto = new Vektor(-this.Y - this.Z, this.X, this.X);
+                if (Math.Abs(orto * this) > MyMath.EPSILON)
+                {
+                    orto = new Vektor(this.Y, -this.X - this.Z, this.Y);
+                }
+            }
+            return orto;
+        }
         /// <summary>
         /// normalizuje vektor, ale nemeni ten puvodni
         /// </summary>

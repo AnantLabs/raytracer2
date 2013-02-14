@@ -13,6 +13,11 @@ namespace RayTracerLib
     /// </summary>
     public class Camera
     {
+
+        /// <summary>
+        /// uhel, o ktery vektor UP rotuje okolo smeru kamery Norm
+        /// </summary>
+        public double AngleUp { get; private set; }
         /// <summary>
         /// Stred projekcni roviny (v karteskych souradnicich)
         /// </summary>
@@ -97,17 +102,91 @@ namespace RayTracerLib
             YMax = old.YMax;
         }
 
+        /// <summary>
+        /// nastavi oba hlavni vektory. Nejsou-li k sobe kolme, tak bude vektor up zmenen na kolmy k vektoru norm.
+        /// Vynuluje pritom vzdy uhel rotace vektoru UP okolo vektoru Norm, jelikoz se oba nastavuji znovu.
+        /// </summary>
+        /// <param name="norm">vektor smeru vpred</param>
+        /// <param name="up">vektor pohledu nahoru</param>
         public void SetNormAndUp(Vektor norm, Vektor up)
         {
-            Norm = norm;
-            Up = up;
-            Vektor upNormalized = new Vektor(up);
+            if (Math.Abs(up * norm) > MyMath.EPSILON)
+            {
+                SetUpByNorm(norm);
+                return;
+            }
+            
+            Norm = new Vektor(norm);
+            Up = new Vektor(up);
+            // pri kazdem presnem nastaveni vektoru Norm a UP se vynuluje uhel rotace UP okolo Norm
+            AngleUp = 0;
+
+            setNormAndUp();
+        }
+
+        /// <summary>
+        /// nastavi kameru jen podle smeru kamery vpred
+        /// Ostatni vektory nastavi podle nej. Vektor UP bude vybran jako kolmy vektor k Norm
+        /// </summary>
+        /// <param name="norm">vektor pred - smer pohledu kamery</param>
+        public void SetUpByNorm(Vektor norm)
+        {
+            Vektor up = norm.GetOrthogonal();
+            up.Normalize();
+            SetNormAndUp(norm, up);
+        }
+
+        /// <summary>
+        /// nastavi kameru podle vektoru smerem nahoru, ktery je kolmy na vektor smeru vpred
+        /// Ostatni vektory se nastavi podle nej. Vektor Norm smeru dopredu bude vybran jako jeden z kolmych k up
+        /// </summary>
+        /// <param name="up">vektor smeru nahoru</param>
+        public void SetNormByUp(Vektor up)
+        {
+            Vektor norm = up.GetOrthogonal();
+            norm.Normalize();
+            SetNormAndUp(norm, up);
+        }
+
+        /// <summary>
+        /// rotuje vektor smeru nahoru (vektor UP)
+        /// nejdrive je vektor UP nastaven na inicializovany - tedy rotovan zpet o opacny stary uhel.
+        /// Pak je z pocatecniho stavu opet rotovan o zadany novy uhel
+        /// </summary>
+        /// <param name="angleDeg">uhel, ktery bude svirat novy vektor UP s vektorem UP z inicializace</param>
+        public void RotateUp(double angleDeg)
+        {
+            // predpoklad, ze Norm * Up = 0
+            Quaternion q = new Quaternion(Norm, -AngleUp);
+            double[] degs = q.ToEulerDegs();
+            Matrix3D rotMat = Matrix3D.NewRotateByDegrees(-degs[0], -degs[1], -degs[2]);
+            Up = rotMat.Transform2NewPoint(Up);
+            
+            AngleUp = angleDeg;
+
+            q = new Quaternion(Norm, angleDeg);
+            degs = q.ToEulerDegs();
+            rotMat = Matrix3D.NewRotateByDegrees(-degs[0], -degs[1], -degs[2]);
+            Up = rotMat.Transform2NewPoint(Up);
+
+            // oba hlavni vektory nastaveny
+            setNormAndUp();
+        }
+
+        /// <summary>
+        /// Predpoklada jiz spravne nastaveny hlavni vektory Norm a UP
+        /// Nastavi zbyvajici vektory.
+        /// </summary>
+        private void setNormAndUp()
+        {
+            _normNormalized = new Vektor(Norm);
+            _normNormalized.Normalize();
+            Vektor upNormalized = new Vektor(Up);
             upNormalized.Normalize();
             Dx = Vektor.CrossProduct(upNormalized, _normNormalized);
             Dx.MultiplyBy(-1);
             Dy = new Vektor(Vektor.ZeroVektor - upNormalized);
         }
-
 
         /// <summary>
         /// Nastavi pomer stran a podle nej je zvolen uhel

@@ -387,6 +387,8 @@ namespace _3dEditor
             this.numericKameraUpY.Value = (decimal)MyMath.Clamp(cam.Up.Y, -100, 100);
             this.numericKameraUpZ.Value = (decimal)MyMath.Clamp(cam.Up.Z, -100, 100);
 
+            this.numericKameraAngle.Value = (decimal)MyMath.Clamp(cam.AngleUp, -360, 360);
+
             this.checkCross.Checked = drCam.ShowCross;
             this.checkSide1.Checked = drCam.ShowSide1;
             this.checkSide2.Checked = drCam.ShowSide2;
@@ -1130,7 +1132,6 @@ namespace _3dEditor
                 cam.Source = stred;
                 cam.SetNormAndUp(dir, up);
                 
-                
                 bool showCross = this.checkCross.Checked;
                 bool showSide1 = this.checkSide1.Checked;
                 bool showSide2 = this.checkSide2.Checked;
@@ -1140,6 +1141,9 @@ namespace _3dEditor
                 double width = (double)this.numericKamWidth.Value;
 
                 drCam.Set(cam, dist, height, width, showCross, showSide1, showSide2);
+                //_permissionToModify = false;
+                //ShowCamera(drCam);
+                //_permissionToModify = true;
                 WndBoard wnd = GetWndBoard();
                 drCam.ApplyRotationMatrix(wnd.RotationMatrix);
                 WndScene wndSc = GetWndScene();
@@ -1594,6 +1598,88 @@ namespace _3dEditor
                 this.numTriangColG.Value = (decimal)col.G;
                 _permissionToModify = true;
                 this.numTriangColB.Value = (decimal)col.B;
+            }
+        }
+
+        private void actionCameraSetUp(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingCamera))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            DrawingCamera drCam = (DrawingCamera)_currentlyDisplayed;
+            Camera cam = (Camera)drCam.ModelObject;
+
+            try
+            {
+                Vektor up = new Vektor(
+                    (double)this.numericKameraUpX.Value,
+                    (double)this.numericKameraUpY.Value,
+                    (double)this.numericKameraUpZ.Value);
+
+                cam.SetNormByUp(up);
+
+
+                bool showCross = this.checkCross.Checked;
+                bool showSide1 = this.checkSide1.Checked;
+                bool showSide2 = this.checkSide2.Checked;
+
+                double dist = (double)this.numericKamDist.Value;
+                double height = (double)this.numericKamHeight.Value;
+                double width = (double)this.numericKamWidth.Value;
+
+                drCam.Set(cam, dist, height, width, showCross, showSide1, showSide2);
+                WndBoard wnd = GetWndBoard();
+                drCam.ApplyRotationMatrix(wnd.RotationMatrix);
+                WndScene wndSc = GetWndScene();
+                wndSc.UpdateRecords();
+
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private void actionCameraSet3Rotate(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingCamera))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            DrawingCamera drCam = (DrawingCamera)_currentlyDisplayed;
+            Camera cam = (Camera)drCam.ModelObject;
+
+            try
+            {
+                if (this.numericKameraAngle.Value >= 360)
+                    this.numericKameraAngle.Value = this.numericKameraAngle.Value - 360;
+                else if (this.numericKameraAngle.Value < 0)
+                    this.numericKameraAngle.Value = this.numericKameraAngle.Value + 360;
+
+                double angleCamDegs = (double)this.numericKameraAngle.Value;
+                cam.RotateUp(angleCamDegs);
+
+                bool showCross = this.checkCross.Checked;
+                bool showSide1 = this.checkSide1.Checked;
+                bool showSide2 = this.checkSide2.Checked;
+
+                double dist = (double)this.numericKamDist.Value;
+                double height = (double)this.numericKamHeight.Value;
+                double width = (double)this.numericKamWidth.Value;
+
+                drCam.Set(cam, dist, height, width, showCross, showSide1, showSide2);
+                WndBoard wnd = GetWndBoard();
+                drCam.ApplyRotationMatrix(wnd.RotationMatrix);
+                WndScene wndSc = GetWndScene();
+                wndSc.UpdateRecords();
+
+            }
+            catch (Exception ex)
+            {
             }
         }
 

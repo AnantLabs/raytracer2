@@ -122,7 +122,7 @@ namespace _3dEditor
         /// <summary>
         /// zda se v editoru zobrazi kamera
         /// </summary>
-        private bool _showCamera;
+        private bool _showCamera = true;
 
         public WndBoard()
         {
@@ -1270,9 +1270,75 @@ namespace _3dEditor
 
         private void OnChangedComboAngleView(object sender, EventArgs e)
         {
+            if (_currnetScene == null) return;
             ToolStripComboBox c = sender as ToolStripComboBox;
             EditHelper.ComboViewAngle obj = (EditHelper.ComboViewAngle)c.SelectedItem;
-            Matrix3D m = Matrix3D.NewRotateByDegrees(obj.degX, obj.degY, obj.degZ);
+            Matrix3D m = Matrix3D.Identity;
+
+            if (obj.Caption == EditHelper.CAMERAVIEW_string)
+            {
+                // VPRED
+                Vektor dirNorm = new Vektor(_currnetScene.Camera.Norm);
+                dirNorm.Normalize();
+                Vektor z = new Vektor(0, 0, 1);
+                Quaternion q = new Quaternion(dirNorm, z);
+                //double[] degss1 = q.ToEulerDegs();
+                //Matrix3D m1 = Matrix3D.NewRotateByDegrees(-degss1[0], -degss1[1], -degss1[2]);
+                Matrix3D m1 = q.Matrix();
+
+                Matrix3D m1Transp = new Matrix3D(m1);
+                m1Transp.Transpose();
+
+                // NAHORU
+                Vektor y = new Vektor(0, -1, 0);
+
+                Vektor up = new Vektor(_currnetScene.Camera.Up);
+                up.Normalize();
+                Matrix3D m1transp = new Matrix3D(m1);
+                m1transp.Transpose();
+                Vektor up2 = m1transp.Transform2NewPoint(up);
+                up2.Normalize();
+
+                q = new Quaternion(up2, y);
+                //double[] degss2 = q.ToEulerDegs();
+                //Matrix3D m2 = Matrix3D.NewRotateByDegrees(-degss2[0], -degss2[1], -degss2[2]);
+                Matrix3D m2 = q.Matrix();
+                m = m1 * m2;
+            }
+            else if (obj.Caption == EditHelper.CAMERAVIEW2_string)
+            {
+                // VPRED
+                Vektor dirNorm = new Vektor(_currnetScene.Camera.Norm);
+                dirNorm.Normalize();
+                Vektor z = new Vektor(0, -1, 0);
+                Quaternion q = new Quaternion(dirNorm, z);
+                //double[] degss1 = q.ToEulerDegs();
+                //Matrix3D m1 = Matrix3D.NewRotateByDegrees(-degss1[0], -degss1[1], -degss1[2]);
+                Matrix3D m1 = q.Matrix();
+
+                Matrix3D m1Transp = new Matrix3D(m1);
+                m1Transp.Transpose();
+
+                // NAHORU
+                Vektor y = new Vektor(0, 0, -1);
+
+                Vektor up = new Vektor(_currnetScene.Camera.Up);
+                up.Normalize();
+                Matrix3D m1transp = new Matrix3D(m1);
+                m1transp.Transpose();
+                Vektor up2 = m1transp.Transform2NewPoint(up);
+                up2.Normalize();
+
+                q = new Quaternion(up2, y);
+                //double[] degss2 = q.ToEulerDegs();
+                //Matrix3D m2 = Matrix3D.NewRotateByDegrees(-degss2[0], -degss2[1], -degss2[2]);
+                Matrix3D m2 = q.Matrix();
+                m = m1 * m2;
+            }
+            else
+            {
+                m = Matrix3D.NewRotateByDegrees(obj.degX, obj.degY, obj.degZ);
+            }
             RotateWholeEditor(m);
         }
         

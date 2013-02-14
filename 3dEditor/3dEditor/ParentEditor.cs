@@ -160,15 +160,16 @@ namespace _3dEditor
 
             _rayTracer.RScene.Lights[0].Coord = new Vektor(-4.2, 2.1, 0.6);
             _rayTracer.RScene.Lights[1].Coord = new Vektor(5.5, -0.4, 2.2);
-            _rayTracer.RCamera.Source = new Vektor(0, 0, 5);
+            _rayTracer.RCamera.Source = new Vektor(0, 0, 3);
+            _rayTracer.RCamera.SetNormAndUp(new Vektor(-1, 0.3, -0.3), new Vektor(0, -0.1, -0.5));
             _rayTracer.RScene.SceneObjects.Add(sph1);
             //_rayTracer.RScene.SceneObjects.Add(sph2);
             //_rayTracer.RScene.SceneObjects.Add(cube1);
             //_rayTracer.RScene.SceneObjects.Add(cube2);
             //_rayTracer.RScene.SceneObjects.Add(tr1);
             _rayTracer.RScene.SceneObjects.Add(cone2);
-            _rayTracer.RScene.SceneObjects.Add(cone3);
-            _rayTracer.RScene.SceneObjects.Add(cone4);
+            //_rayTracer.RScene.SceneObjects.Add(cone3);
+            //_rayTracer.RScene.SceneObjects.Add(cone4);
             _rayTracer.RScene.SceneObjects.Add(cone5);
             //_rayTracer.RScene.SceneObjects.Add(plane1);
             //_rayTracer.RScene.SceneObjects.Add(cyl);

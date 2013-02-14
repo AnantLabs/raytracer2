@@ -112,6 +112,12 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.panelImage = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.imgRadioOptLocalMatrices = new System.Windows.Forms.RadioButton();
+            this.imgRadioOptThreading = new System.Windows.Forms.RadioButton();
+            this.imgRadioOptAABBTree = new System.Windows.Forms.RadioButton();
+            this.imgRadioOptQuadTree = new System.Windows.Forms.RadioButton();
+            this.imgRadioOptNone = new System.Windows.Forms.RadioButton();
             this.checkOptimize = new System.Windows.Forms.CheckBox();
             this.btnImageBgr = new System.Windows.Forms.Button();
             this.label121 = new System.Windows.Forms.Label();
@@ -427,12 +433,7 @@
             this.numericConePeakY = new System.Windows.Forms.NumericUpDown();
             this.label202 = new System.Windows.Forms.Label();
             this.label203 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.imgRadioOptNone = new System.Windows.Forms.RadioButton();
-            this.imgRadioOptQuadTree = new System.Windows.Forms.RadioButton();
-            this.imgRadioOptAABBTree = new System.Windows.Forms.RadioButton();
-            this.imgRadioOptThreading = new System.Windows.Forms.RadioButton();
-            this.imgRadioOptLocalMatrices = new System.Windows.Forms.RadioButton();
+            this.numericKameraAngle = new System.Windows.Forms.NumericUpDown();
             this.panelAnimace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).BeginInit();
@@ -466,6 +467,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericKouleZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericKouleY)).BeginInit();
             this.panelImage.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericRecurs)).BeginInit();
             this.panelLight.SuspendLayout();
             this.panelSoftPasses.SuspendLayout();
@@ -599,7 +601,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakY)).BeginInit();
-            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericKameraAngle)).BeginInit();
             this.SuspendLayout();
             // 
             // colorDialog
@@ -1885,6 +1887,66 @@
             this.panelImage.Size = new System.Drawing.Size(372, 315);
             this.panelImage.TabIndex = 61;
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
+            this.panel2.Controls.Add(this.imgRadioOptLocalMatrices);
+            this.panel2.Controls.Add(this.imgRadioOptThreading);
+            this.panel2.Controls.Add(this.imgRadioOptAABBTree);
+            this.panel2.Controls.Add(this.imgRadioOptQuadTree);
+            this.panel2.Controls.Add(this.imgRadioOptNone);
+            this.panel2.Location = new System.Drawing.Point(16, 108);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(302, 128);
+            this.panel2.TabIndex = 76;
+            // 
+            // imgRadioOptLocalMatrices
+            // 
+            this.imgRadioOptLocalMatrices.Location = new System.Drawing.Point(6, 69);
+            this.imgRadioOptLocalMatrices.Name = "imgRadioOptLocalMatrices";
+            this.imgRadioOptLocalMatrices.Size = new System.Drawing.Size(196, 17);
+            this.imgRadioOptLocalMatrices.TabIndex = 81;
+            this.imgRadioOptLocalMatrices.Text = "LocalMatrices";
+            this.imgRadioOptLocalMatrices.UseVisualStyleBackColor = true;
+            // 
+            // imgRadioOptThreading
+            // 
+            this.imgRadioOptThreading.Location = new System.Drawing.Point(6, 91);
+            this.imgRadioOptThreading.Name = "imgRadioOptThreading";
+            this.imgRadioOptThreading.Size = new System.Drawing.Size(196, 17);
+            this.imgRadioOptThreading.TabIndex = 80;
+            this.imgRadioOptThreading.Text = "Threading";
+            this.imgRadioOptThreading.UseVisualStyleBackColor = true;
+            // 
+            // imgRadioOptAABBTree
+            // 
+            this.imgRadioOptAABBTree.Location = new System.Drawing.Point(6, 26);
+            this.imgRadioOptAABBTree.Name = "imgRadioOptAABBTree";
+            this.imgRadioOptAABBTree.Size = new System.Drawing.Size(196, 17);
+            this.imgRadioOptAABBTree.TabIndex = 79;
+            this.imgRadioOptAABBTree.Text = "AABBTree";
+            this.imgRadioOptAABBTree.UseVisualStyleBackColor = true;
+            // 
+            // imgRadioOptQuadTree
+            // 
+            this.imgRadioOptQuadTree.Location = new System.Drawing.Point(6, 47);
+            this.imgRadioOptQuadTree.Name = "imgRadioOptQuadTree";
+            this.imgRadioOptQuadTree.Size = new System.Drawing.Size(196, 17);
+            this.imgRadioOptQuadTree.TabIndex = 78;
+            this.imgRadioOptQuadTree.Text = "QuadTree";
+            this.imgRadioOptQuadTree.UseVisualStyleBackColor = true;
+            // 
+            // imgRadioOptNone
+            // 
+            this.imgRadioOptNone.Checked = true;
+            this.imgRadioOptNone.Location = new System.Drawing.Point(6, 5);
+            this.imgRadioOptNone.Name = "imgRadioOptNone";
+            this.imgRadioOptNone.Size = new System.Drawing.Size(196, 17);
+            this.imgRadioOptNone.TabIndex = 77;
+            this.imgRadioOptNone.TabStop = true;
+            this.imgRadioOptNone.Text = "None";
+            this.imgRadioOptNone.UseVisualStyleBackColor = true;
+            // 
             // checkOptimize
             // 
             this.checkOptimize.AutoSize = true;
@@ -2456,6 +2518,7 @@
             // panelCamera
             // 
             this.panelCamera.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelCamera.Controls.Add(this.numericKameraAngle);
             this.panelCamera.Controls.Add(this.numericKamWidth);
             this.panelCamera.Controls.Add(this.label134);
             this.panelCamera.Controls.Add(this.numericKamHeight);
@@ -2635,7 +2698,7 @@
             this.numericKameraUpX.Name = "numericKameraUpX";
             this.numericKameraUpX.Size = new System.Drawing.Size(61, 20);
             this.numericKameraUpX.TabIndex = 50;
-            this.numericKameraUpX.ValueChanged += new System.EventHandler(this.actionCameraSet);
+            this.numericKameraUpX.ValueChanged += new System.EventHandler(this.actionCameraSetUp);
             // 
             // numericKameraUpZ
             // 
@@ -2654,7 +2717,7 @@
             this.numericKameraUpZ.Name = "numericKameraUpZ";
             this.numericKameraUpZ.Size = new System.Drawing.Size(61, 20);
             this.numericKameraUpZ.TabIndex = 48;
-            this.numericKameraUpZ.ValueChanged += new System.EventHandler(this.actionCameraSet);
+            this.numericKameraUpZ.ValueChanged += new System.EventHandler(this.actionCameraSetUp);
             // 
             // label32
             // 
@@ -2689,7 +2752,7 @@
             0,
             0,
             -2147483648});
-            this.numericKameraUpY.ValueChanged += new System.EventHandler(this.actionCameraSet);
+            this.numericKameraUpY.ValueChanged += new System.EventHandler(this.actionCameraSetUp);
             // 
             // label33
             // 
@@ -6755,65 +6818,28 @@
             this.label203.TabIndex = 89;
             this.label203.Text = "Y:";
             // 
-            // panel2
+            // numericKameraAngle
             // 
-            this.panel2.BackColor = System.Drawing.Color.Transparent;
-            this.panel2.Controls.Add(this.imgRadioOptLocalMatrices);
-            this.panel2.Controls.Add(this.imgRadioOptThreading);
-            this.panel2.Controls.Add(this.imgRadioOptAABBTree);
-            this.panel2.Controls.Add(this.imgRadioOptQuadTree);
-            this.panel2.Controls.Add(this.imgRadioOptNone);
-            this.panel2.Location = new System.Drawing.Point(16, 108);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(302, 128);
-            this.panel2.TabIndex = 76;
-            // 
-            // imgRadioOptNone
-            // 
-            this.imgRadioOptNone.Checked = true;
-            this.imgRadioOptNone.Location = new System.Drawing.Point(6, 5);
-            this.imgRadioOptNone.Name = "imgRadioOptNone";
-            this.imgRadioOptNone.Size = new System.Drawing.Size(196, 17);
-            this.imgRadioOptNone.TabIndex = 77;
-            this.imgRadioOptNone.TabStop = true;
-            this.imgRadioOptNone.Text = "None";
-            this.imgRadioOptNone.UseVisualStyleBackColor = true;
-            // 
-            // imgRadioOptQuadTree
-            // 
-            this.imgRadioOptQuadTree.Location = new System.Drawing.Point(6, 47);
-            this.imgRadioOptQuadTree.Name = "imgRadioOptQuadTree";
-            this.imgRadioOptQuadTree.Size = new System.Drawing.Size(196, 17);
-            this.imgRadioOptQuadTree.TabIndex = 78;
-            this.imgRadioOptQuadTree.Text = "QuadTree";
-            this.imgRadioOptQuadTree.UseVisualStyleBackColor = true;
-            // 
-            // imgRadioOptAABBTree
-            // 
-            this.imgRadioOptAABBTree.Location = new System.Drawing.Point(6, 26);
-            this.imgRadioOptAABBTree.Name = "imgRadioOptAABBTree";
-            this.imgRadioOptAABBTree.Size = new System.Drawing.Size(196, 17);
-            this.imgRadioOptAABBTree.TabIndex = 79;
-            this.imgRadioOptAABBTree.Text = "AABBTree";
-            this.imgRadioOptAABBTree.UseVisualStyleBackColor = true;
-            // 
-            // imgRadioOptThreading
-            // 
-            this.imgRadioOptThreading.Location = new System.Drawing.Point(6, 91);
-            this.imgRadioOptThreading.Name = "imgRadioOptThreading";
-            this.imgRadioOptThreading.Size = new System.Drawing.Size(196, 17);
-            this.imgRadioOptThreading.TabIndex = 80;
-            this.imgRadioOptThreading.Text = "Threading";
-            this.imgRadioOptThreading.UseVisualStyleBackColor = true;
-            // 
-            // imgRadioOptLocalMatrices
-            // 
-            this.imgRadioOptLocalMatrices.Location = new System.Drawing.Point(6, 69);
-            this.imgRadioOptLocalMatrices.Name = "imgRadioOptLocalMatrices";
-            this.imgRadioOptLocalMatrices.Size = new System.Drawing.Size(196, 17);
-            this.imgRadioOptLocalMatrices.TabIndex = 81;
-            this.imgRadioOptLocalMatrices.Text = "LocalMatrices";
-            this.imgRadioOptLocalMatrices.UseVisualStyleBackColor = true;
+            this.numericKameraAngle.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericKameraAngle.Location = new System.Drawing.Point(87, 91);
+            this.numericKameraAngle.Maximum = new decimal(new int[] {
+            1360,
+            0,
+            0,
+            0});
+            this.numericKameraAngle.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numericKameraAngle.Name = "numericKameraAngle";
+            this.numericKameraAngle.Size = new System.Drawing.Size(61, 20);
+            this.numericKameraAngle.TabIndex = 63;
+            this.numericKameraAngle.ValueChanged += new System.EventHandler(this.actionCameraSet3Rotate);
             // 
             // WndProperties
             // 
@@ -6821,6 +6847,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1188, 778);
+            this.Controls.Add(this.panelCamera);
             this.Controls.Add(this.panelImage);
             this.Controls.Add(this.panelBox);
             this.Controls.Add(this.panelCone);
@@ -6830,7 +6857,6 @@
             this.Controls.Add(this.panelTriangle);
             this.Controls.Add(this.panelAnimace);
             this.Controls.Add(this.panelLight);
-            this.Controls.Add(this.panelCamera);
             this.Name = "WndProperties";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
@@ -6873,6 +6899,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericKouleY)).EndInit();
             this.panelImage.ResumeLayout(false);
             this.panelImage.PerformLayout();
+            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericRecurs)).EndInit();
             this.panelLight.ResumeLayout(false);
             this.panelLight.PerformLayout();
@@ -7015,7 +7042,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakZ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakY)).EndInit();
-            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericKameraAngle)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -7427,6 +7454,7 @@
         private System.Windows.Forms.RadioButton imgRadioOptQuadTree;
         private System.Windows.Forms.RadioButton imgRadioOptNone;
         private System.Windows.Forms.RadioButton imgRadioOptLocalMatrices;
+        private System.Windows.Forms.NumericUpDown numericKameraAngle;
 
     }
 }
