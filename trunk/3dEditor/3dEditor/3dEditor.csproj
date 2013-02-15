@@ -88,6 +88,15 @@
     <Compile Include="DrawingBoard.Designer.cs">
       <DependentUpon>DrawingBoard.cs</DependentUpon>
     </Compile>
+    <Compile Include="MenuDrawItemCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MenuDrawItemCtrl.Designer.cs">
+      <DependentUpon>MenuDrawItemCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MenuDrawItemFlowLayout.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="EditorFcs.cs" />
     <Compile Include="ParentEditor.cs">
       <SubType>Form</SubType>
@@ -121,6 +130,9 @@
     <EmbeddedResource Include="DrawingBoard.resx">
       <DependentUpon>DrawingBoard.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuDrawItemCtrl.resx">
+      <DependentUpon>MenuDrawItemCtrl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ParentEditor.resx">
       <DependentUpon>ParentEditor.cs</DependentUpon>

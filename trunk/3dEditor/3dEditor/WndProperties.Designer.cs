@@ -160,6 +160,7 @@
             this.numericSvetloB = new System.Windows.Forms.NumericUpDown();
             this.label31 = new System.Windows.Forms.Label();
             this.panelCamera = new System.Windows.Forms.Panel();
+            this.numericKameraAngle = new System.Windows.Forms.NumericUpDown();
             this.numericKamWidth = new System.Windows.Forms.NumericUpDown();
             this.label134 = new System.Windows.Forms.Label();
             this.numericKamHeight = new System.Windows.Forms.NumericUpDown();
@@ -433,7 +434,7 @@
             this.numericConePeakY = new System.Windows.Forms.NumericUpDown();
             this.label202 = new System.Windows.Forms.Label();
             this.label203 = new System.Windows.Forms.Label();
-            this.numericKameraAngle = new System.Windows.Forms.NumericUpDown();
+            this.button1 = new System.Windows.Forms.Button();
             this.panelAnimace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).BeginInit();
@@ -483,6 +484,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericSvetloY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSvetloB)).BeginInit();
             this.panelCamera.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericKameraAngle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericKamWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericKamHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericKamDist)).BeginInit();
@@ -601,7 +603,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericKameraAngle)).BeginInit();
             this.SuspendLayout();
             // 
             // colorDialog
@@ -1868,6 +1869,7 @@
             // panelImage
             // 
             this.panelImage.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelImage.Controls.Add(this.button1);
             this.panelImage.Controls.Add(this.panel2);
             this.panelImage.Controls.Add(this.checkOptimize);
             this.panelImage.Controls.Add(this.btnImageBgr);
@@ -2554,6 +2556,29 @@
             this.panelCamera.Name = "panelCamera";
             this.panelCamera.Size = new System.Drawing.Size(363, 254);
             this.panelCamera.TabIndex = 60;
+            // 
+            // numericKameraAngle
+            // 
+            this.numericKameraAngle.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericKameraAngle.Location = new System.Drawing.Point(87, 91);
+            this.numericKameraAngle.Maximum = new decimal(new int[] {
+            1360,
+            0,
+            0,
+            0});
+            this.numericKameraAngle.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numericKameraAngle.Name = "numericKameraAngle";
+            this.numericKameraAngle.Size = new System.Drawing.Size(61, 20);
+            this.numericKameraAngle.TabIndex = 63;
+            this.numericKameraAngle.ValueChanged += new System.EventHandler(this.actionCameraSet3Rotate);
             // 
             // numericKamWidth
             // 
@@ -6818,28 +6843,17 @@
             this.label203.TabIndex = 89;
             this.label203.Text = "Y:";
             // 
-            // numericKameraAngle
+            // button1
             // 
-            this.numericKameraAngle.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericKameraAngle.Location = new System.Drawing.Point(87, 91);
-            this.numericKameraAngle.Maximum = new decimal(new int[] {
-            1360,
-            0,
-            0,
-            0});
-            this.numericKameraAngle.Minimum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            -2147483648});
-            this.numericKameraAngle.Name = "numericKameraAngle";
-            this.numericKameraAngle.Size = new System.Drawing.Size(61, 20);
-            this.numericKameraAngle.TabIndex = 63;
-            this.numericKameraAngle.ValueChanged += new System.EventHandler(this.actionCameraSet3Rotate);
+            this.button1.Image = global::_3dEditor.Properties.Resources.cone_gray16;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button1.Location = new System.Drawing.Point(225, 28);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 53);
+            this.button1.TabIndex = 77;
+            this.button1.Text = "button1";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // WndProperties
             // 
@@ -6919,6 +6933,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericSvetloB)).EndInit();
             this.panelCamera.ResumeLayout(false);
             this.panelCamera.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericKameraAngle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericKamWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericKamHeight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericKamDist)).EndInit();
@@ -7042,7 +7057,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakZ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericKameraAngle)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -7455,6 +7469,7 @@
         private System.Windows.Forms.RadioButton imgRadioOptNone;
         private System.Windows.Forms.RadioButton imgRadioOptLocalMatrices;
         private System.Windows.Forms.NumericUpDown numericKameraAngle;
+        private System.Windows.Forms.Button button1;
 
     }
 }
