@@ -1721,6 +1721,8 @@ namespace _3dEditor
         private void OnShowItemFromControlMenu(object sender, MenuDrawingItemArg e)
         {
             _Selected = e.ObjectToDraw;
+            //WndScene wndsc = GetWndScene();
+            //wndsc.ShowNode(e.ObjectToDraw);
         }
 
         /// <summary>
@@ -1731,6 +1733,8 @@ namespace _3dEditor
         {
             _Selected = e.ObjectToDraw;
             drawItemFlowLayout1.Visible = false;
+            WndScene wndsc = GetWndScene();
+            wndsc.ShowNode(_Selected);
         }
 
         

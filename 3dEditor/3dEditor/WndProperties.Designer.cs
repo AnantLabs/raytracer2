@@ -434,7 +434,6 @@
             this.numericConePeakY = new System.Windows.Forms.NumericUpDown();
             this.label202 = new System.Windows.Forms.Label();
             this.label203 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.panelAnimace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).BeginInit();
@@ -1869,7 +1868,6 @@
             // panelImage
             // 
             this.panelImage.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
-            this.panelImage.Controls.Add(this.button1);
             this.panelImage.Controls.Add(this.panel2);
             this.panelImage.Controls.Add(this.checkOptimize);
             this.panelImage.Controls.Add(this.btnImageBgr);
@@ -6843,18 +6841,6 @@
             this.label203.TabIndex = 89;
             this.label203.Text = "Y:";
             // 
-            // button1
-            // 
-            this.button1.Image = global::_3dEditor.Properties.Resources.cone_gray16;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button1.Location = new System.Drawing.Point(225, 28);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 53);
-            this.button1.TabIndex = 77;
-            this.button1.Text = "button1";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // WndProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -7469,7 +7455,6 @@
         private System.Windows.Forms.RadioButton imgRadioOptNone;
         private System.Windows.Forms.RadioButton imgRadioOptLocalMatrices;
         private System.Windows.Forms.NumericUpDown numericKameraAngle;
-        private System.Windows.Forms.Button button1;
 
     }
 }
