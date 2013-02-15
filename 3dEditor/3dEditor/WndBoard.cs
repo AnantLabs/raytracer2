@@ -23,7 +23,9 @@ namespace _3dEditor
         EditHelper _editHelp;
         Graphics _g;
         Bitmap _editorBmp;
-        Scene _currnetScene;
+        Scene _currentScene;
+        MenuDrawItemFlowLayout _selectedMenu;
+
         public Matrix3D RotationMatrix
         {
             get
@@ -159,6 +161,10 @@ namespace _3dEditor
             this.Focus();
 
             this.Invalidated += new InvalidateEventHandler(WndBoard_Invalidated);
+
+            // nastaveni obsluhy udalosti k menu vybratelnych objektu kliknutim
+            this.drawItemFlowLayout1.OnMyEnter += new MenuDrawItemFlowLayout.MenuDrawingItemEventHandler(OnShowItemFromControlMenu);
+            this.drawItemFlowLayout1.OnMyClick += new MenuDrawItemFlowLayout.MenuDrawingItemEventHandler(OnClickItemFromControlMenu);
 
             Reset();
         }
@@ -812,12 +818,83 @@ namespace _3dEditor
             }
         }
 
+        private void onPicMouseUp(object sender, MouseEventArgs e)
+        {
+            int diff = e.X - _lastMousePoint.X + e.Y - _lastMousePoint.Y;
+            if (diff == 0 && e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                List<DrawingObject> drawingList = _editHelp.GetClickableObj(e.Location);
+                if (drawingList.Count > 1)
+                {
+                    this.drawItemFlowLayout1.AddItems(drawingList.ToArray());
+                    this.drawItemFlowLayout1.Location = new Point(e.X, e.Y);
+                    this.drawItemFlowLayout1.Visible = true;
+                }
+                else
+                {
+                    this.drawItemFlowLayout1.Visible = false;
+                }
+            }
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+                this.drawItemFlowLayout1.Visible = false;
+            this._isDragging = false;
+            _isTransforming = false;
+            this._matrix = Matrix3D.Identity;
+        }
+
+        /// <summary>
+        /// KLIKNUTI MYSI A VYBRANI OBJEKTU V EDITORU
+        /// </summary>
+        private void onPicMouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && _Selected == null)
+                _Selected = null;
+            List<DrawingObject> drawingList = _editHelp.GetClickableObj(e.Location);
+            if (drawingList.Count > 0)
+            {
+                bool wasSelectedBefore = false;
+                foreach (DrawingObject drObj in drawingList)
+                {
+                    if (_Selected == drObj)
+                    {
+                        WndScene wndsc = GetWndScene();
+                        wndsc.ShowNode(drObj);
+                        wasSelectedBefore = true;
+                        break;
+                    }
+                }
+                if (!wasSelectedBefore && drawingList[0] is DrawingObject)
+                {
+                    WndScene wndsc = GetWndScene();
+                    _Selected = drawingList[drawingList.Count - 1];   // vybereme posledni ze seznamu - je nejbliz pozorovateli
+                    wndsc.ShowNode(_Selected);
+                }
+                labelClick.Text = "Mouse Down";
+            }
+            else
+            {
+                _Selected = null;   // otazka, zda po kliknuti do prazdneho prostoru, zobrazit vlastnosti
+                labelClick.Text = "---";
+            }
+            pictureBoard.Focus();
+            if (e.Button == MouseButtons.Left)
+                this._isDragging = true;
+            else if (e.Button == MouseButtons.Right && _Selected == null)
+                this._isDragging = true;
+            else if (e.Button == MouseButtons.Right && _Selected != null)
+                this._isTransforming = true;
+
+            drawItemFlowLayout1.Visible = false;
+            this._lastMousePoint = e.Location;
+        }
+
         private void onPicMouseMove(object sender, MouseEventArgs e)
         {
+            if (!_isDragging && !_isTransforming)
+                return;
+
             PictureBox pb = sender as PictureBox;
             if (!pb.ClientRectangle.Contains(e.Location))
-                return;
-            if (!_isDragging && !_isTransforming)
                 return;
 
             Point currPoint = e.Location;
@@ -831,13 +908,6 @@ namespace _3dEditor
             }
             else if (e.Button == MouseButtons.Right)
             {
-                //degreesY = (_lastMousePoint.X - currPoint.X) * coefMove;
-                //degreesZ = (_lastMousePoint.Y - currPoint.Y) * coefMove;
-
-                //if (degreesY == 0.0 && degreesZ == 0.0)
-                //{
-                //    this._isDragging = false;
-                //    return;
 
                 if (_isTransforming && _Selected!= null)
                 {
@@ -1010,6 +1080,8 @@ namespace _3dEditor
             this.Redraw();
         }
 
+
+
         /// <summary>
         /// Rotuje celym editorem
         /// Neposouva zadny realny objekt ve svete sceny
@@ -1124,65 +1196,7 @@ namespace _3dEditor
             _objectsToDraw.Sort(0, _objectsToDraw.Count, dcomp);
 
         }
-        /// <summary>
-        /// KLIKNUTI MYSI A VYBRANI OBJEKTU V EDITORU
-        /// </summary>
-        private void onPicMouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right && _Selected == null)
-                _Selected = null;
-            List<DrawingObject> drawingList = _editHelp.GetClickableObj(e.Location);
-            if (drawingList.Count > 0)
-            {
-                // bylo by dobre vybrat z kandidatu ten, ktery je z nich uz vybran
-                bool wasSelectedBefore = false;
-                foreach (DrawingObject drObj in drawingList)
-                {
-                    if (_Selected == drObj)
-                    {
-                        WndScene wndsc = GetWndScene();
-                        wndsc.ShowNode(drObj);
-                        //wasSelectedBefore = true;
-                        break;
-                    }
-                }
-                if (!wasSelectedBefore && drawingList[0] is DrawingObject)
-                {
-                    WndScene wndsc = GetWndScene();
-                    _Selected = drawingList[drawingList.Count - 1];   // vybereme posledni ze seznamu - je nejbliz pozorovateli
-                    wndsc.ShowNode(_Selected);
-
-                    //DrawingObject closestObj = GetClosestDrawingObj(drawingList);
-                    //WndScene wndsc = GetWndScene();
-                    //if (closestObj != null)
-                    //{
-                    //    wndsc.ShowNode(closestObj);
-                    //    _Selected = closestObj;
-                    //}
-                    //else
-                    //{
-                    //    wndsc.ShowNode(drawingList[0]);
-                    //    _Selected = drawingList[0];   // vybereme prvni ze seznamu
-                    //}
-                }
-                labelClick.Text = "Mouse Down";
-            }
-            else
-            {
-                _Selected = null;   // otazka, zda po kliknuti do prazdneho prostoru, zobrazit vlastnosti
-                labelClick.Text = "---";
-            }
-            pictureBoard.Focus();
-            if (e.Button == MouseButtons.Left)
-                this._isDragging = true;
-            else if (e.Button == MouseButtons.Right && _Selected == null)
-                this._isDragging = true;
-            else if (e.Button == MouseButtons.Right && _Selected != null)
-                this._isTransforming = true;
-
-            this._lastMousePoint = e.Location;
-            
-        }
+        
 
         /// <summary>
         /// ze seznamu vrati nejblizzsi objektu
@@ -1233,12 +1247,7 @@ namespace _3dEditor
             bmp.Save("C:\\back.png", System.Drawing.Imaging.ImageFormat.Png);
         }
 
-        private void onPicMouseUp(object sender, MouseEventArgs e)
-        {
-            this._isDragging = false;
-            _isTransforming = false;
-            this._matrix = Matrix3D.Identity;
-        }
+
 
         private void toolBtnReset_Click(object sender, EventArgs e)
         {
@@ -1270,7 +1279,7 @@ namespace _3dEditor
 
         private void OnChangedComboAngleView(object sender, EventArgs e)
         {
-            if (_currnetScene == null) return;
+            if (_currentScene == null) return;
             ToolStripComboBox c = sender as ToolStripComboBox;
             EditHelper.ComboViewAngle obj = (EditHelper.ComboViewAngle)c.SelectedItem;
             Matrix3D m = Matrix3D.Identity;
@@ -1278,7 +1287,7 @@ namespace _3dEditor
             if (obj.Caption == EditHelper.CAMERAVIEW_string)
             {
                 // VPRED
-                Vektor dirNorm = new Vektor(_currnetScene.Camera.Norm);
+                Vektor dirNorm = new Vektor(_currentScene.Camera.Norm);
                 dirNorm.Normalize();
                 Vektor z = new Vektor(0, 0, 1);
                 Quaternion q = new Quaternion(dirNorm, z);
@@ -1292,7 +1301,7 @@ namespace _3dEditor
                 // NAHORU
                 Vektor y = new Vektor(0, -1, 0);
 
-                Vektor up = new Vektor(_currnetScene.Camera.Up);
+                Vektor up = new Vektor(_currentScene.Camera.Up);
                 up.Normalize();
                 Matrix3D m1transp = new Matrix3D(m1);
                 m1transp.Transpose();
@@ -1308,7 +1317,7 @@ namespace _3dEditor
             else if (obj.Caption == EditHelper.CAMERAVIEW2_string)
             {
                 // VPRED
-                Vektor dirNorm = new Vektor(_currnetScene.Camera.Norm);
+                Vektor dirNorm = new Vektor(_currentScene.Camera.Norm);
                 dirNorm.Normalize();
                 Vektor z = new Vektor(0, -1, 0);
                 Quaternion q = new Quaternion(dirNorm, z);
@@ -1322,7 +1331,7 @@ namespace _3dEditor
                 // NAHORU
                 Vektor y = new Vektor(0, 0, -1);
 
-                Vektor up = new Vektor(_currnetScene.Camera.Up);
+                Vektor up = new Vektor(_currentScene.Camera.Up);
                 up.Normalize();
                 Matrix3D m1transp = new Matrix3D(m1);
                 m1transp.Transpose();
@@ -1446,7 +1455,7 @@ namespace _3dEditor
             else if (shape is DrawingObject)
             {
                 DrawingObject drObj = (DrawingObject)shape;
-                _currnetScene.RemoveObject(drObj.ModelObject);
+                _currentScene.RemoveObject(drObj.ModelObject);
                 _objectsToDraw.Remove(drObj);
             }
         }
@@ -1569,7 +1578,7 @@ namespace _3dEditor
         /// <param name="scene"></param>
         public void AddRaytrScene(RayTracerLib.Scene scene)
         {
-            _currnetScene = scene;
+            _currentScene = scene;
             this._objectsToDraw.Clear();
             foreach (DefaultShape shape in scene.SceneObjects)
             {
@@ -1703,6 +1712,25 @@ namespace _3dEditor
         {
             Matrix3D m = Matrix3D.NewRotateByDegrees(170, 350, 0);
             RotateWholeEditor(m);
+        }
+
+        /// <summary>
+        /// Obsluha udalosti pri presunu mysi na polozku nabidky kliknutelnych objektu.
+        /// Zobrazi se vybrany objekt v editoru, ale menu zustane otevrene
+        /// </summary>
+        private void OnShowItemFromControlMenu(object sender, MenuDrawingItemArg e)
+        {
+            _Selected = e.ObjectToDraw;
+        }
+
+        /// <summary>
+        /// Obsluha udalosti pri kliknuti mysi na polozku nabidky kliknutelnych objektu.
+        /// Zobrazi se vybrany objekt v editoru a zaroven se zneviditelni menu (jako by se zavrelo)
+        /// </summary>
+        private void OnClickItemFromControlMenu(object sender, MenuDrawingItemArg e)
+        {
+            _Selected = e.ObjectToDraw;
+            drawItemFlowLayout1.Visible = false;
         }
 
         
