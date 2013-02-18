@@ -69,9 +69,26 @@ namespace EditorLib
             Time = _INIT_TIME;
             TypeAnim = _INIT_ANIM_TYPE;
             _RotatMatrix = Matrix3D.Identity;
+            Label = GetUniqueName();
             this.Set(center, a, b);
         }
 
+        /// <summary>
+        /// vytvori jednoznacne jmeno mezi vsemi krychlemi
+        /// </summary>
+        /// <returns>jednoznacny retezec popisku svetla</returns>
+        protected override String GetUniqueName()
+        {
+            int count = labels.Count;
+            String label;
+            do
+            {
+                count++;
+                label = "Anim" + count;
+            }
+            while (labels.Contains(label));
+            return label;
+        }
         /// <summary>
         /// vytvori body pro vykresleni trajektorie v editoru
         /// </summary>
@@ -143,7 +160,7 @@ namespace EditorLib
 
         public override string ToString()
         {
-            return "Center= " + CenterWorld + ";A= " + A + ";B= " + B + ";";
+            return Label + ": {Center=" + CenterWorld + "; A=" + A + "; B=" + B + ";}";
         }
 
         public override Vektor GetCenter()

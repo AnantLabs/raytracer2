@@ -205,36 +205,11 @@ namespace _3dEditor
                 UpdateRecords(childNode);
             }
         }
-        /// <summary>
-        /// Prida do seznamu objekt ze sveta Raytraceru: 
-        /// koule, rovina, valec, krychle, svetlo, kamera, image, animation
-        /// </summary>
-        /// <param name="obj"></param>
-        //public void AddItem(DefaultShape obj)
-        //{
-        //    if (obj.GetType() == typeof(RayTracerLib.Sphere))
-        //    {
-        //        this.AddItem(obj, TreeNodeTypes.Spheres);
-        //    }
-        //    else if (obj.GetType() == typeof(RayTracerLib.Plane))
-        //    {
-        //        this.AddItem(obj, TreeNodeTypes.Planes);
-        //    }
-        //    else if (obj.GetType() == typeof(RayTracerLib.Cube))
-        //    {
-        //        this.AddItem(obj, TreeNodeTypes.Cubes);
-        //    }
-        //    else if (obj.GetType() == typeof(RayTracerLib.Cylinder))
-        //    {
-        //        this.AddItem(obj, TreeNodeTypes.Cylinders);
-        //    }
-        //}
 
         /// <summary>
         /// Prida do seznamu objekt ze sveta Raytraceru: 
         /// koule, rovina, valec, krychle, svetlo, kamera, image, animation
         /// </summary>
-        /// <param name="obj"></param>
         public void AddItem(DrawingObject drawObj)
         {
             if (drawObj.GetType() == typeof(DrawingSphere))
@@ -288,31 +263,33 @@ namespace _3dEditor
             if (node.Tag == null)
                 return;
 
+            ParentEditor form = (ParentEditor)this.ParentForm;
+            // jen kamera i pro jeji root uzel
+            if (node.Tag.GetType() == typeof(TreeNodeTypes) && (TreeNodeTypes)node.Tag == TreeNodeTypes.Camera)
+            {
+                DrawingObject dro = (DrawingObject)node.Nodes[0].Tag;
+                form._WndProperties.ShowObject(dro);
+                form._WndBoard.SetObjectSelected(dro);
+                return;
+            }
             // kdyz se jedna o konkretni instanci objektu v seznamu - neni to obecna skupina
             if (node.Tag.GetType() != typeof(TreeNodeTypes))
             {
-                ParentEditor form = (ParentEditor)this.ParentForm;
                 form._WndProperties.ShowObject(node.Tag);
-                //if (node.Tag is DefaultShape)
                 // zviditelni vykreslovany objekt, ktery byl vybran ze seznamu objektu
                 if (node.Tag is DrawingObject)
                 {
-                    //DefaultShape ds = (DefaultShape)node.Tag;
                     DrawingObject dro = (DrawingObject)node.Tag;
-                    //if (dro.ModelObject is DefaultShape)
-                    //DefaultShape ds = (DefaultShape)dro.ModelObject;
                     form._WndBoard.SetObjectSelected(dro);
-                    //node.Checked = ds.IsActive;
                 }
             }
             else
             {
                 TreeNodeTypes typ = (TreeNodeTypes)node.Tag;
-                ParentEditor form = (ParentEditor)this.ParentForm;
                 form._WndProperties.ShowObject(node.Tag);
             }
-
         }
+
 
         private void ShowNode(object shape, TreeNode rootNode)
         {
@@ -563,6 +540,11 @@ namespace _3dEditor
             if (treeView1.SelectedNode.Tag is TreeNodeTypes || treeView1.SelectedNode.Tag is DrawingCamera)
                 return;
 
+            // kdyz chce odstranit posledni obrazek, nesmazeme ho
+            if (treeView1.SelectedNode.Tag is RayImage && treeView1.SelectedNode.Parent.Nodes.Count == 1)
+            {
+                return;
+            }
             WndBoard wndBoard = GetWndBoard();
             wndBoard.RemoveRaytrObject(treeView1.SelectedNode.Tag);
 
@@ -679,7 +661,6 @@ namespace _3dEditor
             foreach (TreeNode node in root.Nodes)
                 node.Checked = true;
         }
-
 
     }
 }

@@ -42,7 +42,7 @@ namespace _3dEditor
         /// <summary>
         /// vybrany objekt kliknutim
         /// </summary>
-        DrawingObject _Selected;
+        public DrawingObject _Selected { get; private set; }
 
         Vektor _axisC3, _axisX3, _axisY3, _axisZ3, _axisXY;
         public static Vektor _POV;
@@ -181,6 +181,10 @@ namespace _3dEditor
             
         }
 
+        public void SetSelectedDrawingObject(DrawingObject drobSelected)
+        {
+            _Selected = drobSelected;
+        }
         /// <summary>
         /// resetuje, ale ponecha hodnoty scale a zoom
         /// </summary>
@@ -271,6 +275,7 @@ namespace _3dEditor
 
         void onBoard_MouseWheel(object sender, MouseEventArgs e)
         {
+            this.drawItemFlowLayout1.Visible = false;
             if (!this.pictureBoard.ClientRectangle.Contains(e.Location))
                 return;
             if (e.Delta > 0)
@@ -824,6 +829,7 @@ namespace _3dEditor
             if (diff == 0 && e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 List<DrawingObject> drawingList = _editHelp.GetClickableObj(e.Location);
+                // je-li vybranych kliknutim vice objektu, zobrazime nabidku
                 if (drawingList.Count > 1)
                 {
                     this.drawItemFlowLayout1.AddItems(drawingList.ToArray());
@@ -833,6 +839,14 @@ namespace _3dEditor
                 else
                 {
                     this.drawItemFlowLayout1.Visible = false;
+                    if (drawingList.Count == 0)
+                    {
+                        WndScene wndSc = GetWndScene();
+                        RayImage img = wndSc.GetSelectedImage();
+                        wndSc.ShowNode(img);
+                        pictureBoard.Focus();
+                        
+                    } 
                 }
             }
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
@@ -1735,6 +1749,16 @@ namespace _3dEditor
             drawItemFlowLayout1.Visible = false;
             WndScene wndsc = GetWndScene();
             wndsc.ShowNode(_Selected);
+            pictureBoard.Focus();
+        }
+
+        /// <summary>
+        /// Pri deaktivaci okna. Je vhodne zrusit nabidku kliknutych objektu.
+        /// </summary>
+        private void OnDeactivate(object sender, EventArgs e)
+        {
+            // zruseni nabidky, aby nedoslo ke kolizi mezi zobrazovanym objektem ve Vlastnostech a vybranym objektem v Boardu
+            this.drawItemFlowLayout1.Visible = false;
         }
 
         

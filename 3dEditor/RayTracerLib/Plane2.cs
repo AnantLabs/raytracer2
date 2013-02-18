@@ -79,6 +79,8 @@ namespace RayTracerLib
             MaxZ = oldPlane.MaxZ;
         }
 
+
+
         private void Set(Material material, double degX, double degY, double degZ, double d,
             double minX, double minY, double minZ, double maxX, double maxY, double maxZ)
         {

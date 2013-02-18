@@ -89,6 +89,7 @@ namespace RayTracerLib
             this.S = old.S;
         }
 
+
         /// <summary>
         /// prenastaveni kuzele
         /// </summary>
@@ -288,7 +289,7 @@ namespace RayTracerLib
 
         public override string ToString()
         {
-            return "Peak: " + this.Peak + "; Dir: " + this.Dir;
+            return "Cone: Peak=" + this.Peak + "; Dir=" + this.Dir;
         }
 
         public override void MoveToPoint(double p1, double p2, double p3)

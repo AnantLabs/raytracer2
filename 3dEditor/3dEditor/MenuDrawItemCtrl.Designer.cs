@@ -42,6 +42,7 @@
             this.labelCaptionObj.Size = new System.Drawing.Size(73, 13);
             this.labelCaptionObj.TabIndex = 1;
             this.labelCaptionObj.Text = "WWWWWWWWW";
+            this.labelCaptionObj.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelCaptionObj.MouseDown += new System.Windows.Forms.MouseEventHandler(this.onMouseDown);
             this.labelCaptionObj.MouseEnter += new System.EventHandler(this.onEnter);
             this.labelCaptionObj.MouseLeave += new System.EventHandler(this.onLeave);
@@ -59,14 +60,14 @@
             this.pictureBoxObj.MouseEnter += new System.EventHandler(this.onEnter);
             this.pictureBoxObj.MouseLeave += new System.EventHandler(this.onLeave);
             // 
-            // DrawItemCtrl
+            // MenuDrawItemCtrl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.labelCaptionObj);
             this.Controls.Add(this.pictureBoxObj);
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "DrawItemCtrl";
+            this.Name = "MenuDrawItemCtrl";
             this.Size = new System.Drawing.Size(74, 32);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.onMouseDown);
             this.MouseEnter += new System.EventHandler(this.onEnter);

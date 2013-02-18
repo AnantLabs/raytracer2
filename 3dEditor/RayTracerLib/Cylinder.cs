@@ -95,6 +95,7 @@ namespace RayTracerLib
             _c2 = new Vektor(old._c2);
         }
 
+
         /// <summary>
         /// hromadne prenastavi hodnoty
         /// </summary>

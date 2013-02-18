@@ -12,6 +12,31 @@ namespace RayTracerLib
     /// </summary>
     public class Light
     {
+
+        private String _label;
+        /// <summary>
+        /// oznaceni svetla, jeho popisek. Maximalni delka = 9 znaku
+        /// </summary>
+        public String Label
+        {
+            get { return _label; }
+            set
+            {
+                String str;
+                if (value.Length > 9)
+                    str = value.Substring(0, 9);
+                else
+                    str = value;
+                if (!labels.Contains(str))
+                {
+                    _label = str;
+                    labels.Add(str);
+                }
+            }
+        }
+
+        private static List<String> labels = new List<string>();
+
         /// <summary>
         /// posice svetla
         /// </summary>
@@ -54,6 +79,7 @@ namespace RayTracerLib
             Color = color;
             IsSoftLight = false;
             IsSinglePass = false;
+            Label = GetUniqueName();
         }
 
         /// <summary>
@@ -83,6 +109,24 @@ namespace RayTracerLib
             SoftEpsilon = old.SoftEpsilon;
             SoftNumSize = old.SoftNumSize;
             IsSinglePass = old.IsSinglePass;
+            _label = old._label;
+        }
+
+        /// <summary>
+        /// vytvori jednoznacne jmeno mezi vsemi svetly
+        /// </summary>
+        /// <returns>jednoznacny retezec popisku svetla</returns>
+        private String GetUniqueName()
+        {
+            int count = labels.Count;
+            String label;
+            do
+            {
+                count++;
+                label = "Light" + count;
+            }
+            while (labels.Contains(label));
+            return label;
         }
 
         public void MoveToPoint(double dx, double dy, double dz)

@@ -38,10 +38,27 @@ namespace EditorLib
         {
             Size = size > 0 ? size : SIZE;
             Distance = distance > 0 ? distance : DISTANCE;
+            Label = GetUniqueName();
             this.Set(plane);
         }
 
-                
+        /// <summary>
+        /// vytvori jednoznacne jmeno mezi vsemi rovinami
+        /// </summary>
+        /// <returns>jednoznacny retezec popisku svetla</returns>
+        protected override String GetUniqueName()
+        {
+            int count = labels.Count;
+            String label;
+            do
+            {
+                count++;
+                label = "Plane" + count;
+            }
+            while (labels.Contains(label));
+            return label;
+        }
+
         /// <summary>
         /// Rovina v editoru
         /// TODO: 

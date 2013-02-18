@@ -53,7 +53,7 @@ namespace EditorLib
             Sides = _SIDES;
             DecremTheta = _DECREM_THETA;
             DecremPhi = _DECREM_PHI;
-
+            Label = GetUniqueName();
             this.SetModelObject(sphere);
         }
         //public List<Rect
@@ -61,6 +61,22 @@ namespace EditorLib
             : this(new Sphere(new Vektor(origin.X,origin.Y,origin.Z), rad))
         {        }
 
+        /// <summary>
+        /// vytvori jednoznacne jmeno mezi vsemi koulemi
+        /// </summary>
+        /// <returns>jednoznacny retezec popisku svetla</returns>
+        protected override String GetUniqueName()
+        {
+            int count = labels.Count;
+            String label;
+            do
+            {
+                count++;
+                label = "Sphere" + count;
+            }
+            while (labels.Contains(label));
+            return label;
+        }
         public override void SetModelObject(object modelObject)
         {
             if (modelObject != null && modelObject.GetType() == typeof(Sphere))

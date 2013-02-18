@@ -72,7 +72,7 @@ namespace _3dEditor
         {
             DrObject = drob;
             String key = drob.GetType().ToString();
-            Label = key;
+            Label = drob.Label;
             
             int index = ImgList.Images.IndexOfKey(key);
             Img = ImgList.Images[index];

@@ -26,6 +26,7 @@ namespace EditorLib
         public DrawingCube(RayTracerLib.Cube cube)
         {
             _RotatMatrix = Matrix3D.Identity;
+            Label = GetUniqueName();
             this.SetModelObject(cube);
         }
 
@@ -34,7 +35,25 @@ namespace EditorLib
             Cube cube = new Cube(new Vektor(centerX, centerY, centerZ), new Vektor(1, 0, 0), 1);
             cube.Material = new Material();
             cube.Material.Color = new Colour(1, 0.5, 0.1, 1);
+            Label = GetUniqueName();
             this.SetModelObject(cube);
+        }
+
+        /// <summary>
+        /// vytvori jednoznacne jmeno mezi vsemi krychlemi
+        /// </summary>
+        /// <returns>jednoznacny retezec popisku svetla</returns>
+        protected override String GetUniqueName()
+        {
+            int count = labels.Count;
+            String label;
+            do
+            {
+                count++;
+                label = "Cube" + count;
+            }
+            while (labels.Contains(label));
+            return label;
         }
 
         private void Set(Vektor center, double sideLen)
