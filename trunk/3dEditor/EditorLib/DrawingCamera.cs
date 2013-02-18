@@ -70,7 +70,17 @@ namespace EditorLib
 
         public DrawingCamera(Camera cam, double dist, double height, double width, bool showcr, bool showsd1, bool showsd2)
         {
+            Label = GetUniqueName();
             Set(cam, dist, height, width, showcr, showsd1, showsd2);
+        }
+
+        /// <summary>
+        /// vytvori jednoznacne jmeno pro kameru
+        /// </summary>
+        /// <returns>jednoznacny retezec popisku svetla</returns>
+        protected override String GetUniqueName()
+        {
+            return String.Empty;
         }
 
         public override void SetModelObject(object modelObject)
@@ -131,6 +141,11 @@ namespace EditorLib
         public override Vektor GetCenter()
         {
             return new Vektor(this.Center);
+        }
+
+        public override string ToString()
+        {
+            return ModelObject.ToString();
         }
     }
 }

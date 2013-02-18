@@ -72,7 +72,6 @@ namespace RayTracerLib
             this.Material = new Material(oldPlane.Material);
         }
 
-
         public void SetValues(Vektor normal, double d)
         {
             Normal = normal;

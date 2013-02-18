@@ -31,6 +31,7 @@
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.panelAnimace = new System.Windows.Forms.Panel();
+            this.txtbAnimLabel = new System.Windows.Forms.TextBox();
             this.label127 = new System.Windows.Forms.Label();
             this.label146 = new System.Windows.Forms.Label();
             this.label148 = new System.Windows.Forms.Label();
@@ -66,6 +67,7 @@
             this.label116 = new System.Windows.Forms.Label();
             this.label147 = new System.Windows.Forms.Label();
             this.panelSphere = new System.Windows.Forms.Panel();
+            this.txtbSphereLabel = new System.Windows.Forms.TextBox();
             this.label106 = new System.Windows.Forms.Label();
             this.label143 = new System.Windows.Forms.Label();
             this.label144 = new System.Windows.Forms.Label();
@@ -132,6 +134,7 @@
             this.label114 = new System.Windows.Forms.Label();
             this.label123 = new System.Windows.Forms.Label();
             this.panelLight = new System.Windows.Forms.Panel();
+            this.txtbLightLabel = new System.Windows.Forms.TextBox();
             this.panelSoftPasses = new System.Windows.Forms.Panel();
             this.radioMultiPass = new System.Windows.Forms.RadioButton();
             this.radioSinglePass = new System.Windows.Forms.RadioButton();
@@ -193,6 +196,7 @@
             this.label111 = new System.Windows.Forms.Label();
             this.label112 = new System.Windows.Forms.Label();
             this.panelBox = new System.Windows.Forms.Panel();
+            this.txtbCubeLabel = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -239,6 +243,7 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label99 = new System.Windows.Forms.Label();
             this.panelRovina = new System.Windows.Forms.Panel();
+            this.txtbPlaneLabel = new System.Windows.Forms.TextBox();
             this.numPlaneDist = new System.Windows.Forms.NumericUpDown();
             this.numPlaneSize = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
@@ -295,6 +300,7 @@
             this.label88 = new System.Windows.Forms.Label();
             this.label89 = new System.Windows.Forms.Label();
             this.panelCylindr = new System.Windows.Forms.Panel();
+            this.txtbCylLabel = new System.Windows.Forms.TextBox();
             this.label75 = new System.Windows.Forms.Label();
             this.label135 = new System.Windows.Forms.Label();
             this.label138 = new System.Windows.Forms.Label();
@@ -343,6 +349,7 @@
             this.label77 = new System.Windows.Forms.Label();
             this.label78 = new System.Windows.Forms.Label();
             this.panelTriangle = new System.Windows.Forms.Panel();
+            this.txtbTriangLabel = new System.Windows.Forms.TextBox();
             this.label167 = new System.Windows.Forms.Label();
             this.numTriangN = new System.Windows.Forms.NumericUpDown();
             this.label168 = new System.Windows.Forms.Label();
@@ -388,6 +395,8 @@
             this.label165 = new System.Windows.Forms.Label();
             this.panelCone = new System.Windows.Forms.Panel();
             this.label178 = new System.Windows.Forms.Label();
+            this.label200 = new System.Windows.Forms.Label();
+            this.txtbConeLabel = new System.Windows.Forms.TextBox();
             this.label179 = new System.Windows.Forms.Label();
             this.label180 = new System.Windows.Forms.Label();
             this.label181 = new System.Windows.Forms.Label();
@@ -427,13 +436,13 @@
             this.label197 = new System.Windows.Forms.Label();
             this.label198 = new System.Windows.Forms.Label();
             this.label199 = new System.Windows.Forms.Label();
-            this.label200 = new System.Windows.Forms.Label();
             this.numericConePeakX = new System.Windows.Forms.NumericUpDown();
             this.numericConePeakZ = new System.Windows.Forms.NumericUpDown();
             this.label201 = new System.Windows.Forms.Label();
             this.numericConePeakY = new System.Windows.Forms.NumericUpDown();
             this.label202 = new System.Windows.Forms.Label();
             this.label203 = new System.Windows.Forms.Label();
+            this._labelActive = new System.Windows.Forms.Label();
             this.panelAnimace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).BeginInit();
@@ -617,6 +626,7 @@
             // panelAnimace
             // 
             this.panelAnimace.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelAnimace.Controls.Add(this.txtbAnimLabel);
             this.panelAnimace.Controls.Add(this.label127);
             this.panelAnimace.Controls.Add(this.label146);
             this.panelAnimace.Controls.Add(this.label148);
@@ -647,10 +657,21 @@
             this.panelAnimace.Controls.Add(this.label131);
             this.panelAnimace.Controls.Add(this.label116);
             this.panelAnimace.Controls.Add(this.label147);
-            this.panelAnimace.Location = new System.Drawing.Point(12, 8);
+            this.panelAnimace.Location = new System.Drawing.Point(121, 48);
             this.panelAnimace.Name = "panelAnimace";
             this.panelAnimace.Size = new System.Drawing.Size(378, 275);
             this.panelAnimace.TabIndex = 62;
+            // 
+            // txtbAnimLabel
+            // 
+            this.txtbAnimLabel.Location = new System.Drawing.Point(202, 1);
+            this.txtbAnimLabel.MaxLength = 9;
+            this.txtbAnimLabel.Name = "txtbAnimLabel";
+            this.txtbAnimLabel.Size = new System.Drawing.Size(100, 20);
+            this.txtbAnimLabel.TabIndex = 208;
+            this.txtbAnimLabel.TextChanged += new System.EventHandler(this.OnLabelTextChange);
+            this.txtbAnimLabel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnLabelKeyDown);
+            this.txtbAnimLabel.Leave += new System.EventHandler(this.OnLabelLeave);
             // 
             // label127
             // 
@@ -928,7 +949,7 @@
             this.label122.Location = new System.Drawing.Point(2, 1);
             this.label122.Name = "label122";
             this.label122.Size = new System.Drawing.Size(194, 20);
-            this.label122.TabIndex = 41;
+            this.label122.TabIndex = 209;
             this.label122.Text = "ANIMATION - Elliptical:";
             // 
             // label124
@@ -1146,6 +1167,7 @@
             // 
             this.panelSphere.BackColor = System.Drawing.SystemColors.Control;
             this.panelSphere.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelSphere.Controls.Add(this.txtbSphereLabel);
             this.panelSphere.Controls.Add(this.label106);
             this.panelSphere.Controls.Add(this.label143);
             this.panelSphere.Controls.Add(this.label144);
@@ -1195,6 +1217,17 @@
             this.panelSphere.Name = "panelSphere";
             this.panelSphere.Size = new System.Drawing.Size(419, 293);
             this.panelSphere.TabIndex = 41;
+            // 
+            // txtbSphereLabel
+            // 
+            this.txtbSphereLabel.Location = new System.Drawing.Point(91, 1);
+            this.txtbSphereLabel.MaxLength = 9;
+            this.txtbSphereLabel.Name = "txtbSphereLabel";
+            this.txtbSphereLabel.Size = new System.Drawing.Size(100, 20);
+            this.txtbSphereLabel.TabIndex = 206;
+            this.txtbSphereLabel.TextChanged += new System.EventHandler(this.OnLabelTextChange);
+            this.txtbSphereLabel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnLabelKeyDown);
+            this.txtbSphereLabel.Leave += new System.EventHandler(this.OnLabelLeave);
             // 
             // label106
             // 
@@ -1435,7 +1468,7 @@
             this.label17.Location = new System.Drawing.Point(3, 2);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(82, 20);
-            this.label17.TabIndex = 127;
+            this.label17.TabIndex = 207;
             this.label17.Text = "SPHERE";
             // 
             // label69
@@ -2107,6 +2140,7 @@
             // panelLight
             // 
             this.panelLight.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelLight.Controls.Add(this.txtbLightLabel);
             this.panelLight.Controls.Add(this.panelSoftPasses);
             this.panelLight.Controls.Add(this.panelLightSoft);
             this.panelLight.Controls.Add(this.checkBoxLightIsSoft);
@@ -2130,6 +2164,17 @@
             this.panelLight.Name = "panelLight";
             this.panelLight.Size = new System.Drawing.Size(335, 284);
             this.panelLight.TabIndex = 59;
+            // 
+            // txtbLightLabel
+            // 
+            this.txtbLightLabel.Location = new System.Drawing.Point(76, 1);
+            this.txtbLightLabel.MaxLength = 9;
+            this.txtbLightLabel.Name = "txtbLightLabel";
+            this.txtbLightLabel.Size = new System.Drawing.Size(100, 20);
+            this.txtbLightLabel.TabIndex = 214;
+            this.txtbLightLabel.TextChanged += new System.EventHandler(this.OnLabelTextChange);
+            this.txtbLightLabel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnLabelKeyDown);
+            this.txtbLightLabel.Leave += new System.EventHandler(this.OnLabelLeave);
             // 
             // panelSoftPasses
             // 
@@ -2357,7 +2402,7 @@
             this.label26.Location = new System.Drawing.Point(3, 3);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(67, 20);
-            this.label26.TabIndex = 15;
+            this.label26.TabIndex = 215;
             this.label26.Text = "LIGHT:";
             // 
             // label27
@@ -3037,6 +3082,7 @@
             // panelBox
             // 
             this.panelBox.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelBox.Controls.Add(this.txtbCubeLabel);
             this.panelBox.Controls.Add(this.label1);
             this.panelBox.Controls.Add(this.label97);
             this.panelBox.Controls.Add(this.label2);
@@ -3086,6 +3132,17 @@
             this.panelBox.Name = "panelBox";
             this.panelBox.Size = new System.Drawing.Size(407, 317);
             this.panelBox.TabIndex = 58;
+            // 
+            // txtbCubeLabel
+            // 
+            this.txtbCubeLabel.Location = new System.Drawing.Point(70, 1);
+            this.txtbCubeLabel.MaxLength = 9;
+            this.txtbCubeLabel.Name = "txtbCubeLabel";
+            this.txtbCubeLabel.Size = new System.Drawing.Size(100, 20);
+            this.txtbCubeLabel.TabIndex = 212;
+            this.txtbCubeLabel.TextChanged += new System.EventHandler(this.OnLabelTextChange);
+            this.txtbCubeLabel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnLabelKeyDown);
+            this.txtbCubeLabel.Leave += new System.EventHandler(this.OnLabelLeave);
             // 
             // label1
             // 
@@ -3681,7 +3738,7 @@
             this.label96.Location = new System.Drawing.Point(4, 2);
             this.label96.Name = "label96";
             this.label96.Size = new System.Drawing.Size(58, 20);
-            this.label96.TabIndex = 85;
+            this.label96.TabIndex = 213;
             this.label96.Text = "CUBE";
             // 
             // numericBoxZ
@@ -3757,6 +3814,7 @@
             // panelRovina
             // 
             this.panelRovina.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelRovina.Controls.Add(this.txtbPlaneLabel);
             this.panelRovina.Controls.Add(this.numPlaneDist);
             this.panelRovina.Controls.Add(this.numPlaneSize);
             this.panelRovina.Controls.Add(this.label12);
@@ -3816,6 +3874,17 @@
             this.panelRovina.Name = "panelRovina";
             this.panelRovina.Size = new System.Drawing.Size(407, 349);
             this.panelRovina.TabIndex = 58;
+            // 
+            // txtbPlaneLabel
+            // 
+            this.txtbPlaneLabel.Location = new System.Drawing.Point(80, 1);
+            this.txtbPlaneLabel.MaxLength = 9;
+            this.txtbPlaneLabel.Name = "txtbPlaneLabel";
+            this.txtbPlaneLabel.Size = new System.Drawing.Size(100, 20);
+            this.txtbPlaneLabel.TabIndex = 202;
+            this.txtbPlaneLabel.TextChanged += new System.EventHandler(this.OnLabelTextChange);
+            this.txtbPlaneLabel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnLabelKeyDown);
+            this.txtbPlaneLabel.Leave += new System.EventHandler(this.OnLabelLeave);
             // 
             // numPlaneDist
             // 
@@ -4596,7 +4665,7 @@
             this.label86.Location = new System.Drawing.Point(3, 2);
             this.label86.Name = "label86";
             this.label86.Size = new System.Drawing.Size(66, 20);
-            this.label86.TabIndex = 85;
+            this.label86.TabIndex = 203;
             this.label86.Text = "PLANE";
             // 
             // numericRovinaC
@@ -4683,6 +4752,7 @@
             // panelCylindr
             // 
             this.panelCylindr.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelCylindr.Controls.Add(this.txtbCylLabel);
             this.panelCylindr.Controls.Add(this.label75);
             this.panelCylindr.Controls.Add(this.label135);
             this.panelCylindr.Controls.Add(this.label138);
@@ -4735,6 +4805,17 @@
             this.panelCylindr.Size = new System.Drawing.Size(458, 362);
             this.panelCylindr.TabIndex = 57;
             // 
+            // txtbCylLabel
+            // 
+            this.txtbCylLabel.Location = new System.Drawing.Point(106, 1);
+            this.txtbCylLabel.MaxLength = 9;
+            this.txtbCylLabel.Name = "txtbCylLabel";
+            this.txtbCylLabel.Size = new System.Drawing.Size(100, 20);
+            this.txtbCylLabel.TabIndex = 204;
+            this.txtbCylLabel.TextChanged += new System.EventHandler(this.OnLabelTextChange);
+            this.txtbCylLabel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnLabelKeyDown);
+            this.txtbCylLabel.Leave += new System.EventHandler(this.OnLabelLeave);
+            // 
             // label75
             // 
             this.label75.AutoSize = true;
@@ -4743,7 +4824,7 @@
             this.label75.Location = new System.Drawing.Point(1, 1);
             this.label75.Name = "label75";
             this.label75.Size = new System.Drawing.Size(99, 20);
-            this.label75.TabIndex = 63;
+            this.label75.TabIndex = 205;
             this.label75.Text = "CYLINDER";
             // 
             // label135
@@ -5430,6 +5511,7 @@
             // panelTriangle
             // 
             this.panelTriangle.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelTriangle.Controls.Add(this.txtbTriangLabel);
             this.panelTriangle.Controls.Add(this.label167);
             this.panelTriangle.Controls.Add(this.numTriangN);
             this.panelTriangle.Controls.Add(this.label168);
@@ -5477,6 +5559,17 @@
             this.panelTriangle.Name = "panelTriangle";
             this.panelTriangle.Size = new System.Drawing.Size(417, 343);
             this.panelTriangle.TabIndex = 63;
+            // 
+            // txtbTriangLabel
+            // 
+            this.txtbTriangLabel.Location = new System.Drawing.Point(112, 1);
+            this.txtbTriangLabel.MaxLength = 9;
+            this.txtbTriangLabel.Name = "txtbTriangLabel";
+            this.txtbTriangLabel.Size = new System.Drawing.Size(100, 20);
+            this.txtbTriangLabel.TabIndex = 200;
+            this.txtbTriangLabel.TextChanged += new System.EventHandler(this.OnLabelTextChange);
+            this.txtbTriangLabel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnLabelKeyDown);
+            this.txtbTriangLabel.Leave += new System.EventHandler(this.OnLabelLeave);
             // 
             // label167
             // 
@@ -6015,7 +6108,7 @@
             this.label162.Location = new System.Drawing.Point(3, 2);
             this.label162.Name = "label162";
             this.label162.Size = new System.Drawing.Size(98, 20);
-            this.label162.TabIndex = 15;
+            this.label162.TabIndex = 201;
             this.label162.Text = "TRIANGLE";
             // 
             // numericTriangleAZ
@@ -6098,6 +6191,8 @@
             // 
             this.panelCone.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
             this.panelCone.Controls.Add(this.label178);
+            this.panelCone.Controls.Add(this.label200);
+            this.panelCone.Controls.Add(this.txtbConeLabel);
             this.panelCone.Controls.Add(this.label179);
             this.panelCone.Controls.Add(this.label180);
             this.panelCone.Controls.Add(this.label181);
@@ -6137,7 +6232,6 @@
             this.panelCone.Controls.Add(this.label197);
             this.panelCone.Controls.Add(this.label198);
             this.panelCone.Controls.Add(this.label199);
-            this.panelCone.Controls.Add(this.label200);
             this.panelCone.Controls.Add(this.numericConePeakX);
             this.panelCone.Controls.Add(this.numericConePeakZ);
             this.panelCone.Controls.Add(this.label201);
@@ -6157,8 +6251,30 @@
             this.label178.Location = new System.Drawing.Point(1, 1);
             this.label178.Name = "label178";
             this.label178.Size = new System.Drawing.Size(58, 20);
-            this.label178.TabIndex = 63;
+            this.label178.TabIndex = 211;
             this.label178.Text = "CONE";
+            // 
+            // label200
+            // 
+            this.label200.AutoSize = true;
+            this.label200.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label200.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label200.Location = new System.Drawing.Point(36, 25);
+            this.label200.Name = "label200";
+            this.label200.Size = new System.Drawing.Size(48, 16);
+            this.label200.TabIndex = 140;
+            this.label200.Text = "Peak:";
+            // 
+            // txtbConeLabel
+            // 
+            this.txtbConeLabel.Location = new System.Drawing.Point(75, 1);
+            this.txtbConeLabel.MaxLength = 9;
+            this.txtbConeLabel.Name = "txtbConeLabel";
+            this.txtbConeLabel.Size = new System.Drawing.Size(100, 20);
+            this.txtbConeLabel.TabIndex = 210;
+            this.txtbConeLabel.TextChanged += new System.EventHandler(this.OnLabelTextChange);
+            this.txtbConeLabel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnLabelKeyDown);
+            this.txtbConeLabel.Leave += new System.EventHandler(this.OnLabelLeave);
             // 
             // label179
             // 
@@ -6730,17 +6846,6 @@
             this.label199.TabIndex = 91;
             this.label199.Text = "Direction:";
             // 
-            // label200
-            // 
-            this.label200.AutoSize = true;
-            this.label200.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label200.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label200.Location = new System.Drawing.Point(36, 25);
-            this.label200.Name = "label200";
-            this.label200.Size = new System.Drawing.Size(48, 16);
-            this.label200.TabIndex = 90;
-            this.label200.Text = "Peak:";
-            // 
             // numericConePeakX
             // 
             this.numericConePeakX.DecimalPlaces = 5;
@@ -6811,7 +6916,7 @@
             -2147483648});
             this.numericConePeakY.Name = "numericConePeakY";
             this.numericConePeakY.Size = new System.Drawing.Size(61, 20);
-            this.numericConePeakY.TabIndex = 87;
+            this.numericConePeakY.TabIndex = 83;
             this.numericConePeakY.Value = new decimal(new int[] {
             1,
             0,
@@ -6841,26 +6946,40 @@
             this.label203.TabIndex = 89;
             this.label203.Text = "Y:";
             // 
+            // _labelActive
+            // 
+            this._labelActive.AutoSize = true;
+            this._labelActive.BackColor = System.Drawing.Color.Transparent;
+            this._labelActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this._labelActive.Location = new System.Drawing.Point(12, 9);
+            this._labelActive.Name = "_labelActive";
+            this._labelActive.Size = new System.Drawing.Size(69, 13);
+            this._labelActive.TabIndex = 65;
+            this._labelActive.Text = "activeControl";
+            this._labelActive.Visible = false;
+            // 
             // WndProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1188, 778);
+            this.Controls.Add(this.panelLight);
+            this.Controls.Add(this._labelActive);
+            this.Controls.Add(this.panelCone);
+            this.Controls.Add(this.panelTriangle);
+            this.Controls.Add(this.panelRovina);
+            this.Controls.Add(this.panelCylindr);
             this.Controls.Add(this.panelCamera);
             this.Controls.Add(this.panelImage);
             this.Controls.Add(this.panelBox);
-            this.Controls.Add(this.panelCone);
-            this.Controls.Add(this.panelCylindr);
-            this.Controls.Add(this.panelRovina);
-            this.Controls.Add(this.panelSphere);
-            this.Controls.Add(this.panelTriangle);
             this.Controls.Add(this.panelAnimace);
-            this.Controls.Add(this.panelLight);
+            this.Controls.Add(this.panelSphere);
             this.Name = "WndProperties";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "PropertiesWnd";
+            this.Activated += new System.EventHandler(this.OnFormActivated);
             this.Load += new System.EventHandler(this.WndProperties_Load);
             this.panelAnimace.ResumeLayout(false);
             this.panelAnimace.PerformLayout();
@@ -7044,6 +7163,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakZ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakY)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -7455,6 +7575,15 @@
         private System.Windows.Forms.RadioButton imgRadioOptNone;
         private System.Windows.Forms.RadioButton imgRadioOptLocalMatrices;
         private System.Windows.Forms.NumericUpDown numericKameraAngle;
+        private System.Windows.Forms.TextBox txtbAnimLabel;
+        private System.Windows.Forms.TextBox txtbSphereLabel;
+        private System.Windows.Forms.TextBox txtbCubeLabel;
+        private System.Windows.Forms.TextBox txtbPlaneLabel;
+        private System.Windows.Forms.TextBox txtbCylLabel;
+        private System.Windows.Forms.TextBox txtbTriangLabel;
+        private System.Windows.Forms.TextBox txtbConeLabel;
+        private System.Windows.Forms.TextBox txtbLightLabel;
+        private System.Windows.Forms.Label _labelActive;
 
     }
 }

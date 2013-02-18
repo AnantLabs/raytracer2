@@ -61,6 +61,7 @@ namespace RayTracerLib
             _RotatMatrix = Matrix3D.Identity;
         }
 
+
         /// <summary>
         /// prunik paprsku s rovinou
         /// vrati bod lezici na rovine trojuhelniku

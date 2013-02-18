@@ -54,6 +54,8 @@ namespace _3dEditor
             this.panelCone.Location = new Point(0, 0);
 
             _permissionToModify = true;
+            this.ActiveControl = _labelActive;
+            this.GetNextControl(this, true);
         }
 
         /// <summary>
@@ -68,9 +70,12 @@ namespace _3dEditor
         
         public void ShowObject(object obj)
         {
+            if (obj == null) return;
+
             // pouze zobrazeni objektu - nutno zakazet jeho vnitrni zmenu pri udalostech k nastaveni
             // hodnot v prislusnych prvich - numericBoxech apod.
             _permissionToModify = false;
+            _currentlyDisplayed = obj;
 
             if (obj.GetType() == typeof(DrawingSphere))
                 ShowSphere((DrawingSphere)obj);
@@ -106,8 +111,15 @@ namespace _3dEditor
                 _permissionToModify = true;
                 return;
             }
+
+            WndBoard wndBoard = GetWndBoard();
+            if (_currentlyDisplayed is DrawingObject && wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
+
             _permissionToModify = true;
-            _currentlyDisplayed = obj;
+            
             this.Update();
         }
 
@@ -136,6 +148,8 @@ namespace _3dEditor
             }
 
             Sphere sph = (Sphere)drSphere.ModelObject;
+
+            this.txtbSphereLabel.Text = drSphere.Label;
 
             this.numericKouleX.Value = (decimal)MyMath.Clamp(sph.Origin.X, -100, 100);
             this.numericKouleY.Value = (decimal)MyMath.Clamp(sph.Origin.Y, -100, 100);
@@ -179,6 +193,8 @@ namespace _3dEditor
             }
 
             Plane pl = (Plane)drPlane.ModelObject;
+
+            this.txtbPlaneLabel.Text = drPlane.Label;
 
             if (_showAngles)
             {
@@ -247,6 +263,8 @@ namespace _3dEditor
 
             Cube c = (Cube)drCube.ModelObject;
 
+            this.txtbCubeLabel.Text = drCube.Label;
+
             this.numericBoxX.Value = (decimal)MyMath.Clamp(c.Center.X, -100, 100);
             this.numericBoxY.Value = (decimal)MyMath.Clamp(c.Center.Y, -100, 100);
             this.numericBoxZ.Value = (decimal)MyMath.Clamp(c.Center.Z, -100, 100);
@@ -290,6 +308,8 @@ namespace _3dEditor
             }
 
             Cylinder c = (Cylinder)drCyl.ModelObject;
+
+            this.txtbCylLabel.Text = drCyl.Label;
 
             this.numericCylCentX.Value = (decimal)MyMath.Clamp(c.Center.X, -100, 100);
             this.numericCylCentY.Value = (decimal)MyMath.Clamp(c.Center.Y, -100, 100);
@@ -335,6 +355,8 @@ namespace _3dEditor
             }
 
             Triangle triangl = (Triangle)drTriangl.ModelObject;
+
+            this.txtbTriangLabel.Text = drTriangl.Label;
 
             this.numericTriangleAX.Value = (decimal)triangl.A.X;
             this.numericTriangleAY.Value = (decimal)triangl.A.Y;
@@ -410,6 +432,8 @@ namespace _3dEditor
 
             Light l = (Light)drLight.ModelObject;
 
+            this.txtbLightLabel.Text = drLight.Label;
+
             this.numericSvetloX.Value = (decimal)MyMath.Clamp(l.Coord.X, -100, 100);
             this.numericSvetloY.Value = (decimal)MyMath.Clamp(l.Coord.Y, -100, 100);
             this.numericSvetloZ.Value = (decimal)MyMath.Clamp(l.Coord.Z, -100, 100);
@@ -480,6 +504,8 @@ namespace _3dEditor
                 this.panelAnimace.Visible = true;
                 this.Text = "Properties: Animation";
             }
+            this.txtbAnimLabel.Text = drAnim.Label;
+
             this.numAnimCenterX.Value = (decimal)drAnim.CenterWorld.X;
             this.numAnimCenterY.Value = (decimal)drAnim.CenterWorld.Y;
             this.numAnimCenterZ.Value = (decimal)drAnim.CenterWorld.Z;
@@ -602,6 +628,13 @@ namespace _3dEditor
             if (!_permissionToModify)
                 return;
 
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
+
             DrawingSphere drSph = (DrawingSphere)_currentlyDisplayed;
             Sphere sph = (Sphere)drSph.ModelObject;
 
@@ -674,6 +707,13 @@ namespace _3dEditor
 
             if (!_permissionToModify)
                 return;
+
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
 
             DrawingPlane drPlane = (DrawingPlane)_currentlyDisplayed;
             Plane plane = (Plane)drPlane.ModelObject;
@@ -770,6 +810,13 @@ namespace _3dEditor
             if (!_permissionToModify)
                 return;
 
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
+
             DrawingCube drCube = (DrawingCube)_currentlyDisplayed;
             Cube cube = (Cube)drCube.ModelObject;
 
@@ -845,6 +892,13 @@ namespace _3dEditor
             if (!_permissionToModify)
                 return;
 
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
+
             DrawingCylinder drCyl = (DrawingCylinder)_currentlyDisplayed;
             Cylinder cyl = (Cylinder)drCyl.ModelObject;
 
@@ -877,6 +931,13 @@ namespace _3dEditor
 
             if (!_permissionToModify)
                 return;
+
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
 
             DrawingCylinder drCyl = (DrawingCylinder)_currentlyDisplayed;
             Cylinder cyl = (Cylinder)drCyl.ModelObject;
@@ -941,6 +1002,8 @@ namespace _3dEditor
 
             Cone c = (Cone)drCone.ModelObject;
 
+            this.txtbConeLabel.Text = drCone.Label;
+
             this.numericConePeakX.Value = (decimal)MyMath.Clamp(c.Peak.X, -100, 100);
             this.numericConePeakY.Value = (decimal)MyMath.Clamp(c.Peak.Y, -100, 100);
             this.numericConePeakZ.Value = (decimal)MyMath.Clamp(c.Peak.Z, -100, 100);
@@ -981,6 +1044,12 @@ namespace _3dEditor
 
             if (!_permissionToModify)
                 return;
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
 
             DrawingCone drCone = (DrawingCone)_currentlyDisplayed;
             Cone cone = (Cone)drCone.ModelObject;
@@ -1015,6 +1084,13 @@ namespace _3dEditor
 
             if (!_permissionToModify)
                 return;
+
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
 
             DrawingCone drCone = (DrawingCone)_currentlyDisplayed;
             Cone cone = (Cone)drCone.ModelObject;
@@ -1069,6 +1145,13 @@ namespace _3dEditor
             if (!_permissionToModify)
                 return;
 
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
+
             _permissionToModify = false;
 
             NumericUpDown num = sender as NumericUpDown;
@@ -1107,6 +1190,13 @@ namespace _3dEditor
 
             if (!_permissionToModify)
                 return;
+            
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
 
             DrawingCamera drCam = (DrawingCamera)_currentlyDisplayed;
             Camera cam = (Camera)drCam.ModelObject;
@@ -1168,6 +1258,13 @@ namespace _3dEditor
 
             if (!_permissionToModify)
                 return;
+
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
 
             DrawingLight drLight = (DrawingLight)_currentlyDisplayed;
             Light light = (Light)drLight.ModelObject;
@@ -1309,6 +1406,13 @@ namespace _3dEditor
             if (!_permissionToModify)
                 return;
 
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
+
             DrawingAnimation drAnim = (DrawingAnimation)_currentlyDisplayed;
 
             Vektor center = new Vektor();
@@ -1367,6 +1471,13 @@ namespace _3dEditor
             if (!_permissionToModify)
                 return;
 
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
+
             _permissionToModify = false;
 
             NumericUpDown num = sender as NumericUpDown;
@@ -1401,6 +1512,13 @@ namespace _3dEditor
             if (!_permissionToModify)
                 return;
 
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
+
             _permissionToModify = false;
 
             NumericUpDown num = sender as NumericUpDown;
@@ -1434,6 +1552,14 @@ namespace _3dEditor
                 return;
             if (!_permissionToModify)
                 return;
+
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
+
             _permissionToModify = false;
 
             NumericUpDown num = sender as NumericUpDown;
@@ -1467,6 +1593,14 @@ namespace _3dEditor
                 return;
             if (!_permissionToModify)
                 return;
+
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
+
             _permissionToModify = false;
 
             NumericUpDown num = sender as NumericUpDown;
@@ -1497,6 +1631,13 @@ namespace _3dEditor
         {
             if (_currentlyDisplayed.GetType() != typeof(DrawingAnimation))
                 return;
+
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
 
             NumericUpDown num = sender as NumericUpDown;
             if (num.Value > 359)
@@ -1538,6 +1679,13 @@ namespace _3dEditor
 
             if (!_permissionToModify)
                 return;
+
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
 
             DrawingTriangle drTriang = (DrawingTriangle)_currentlyDisplayed;
             Triangle triangl = (Triangle)drTriang.ModelObject;
@@ -1609,6 +1757,13 @@ namespace _3dEditor
             if (!_permissionToModify)
                 return;
 
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
+
             DrawingCamera drCam = (DrawingCamera)_currentlyDisplayed;
             Camera cam = (Camera)drCam.ModelObject;
 
@@ -1650,6 +1805,13 @@ namespace _3dEditor
             if (!_permissionToModify)
                 return;
 
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
+
             DrawingCamera drCam = (DrawingCamera)_currentlyDisplayed;
             Camera cam = (Camera)drCam.ModelObject;
 
@@ -1683,6 +1845,62 @@ namespace _3dEditor
             }
         }
 
+        private void OnLabelLeave(object sender, EventArgs e)
+        {
+            TextBox txtb = sender as TextBox;
+            txtb.BackColor = SystemColors.Window;
+        }
+
+        private void OnLabelTextChange(object sender, EventArgs e)
+        {
+            TextBox txtb = sender as TextBox;
+            if (!(_currentlyDisplayed is DrawingObject)) return;
+            DrawingObject drob = _currentlyDisplayed as DrawingObject;
+            if (!DrawingObject.IsAvailable(txtb.Text) && drob.Label != txtb.Text)
+            {
+                txtb.BackColor = Color.Red;
+            }
+            else
+            {
+                txtb.BackColor = SystemColors.Window;
+            }
+
+        }
+
+        private void OnLabelKeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox txtb = sender as TextBox;
+            if (!(_currentlyDisplayed is DrawingObject)) return;
+            DrawingObject drob = _currentlyDisplayed as DrawingObject;
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (DrawingObject.IsAvailable(txtb.Text))
+                {
+                    drob.Label = txtb.Text;
+                    WndScene wndSc = GetWndScene();
+                    wndSc.UpdateRecords();
+                }
+                else
+                    txtb.Text = drob.Label;
+
+                Control c = this.GetNextControl((Control)sender, true); // ztrata focusu - preneseni na label
+                c.Focus();
+            }
+        }
+
+        /// <summary>
+        /// Aktivace formulare vlastnosti. 
+        /// Je potreba zkontrolovat, aby zobrazeny objekt byl stejny jako vybrany objekt v platne (Boardu)
+        /// </summary>
+        private void OnFormActivated(object sender, EventArgs e)
+        {
+            WndBoard wndBoard = GetWndBoard();
+            if (_currentlyDisplayed != null && _currentlyDisplayed is DrawingObject && wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
+        }
 
         
 

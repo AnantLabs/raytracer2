@@ -54,6 +54,8 @@ namespace RayTracerLib
             _RotatMatrix = sp._RotatMatrix;
         }
 
+
+
         /// <summary>
         /// Zjisti, zda paprsek protina kouli a vrati vsechny body pruniku
         /// </summary>

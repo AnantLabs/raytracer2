@@ -31,13 +31,32 @@ namespace EditorLib
         {
             _RotatMatrix = Matrix3D.Identity;
             _ShiftMatrix = Matrix3D.PosunutiNewMatrix(cylinder.Center.X, cylinder.Center.Y, cylinder.Center.Z);
+            Label = GetUniqueName();
             this.SetModelObject(cylinder);
         }
 
-        public DrawingCylinder(Vektor origin, double radius, double lenght)
+        //public DrawingCylinder(Vektor origin, double radius, double lenght)
+        //{
+        //    _RotatMatrix = Matrix3D.Identity;
+        //    Lable = GetUniqueName();
+        //    this.Set(origin, radius, lenght);
+        //}
+
+        /// <summary>
+        /// vytvori jednoznacne jmeno mezi vsemi cylindry
+        /// </summary>
+        /// <returns>jednoznacny retezec popisku svetla</returns>
+        protected override String GetUniqueName()
         {
-            _RotatMatrix = Matrix3D.Identity;
-            this.Set(origin, radius, lenght);
+            int count = labels.Count;
+            String label;
+            do
+            {
+                count++;
+                label = "Cylind" + count;
+            }
+            while (labels.Contains(label));
+            return label;
         }
 
         private void Set(Vektor origin, double radius, double lenght)

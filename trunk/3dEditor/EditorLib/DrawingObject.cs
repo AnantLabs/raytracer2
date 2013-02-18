@@ -149,7 +149,42 @@ namespace EditorLib
 
         public override string ToString()
         {
-            return ModelObject.ToString();
+            return Label + " {" + ModelObject.ToString() + "}";
         }
+
+        #region LABEL
+        private String _label;
+        /// <summary>
+        /// oznaceni objektu, jeho popisek. Maximalni delka = 9 znaku
+        /// </summary>
+        public String Label
+        {
+            get { return _label; }
+            set
+            {
+                String str;
+                if (value.Length > 9)
+                    str = value.Substring(0, 9);
+                else
+                    str = value;
+                str = str.ToLower();
+                if (!labels.Contains(str))
+                {
+                    _label = str;
+                    labels.Add(str);
+                }
+            }
+        }
+
+        public static bool IsAvailable(String label)
+        {
+            return !labels.Contains(label.ToLower());
+        }
+        protected static List<String> labels = new List<string>();
+
+        protected abstract String GetUniqueName();
+        #endregion
+
+
     }
 }

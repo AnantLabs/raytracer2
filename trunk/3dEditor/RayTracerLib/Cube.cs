@@ -48,6 +48,8 @@ namespace RayTracerLib
             SetValues(center, dir, size);
         }
 
+
+
         public void SetValues(Vektor center, Vektor dir, double size)
         {
             Center = new Vektor(center);
