@@ -147,7 +147,7 @@ namespace _3dEditor
             Plane plane1 = new Plane(new Vektor(1, 1, 0), 3);
             Cylinder cyl = new Cylinder(new Vektor(3, 2, 1), new Vektor(1, 1, 1), 1, 8);
 
-            Triangle tr1 = new Triangle(new Vektor(-1, -2, 0), new Vektor(0, -1 , 1), new Vektor(0, 1, 3));
+            Triangle tr1 = new Triangle(new Vektor(-1, -2, 0), new Vektor(0, -1 , 3), new Vektor(0, 1, 3));
 
             Cone cone1 = new Cone();
             Cone cone2 = new Cone(new Vektor(-3, 0, -3), new Vektor(1, 0, 0), 0.6, 3);
@@ -166,7 +166,7 @@ namespace _3dEditor
             //_rayTracer.RScene.SceneObjects.Add(sph2);
             //_rayTracer.RScene.SceneObjects.Add(cube1);
             //_rayTracer.RScene.SceneObjects.Add(cube2);
-            //_rayTracer.RScene.SceneObjects.Add(tr1);
+            _rayTracer.RScene.SceneObjects.Add(tr1);
             _rayTracer.RScene.SceneObjects.Add(cone2);
             //_rayTracer.RScene.SceneObjects.Add(cone3);
             //_rayTracer.RScene.SceneObjects.Add(cone4);
@@ -176,6 +176,9 @@ namespace _3dEditor
             //sph2.IsActive = false;
 
             //_rayTracer.RScene.SetDefaultScene4();
+
+            CustomObject custom = CustomObject.CreateCube();
+            _rayTracer.RScene.SceneObjects.Add(custom);
 
             this._WndBoard.AddRaytrScene(_rayTracer.RScene);
 

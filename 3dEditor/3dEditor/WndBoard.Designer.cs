@@ -50,6 +50,7 @@
             this.statusLabelXConst = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusLabelZ = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripContainer2 = new System.Windows.Forms.ToolStripContainer();
+            this.drawItemFlowLayout1 = new _3dEditor.MenuDrawItemFlowLayout();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelClick = new System.Windows.Forms.Label();
@@ -60,7 +61,6 @@
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.pictureBoard = new System.Windows.Forms.PictureBox();
-            this.drawItemFlowLayout1 = new _3dEditor.MenuDrawItemFlowLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStripContainer2.ContentPanel.SuspendLayout();
@@ -297,6 +297,19 @@
             // 
             this.toolStripContainer2.TopToolStripPanel.Controls.Add(this.toolStrip1);
             // 
+            // drawItemFlowLayout1
+            // 
+            this.drawItemFlowLayout1.AutoSize = true;
+            this.drawItemFlowLayout1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.drawItemFlowLayout1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.drawItemFlowLayout1.Location = new System.Drawing.Point(333, 80);
+            this.drawItemFlowLayout1.MaximumSize = new System.Drawing.Size(400, 500);
+            this.drawItemFlowLayout1.MinimumSize = new System.Drawing.Size(100, 30);
+            this.drawItemFlowLayout1.Name = "drawItemFlowLayout1";
+            this.drawItemFlowLayout1.Size = new System.Drawing.Size(100, 30);
+            this.drawItemFlowLayout1.TabIndex = 3;
+            this.drawItemFlowLayout1.Visible = false;
+            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoSize = true;
@@ -441,19 +454,6 @@
             this.pictureBoard.MouseMove += new System.Windows.Forms.MouseEventHandler(this.onPicMouseMove);
             this.pictureBoard.MouseUp += new System.Windows.Forms.MouseEventHandler(this.onPicMouseUp);
             // 
-            // drawItemFlowLayout1
-            // 
-            this.drawItemFlowLayout1.AutoSize = true;
-            this.drawItemFlowLayout1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.drawItemFlowLayout1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.drawItemFlowLayout1.Location = new System.Drawing.Point(333, 80);
-            this.drawItemFlowLayout1.MaximumSize = new System.Drawing.Size(400, 500);
-            this.drawItemFlowLayout1.MinimumSize = new System.Drawing.Size(100, 30);
-            this.drawItemFlowLayout1.Name = "drawItemFlowLayout1";
-            this.drawItemFlowLayout1.Size = new System.Drawing.Size(100, 30);
-            this.drawItemFlowLayout1.TabIndex = 3;
-            this.drawItemFlowLayout1.Visible = false;
-            // 
             // WndBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -461,6 +461,7 @@
             this.ClientSize = new System.Drawing.Size(924, 612);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStripContainer2);
+            this.DoubleBuffered = true;
             this.Name = "WndBoard";
             this.ShowIcon = false;
             this.Text = "Board";

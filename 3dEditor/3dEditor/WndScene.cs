@@ -19,7 +19,8 @@ namespace _3dEditor
         {
             Objects, Lights, Camera, Images, Animations, // top level nodes
             Spheres, Planes, Cubes, Cylinders, Triangles,
-            Cones
+            Cones,
+            Custom
         }
 
         /// <summary>
@@ -63,6 +64,8 @@ namespace _3dEditor
             nodeTriangs.Tag = TreeNodeTypes.Triangles;
             TreeNode nodeCones = new TreeNode(TreeNodeTypes.Cones.ToString());
             nodeCones.Tag = TreeNodeTypes.Cones;
+            TreeNode nodeCustoms = new TreeNode(TreeNodeTypes.Custom.ToString());
+            nodeCustoms.Tag = TreeNodeTypes.Custom;
 
             nodeObjects.Nodes.Add(nodeSpheres);
             nodeObjects.Nodes.Add(nodePlanes);
@@ -70,6 +73,7 @@ namespace _3dEditor
             nodeObjects.Nodes.Add(nodeCyls);
             nodeObjects.Nodes.Add(nodeCones);
             nodeObjects.Nodes.Add(nodeTriangs);
+            nodeObjects.Nodes.Add(nodeCustoms);
 
             TreeNode nodeLights = new TreeNode(TreeNodeTypes.Lights.ToString());
             nodeLights.Tag = TreeNodeTypes.Lights;
@@ -99,7 +103,8 @@ namespace _3dEditor
             TreeNodeTypes rootTyp = typ;
             if (typ == TreeNodeTypes.Cubes || typ == TreeNodeTypes.Spheres ||
                 typ == TreeNodeTypes.Planes || typ == TreeNodeTypes.Cylinders ||
-                typ == TreeNodeTypes.Triangles || typ == TreeNodeTypes.Cones)
+                typ == TreeNodeTypes.Triangles || typ == TreeNodeTypes.Cones ||
+                typ == TreeNodeTypes.Custom)
                 rootTyp = TreeNodeTypes.Objects;
 
             foreach (TreeNode node in treeView1.Nodes)
@@ -231,6 +236,10 @@ namespace _3dEditor
             else if (drawObj.GetType() == typeof(DrawingTriangle))
             {
                 this.AddItem(drawObj, TreeNodeTypes.Triangles);
+            }
+            else if (drawObj.GetType() == typeof(DrawingCustom))
+            {
+                this.AddItem(drawObj, TreeNodeTypes.Custom);
             }
             else if (drawObj.GetType() == typeof(DrawingCone))
             {
@@ -630,6 +639,12 @@ namespace _3dEditor
         {
             WndBoard wndBoard = GetWndBoard();
             wndBoard.AddAnimation(new DrawingAnimation());
+        }
+
+        private void onAddCustomObject(object sender, EventArgs e)
+        {
+            WndBoard wndBoard = GetWndBoard();
+            wndBoard.AddCustomObject(new DrawingCustom(CustomObject.CreateCube()));
         }
 
         public RayImage GetSelectedImage()

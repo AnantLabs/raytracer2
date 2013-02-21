@@ -442,7 +442,37 @@
             this.numericConePeakY = new System.Windows.Forms.NumericUpDown();
             this.label202 = new System.Windows.Forms.Label();
             this.label203 = new System.Windows.Forms.Label();
-            this._labelActive = new System.Windows.Forms.Label();
+            this.panelCustomObj = new System.Windows.Forms.Panel();
+            this.txtbCustomLabel = new System.Windows.Forms.TextBox();
+            this.label150 = new System.Windows.Forms.Label();
+            this.numCustomN = new System.Windows.Forms.NumericUpDown();
+            this.label151 = new System.Windows.Forms.Label();
+            this.numCustomKt = new System.Windows.Forms.NumericUpDown();
+            this.label152 = new System.Windows.Forms.Label();
+            this.btnCustomColor = new System.Windows.Forms.Button();
+            this.numCustomH = new System.Windows.Forms.NumericUpDown();
+            this.numCustomColR = new System.Windows.Forms.NumericUpDown();
+            this.numCustomColB = new System.Windows.Forms.NumericUpDown();
+            this.label166 = new System.Windows.Forms.Label();
+            this.numCustomColG = new System.Windows.Forms.NumericUpDown();
+            this.label204 = new System.Windows.Forms.Label();
+            this.label205 = new System.Windows.Forms.Label();
+            this.label206 = new System.Windows.Forms.Label();
+            this.numCustomKa = new System.Windows.Forms.NumericUpDown();
+            this.label207 = new System.Windows.Forms.Label();
+            this.numCustomKd = new System.Windows.Forms.NumericUpDown();
+            this.label208 = new System.Windows.Forms.Label();
+            this.numCustomKs = new System.Windows.Forms.NumericUpDown();
+            this.label209 = new System.Windows.Forms.Label();
+            this.label210 = new System.Windows.Forms.Label();
+            this.label219 = new System.Windows.Forms.Label();
+            this.numCustomCenterX = new System.Windows.Forms.NumericUpDown();
+            this.label220 = new System.Windows.Forms.Label();
+            this.numCustomCenterZ = new System.Windows.Forms.NumericUpDown();
+            this.label221 = new System.Windows.Forms.Label();
+            this.numCustomCenterY = new System.Windows.Forms.NumericUpDown();
+            this.label222 = new System.Windows.Forms.Label();
+            this.label223 = new System.Windows.Forms.Label();
             this.panelAnimace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).BeginInit();
@@ -611,6 +641,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakY)).BeginInit();
+            this.panelCustomObj.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomN)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomKt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomH)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomColR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomColB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomColG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomKa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomKd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomKs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterY)).BeginInit();
             this.SuspendLayout();
             // 
             // colorDialog
@@ -657,7 +700,7 @@
             this.panelAnimace.Controls.Add(this.label131);
             this.panelAnimace.Controls.Add(this.label116);
             this.panelAnimace.Controls.Add(this.label147);
-            this.panelAnimace.Location = new System.Drawing.Point(121, 48);
+            this.panelAnimace.Location = new System.Drawing.Point(20, 8);
             this.panelAnimace.Name = "panelAnimace";
             this.panelAnimace.Size = new System.Drawing.Size(378, 275);
             this.panelAnimace.TabIndex = 62;
@@ -5555,7 +5598,7 @@
             this.panelTriangle.Controls.Add(this.numericTriangleAY);
             this.panelTriangle.Controls.Add(this.label164);
             this.panelTriangle.Controls.Add(this.label165);
-            this.panelTriangle.Location = new System.Drawing.Point(12, 338);
+            this.panelTriangle.Location = new System.Drawing.Point(7, 375);
             this.panelTriangle.Name = "panelTriangle";
             this.panelTriangle.Size = new System.Drawing.Size(417, 343);
             this.panelTriangle.TabIndex = 63;
@@ -6946,17 +6989,457 @@
             this.label203.TabIndex = 89;
             this.label203.Text = "Y:";
             // 
-            // _labelActive
+            // panelCustomObj
             // 
-            this._labelActive.AutoSize = true;
-            this._labelActive.BackColor = System.Drawing.Color.Transparent;
-            this._labelActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this._labelActive.Location = new System.Drawing.Point(12, 9);
-            this._labelActive.Name = "_labelActive";
-            this._labelActive.Size = new System.Drawing.Size(69, 13);
-            this._labelActive.TabIndex = 65;
-            this._labelActive.Text = "activeControl";
-            this._labelActive.Visible = false;
+            this.panelCustomObj.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelCustomObj.Controls.Add(this.txtbCustomLabel);
+            this.panelCustomObj.Controls.Add(this.label150);
+            this.panelCustomObj.Controls.Add(this.numCustomN);
+            this.panelCustomObj.Controls.Add(this.label151);
+            this.panelCustomObj.Controls.Add(this.numCustomKt);
+            this.panelCustomObj.Controls.Add(this.label152);
+            this.panelCustomObj.Controls.Add(this.btnCustomColor);
+            this.panelCustomObj.Controls.Add(this.numCustomH);
+            this.panelCustomObj.Controls.Add(this.numCustomColR);
+            this.panelCustomObj.Controls.Add(this.numCustomColB);
+            this.panelCustomObj.Controls.Add(this.label166);
+            this.panelCustomObj.Controls.Add(this.numCustomColG);
+            this.panelCustomObj.Controls.Add(this.label204);
+            this.panelCustomObj.Controls.Add(this.label205);
+            this.panelCustomObj.Controls.Add(this.label206);
+            this.panelCustomObj.Controls.Add(this.numCustomKa);
+            this.panelCustomObj.Controls.Add(this.label207);
+            this.panelCustomObj.Controls.Add(this.numCustomKd);
+            this.panelCustomObj.Controls.Add(this.label208);
+            this.panelCustomObj.Controls.Add(this.numCustomKs);
+            this.panelCustomObj.Controls.Add(this.label209);
+            this.panelCustomObj.Controls.Add(this.label210);
+            this.panelCustomObj.Controls.Add(this.label219);
+            this.panelCustomObj.Controls.Add(this.numCustomCenterX);
+            this.panelCustomObj.Controls.Add(this.label220);
+            this.panelCustomObj.Controls.Add(this.numCustomCenterZ);
+            this.panelCustomObj.Controls.Add(this.label221);
+            this.panelCustomObj.Controls.Add(this.numCustomCenterY);
+            this.panelCustomObj.Controls.Add(this.label222);
+            this.panelCustomObj.Controls.Add(this.label223);
+            this.panelCustomObj.Location = new System.Drawing.Point(386, 218);
+            this.panelCustomObj.Name = "panelCustomObj";
+            this.panelCustomObj.Size = new System.Drawing.Size(417, 343);
+            this.panelCustomObj.TabIndex = 65;
+            // 
+            // txtbCustomLabel
+            // 
+            this.txtbCustomLabel.Location = new System.Drawing.Point(162, 1);
+            this.txtbCustomLabel.MaxLength = 9;
+            this.txtbCustomLabel.Name = "txtbCustomLabel";
+            this.txtbCustomLabel.Size = new System.Drawing.Size(100, 20);
+            this.txtbCustomLabel.TabIndex = 220;
+            this.txtbCustomLabel.TextChanged += new System.EventHandler(this.OnLabelTextChange);
+            this.txtbCustomLabel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnLabelKeyDown);
+            this.txtbCustomLabel.Leave += new System.EventHandler(this.OnLabelLeave);
+            // 
+            // label150
+            // 
+            this.label150.AutoSize = true;
+            this.label150.BackColor = System.Drawing.Color.Transparent;
+            this.label150.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label150.Location = new System.Drawing.Point(96, 245);
+            this.label150.Name = "label150";
+            this.label150.Size = new System.Drawing.Size(104, 13);
+            this.label150.TabIndex = 165;
+            this.label150.Text = "Refractive index (N):";
+            // 
+            // numCustomN
+            // 
+            this.numCustomN.DecimalPlaces = 1;
+            this.numCustomN.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numCustomN.Location = new System.Drawing.Point(202, 243);
+            this.numCustomN.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numCustomN.Name = "numCustomN";
+            this.numCustomN.Size = new System.Drawing.Size(61, 20);
+            this.numCustomN.TabIndex = 164;
+            this.numCustomN.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numCustomN.ValueChanged += new System.EventHandler(this.actionCustomSet);
+            // 
+            // label151
+            // 
+            this.label151.AutoSize = true;
+            this.label151.BackColor = System.Drawing.Color.Transparent;
+            this.label151.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label151.Location = new System.Drawing.Point(63, 223);
+            this.label151.Name = "label151";
+            this.label151.Size = new System.Drawing.Size(137, 13);
+            this.label151.TabIndex = 163;
+            this.label151.Text = " Refractive coefficient (KT):";
+            // 
+            // numCustomKt
+            // 
+            this.numCustomKt.DecimalPlaces = 1;
+            this.numCustomKt.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numCustomKt.Location = new System.Drawing.Point(202, 221);
+            this.numCustomKt.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numCustomKt.Name = "numCustomKt";
+            this.numCustomKt.Size = new System.Drawing.Size(61, 20);
+            this.numCustomKt.TabIndex = 162;
+            this.numCustomKt.ValueChanged += new System.EventHandler(this.actionCustomSet);
+            // 
+            // label152
+            // 
+            this.label152.AutoSize = true;
+            this.label152.BackColor = System.Drawing.Color.Transparent;
+            this.label152.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label152.Location = new System.Drawing.Point(85, 201);
+            this.label152.Name = "label152";
+            this.label152.Size = new System.Drawing.Size(115, 13);
+            this.label152.TabIndex = 161;
+            this.label152.Text = "Specular reflection (H):";
+            // 
+            // btnCustomColor
+            // 
+            this.btnCustomColor.Location = new System.Drawing.Point(319, 264);
+            this.btnCustomColor.Name = "btnCustomColor";
+            this.btnCustomColor.Size = new System.Drawing.Size(61, 23);
+            this.btnCustomColor.TabIndex = 154;
+            this.btnCustomColor.Text = "choose";
+            this.btnCustomColor.UseVisualStyleBackColor = true;
+            this.btnCustomColor.Click += new System.EventHandler(this.btnCustomObjColor_Click);
+            // 
+            // numCustomH
+            // 
+            this.numCustomH.Location = new System.Drawing.Point(202, 199);
+            this.numCustomH.Name = "numCustomH";
+            this.numCustomH.Size = new System.Drawing.Size(61, 20);
+            this.numCustomH.TabIndex = 160;
+            this.numCustomH.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.numCustomH.ValueChanged += new System.EventHandler(this.actionCustomSet);
+            // 
+            // numCustomColR
+            // 
+            this.numCustomColR.DecimalPlaces = 4;
+            this.numCustomColR.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numCustomColR.Location = new System.Drawing.Point(81, 265);
+            this.numCustomColR.Name = "numCustomColR";
+            this.numCustomColR.Size = new System.Drawing.Size(61, 20);
+            this.numCustomColR.TabIndex = 156;
+            this.numCustomColR.ValueChanged += new System.EventHandler(this.actionCustomSet);
+            // 
+            // numCustomColB
+            // 
+            this.numCustomColB.DecimalPlaces = 4;
+            this.numCustomColB.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numCustomColB.Location = new System.Drawing.Point(254, 265);
+            this.numCustomColB.Name = "numCustomColB";
+            this.numCustomColB.Size = new System.Drawing.Size(61, 20);
+            this.numCustomColB.TabIndex = 153;
+            this.numCustomColB.ValueChanged += new System.EventHandler(this.actionCustomSet);
+            // 
+            // label166
+            // 
+            this.label166.AutoSize = true;
+            this.label166.BackColor = System.Drawing.Color.Transparent;
+            this.label166.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label166.Location = new System.Drawing.Point(61, 268);
+            this.label166.Name = "label166";
+            this.label166.Size = new System.Drawing.Size(18, 13);
+            this.label166.TabIndex = 155;
+            this.label166.Text = "R:";
+            // 
+            // numCustomColG
+            // 
+            this.numCustomColG.DecimalPlaces = 4;
+            this.numCustomColG.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numCustomColG.Location = new System.Drawing.Point(168, 265);
+            this.numCustomColG.Name = "numCustomColG";
+            this.numCustomColG.Size = new System.Drawing.Size(61, 20);
+            this.numCustomColG.TabIndex = 157;
+            this.numCustomColG.ValueChanged += new System.EventHandler(this.actionCustomSet);
+            // 
+            // label204
+            // 
+            this.label204.AutoSize = true;
+            this.label204.BackColor = System.Drawing.Color.Transparent;
+            this.label204.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label204.Location = new System.Drawing.Point(235, 268);
+            this.label204.Name = "label204";
+            this.label204.Size = new System.Drawing.Size(17, 13);
+            this.label204.TabIndex = 158;
+            this.label204.Text = "B:";
+            // 
+            // label205
+            // 
+            this.label205.AutoSize = true;
+            this.label205.BackColor = System.Drawing.Color.Transparent;
+            this.label205.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label205.Location = new System.Drawing.Point(148, 268);
+            this.label205.Name = "label205";
+            this.label205.Size = new System.Drawing.Size(18, 13);
+            this.label205.TabIndex = 159;
+            this.label205.Text = "G:";
+            // 
+            // label206
+            // 
+            this.label206.AutoSize = true;
+            this.label206.BackColor = System.Drawing.Color.Transparent;
+            this.label206.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label206.Location = new System.Drawing.Point(6, 267);
+            this.label206.Name = "label206";
+            this.label206.Size = new System.Drawing.Size(57, 16);
+            this.label206.TabIndex = 152;
+            this.label206.Text = "Colour:";
+            // 
+            // numCustomKa
+            // 
+            this.numCustomKa.DecimalPlaces = 1;
+            this.numCustomKa.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numCustomKa.Location = new System.Drawing.Point(202, 133);
+            this.numCustomKa.Name = "numCustomKa";
+            this.numCustomKa.Size = new System.Drawing.Size(61, 20);
+            this.numCustomKa.TabIndex = 148;
+            this.numCustomKa.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            65536});
+            this.numCustomKa.ValueChanged += new System.EventHandler(this.actionCustomSet);
+            // 
+            // label207
+            // 
+            this.label207.AutoSize = true;
+            this.label207.BackColor = System.Drawing.Color.Transparent;
+            this.label207.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label207.Location = new System.Drawing.Point(18, 113);
+            this.label207.Name = "label207";
+            this.label207.Size = new System.Drawing.Size(68, 16);
+            this.label207.TabIndex = 145;
+            this.label207.Text = "Material:";
+            // 
+            // numCustomKd
+            // 
+            this.numCustomKd.DecimalPlaces = 1;
+            this.numCustomKd.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numCustomKd.Location = new System.Drawing.Point(202, 177);
+            this.numCustomKd.Name = "numCustomKd";
+            this.numCustomKd.Size = new System.Drawing.Size(61, 20);
+            this.numCustomKd.TabIndex = 146;
+            this.numCustomKd.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numCustomKd.ValueChanged += new System.EventHandler(this.actionCustomSet);
+            // 
+            // label208
+            // 
+            this.label208.AutoSize = true;
+            this.label208.BackColor = System.Drawing.Color.Transparent;
+            this.label208.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label208.Location = new System.Drawing.Point(77, 135);
+            this.label208.Name = "label208";
+            this.label208.Size = new System.Drawing.Size(123, 13);
+            this.label208.TabIndex = 147;
+            this.label208.Text = "Ambient coefficient (KA):";
+            // 
+            // numCustomKs
+            // 
+            this.numCustomKs.DecimalPlaces = 1;
+            this.numCustomKs.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numCustomKs.Location = new System.Drawing.Point(202, 155);
+            this.numCustomKs.Name = "numCustomKs";
+            this.numCustomKs.Size = new System.Drawing.Size(61, 20);
+            this.numCustomKs.TabIndex = 149;
+            this.numCustomKs.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            65536});
+            this.numCustomKs.ValueChanged += new System.EventHandler(this.actionCustomSet);
+            // 
+            // label209
+            // 
+            this.label209.AutoSize = true;
+            this.label209.BackColor = System.Drawing.Color.Transparent;
+            this.label209.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label209.Location = new System.Drawing.Point(81, 179);
+            this.label209.Name = "label209";
+            this.label209.Size = new System.Drawing.Size(119, 13);
+            this.label209.TabIndex = 150;
+            this.label209.Text = "Diffuse coefficient (KD):";
+            // 
+            // label210
+            // 
+            this.label210.AutoSize = true;
+            this.label210.BackColor = System.Drawing.Color.Transparent;
+            this.label210.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label210.Location = new System.Drawing.Point(73, 157);
+            this.label210.Name = "label210";
+            this.label210.Size = new System.Drawing.Size(127, 13);
+            this.label210.TabIndex = 151;
+            this.label210.Text = "Specular coefficient (KS):";
+            // 
+            // label219
+            // 
+            this.label219.AutoSize = true;
+            this.label219.BackColor = System.Drawing.Color.Transparent;
+            this.label219.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label219.Location = new System.Drawing.Point(23, 47);
+            this.label219.Name = "label219";
+            this.label219.Size = new System.Drawing.Size(57, 16);
+            this.label219.TabIndex = 39;
+            this.label219.Text = "Center:";
+            // 
+            // numCustomCenterX
+            // 
+            this.numCustomCenterX.DecimalPlaces = 5;
+            this.numCustomCenterX.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numCustomCenterX.Location = new System.Drawing.Point(83, 46);
+            this.numCustomCenterX.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numCustomCenterX.Name = "numCustomCenterX";
+            this.numCustomCenterX.Size = new System.Drawing.Size(61, 20);
+            this.numCustomCenterX.TabIndex = 20;
+            this.numCustomCenterX.ValueChanged += new System.EventHandler(this.actionCustomSet);
+            // 
+            // label220
+            // 
+            this.label220.AutoSize = true;
+            this.label220.BackColor = System.Drawing.Color.Transparent;
+            this.label220.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label220.Location = new System.Drawing.Point(3, 2);
+            this.label220.Name = "label220";
+            this.label220.Size = new System.Drawing.Size(156, 20);
+            this.label220.TabIndex = 221;
+            this.label220.Text = "CUSTOM OBJECT";
+            // 
+            // numCustomCenterZ
+            // 
+            this.numCustomCenterZ.DecimalPlaces = 5;
+            this.numCustomCenterZ.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numCustomCenterZ.Location = new System.Drawing.Point(256, 46);
+            this.numCustomCenterZ.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numCustomCenterZ.Name = "numCustomCenterZ";
+            this.numCustomCenterZ.Size = new System.Drawing.Size(61, 20);
+            this.numCustomCenterZ.TabIndex = 16;
+            this.numCustomCenterZ.ValueChanged += new System.EventHandler(this.actionCustomSet);
+            // 
+            // label221
+            // 
+            this.label221.AutoSize = true;
+            this.label221.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label221.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label221.Location = new System.Drawing.Point(51, 49);
+            this.label221.Name = "label221";
+            this.label221.Size = new System.Drawing.Size(17, 13);
+            this.label221.TabIndex = 17;
+            this.label221.Text = "X:";
+            // 
+            // numCustomCenterY
+            // 
+            this.numCustomCenterY.DecimalPlaces = 5;
+            this.numCustomCenterY.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numCustomCenterY.Location = new System.Drawing.Point(170, 46);
+            this.numCustomCenterY.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numCustomCenterY.Name = "numCustomCenterY";
+            this.numCustomCenterY.Size = new System.Drawing.Size(61, 20);
+            this.numCustomCenterY.TabIndex = 21;
+            this.numCustomCenterY.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numCustomCenterY.ValueChanged += new System.EventHandler(this.actionCustomSet);
+            // 
+            // label222
+            // 
+            this.label222.AutoSize = true;
+            this.label222.BackColor = System.Drawing.Color.Transparent;
+            this.label222.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label222.Location = new System.Drawing.Point(236, 49);
+            this.label222.Name = "label222";
+            this.label222.Size = new System.Drawing.Size(17, 13);
+            this.label222.TabIndex = 23;
+            this.label222.Text = "Z:";
+            // 
+            // label223
+            // 
+            this.label223.AutoSize = true;
+            this.label223.BackColor = System.Drawing.Color.Transparent;
+            this.label223.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label223.Location = new System.Drawing.Point(149, 49);
+            this.label223.Name = "label223";
+            this.label223.Size = new System.Drawing.Size(17, 13);
+            this.label223.TabIndex = 24;
+            this.label223.Text = "Y:";
             // 
             // WndProperties
             // 
@@ -6964,10 +7447,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1188, 778);
-            this.Controls.Add(this.panelLight);
-            this.Controls.Add(this._labelActive);
-            this.Controls.Add(this.panelCone);
+            this.Controls.Add(this.panelCustomObj);
             this.Controls.Add(this.panelTriangle);
+            this.Controls.Add(this.panelLight);
+            this.Controls.Add(this.panelCone);
             this.Controls.Add(this.panelRovina);
             this.Controls.Add(this.panelCylindr);
             this.Controls.Add(this.panelCamera);
@@ -7162,8 +7645,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakZ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakY)).EndInit();
+            this.panelCustomObj.ResumeLayout(false);
+            this.panelCustomObj.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomN)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomKt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomH)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomColR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomColB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomColG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomKa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomKd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomKs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterY)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -7583,7 +8079,37 @@
         private System.Windows.Forms.TextBox txtbTriangLabel;
         private System.Windows.Forms.TextBox txtbConeLabel;
         private System.Windows.Forms.TextBox txtbLightLabel;
-        private System.Windows.Forms.Label _labelActive;
+        private System.Windows.Forms.Panel panelCustomObj;
+        private System.Windows.Forms.TextBox txtbCustomLabel;
+        private System.Windows.Forms.Label label150;
+        private System.Windows.Forms.NumericUpDown numCustomN;
+        private System.Windows.Forms.Label label151;
+        private System.Windows.Forms.NumericUpDown numCustomKt;
+        private System.Windows.Forms.Label label152;
+        private System.Windows.Forms.Button btnCustomColor;
+        private System.Windows.Forms.NumericUpDown numCustomH;
+        private System.Windows.Forms.NumericUpDown numCustomColR;
+        private System.Windows.Forms.NumericUpDown numCustomColB;
+        private System.Windows.Forms.Label label166;
+        private System.Windows.Forms.NumericUpDown numCustomColG;
+        private System.Windows.Forms.Label label204;
+        private System.Windows.Forms.Label label205;
+        private System.Windows.Forms.Label label206;
+        private System.Windows.Forms.NumericUpDown numCustomKa;
+        private System.Windows.Forms.Label label207;
+        private System.Windows.Forms.NumericUpDown numCustomKd;
+        private System.Windows.Forms.Label label208;
+        private System.Windows.Forms.NumericUpDown numCustomKs;
+        private System.Windows.Forms.Label label209;
+        private System.Windows.Forms.Label label210;
+        private System.Windows.Forms.Label label219;
+        private System.Windows.Forms.NumericUpDown numCustomCenterX;
+        private System.Windows.Forms.Label label220;
+        private System.Windows.Forms.NumericUpDown numCustomCenterZ;
+        private System.Windows.Forms.Label label221;
+        private System.Windows.Forms.NumericUpDown numCustomCenterY;
+        private System.Windows.Forms.Label label222;
+        private System.Windows.Forms.Label label223;
 
     }
 }

@@ -325,19 +325,23 @@ namespace _3dEditor
                 if (obj.ModelObject is DefaultShape)
                 {
                     DefaultShape defSpape = (DefaultShape)obj.ModelObject;
-                    Color color = defSpape.Material.Color.SystemColor();
-
 
                     if (defSpape.IsActive == false)
                         continue;
 
+                    Color color = defSpape.Material.Color.SystemColor();
+
                     if (obj == _Selected)
                     {
-                        _penObject = new Pen(color, EditHelper.PenSelectedWidth);
+                        //_penObject = new Pen(color, EditHelper.PenSelectedWidth);
+                        _penObject.Color = color;
+                        _penObject.Width = EditHelper.PenSelectedWidth; 
                     }
                     else
                     {
-                        _penObject = new Pen(color, EditHelper.PenNormalWidth);
+                        //_penObject = new Pen(color, EditHelper.PenNormalWidth);
+                        _penObject.Color = color;
+                        _penObject.Width = EditHelper.PenNormalWidth;
                     }
                 }
                 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -525,7 +529,55 @@ namespace _3dEditor
                     editorObject.AddPath(path);
                     _editHelp.AddClickableObject(editorObject);
                 }
+                /////////////////////////////////////////////////////////////////////////////////////////////////
+                else if (obj.GetType() == typeof(DrawingCustom)) // =============== C U S T O M     O B J E C T
+                {
+                    DrawingCustom drCust = (DrawingCustom)obj;
+                    EditorObject editorObjectCustom =  new EditorObject(drCust);
+                    EditorObject editorObjectTrianglFace;
+                    GraphicsPath path;
 
+                    Vektor[] points3;
+                    PointF[] pointsF;
+
+                    if (_Selected == obj)
+                    {
+                        _penObject.Color = Color.Black;
+                    }
+                    foreach (Line3D l in drCust.Lines)
+                    {
+                        a = l.A.To2D(_scale, _zoom, _centerPoint);
+                        b = l.B.To2D(_scale, _zoom, _centerPoint);
+                        g.DrawLine(_penObject, a, b);
+                    }
+
+                    foreach (DrawingTriangle drTriang in drCust.DrawingFacesList)
+                    {
+                        points3 = drTriang.GetDrawingPoints();
+                        pointsF = new PointF[3];
+                        for (int i = 0; i < points3.Length; i++)
+                        {
+                            pointsF[i] = points3[i].To2D(_scale, _zoom, _centerPoint);
+                        }
+                        //g.FillPolygon(drTriang.FillBrush, pointsF);
+                        if (drTriang == _Selected)
+                        {
+                            g.FillPolygon(drTriang.FillBrush, pointsF);
+                        }
+                        path = new GraphicsPath();
+                        path.AddPolygon(pointsF);
+                        editorObjectTrianglFace = new EditorObject(drTriang);
+                        editorObjectTrianglFace.AddPath(path);
+                        _editHelp.AddClickableObject(editorObjectTrianglFace);
+
+                        editorObjectCustom.AddPath(path);
+                    }
+                    //path = new GraphicsPath();
+                    //path.AddPolygon(pointsF);
+                    //editorObject.AddPath(path);
+                    //_editHelp.AddClickableObject(editorObject);
+                    _editHelp.AddClickableObject(editorObjectCustom);
+                }
                     /////////////////////////////////////////////////////////////////////////////////////////////////
                 else if (obj.GetType() == typeof(DrawingCone)) // =============== CONE
                 {
@@ -1541,6 +1593,16 @@ namespace _3dEditor
                     wndScene.AddItem(drCone);
                     wndScene.ShowNode(drCone);
                 }
+                else if (shape.GetType() == typeof(CustomObject))
+                {
+                    CustomObject custom = (CustomObject)shape;
+                    DrawingCustom drCust = new DrawingCustom(custom);
+                    drCust.ApplyRotationMatrix(_matrixForever); // nastaveni do souradnic editoru
+                    _objectsToDraw.Add(drCust);
+                    WndScene wndScene = GetWndScene();
+                    wndScene.AddItem(drCust);
+                    wndScene.ShowNode(drCust);
+                }
             }
             else if (shape is Light)
             {
@@ -1571,6 +1633,15 @@ namespace _3dEditor
             WndScene wndScene = GetWndScene();
             wndScene.AddItem(drAnim);
             wndScene.ShowNode(drAnim);
+        }
+
+        public void AddCustomObject(DrawingCustom drCust)
+        {
+            drCust.ApplyRotationMatrix(_matrixForever);
+            _objectsToDraw.Add(drCust);
+            WndScene wndScene = GetWndScene();
+            wndScene.AddItem(drCust);
+            wndScene.ShowNode(drCust);
         }
 
         /// <summary>

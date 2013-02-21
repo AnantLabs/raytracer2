@@ -70,7 +70,7 @@ namespace EditorLib
 
         public DrawingCamera(Camera cam, double dist, double height, double width, bool showcr, bool showsd1, bool showsd2)
         {
-            Label = GetUniqueName();
+            SetLabelPrefix("camera");
             Set(cam, dist, height, width, showcr, showsd1, showsd2);
         }
 
@@ -78,9 +78,9 @@ namespace EditorLib
         /// vytvori jednoznacne jmeno pro kameru
         /// </summary>
         /// <returns>jednoznacny retezec popisku svetla</returns>
-        protected override String GetUniqueName()
+        public override String GetUniqueName()
         {
-            return String.Empty;
+            return "camera";
         }
 
         public override void SetModelObject(object modelObject)

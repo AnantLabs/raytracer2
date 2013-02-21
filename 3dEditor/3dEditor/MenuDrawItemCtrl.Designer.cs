@@ -51,7 +51,7 @@
             // 
             this.pictureBoxObj.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxObj.Image = global::_3dEditor.Properties.Resources.add_1_icon16;
-            this.pictureBoxObj.Location = new System.Drawing.Point(29, 2);
+            this.pictureBoxObj.Location = new System.Drawing.Point(29, 1);
             this.pictureBoxObj.Name = "pictureBoxObj";
             this.pictureBoxObj.Size = new System.Drawing.Size(16, 16);
             this.pictureBoxObj.TabIndex = 0;

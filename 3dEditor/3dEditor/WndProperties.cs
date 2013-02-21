@@ -52,9 +52,9 @@ namespace _3dEditor
             this.panelAnimace.Location = new Point(0, 0);
             this.panelTriangle.Location = new Point(0, 0);
             this.panelCone.Location = new Point(0, 0);
+            this.panelCustomObj.Location = new Point(0, 0);
 
             _permissionToModify = true;
-            this.ActiveControl = _labelActive;
             this.GetNextControl(this, true);
         }
 
@@ -94,6 +94,9 @@ namespace _3dEditor
 
             else if (obj.GetType() == typeof(DrawingTriangle))
                 ShowTriangle((DrawingTriangle)obj);
+
+            else if (obj.GetType() == typeof(DrawingCustom))
+                ShowCustom((DrawingCustom)obj);
 
             else if (obj.GetType() == typeof(RayImage))
                 ShowImage((RayImage)obj);
@@ -135,6 +138,7 @@ namespace _3dEditor
             this.panelImage.Visible = false;
             this.panelAnimace.Visible = false;
             this.panelTriangle.Visible = false;
+            this.panelCustomObj.Visible = false;
         }
 
         private void ShowSphere(DrawingSphere drSphere)
@@ -383,6 +387,39 @@ namespace _3dEditor
             this.numTriangColB.Value = (decimal)mat.Color.B;
 
             btnTriangMaterialCol.BackColor = mat.Color.SystemColor();
+        }
+
+        private void ShowCustom(DrawingCustom drCust)
+        {
+            // zabraneni neustalemu blikani pri modifikaci stejne koule
+            if (!this.panelCustomObj.Visible)
+            {
+                SetAllInvisible();
+                this.panelCustomObj.Visible = true;
+                this.Text = "Properties: Custom Object";
+            }
+
+            CustomObject cust = (CustomObject)drCust.ModelObject;
+
+            this.txtbCustomLabel.Text = drCust.Label;
+
+            this.numCustomCenterX.Value = (decimal)cust.Center.X;
+            this.numCustomCenterY.Value = (decimal)cust.Center.Y;
+            this.numCustomCenterZ.Value = (decimal)cust.Center.Z;
+
+            Material mat = cust.Material;
+            this.numCustomKa.Value = (decimal)mat.Ka;
+            this.numCustomKs.Value = (decimal)mat.Ks;
+            this.numCustomKd.Value = (decimal)mat.Kd;
+            this.numCustomKt.Value = (decimal)mat.KT;
+            this.numCustomH.Value = (decimal)mat.SpecularExponent;
+            this.numCustomN.Value = (decimal)mat.N;
+
+            this.numCustomColR.Value = (decimal)mat.Color.R;
+            this.numCustomColG.Value = (decimal)mat.Color.G;
+            this.numCustomColB.Value = (decimal)mat.Color.B;
+
+            btnCustomColor.BackColor = mat.Color.SystemColor();
         }
 
         private void ShowCamera(DrawingCamera drCam)
@@ -1746,6 +1783,9 @@ namespace _3dEditor
                 this.numTriangColG.Value = (decimal)col.G;
                 _permissionToModify = true;
                 this.numTriangColB.Value = (decimal)col.B;
+
+                Button btn = sender as Button;
+                btn.BackColor = colorDialog.Color;
             }
         }
 
@@ -1844,6 +1884,84 @@ namespace _3dEditor
             {
             }
         }
+
+
+
+        /// ////////////////////////////////////////////////////////// C U S T O M    O B J E C T 
+        /// /////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// 
+        private void actionCustomSet(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingCustom))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
+
+            DrawingCustom drCust = (DrawingCustom)_currentlyDisplayed;
+            CustomObject cust = (CustomObject)drCust.ModelObject;
+
+            Vektor center = new Vektor(
+                (double)this.numCustomCenterX.Value,
+                (double)this.numCustomCenterY.Value,
+                (double)this.numCustomCenterZ.Value);
+
+            Material mat = cust.Material;
+            mat.Ka = (double)this.numCustomKa.Value;
+            mat.Ks = (double)this.numCustomKs.Value;
+            mat.Kd = (double)this.numCustomKd.Value;
+            mat.KT = (double)this.numCustomKt.Value;
+            mat.SpecularExponent = (int)this.numCustomH.Value;
+            mat.N = (double)this.numCustomN.Value;
+
+            mat.Color.R = (double)this.numCustomColR.Value;
+            mat.Color.G = (double)this.numCustomColG.Value;
+            mat.Color.B = (double)this.numCustomColB.Value;
+
+            cust.Material = mat;
+            cust.SetCenter(center);
+
+            btnCustomColor.BackColor = mat.Color.SystemColor();
+
+            drCust.SetModelObject(cust);
+            WndBoard wndB = GetWndBoard();
+            drCust.ApplyRotationMatrix(wndB.RotationMatrix);
+            WndScene wndSc = GetWndScene();
+            wndSc.UpdateRecords();
+        }
+
+        private void btnCustomObjColor_Click(object sender, EventArgs e)
+        {
+            ParentEditor parrent = (ParentEditor)this.ParentForm;
+            //parrent.colorDialog1.ShowDialog(this);
+
+            if (colorDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                double r = colorDialog.Color.R / (double)255;
+                double g = colorDialog.Color.G / (double)255;
+                double b = colorDialog.Color.B / (double)255;
+                double a = colorDialog.Color.A / (double)255;
+
+                RayTracerLib.Colour col = new RayTracerLib.Colour(r, g, b, a);
+
+                _permissionToModify = false;
+                this.numCustomColR.Value = (decimal)col.R;
+                this.numCustomColG.Value = (decimal)col.G;
+                _permissionToModify = true;
+                this.numCustomColB.Value = (decimal)col.B;
+
+                Button btn = sender as Button;
+                btn.BackColor = colorDialog.Color;
+            }
+        }
+
 
         private void OnLabelLeave(object sender, EventArgs e)
         {

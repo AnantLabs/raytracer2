@@ -31,7 +31,7 @@ namespace EditorLib
         {
             _RotatMatrix = Matrix3D.Identity;
             _ShiftMatrix = Matrix3D.PosunutiNewMatrix(cylinder.Center.X, cylinder.Center.Y, cylinder.Center.Z);
-            Label = GetUniqueName();
+            SetLabelPrefix("cylind");
             this.SetModelObject(cylinder);
         }
 
@@ -42,22 +42,7 @@ namespace EditorLib
         //    this.Set(origin, radius, lenght);
         //}
 
-        /// <summary>
-        /// vytvori jednoznacne jmeno mezi vsemi cylindry
-        /// </summary>
-        /// <returns>jednoznacny retezec popisku svetla</returns>
-        protected override String GetUniqueName()
-        {
-            int count = labels.Count;
-            String label;
-            do
-            {
-                count++;
-                label = "Cylind" + count;
-            }
-            while (labels.Contains(label));
-            return label;
-        }
+
 
         private void Set(Vektor origin, double radius, double lenght)
         {
