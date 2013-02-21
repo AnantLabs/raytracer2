@@ -17,23 +17,23 @@ namespace RayTracerLib
         /// <summary>
         /// Levy dolni vrchol
         /// </summary>
-        public Vektor A { get { return Vertices[0]; } private set { Vertices[0] = value; } }
+        public Vertex A { get { return Vertices[0]; } private set { Vertices[0] = value; } }
         /// <summary>
         /// Pravy dolni vrchol
         /// </summary>
-        public Vektor B { get { return Vertices[1]; } private set { Vertices[1] = value; } }
+        public Vertex B { get { return Vertices[1]; } private set { Vertices[1] = value; } }
         /// <summary>
         /// Horni Vrchol
         /// </summary>
-        public Vektor C { get { return Vertices[2]; } private set { Vertices[2] = value; } }
-        Vektor[] Vertices;
+        public Vertex C { get { return Vertices[2]; } private set { Vertices[2] = value; } }
+        Vertex[] Vertices;
 
         // POMOCNE PROMENNE
         // ///////////////////////////
         /// <summary>
         /// Normala roviny tvorena trojuhelnikem
         /// </summary>
-        Vektor Norm;
+        public Vektor Norm;
         /// <summary>
         /// vektor s pocatkem v A
         /// </summary>
@@ -41,6 +41,11 @@ namespace RayTracerLib
 
         public Triangle() : this(new Vektor(1, 0, 0), new Vektor(0, 1, 0), new Vektor(0, 0, 1)) { }
 
+        public Triangle(Vertex a, Vertex b, Vertex c)
+        {
+            Set(a, b, c);
+            this.Material = new Material();
+        }
         public Triangle(Vektor a, Vektor b, Vektor c)
         {
             Set(a, b, c);
@@ -49,8 +54,31 @@ namespace RayTracerLib
 
         public void Set(Vektor a, Vektor b, Vektor c)
         {
+            //CustomObject cube = CustomObject.CreateCube();
             IsActive = true;
-            Vertices = new Vektor[3] { a, b, c };
+            Vertices = new Vertex[3] { new Vertex(a), new Vertex(b), new Vertex(c) };
+            A.AddFace(this);
+            B.AddFace(this);
+            C.AddFace(this);
+
+            AB = B - A;
+            AB.Normalize();
+            AC = C - A;
+            AC.Normalize();
+            Norm = Vektor.CrossProduct(AB, AC);
+            Norm.Normalize();
+            _ShiftMatrix = Matrix3D.Identity;
+            _RotatMatrix = Matrix3D.Identity;
+        }
+
+        public void Set(Vertex a, Vertex b, Vertex c)
+        {
+            IsActive = true;
+            Vertices = new Vertex[3] { a, b, c };
+            A.AddFace(this);
+            B.AddFace(this);
+            C.AddFace(this);
+
             AB = B - A;
             AB.Normalize();
             AC = C - A;
@@ -84,7 +112,60 @@ namespace RayTracerLib
             return point;            
         }
 
+
+
         public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
+        {
+            Vektor w1 = AB;
+            Vektor w2 = AC;
+            Vektor u = A - P0; // vektor z P0 do C
+
+            double n_v = Norm * Pd;
+            if (Math.Abs(n_v) < MyMath.EPSILON) return false; // rovnobezne, nebo splyvaji
+            double n_u = Norm * u;
+            double alfa = n_u / n_v;
+            if (alfa < MyMath.EPSILON) return false;  // paprsek neprotina rovinu trojuhelniku
+
+            // ted vime, ze paprsek protina rovinu
+            // musime zjistit, zda bod lezi uvnitr trojuhelniku
+            Vektor Pi = P0 + Pd * alfa;
+
+            Vektor v0 = C - A;
+            Vektor v1 = B - A;
+            Vektor v2 = Pi - A;
+
+            double dot00 = v0 * v0;
+            double dot01 = v0 * v1;
+            double dot02 = v0 * v2;
+            double dot11 = v1 * v1;
+            double dot12 = v1 * v2;
+
+            double invDenom = 1 / (dot00 * dot11 - dot01 * dot01);
+            double uB = (dot11 * dot02 - dot01 * dot12) * invDenom;
+            double vB = (dot00 * dot12 - dot01 * dot02) * invDenom;
+            double wB = 1 - uB - vB;
+
+            if (uB < 0 || vB < 0 || uB + vB > 1) return false;
+
+            A.Normal = Norm * -1;
+            B.Normal = Norm * -1;
+            C.Normal = Norm * -1;
+            // P = C*u + B*v + A*w      ... procentualni nastaveni noveho vektoru
+            Vektor interpVec = C.Normal * uB + B.Normal * vB + A.Normal * wB;
+            interpVec.Normalize();
+
+            SolidPoint sp = new SolidPoint();
+            sp.Coord = Pi;
+            sp.T = alfa;
+            sp.Normal = interpVec;
+            sp.Color = new Colour(this.Material.Color);
+            sp.Material = this.Material;
+            sp.Shape = this;
+
+            InterPoint.Add(sp);
+            return true;
+        }
+        public  bool Intersects2(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
         {
             Vektor w1 = AB;
             Vektor w2 = AC;
@@ -120,6 +201,31 @@ namespace RayTracerLib
 
             InterPoint.Add(sp);
             return true;
+        }
+
+        private Vektor Interpolate(Vektor P)
+        {
+            Vektor v0 = C - A;
+            Vektor v1 = B - A;
+            Vektor v2 = P - A;
+
+            double dot00 = v0 * v0;
+            double dot01 = v0 * v1;
+            double dot02 = v0 * v2;
+            double dot11 = v1 * v1;
+            double dot12 = v1 * v2;
+
+            double invDenom = 1 / (dot00 * dot11 - dot01 * dot01);
+            double u = (dot11 * dot02 - dot01 * dot12) * invDenom;
+            double v = (dot00 * dot12 - dot01 * dot02) * invDenom;
+            double w = 1 - u - v;
+
+            if (u < 0 || v < 0 || u + v > 1) return null;
+
+            // P = C*u + B*v + A*w      ... procentualni nastaveni noveho vektoru
+            Vektor interpVec = C.Normal * u + B.Normal * v + A.Normal * w;
+
+            return interpVec;
         }
 
         public override void Move(double dx, double dy, double dz)

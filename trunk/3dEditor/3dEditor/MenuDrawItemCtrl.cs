@@ -43,6 +43,7 @@ namespace _3dEditor
                 ImgList.Images.Add(typeof(DrawingLight).ToString(), (Properties.Resources.sun16));
                 ImgList.Images.Add(typeof(DrawingTriangle).ToString(), (Properties.Resources.TriangleMagenta16));
                 ImgList.Images.Add(typeof(DrawingAnimation).ToString(), (Properties.Resources.icon_camera16));
+                ImgList.Images.Add(typeof(DrawingCustom).ToString(), (Properties.Resources.wheel_32));
             }
             _boldFont = new System.Drawing.Font(labelCaptionObj.Font, FontStyle.Bold);
             _normalFont = new System.Drawing.Font(labelCaptionObj.Font, FontStyle.Regular);
@@ -75,7 +76,8 @@ namespace _3dEditor
             Label = drob.Label;
             
             int index = ImgList.Images.IndexOfKey(key);
-            Img = ImgList.Images[index];
+            if (index >= 0)
+                Img = ImgList.Images[index];
         }
 
         private void onEnter(object sender, EventArgs e)

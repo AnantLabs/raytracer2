@@ -87,6 +87,7 @@
     <Compile Include="Cube.cs" />
     <Compile Include="Cuboid.cs" />
     <Compile Include="CuboidNode.cs" />
+    <Compile Include="CustomObject.cs" />
     <Compile Include="Cylinder.cs" />
     <Compile Include="DefaultShape.cs" />
     <Compile Include="RayImage.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="SolidPoint.cs" />
     <Compile Include="Sphere.cs" />
     <Compile Include="Triangle.cs" />
+    <Compile Include="Vertex.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram2.cd" />

@@ -36,25 +36,8 @@ namespace EditorLib
         public DrawingTriangle(Triangle triangle)
         {
             _RotatMatrix = Matrix3D.Identity;
-            Label = GetUniqueName();
+            SetLabelPrefix("triang");
             this.SetModelObject(triangle);
-        }
-
-        /// <summary>
-        /// vytvori jednoznacne jmeno mezi vsemi triangly
-        /// </summary>
-        /// <returns>jednoznacny retezec popisku svetla</returns>
-        protected override String GetUniqueName()
-        {
-            int count = labels.Count;
-            String label;
-            do
-            {
-                count++;
-                label = "Triang" + count;
-            }
-            while (labels.Contains(label));
-            return label;
         }
 
         public override void SetModelObject(object modelObject)

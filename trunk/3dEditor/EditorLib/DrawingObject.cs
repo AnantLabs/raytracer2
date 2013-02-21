@@ -97,7 +97,7 @@ namespace EditorLib
         /// Nemeni modelovy objekt.
         /// </summary>
         /// <param name="rotationMatrix"></param>
-        public void ApplyRotationMatrix(Matrix3D rotationMatrix)
+        public virtual void ApplyRotationMatrix(Matrix3D rotationMatrix)
         {
             rotationMatrix.TransformPoints(Points);
         }
@@ -176,13 +176,42 @@ namespace EditorLib
             }
         }
 
+        protected int counter;
+        protected String labelPrefix;
+
+        /// <summary>
+        /// nastavi prefix labelu a prejmenuje podle daneho prefixu rovnou label
+        /// </summary>
+        /// <param name="prefix"></param>
+        public void SetLabelPrefix(String prefix)
+        {
+            counter = 0;
+            String str;
+            if (prefix.Length > 6)
+                str = prefix.Substring(0, 6);
+            else
+                str = prefix;
+            str = str.ToLower();
+            labelPrefix = str;
+            Label = GetUniqueName();
+        }
         public static bool IsAvailable(String label)
         {
             return !labels.Contains(label.ToLower());
         }
         protected static List<String> labels = new List<string>();
-
-        protected abstract String GetUniqueName();
+        
+        public virtual string GetUniqueName()
+        {
+            String label;
+            do
+            {
+                counter++;
+                label = labelPrefix + counter;
+            }
+            while (labels.Contains(label));
+            return label;
+        }
         #endregion
 
 

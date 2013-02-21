@@ -32,25 +32,9 @@ namespace EditorLib
             Points = new Vektor[1];
             this.Center = new Vektor(light.Coord.X, light.Coord.Y, light.Coord.Z);
             this.ModelObject = light;
-            Label = GetUniqueName();
+            SetLabelPrefix("light");
         }
 
-        /// <summary>
-        /// vytvori jednoznacne jmeno mezi vsemi krychlemi
-        /// </summary>
-        /// <returns>jednoznacny retezec popisku svetla</returns>
-        protected override String GetUniqueName()
-        {
-            int count = labels.Count;
-            String label;
-            do
-            {
-                count++;
-                label = "Light" + count;
-            }
-            while (labels.Contains(label));
-            return label;
-        }
 
         public override void SetModelObject(object modelObject)
         {
