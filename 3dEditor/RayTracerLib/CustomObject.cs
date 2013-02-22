@@ -46,6 +46,7 @@ namespace RayTracerLib
             {
                 FaceList.Add(new Triangle(VertexList[indeces[i]], VertexList[indeces[i + 1]], VertexList[indeces[i + 2]]));
             }
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(0, 0, 0);
         }
 
         public void SetCenter(Vektor center)
@@ -81,6 +82,16 @@ namespace RayTracerLib
             }
         }
 
+
+        public void SetMaterial2All(Material material)
+        {
+            this.Material = new Material(material);
+            foreach (Triangle tr in FaceList)
+            {
+                tr.Material = new Material(material);
+            }
+        }
+
         public override bool Intersects(Mathematics.Vektor P0, Mathematics.Vektor Pd, ref List<SolidPoint> InterPoint)
         {
             throw new NotImplementedException();
@@ -93,7 +104,17 @@ namespace RayTracerLib
 
         public override void MoveToPoint(double dx, double dy, double dz)
         {
-            throw new NotImplementedException();
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(dx, dy, dz);
+            _ShiftMatrix.TransformPoint(Center);
+            foreach (Vertex vert in VertexList)
+            {
+                Vektor vec = (Vektor)vert;
+                _ShiftMatrix.TransformPoint(vec);
+                vert.X = vec.X;
+                vert.Y = vec.Y;
+                vert.Z = vec.Z;
+            }
+            
         }
 
         public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)

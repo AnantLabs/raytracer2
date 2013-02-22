@@ -43,11 +43,19 @@ namespace RayTracerLib
 
         public Triangle(Vertex a, Vertex b, Vertex c)
         {
+            Vertices = new Vertex[3] { new Vertex(), new Vertex(), new Vertex() };
+            A.AddFace(this);
+            B.AddFace(this);
+            C.AddFace(this);
             Set(a, b, c);
             this.Material = new Material();
         }
         public Triangle(Vektor a, Vektor b, Vektor c)
         {
+            Vertices = new Vertex[3] { new Vertex(), new Vertex(), new Vertex() };
+            A.AddFace(this);
+            B.AddFace(this);
+            C.AddFace(this);
             Set(a, b, c);
             this.Material = new Material();
         }
@@ -56,10 +64,11 @@ namespace RayTracerLib
         {
             //CustomObject cube = CustomObject.CreateCube();
             IsActive = true;
-            Vertices = new Vertex[3] { new Vertex(a), new Vertex(b), new Vertex(c) };
-            A.AddFace(this);
-            B.AddFace(this);
-            C.AddFace(this);
+            A.Set(a);
+            B.Set(b);
+            C.Set(c);
+            //Vertices = new Vertex[3] { new Vertex(a), new Vertex(b), new Vertex(c) };
+            
 
             AB = B - A;
             AB.Normalize();
@@ -234,6 +243,11 @@ namespace RayTracerLib
         }
         public override void MoveToPoint(double dx, double dy, double dz)
         {
+            Matrix3D transpShift = _ShiftMatrix.GetOppositeShiftMatrix();
+            transpShift.TransformPoint(A);
+            transpShift.TransformPoint(B);
+            transpShift.TransformPoint(C);
+
             _ShiftMatrix = Matrix3D.PosunutiNewMatrix(dx, dy, dz);
             _ShiftMatrix.TransformPoint(A);
             _ShiftMatrix.TransformPoint(B);

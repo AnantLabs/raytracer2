@@ -124,7 +124,7 @@ namespace EditorLib
 
 
 
-        public void Move(double moveX, double moveY, double moveZ)
+        public virtual void Move(double moveX, double moveY, double moveZ)
         {
             DefaultShape ds = (DefaultShape)ModelObject;
             ds.MoveToPoint(moveX, moveY, moveZ);

@@ -443,6 +443,7 @@
             this.label202 = new System.Windows.Forms.Label();
             this.label203 = new System.Windows.Forms.Label();
             this.panelCustomObj = new System.Windows.Forms.Panel();
+            this.chbCustFilled = new System.Windows.Forms.CheckBox();
             this.txtbCustomLabel = new System.Windows.Forms.TextBox();
             this.label150 = new System.Windows.Forms.Label();
             this.numCustomN = new System.Windows.Forms.NumericUpDown();
@@ -3990,7 +3991,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.BackColor = System.Drawing.Color.Gainsboro;
+            this.label14.BackColor = System.Drawing.Color.Transparent;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label14.Location = new System.Drawing.Point(152, 312);
             this.label14.Name = "label14";
@@ -4012,7 +4013,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label8.Location = new System.Drawing.Point(117, 70);
             this.label8.Name = "label8";
@@ -4023,7 +4024,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label9.Location = new System.Drawing.Point(6, 69);
             this.label9.Name = "label9";
@@ -4034,7 +4035,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label10.Location = new System.Drawing.Point(304, 70);
             this.label10.Name = "label10";
@@ -4045,7 +4046,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label11.Location = new System.Drawing.Point(211, 70);
             this.label11.Name = "label11";
@@ -4173,7 +4174,7 @@
             // checkBoxMaxZ
             // 
             this.checkBoxMaxZ.AutoSize = true;
-            this.checkBoxMaxZ.BackColor = System.Drawing.Color.Gainsboro;
+            this.checkBoxMaxZ.BackColor = System.Drawing.Color.Transparent;
             this.checkBoxMaxZ.Checked = true;
             this.checkBoxMaxZ.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxMaxZ.Location = new System.Drawing.Point(263, 89);
@@ -4186,7 +4187,7 @@
             // checkBoxMinZ
             // 
             this.checkBoxMinZ.AutoSize = true;
-            this.checkBoxMinZ.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.checkBoxMinZ.BackColor = System.Drawing.Color.Transparent;
             this.checkBoxMinZ.Checked = true;
             this.checkBoxMinZ.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxMinZ.Location = new System.Drawing.Point(263, 113);
@@ -4247,7 +4248,7 @@
             // checkBoxMaxY
             // 
             this.checkBoxMaxY.AutoSize = true;
-            this.checkBoxMaxY.BackColor = System.Drawing.Color.Gainsboro;
+            this.checkBoxMaxY.BackColor = System.Drawing.Color.Transparent;
             this.checkBoxMaxY.Checked = true;
             this.checkBoxMaxY.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxMaxY.Location = new System.Drawing.Point(136, 90);
@@ -4260,7 +4261,7 @@
             // checkBoxMinY
             // 
             this.checkBoxMinY.AutoSize = true;
-            this.checkBoxMinY.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.checkBoxMinY.BackColor = System.Drawing.Color.Transparent;
             this.checkBoxMinY.Checked = true;
             this.checkBoxMinY.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxMinY.Location = new System.Drawing.Point(136, 114);
@@ -4321,7 +4322,7 @@
             // checkBoxMaxX
             // 
             this.checkBoxMaxX.AutoSize = true;
-            this.checkBoxMaxX.BackColor = System.Drawing.Color.Gainsboro;
+            this.checkBoxMaxX.BackColor = System.Drawing.Color.Transparent;
             this.checkBoxMaxX.Checked = true;
             this.checkBoxMaxX.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxMaxX.Location = new System.Drawing.Point(7, 90);
@@ -4334,7 +4335,7 @@
             // checkBoxMinX
             // 
             this.checkBoxMinX.AutoSize = true;
-            this.checkBoxMinX.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.checkBoxMinX.BackColor = System.Drawing.Color.Transparent;
             this.checkBoxMinX.Checked = true;
             this.checkBoxMinX.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxMinX.Location = new System.Drawing.Point(7, 114);
@@ -4347,7 +4348,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.BackColor = System.Drawing.Color.Gainsboro;
+            this.label20.BackColor = System.Drawing.Color.Transparent;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label20.Location = new System.Drawing.Point(99, 268);
             this.label20.Name = "label20";
@@ -4382,7 +4383,7 @@
             // label43
             // 
             this.label43.AutoSize = true;
-            this.label43.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label43.BackColor = System.Drawing.Color.Transparent;
             this.label43.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label43.Location = new System.Drawing.Point(69, 246);
             this.label43.Name = "label43";
@@ -4412,7 +4413,7 @@
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.BackColor = System.Drawing.Color.Gainsboro;
+            this.label44.BackColor = System.Drawing.Color.Transparent;
             this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label44.Location = new System.Drawing.Point(88, 225);
             this.label44.Name = "label44";
@@ -4499,7 +4500,7 @@
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label46.BackColor = System.Drawing.Color.Transparent;
             this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label46.Location = new System.Drawing.Point(241, 290);
             this.label46.Name = "label46";
@@ -4510,7 +4511,7 @@
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label47.BackColor = System.Drawing.Color.Transparent;
             this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label47.Location = new System.Drawing.Point(153, 290);
             this.label47.Name = "label47";
@@ -4551,7 +4552,7 @@
             // label80
             // 
             this.label80.AutoSize = true;
-            this.label80.BackColor = System.Drawing.Color.Gainsboro;
+            this.label80.BackColor = System.Drawing.Color.Transparent;
             this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label80.Location = new System.Drawing.Point(6, 136);
             this.label80.Name = "label80";
@@ -4581,7 +4582,7 @@
             // label81
             // 
             this.label81.AutoSize = true;
-            this.label81.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label81.BackColor = System.Drawing.Color.Transparent;
             this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label81.Location = new System.Drawing.Point(80, 158);
             this.label81.Name = "label81";
@@ -4611,7 +4612,7 @@
             // label82
             // 
             this.label82.AutoSize = true;
-            this.label82.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label82.BackColor = System.Drawing.Color.Transparent;
             this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label82.Location = new System.Drawing.Point(84, 201);
             this.label82.Name = "label82";
@@ -4622,7 +4623,7 @@
             // label83
             // 
             this.label83.AutoSize = true;
-            this.label83.BackColor = System.Drawing.Color.Gainsboro;
+            this.label83.BackColor = System.Drawing.Color.Transparent;
             this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label83.Location = new System.Drawing.Point(76, 178);
             this.label83.Name = "label83";
@@ -4657,7 +4658,7 @@
             // label84
             // 
             this.label84.AutoSize = true;
-            this.label84.BackColor = System.Drawing.Color.Gainsboro;
+            this.label84.BackColor = System.Drawing.Color.Transparent;
             this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label84.Location = new System.Drawing.Point(285, 49);
             this.label84.Name = "label84";
@@ -4668,7 +4669,7 @@
             // label85
             // 
             this.label85.AutoSize = true;
-            this.label85.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label85.BackColor = System.Drawing.Color.Transparent;
             this.label85.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label85.Location = new System.Drawing.Point(6, 25);
             this.label85.Name = "label85";
@@ -4703,7 +4704,7 @@
             // label86
             // 
             this.label86.AutoSize = true;
-            this.label86.BackColor = System.Drawing.Color.Gainsboro;
+            this.label86.BackColor = System.Drawing.Color.Transparent;
             this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label86.Location = new System.Drawing.Point(3, 2);
             this.label86.Name = "label86";
@@ -4738,7 +4739,7 @@
             // label87
             // 
             this.label87.AutoSize = true;
-            this.label87.BackColor = System.Drawing.Color.Gainsboro;
+            this.label87.BackColor = System.Drawing.Color.Transparent;
             this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label87.Location = new System.Drawing.Point(6, 49);
             this.label87.Name = "label87";
@@ -4773,7 +4774,7 @@
             // label88
             // 
             this.label88.AutoSize = true;
-            this.label88.BackColor = System.Drawing.Color.Gainsboro;
+            this.label88.BackColor = System.Drawing.Color.Transparent;
             this.label88.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label88.Location = new System.Drawing.Point(192, 49);
             this.label88.Name = "label88";
@@ -6992,6 +6993,7 @@
             // panelCustomObj
             // 
             this.panelCustomObj.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelCustomObj.Controls.Add(this.chbCustFilled);
             this.panelCustomObj.Controls.Add(this.txtbCustomLabel);
             this.panelCustomObj.Controls.Add(this.label150);
             this.panelCustomObj.Controls.Add(this.numCustomN);
@@ -7026,6 +7028,18 @@
             this.panelCustomObj.Name = "panelCustomObj";
             this.panelCustomObj.Size = new System.Drawing.Size(417, 343);
             this.panelCustomObj.TabIndex = 65;
+            // 
+            // chbCustFilled
+            // 
+            this.chbCustFilled.AutoSize = true;
+            this.chbCustFilled.BackColor = System.Drawing.Color.Transparent;
+            this.chbCustFilled.Location = new System.Drawing.Point(27, 70);
+            this.chbCustFilled.Name = "chbCustFilled";
+            this.chbCustFilled.Size = new System.Drawing.Size(80, 17);
+            this.chbCustFilled.TabIndex = 222;
+            this.chbCustFilled.Text = "Show Filled";
+            this.chbCustFilled.UseVisualStyleBackColor = false;
+            this.chbCustFilled.CheckedChanged += new System.EventHandler(this.OnChbCustFillChange);
             // 
             // txtbCustomLabel
             // 
@@ -8110,6 +8124,7 @@
         private System.Windows.Forms.NumericUpDown numCustomCenterY;
         private System.Windows.Forms.Label label222;
         private System.Windows.Forms.Label label223;
+        private System.Windows.Forms.CheckBox chbCustFilled;
 
     }
 }

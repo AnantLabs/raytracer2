@@ -305,6 +305,12 @@ namespace _3dEditor
             if (rootNode.Nodes == null)
                 return;
 
+            if (shape is DrawingFacet)
+            {
+                ParentEditor form = (ParentEditor)this.ParentForm;
+                form._WndProperties.ShowObject((DrawingTriangle)shape);
+                return;
+            }
             foreach (TreeNode node in rootNode.Nodes)
             {
                 // zjisteni dedicneho typu: zda-li je node.Tag zdedeny typ od DefaultShape

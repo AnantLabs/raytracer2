@@ -77,6 +77,7 @@
     <Compile Include="DrawingCustom.cs" />
     <Compile Include="DrawingCylinder.cs" />
     <Compile Include="DrawingDefaultShape.cs" />
+    <Compile Include="DrawingFacet.cs" />
     <Compile Include="DrawingLight.cs" />
     <Compile Include="DrawingObject.cs" />
     <Compile Include="DrawingCube.cs" />
