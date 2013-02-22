@@ -502,8 +502,13 @@ namespace _3dEditor
                     EditorObject editorObject = new EditorObject(drTiangl);
                     GraphicsPath path;
 
-                    
-                    
+
+                    foreach (Line3D l in drTiangl.Lines)
+                    {
+                        a = l.A.To2D(_scale, _zoom, _centerPoint);
+                        b = l.B.To2D(_scale, _zoom, _centerPoint);
+                        g.DrawLine(_penObject, a, b);
+                    }
 
                     Vektor[] points3 = drTiangl.GetDrawingPoints();
                     PointF[] pointsF = new PointF[3];
@@ -513,16 +518,29 @@ namespace _3dEditor
                     }
                     g.FillPolygon(drTiangl.FillBrush, pointsF);
 
+
+
+
                     if (_Selected == obj)
                     {
                         _penObject.Color = Color.Black;
+
+                        Font myfont = EditHelper.FontTriangVert;
+                        Rectangle rec = EditHelper.RecTriangVert;
+                        Brush brush = EditHelper.BrushTriangVertRect;
+
+                        g.DrawPolygon(Pens.Black, pointsF);
+                        rec.Location = new Point((int)pointsF[0].X, (int)pointsF[0].Y);
+                        g.FillRectangle(brush, rec);
+                        g.DrawString("A", myfont, Brushes.Black, pointsF[0]);
+                        rec.Location = new Point((int)pointsF[1].X, (int)pointsF[1].Y);
+                        g.FillRectangle(brush, rec);
+                        g.DrawString("B", myfont, Brushes.Black, pointsF[1]);
+                        rec.Location = new Point((int)pointsF[2].X, (int)pointsF[2].Y);
+                        g.FillRectangle(brush, rec);
+                        g.DrawString("C", myfont, Brushes.Black, pointsF[2]);
                     }
-                    foreach (Line3D l in drTiangl.Lines)
-                    {
-                        a = l.A.To2D(_scale, _zoom, _centerPoint);
-                        b = l.B.To2D(_scale, _zoom, _centerPoint);
-                        g.DrawLine(_penObject, a, b);
-                    }
+
 
                     path = new GraphicsPath();
                     path.AddPolygon(pointsF);
@@ -560,9 +578,29 @@ namespace _3dEditor
                             pointsF[i] = points3[i].To2D(_scale, _zoom, _centerPoint);
                         }
                         //g.FillPolygon(drTriang.FillBrush, pointsF);
-                        if (drTriang == _Selected)
+                        Font myfont = EditHelper.FontTriangVert;
+                        Rectangle rec = EditHelper.RecTriangVert;
+                        Brush brush = EditHelper.BrushTriangVertRect;
+
+                        if (drCust.ShowFilled)
                         {
                             g.FillPolygon(drTriang.FillBrush, pointsF);
+                        }
+                        else if (drTriang == _Selected)
+                        {
+                            g.FillPolygon(drTriang.FillBrush, pointsF);
+                            g.DrawPolygon(Pens.Black, pointsF);
+
+                            //rec = new Rectangle(new Point((int)pointsF[0].X, (int)pointsF[0].Y), new Size(10, 10));
+                            rec.Location = new Point((int)pointsF[0].X, (int)pointsF[0].Y);
+                            g.FillRectangle(brush, rec);
+                            g.DrawString("A", myfont, Brushes.Black, pointsF[0]);
+                            rec.Location = new Point((int)pointsF[1].X, (int)pointsF[1].Y);
+                            g.FillRectangle(brush, rec);
+                            g.DrawString("B", myfont, Brushes.Black, pointsF[1]);
+                            rec.Location = new Point((int)pointsF[2].X, (int)pointsF[2].Y);
+                            g.FillRectangle(brush, rec);
+                            g.DrawString("C", myfont, Brushes.Black, pointsF[2]);
                         }
                         path = new GraphicsPath();
                         path.AddPolygon(pointsF);
@@ -571,6 +609,42 @@ namespace _3dEditor
                         _editHelp.AddClickableObject(editorObjectTrianglFace);
 
                         editorObjectCustom.AddPath(path);
+
+                        
+                    }
+                    // zobrazeni vybraneho trojuhelniku nade vsemi ostatnimi - proto az na konec se vykresli
+                    if (_Selected is DrawingFacet)
+                    {
+                        foreach (DrawingTriangle drTriang in drCust.DrawingFacesList)
+                        {
+                            if (drTriang == _Selected)
+                            {
+                                points3 = drTriang.GetDrawingPoints();
+                                pointsF = new PointF[3];
+                                for (int i = 0; i < points3.Length; i++)
+                                {
+                                    pointsF[i] = points3[i].To2D(_scale, _zoom, _centerPoint);
+                                }
+                                //g.FillPolygon(drTriang.FillBrush, pointsF);
+                                Font myfont = EditHelper.FontTriangVert;
+                                Rectangle rec = EditHelper.RecTriangVert;
+                                Brush brush = EditHelper.BrushTriangVertRect;
+
+                                g.FillPolygon(drTriang.FillBrush, pointsF);
+                                g.DrawPolygon(Pens.Black, pointsF);
+
+                                //rec = new Rectangle(new Point((int)pointsF[0].X, (int)pointsF[0].Y), new Size(10, 10));
+                                rec.Location = new Point((int)pointsF[0].X, (int)pointsF[0].Y);
+                                g.FillRectangle(brush, rec);
+                                g.DrawString("A", myfont, Brushes.Black, pointsF[0]);
+                                rec.Location = new Point((int)pointsF[1].X, (int)pointsF[1].Y);
+                                g.FillRectangle(brush, rec);
+                                g.DrawString("B", myfont, Brushes.Black, pointsF[1]);
+                                rec.Location = new Point((int)pointsF[2].X, (int)pointsF[2].Y);
+                                g.FillRectangle(brush, rec);
+                                g.DrawString("C", myfont, Brushes.Black, pointsF[2]);
+                            }
+                        }
                     }
                     //path = new GraphicsPath();
                     //path.AddPolygon(pointsF);
@@ -1047,18 +1121,14 @@ namespace _3dEditor
                         else if (ds is Triangle)
                         {
                             DrawingTriangle drTriangl = _Selected as DrawingTriangle;
-                            Triangle triangl = ds as Triangle;
                             Matrix3D transp = this._matrixForever.Transpose();
-                            Vektor[] pointsOld = drTriangl.GetDrawingPoints();
-                            Vektor[] pointsNew = new Vektor[pointsOld.Length];
-
-                            Triangle tr = (Triangle)drTriangl.ModelObject;
                             Vektor center = shift2DMatrix.Transform2NewPoint(drTriangl.Center);
                             Vektor centerTransp = transp.Transform2NewPoint(center);
                             transp.TransformPoints(drTriangl.Points);
-                            Vektor diff = centerTransp - drTriangl.Center;
-                            //drTriangl.Move(diff.X, diff.Y, diff.Z);
-                            drTriangl.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                            Vektor diff = drTriangl.Center - centerTransp;
+                            drTriangl.Move(diff.X, diff.Y, diff.Z);
+                            _matrixForever.TransformPoints(drTriangl.Points);
+                            //drTriangl.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
                             //drTriangl.Move(-diff.X, -diff.Y, -diff.Z);
                             //Matrix3D shift3D = Matrix3D.PosunutiNewMatrix(-diff.X, -diff.Y, -diff.Z);
                             //shift3D.TransformPoints(drTriangl.Points);
@@ -1074,7 +1144,28 @@ namespace _3dEditor
                             //        new Vektor(pointsNew[1].X, pointsNew[1].Y, pointsNew[1].Z),
                             //        new Vektor(pointsNew[2].X, pointsNew[2].Y, pointsNew[2].Z));
                             //drTriangl.SetModelObject(triangl);
-                            _matrixForever.TransformPoints(drTriangl.Points);
+                        }
+                        else if (ds is CustomObject)
+                        {
+                            DrawingCustom drCust = _Selected as DrawingCustom;
+                            Matrix3D transp = this._matrixForever.Transpose();
+                            Vektor center = shift2DMatrix.Transform2NewPoint(drCust.Center);
+                            Vektor centerTransp = transp.Transform2NewPoint(center);
+                            transp.TransformPoints(drCust.Points);
+                            Vektor diff = drCust.Center - centerTransp;
+                            drCust.Move(diff.X, diff.Y, diff.Z);
+                            //drCust.MoveDiff2(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                            //drCust.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                            _matrixForever.TransformPoints(drCust.Points);
+                            //foreach (DrawingTriangle drTr in drCust.DrawingFacesList)
+                            //{
+                            //    center = shift2DMatrix.Transform2NewPoint(drTr.Center);
+                            //    centerTransp = transp.Transform2NewPoint(center);
+                            //    transp.TransformPoints(drTr.Points);
+                            //    diff = drTr.Center - centerTransp;
+                            //    drTr.Move(diff.X, diff.Y, diff.Z);
+                            //    _matrixForever.TransformPoints(drTr.Points);
+                            //}
                         }
                         // aktualizace seznamu objektu ve scene
                         WndScene wnd = GetWndScene();

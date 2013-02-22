@@ -83,8 +83,18 @@ namespace Mathematics
             }
             else throw new Exception("velikost vektoru musi byt 3 nebo 4");
         }
-
-
+        /// <summary>
+        /// nastavi souradnice podle zadaneho vektoru
+        /// Nevytvori pri tom novy vektor
+        /// </summary>
+        /// <param name="a">vzorovy vektor</param>
+        public void Set(Vektor a)
+        {
+            this.X = a.X;
+            this.Y = a.Y;
+            this.Z = a.Z;
+            this.ZZ = a.ZZ;
+        }
 
         public double[] GetArray()
         {

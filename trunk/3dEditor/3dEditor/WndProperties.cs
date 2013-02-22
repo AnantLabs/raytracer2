@@ -92,7 +92,7 @@ namespace _3dEditor
             else if (obj.GetType() == typeof(DrawingCone))
                 ShowCone((DrawingCone)obj);
 
-            else if (obj.GetType() == typeof(DrawingTriangle))
+            else if (obj is DrawingTriangle)
                 ShowTriangle((DrawingTriangle)obj);
 
             else if (obj.GetType() == typeof(DrawingCustom))
@@ -362,17 +362,23 @@ namespace _3dEditor
 
             this.txtbTriangLabel.Text = drTriangl.Label;
 
-            this.numericTriangleAX.Value = (decimal)triangl.A.X;
-            this.numericTriangleAY.Value = (decimal)triangl.A.Y;
-            this.numericTriangleAZ.Value = (decimal)triangl.A.Z;
+            WndBoard wndB = GetWndBoard();
+            Matrix3D transp = wndB.RotationMatrix.Transpose();
+            Vektor a = transp.Transform2NewPoint(drTriangl.A);
+            Vektor b = transp.Transform2NewPoint(drTriangl.B);
+            Vektor c = transp.Transform2NewPoint(drTriangl.C);
 
-            this.numericTriangleBX.Value = (decimal)triangl.B.X;
-            this.numericTriangleBY.Value = (decimal)triangl.B.Y;
-            this.numericTriangleBZ.Value = (decimal)triangl.B.Z;
+            this.numericTriangleAX.Value = (decimal)a.X;
+            this.numericTriangleAY.Value = (decimal)a.Y;
+            this.numericTriangleAZ.Value = (decimal)a.Z;
 
-            this.numericTriangleCX.Value = (decimal)triangl.C.X;
-            this.numericTriangleCY.Value = (decimal)triangl.C.Y;
-            this.numericTriangleCZ.Value = (decimal)triangl.C.Z;
+            this.numericTriangleBX.Value = (decimal)b.X;
+            this.numericTriangleBY.Value = (decimal)b.Y;
+            this.numericTriangleBZ.Value = (decimal)b.Z;
+
+            this.numericTriangleCX.Value = (decimal)c.X;
+            this.numericTriangleCY.Value = (decimal)c.Y;
+            this.numericTriangleCZ.Value = (decimal)c.Z;
 
             Material mat = triangl.Material;
             this.numTriangKa.Value = (decimal)mat.Ka;
@@ -399,13 +405,17 @@ namespace _3dEditor
                 this.Text = "Properties: Custom Object";
             }
 
+            WndBoard wndB = GetWndBoard();
+            Matrix3D transp = wndB.RotationMatrix.Transpose();
+            Vektor center = transp.Transform2NewPoint(drCust.Center);
+
             CustomObject cust = (CustomObject)drCust.ModelObject;
 
             this.txtbCustomLabel.Text = drCust.Label;
 
-            this.numCustomCenterX.Value = (decimal)cust.Center.X;
-            this.numCustomCenterY.Value = (decimal)cust.Center.Y;
-            this.numCustomCenterZ.Value = (decimal)cust.Center.Z;
+            this.numCustomCenterX.Value = (decimal)center.X;
+            this.numCustomCenterY.Value = (decimal)center.Y;
+            this.numCustomCenterZ.Value = (decimal)center.Z;
 
             Material mat = cust.Material;
             this.numCustomKa.Value = (decimal)mat.Ka;
@@ -1711,7 +1721,7 @@ namespace _3dEditor
 
         private void actionTriangleSet(object sender, EventArgs e)
         {
-            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingTriangle))
+            if (_currentlyDisplayed == null || !(_currentlyDisplayed is DrawingTriangle))
                 return;
 
             if (!_permissionToModify)
@@ -1761,10 +1771,21 @@ namespace _3dEditor
             btnTriangMaterialCol.BackColor = mat.Color.SystemColor();
 
             drTriang.SetModelObject(triangl);
+
             WndBoard wndB = GetWndBoard();
-            drTriang.ApplyRotationMatrix(wndB.RotationMatrix);
-            WndScene wndSc = GetWndScene();
-            wndSc.UpdateRecords();
+            if (_currentlyDisplayed is DrawingFacet)
+            {
+                DrawingFacet drFace = _currentlyDisplayed as DrawingFacet;
+                drTriang.ApplyRotationMatrix(wndB.RotationMatrix);
+                //drFace.DrCustObject.SetModelObject(drFace.DrCustObject.ModelObject);
+                //drFace.DrCustObject.ApplyRotationMatrix(wndB.RotationMatrix);
+            }
+            else
+            {
+                drTriang.ApplyRotationMatrix(wndB.RotationMatrix);
+                WndScene wndSc = GetWndScene();
+                wndSc.UpdateRecords();
+            }
         }
 
         private void btnTriangMaterialColor_Click(object sender, EventArgs e)
@@ -1925,14 +1946,17 @@ namespace _3dEditor
             mat.Color.G = (double)this.numCustomColG.Value;
             mat.Color.B = (double)this.numCustomColB.Value;
 
-            cust.Material = mat;
-            cust.SetCenter(center);
+            drCust.SetMaterial2All(mat);
+            //cust.SetCenter(center);
 
             btnCustomColor.BackColor = mat.Color.SystemColor();
 
-            drCust.SetModelObject(cust);
             WndBoard wndB = GetWndBoard();
-            drCust.ApplyRotationMatrix(wndB.RotationMatrix);
+            //drCust.SetModelObject(cust);
+            center = wndB.RotationMatrix.Transform2NewPoint(center);
+            drCust.Center = center;
+            
+            //drCust.ApplyRotationMatrix(wndB.RotationMatrix);
             WndScene wndSc = GetWndScene();
             wndSc.UpdateRecords();
         }
@@ -2020,6 +2044,16 @@ namespace _3dEditor
             }
         }
 
+        private void OnChbCustFillChange(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed != null && _currentlyDisplayed is DrawingCustom)
+            {
+                CheckBox chb = sender as CheckBox;
+                DrawingCustom drCust = _currentlyDisplayed as DrawingCustom;
+                drCust.ShowFilled = chb.Checked;
+
+            }
+        }
         
 
     }

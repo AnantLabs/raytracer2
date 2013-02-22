@@ -11,13 +11,11 @@ namespace RayTracerLib
         public Vektor Normal { get; set; }
         public List<Triangle> NeighFaces { get; private set; }
 
-        public Vertex(Vektor vector)
+        public Vertex() : this(Vektor.ZeroVektor) { }
+        public Vertex(Vektor vector) : base(vector)
         {
             this.Normal = Vektor.ZeroVektor;
             NeighFaces = new List<Triangle>(8);
-            this.X = vector.X;
-            this.Y = vector.Y;
-            this.Z = vector.Z;
         }
 
         /// <summary>

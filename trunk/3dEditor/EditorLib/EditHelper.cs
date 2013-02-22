@@ -35,6 +35,21 @@ namespace EditorLib
         public Pen CameraPenLight { get; set; }
         public Pen CameraPenEllips { get; set; }
 
+        // styly pro popisky vrcholu u trojuhelniku
+        /// <summary>
+        /// Font popisku vrcholu trojuhelniku
+        /// </summary>
+        public static Font FontTriangVert = new Font(FontFamily.GenericSansSerif, 11f, FontStyle.Regular);
+        /// <summary>
+        /// stetec pozadi popisku u vrcholu trojuhelniku - obdelnik popisku
+        /// </summary>
+        public static Brush BrushTriangVertRect = Brushes.WhiteSmoke;
+        /// <summary>
+        /// Obdelnik, v nemz bude zobrazen popisek. Bude se menit jen jeho lokace
+        /// </summary>
+        public static Rectangle RecTriangVert = new Rectangle(0, 0, 16, 16);
+
+       
 
         // styl pro bybrany objekt
         public const float PenSelectedWidth = 1.9f;

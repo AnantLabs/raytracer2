@@ -42,6 +42,7 @@ namespace _3dEditor
                 ImgList.Images.Add(typeof(DrawingPlane).ToString(), (Properties.Resources.rectangle16));
                 ImgList.Images.Add(typeof(DrawingLight).ToString(), (Properties.Resources.sun16));
                 ImgList.Images.Add(typeof(DrawingTriangle).ToString(), (Properties.Resources.TriangleMagenta16));
+                ImgList.Images.Add(typeof(DrawingFacet).ToString(), (Properties.Resources.TriangleMagenta16));
                 ImgList.Images.Add(typeof(DrawingAnimation).ToString(), (Properties.Resources.icon_camera16));
                 ImgList.Images.Add(typeof(DrawingCustom).ToString(), (Properties.Resources.wheel_32));
             }
