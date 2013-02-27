@@ -194,5 +194,21 @@ namespace Mathematics
             return X;
         }
 
+        public static double Minimum4(double m1, double m2, double m3, double m4)
+        {
+            double min = Math.Min(m1, m2);
+            min = Math.Min(min, m3);
+            min = Math.Min(min, m4);
+            return min;
+        }
+
+        public static double Maximum4(double m1, double m2, double m3, double m4)
+        {
+            double max = Math.Max(m1, m2);
+            max = Math.Max(max, m3);
+            max = Math.Max(max, m4);
+            return max;
+        }
+
     }
 }

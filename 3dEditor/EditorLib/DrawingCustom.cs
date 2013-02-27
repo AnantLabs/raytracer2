@@ -49,6 +49,21 @@ namespace EditorLib
             this.Set(custom);
         }
 
+        public void Reset()
+        {
+            this.SetModelObject(this.ModelObject);
+        }
+        public override void InitForRaytracer()
+        {
+            CustomObject cust = ModelObject as CustomObject;
+            List<Triangle> triangles = new List<Triangle>();
+            foreach (DrawingTriangle drTr in DrawingFacesList)
+            {
+                triangles.Add((Triangle)drTr.ModelObject);
+            }
+            cust.InitializeForRayTr(triangles);
+        }
+
         private static Vektor Searching;
         private static bool VectorPredicate(Vektor vec)
         {

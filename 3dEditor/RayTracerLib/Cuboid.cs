@@ -7,12 +7,13 @@ using Mathematics;
 namespace RayTracerLib
 {
     /**
- * AABB
- * The axis-aligned minimum bounding box for a given point set is its minimum bounding box subject 
- * to the constraint that the edges of the box are parallel to the (Cartesian) coordinate axes.
- * It is simply the Cartesian product of N intervals each of which is defined by 
- * the minimal and maximal value of the corresponding coordinate for the points in S.
- * */
+     * AABB
+     * The axis-aligned minimum bounding box for a given point set is its minimum bounding box subject 
+     * to the constraint that the edges of the box are parallel to the (Cartesian) coordinate axes.
+     * It is simply the Cartesian product of N intervals each of which is defined by 
+     * the minimal and maximal value of the corresponding coordinate for the points in S.
+     *  NEMUSI BYT ROVNOSTRANNE
+    * */
     public class Cuboid
     {
         /// <summary>
@@ -41,7 +42,7 @@ namespace RayTracerLib
         /// <summary>
         /// odchylka pro testu pruniku s primkou
         /// </summary>
-        private double Epsilon = 0.0001;
+        private const double Epsilon = 0.0001;
 
         /// <summary>
         /// Vytvori rovnostranny Cuboid zadany stredem a delkou steny
@@ -84,8 +85,9 @@ namespace RayTracerLib
         {
             this.MinPoint = new Vektor(oldCub.MinPoint);
             this.MaxPoint = new Vektor(oldCub.MaxPoint);
-            this.Epsilon = oldCub.Epsilon;
         }
+        public Cuboid(DefaultShape item) : this(Cuboid.CreateCuboid(item)) { }
+
 
         private void TestMinMax()
         {
@@ -104,7 +106,7 @@ namespace RayTracerLib
                 int o = 0;
             }
             double sizePul = size / 2;
-            Vektor c = new Vektor(Xmin + sizePul, Ymin + sizePul, Zmin + sizePul);
+            Vektor c = new Vektor((Xmin + Xmax) / 2, (Ymin + Ymax) / 2, (Zmin + Zmax) / 2);
             return c;
 
         }
@@ -152,6 +154,17 @@ namespace RayTracerLib
             return eq1;
         }
 
+        /// <summary>
+        /// zjisti, zda bod lezi uvnitr cuboidu
+        /// </summary>
+        public bool Contains(Vektor point)
+        {
+            if (Xmin <= point.X && point.X <= Xmax)
+                if (Ymin <= point.Y && point.Y <= Ymax)
+                    if (Zmin <= point.Z && point.Z <= Zmax)
+                        return true;
+            return false;
+        }
         /// <summary>
         /// zjisti, zda aktualni Cuboid obsahuje cely Cuboid zadany parametrem
         /// </summary>
@@ -214,6 +227,10 @@ namespace RayTracerLib
                 Sphere sph = (Sphere)item;
                 cluster = new Cuboid(sph.Origin, sph.R * 2);
             }
+            else if (item is Plane)
+            {
+                //cluster = new Cuboid(1);
+            }
             else if (item is Cube)
             {
                 Cube cube = (Cube)item;
@@ -269,34 +286,49 @@ namespace RayTracerLib
 
                 cluster = new Cuboid(new Vektor(minX, minY, minZ), new Vektor(maxX, maxY, maxZ));
             }
-            else if (item is Cone)
+            else if (item is CustomObject)
             {
-                Cone cone = (Cone)item;
+                CustomObject cust = item as CustomObject;
+                Vektor min = new Vektor(Double.MaxValue, Double.MaxValue, Double.MaxValue);
+                Vektor max = new Vektor(Double.MinValue, Double.MinValue, Double.MinValue);
+                foreach (Vertex v in cust.VertexList)
+                {
+                    min.X = Math.Min(min.X, v.X);
+                    min.Y = Math.Min(min.Y, v.Y);
+                    min.Z = Math.Min(min.Z, v.Z);
 
-                Vektor point1 = cone.Peak;
-                Vektor point2 = cone.Center + new Vektor(cone.Rad, cone.Rad, cone.Rad);
-                Vektor point3 = cone.Center - new Vektor(cone.Rad, cone.Rad, cone.Rad);
+                    max.X = Math.Max(max.X, v.X);
+                    max.Y = Math.Max(max.Y, v.Y);
+                    max.Z = Math.Max(max.Z, v.Z);
+                }
 
-                double minX = Math.Min(point1.X, point2.X);
-                minX = Math.Min(minX, point3.X);
-                double minY = Math.Min(point1.Y, point2.Y);
-                minY = Math.Min(minY, point3.Y);
-                double minZ = Math.Min(point1.Z, point2.Z);
-                minZ = Math.Min(minZ, point3.Z);
-
-                double maxX = Math.Max(point1.X, point2.X);
-                maxX = Math.Max(maxX, point3.X);
-                double maxY = Math.Max(point1.Y, point2.Y);
-                maxY = Math.Max(maxY, point3.Y);
-                double maxZ = Math.Max(point1.Z, point2.Z);
-                maxZ = Math.Max(maxZ, point3.Z);
-
-                cluster = new Cuboid(new Vektor(minX, minY, minZ), new Vektor(maxX, maxY, maxZ));
+                cluster = new Cuboid(min, max);
             }
-            else if (item is Plane)
-            {
-                //cluster = new Cuboid(1);
-            }
+            //else if (item is Cone)
+            //{
+            //    Cone cone = (Cone)item;
+
+            //    Vektor point1 = cone.Peak;
+            //    Vektor point2 = cone.Center + new Vektor(cone.Rad, cone.Rad, cone.Rad);
+            //    Vektor point3 = cone.Center - new Vektor(cone.Rad, cone.Rad, cone.Rad);
+
+            //    double minX = Math.Min(point1.X, point2.X);
+            //    minX = Math.Min(minX, point3.X);
+            //    double minY = Math.Min(point1.Y, point2.Y);
+            //    minY = Math.Min(minY, point3.Y);
+            //    double minZ = Math.Min(point1.Z, point2.Z);
+            //    minZ = Math.Min(minZ, point3.Z);
+
+            //    double maxX = Math.Max(point1.X, point2.X);
+            //    maxX = Math.Max(maxX, point3.X);
+            //    double maxY = Math.Max(point1.Y, point2.Y);
+            //    maxY = Math.Max(maxY, point3.Y);
+            //    double maxZ = Math.Max(point1.Z, point2.Z);
+            //    maxZ = Math.Max(maxZ, point3.Z);
+
+            //    cluster = new Cuboid(new Vektor(minX, minY, minZ), new Vektor(maxX, maxY, maxZ));
+            //}
+
             return cluster;
         }
 
@@ -507,6 +539,33 @@ namespace RayTracerLib
             iSintersected = c.IntersectsRay(P0, new Vektor(1, 1, 1));
             iSintersected = c.IntersectsRay(P0, new Vektor(0, -1, 1));
             return iSintersected;
+        }
+
+        /// <summary>
+        /// vytvori cuboid se stejne dlouhymi vsemi stranami
+        /// </summary>
+        public static Cuboid CreateCubeFromCuboid(Cuboid cuboid)
+        {
+            Vektor center = cuboid.GetCenter();
+            double sizeX = cuboid.Xmax - cuboid.Xmin;
+            double sizeY = cuboid.Ymax - cuboid.Ymin;
+            double sizeZ = cuboid.Zmax - cuboid.Zmin;
+
+            double size = Math.Max(sizeX, sizeY);
+            size = Math.Max(size, sizeZ);
+            Cuboid cube = new Cuboid(center, size);
+            return cube;
+        }
+
+        public static Cuboid CreateCuboid(List<DefaultShape> objects)
+        {
+            Cuboid cuboid = new Cuboid(objects[0]);
+            foreach (DefaultShape item in objects)
+            {
+                Cuboid cuboid2 = new Cuboid(item);
+                cuboid = Cuboid.Union(cuboid, cuboid2);
+            }
+            return cuboid;
         }
     }
 }

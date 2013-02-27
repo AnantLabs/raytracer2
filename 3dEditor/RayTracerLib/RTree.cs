@@ -6,7 +6,7 @@ using Mathematics;
 
 namespace RayTracerLib
 {
-    public class RTree
+    public class RTree : IOptimize
     {
         public RtreeNode Root { get; private set; }
         /// <summary>
@@ -22,6 +22,9 @@ namespace RayTracerLib
         public RTree()
         {
 
+        }
+        public RTree(List<DefaultShape> objects) : this(objects.ToArray())
+        {
         }
         public RTree(DefaultShape[] objects)
         {
@@ -39,6 +42,11 @@ namespace RayTracerLib
                 cuboids[i] = nodes[i].MBR;
 
             this.Root = STR3DPack(cuboids);
+        }
+
+        public bool Intersection(Vektor P0, Vektor Pd, ref List<SolidPoint> intersPts)
+        {
+            return TestIntersection(this.Root, P0, Pd, ref intersPts);
         }
 
         /// <summary>
@@ -376,5 +384,7 @@ namespace RayTracerLib
             }
             return count;
         }
+
+
     }
 }

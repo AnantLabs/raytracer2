@@ -214,6 +214,10 @@ namespace EditorLib
         }
         #endregion
 
+        public virtual void InitForRaytracer()
+        {
+            return;
+        }
 
     }
 }

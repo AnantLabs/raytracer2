@@ -64,6 +64,10 @@ namespace _3dEditor
         /// </summary>
         public void ShowDefault()
         {
+            imgRadioOptAABBTree.Text = Enum.GetName(typeof(Optimalizer.OptimizeType), Optimalizer.OptimizeType.RTREE);
+            imgRadioOptAABBTree.Tag = Optimalizer.OptimizeType.RTREE;
+            imgRadioOptOctTree.Text = Enum.GetName(typeof(Optimalizer.OptimizeType), Optimalizer.OptimizeType.OCTREE);
+            imgRadioOptOctTree.Tag = Optimalizer.OptimizeType.OCTREE;
             SetAllInvisible();
             this.Text = "Properties";
         }
@@ -524,11 +528,24 @@ namespace _3dEditor
             this.checkAntialias.Checked = img.IsAntialiasing;
             this.checkOptimize.Checked = img.IsOptimalizing;
             this.btnImageBgr.BackColor = img.BackgroundColor.SystemColor();
+
+            if (img.IsOptimalizing)
+            {
+                this.panelOptimGroup.Visible = true;
+                if (img.OptimizType == Optimalizer.OptimizeType.OCTREE)
+                    this.imgRadioOptOctTree.Checked = true;
+                else if (img.OptimizType == Optimalizer.OptimizeType.RTREE)
+                    this.imgRadioOptAABBTree.Checked = true;
+            }
+            else
+            {
+                this.panelOptimGroup.Visible = false;
+            }
         }
 
         private GroupBox CreateOptimizeGroup()
         {
-            string[] names = Enum.GetNames(typeof(Scene.OptimizeType));
+            string[] names = Enum.GetNames(typeof(Optimalizer.OptimizeType));
             GroupBox gbox = new GroupBox();
             gbox.Width = 100;
             gbox.Height = names.Length * 18;
@@ -1402,6 +1419,7 @@ namespace _3dEditor
         }
         #endregion
 
+
         private void actionImageSet(object sender, EventArgs e)
         {
             if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(RayImage))
@@ -1418,7 +1436,6 @@ namespace _3dEditor
 
             img.MaxRecurse = (int)this.numericRecurs.Value;
             img.IsAntialiasing = this.checkAntialias.Checked;
-            img.IsOptimalizing = this.checkOptimize.Checked;
 
             img.IndexPictureSize = this.comboResolution.SelectedIndex;
             int w = 100;
@@ -2053,6 +2070,41 @@ namespace _3dEditor
                 drCust.ShowFilled = chb.Checked;
 
             }
+        }
+
+        private void CustomReset(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed != null && _currentlyDisplayed is DrawingCustom)
+            {
+                DrawingCustom drCust = _currentlyDisplayed as DrawingCustom;
+                drCust.Reset();
+            }
+        }
+
+        private void OptimizeRadioChanged(object sender, EventArgs e)
+        {
+            RadioButton radio = sender as RadioButton;
+            RayImage img = _currentlyDisplayed as RayImage;
+            if (radio != null && img != null && radio.Tag != null)
+                img.OptimizType = (Optimalizer.OptimizeType)radio.Tag;
+
+        }
+
+        private void actionImageOptimCheckChange(object sender, EventArgs e)
+        {
+            CheckBox chb = sender as CheckBox;
+            panelOptimGroup.Visible = chb.Checked;
+            RayImage img = _currentlyDisplayed as RayImage;
+            img.IsOptimalizing = chb.Checked;
+            if (!chb.Checked)
+            {
+                img.OptimizType = Optimalizer.OptimizeType.NONE;
+            }
+            else
+            {
+                img.OptimizType = Optimalizer.OptimizeType.RTREE;
+            }
+            ShowImage(img);
         }
         
 

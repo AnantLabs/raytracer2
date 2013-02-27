@@ -342,6 +342,7 @@ namespace _3dEditor
                 {
                     if (node.Tag == shape)
                     {
+                        treeView1.SelectedNode = null;
                         treeView1.SelectedNode = node;
                         node.Text = node.Tag.ToString();
                         this.OnMouseDown(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
@@ -561,9 +562,9 @@ namespace _3dEditor
                 return;
             }
             WndBoard wndBoard = GetWndBoard();
-            wndBoard.RemoveRaytrObject(treeView1.SelectedNode.Tag);
+            wndBoard.RemoveRaytrObject(treeView1.SelectedNode.Tag);// musi byt pred odstranenim z Editoru
 
-            treeView1.Nodes.Remove(treeView1.SelectedNode); // musi byt pred odstranenim z Editoru
+            treeView1.Nodes.Remove(treeView1.SelectedNode); // musi byt zachovano poradi
 
             WndProperties wndProp = GetWndProperties();
             // v okne Properties zobrazime bud zakladni obrazovku, nebo vlastnosti dalsiho prvku

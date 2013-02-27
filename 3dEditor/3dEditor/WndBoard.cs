@@ -1775,6 +1775,16 @@ namespace _3dEditor
         /// <param name="shape">objekt sceny</param>
         public void SetObjectSelected(DrawingObject shape)
         {
+            if (shape is DrawingFacet)
+            {
+                DrawingFacet drf = shape as DrawingFacet;
+                if (_objectsToDraw.Contains(drf.DrCustObject))
+                {
+                    _Selected = shape;
+                    return;
+                }
+            }
+
             foreach (DrawingObject sefSh in _objectsToDraw)
             {
                 if (sefSh == shape)
@@ -1921,6 +1931,17 @@ namespace _3dEditor
         {
             // zruseni nabidky, aby nedoslo ke kolizi mezi zobrazovanym objektem ve Vlastnostech a vybranym objektem v Boardu
             this.drawItemFlowLayout1.Visible = false;
+        }
+
+        /// <summary>
+        /// nastavi kreslici objekty v editoru na jejich asociovane objekty, potrebuji-li to (napr. CustomObject)
+        /// </summary>
+        public void InitForRaytracer()
+        {
+            foreach (DrawingObject drOb in _objectsToDraw)
+            {
+                drOb.InitForRaytracer();
+            }
         }
 
         
