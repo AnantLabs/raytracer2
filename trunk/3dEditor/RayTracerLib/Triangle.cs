@@ -40,15 +40,11 @@ namespace RayTracerLib
         Vektor AB, AC;
 
         public Triangle() : this(new Vektor(1, 0, 0), new Vektor(0, 1, 0), new Vektor(0, 0, 1)) { }
-
-        public Triangle(Vertex a, Vertex b, Vertex c)
+        public Triangle(Vertex a, Vertex b, Vertex c) : this(a, b, c, new Material()) { }
+        public Triangle(Vertex a, Vertex b, Vertex c, Material mat)
         {
-            Vertices = new Vertex[3] { new Vertex(), new Vertex(), new Vertex() };
-            A.AddFace(this);
-            B.AddFace(this);
-            C.AddFace(this);
             Set(a, b, c);
-            this.Material = new Material();
+            this.Material = mat;
         }
         public Triangle(Vektor a, Vektor b, Vektor c)
         {
@@ -71,13 +67,14 @@ namespace RayTracerLib
             
 
             AB = B - A;
-            AB.Normalize();
+            //AB.Normalize();
             AC = C - A;
-            AC.Normalize();
+            //AC.Normalize();
             Norm = Vektor.CrossProduct(AB, AC);
             Norm.Normalize();
             _ShiftMatrix = Matrix3D.Identity;
             _RotatMatrix = Matrix3D.Identity;
+            SetTempValues();
         }
 
         public void Set(Vertex a, Vertex b, Vertex c)
@@ -89,44 +86,37 @@ namespace RayTracerLib
             C.AddFace(this);
 
             AB = B - A;
-            AB.Normalize();
+            //AB.Normalize();
             AC = C - A;
-            AC.Normalize();
+            //AC.Normalize();
             Norm = Vektor.CrossProduct(AB, AC);
             Norm.Normalize();
             _ShiftMatrix = Matrix3D.Identity;
             _RotatMatrix = Matrix3D.Identity;
+            SetTempValues();
         }
 
+        Vektor _v0, _v1;
+        double _dot00, _dot01, _dot11, _invDelitel;
 
         /// <summary>
-        /// prunik paprsku s rovinou
-        /// vrati bod lezici na rovine trojuhelniku
-        /// bod muze lezet kdekoli na cele rovine - nemusi byt uvnitr trojuhelniku
+        /// predspocitane hodnoty, aby byl vypocet pruniku s paprskem rychlejsi
         /// </summary>
-        /// <param name="P0">pocatek paprsku</param>
-        /// <param name="Pd">smer paprsku</param>
-        /// <returns>bod pruniku, nebo NULL</returns>
-        private Vektor GetPointOnThisPlane(Vektor P0, Vektor Pd)
+        private void SetTempValues()
         {
-            Vektor point = null;
+            _v0 = AC;
+            _v1 = AB;
 
-            Vektor u = C - P0; // vektor z P0 do C
-            double n_v = Norm * Pd;
-            if (Math.Abs(n_v) < MyMath.EPSILON) return point; // rovnobezne, nebo splyvaji
-            double n_u = Norm * u;
-            double alfa = n_u / n_v;
-            if (alfa < MyMath.EPSILON) return point;  // paprsek neprotina rovinu trojuhelniku
-            point = P0 + Pd * alfa;
-            return point;            
+            _dot00 = _v0 * _v0;
+            _dot01 = _v0 * _v1;
+            _dot11 = _v1 * _v1;
+            _invDelitel = 1 / (_dot00 * _dot11 - _dot01 * _dot01);
         }
-
-
 
         public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
         {
-            Vektor w1 = AB;
-            Vektor w2 = AC;
+            if (!IsActive) return false;
+
             Vektor u = A - P0; // vektor z P0 do C
 
             double n_v = Norm * Pd;
@@ -138,27 +128,20 @@ namespace RayTracerLib
             // ted vime, ze paprsek protina rovinu
             // musime zjistit, zda bod lezi uvnitr trojuhelniku
             Vektor Pi = P0 + Pd * alfa;
-
-            Vektor v0 = C - A;
-            Vektor v1 = B - A;
             Vektor v2 = Pi - A;
 
-            double dot00 = v0 * v0;
-            double dot01 = v0 * v1;
-            double dot02 = v0 * v2;
-            double dot11 = v1 * v1;
-            double dot12 = v1 * v2;
+            double dot02 = _v0 * v2;
+            double dot12 = _v1 * v2;
 
-            double invDenom = 1 / (dot00 * dot11 - dot01 * dot01);
-            double uB = (dot11 * dot02 - dot01 * dot12) * invDenom;
-            double vB = (dot00 * dot12 - dot01 * dot02) * invDenom;
+            double uB = (_dot11 * dot02 - _dot01 * dot12) * _invDelitel;
+            double vB = (_dot00 * dot12 - _dot01 * dot02) * _invDelitel;
             double wB = 1 - uB - vB;
 
-            if (uB < 0 || vB < 0 || uB + vB > 1) return false;
+            if (uB < 0 || vB < 0 || uB + vB > 1) return false;      // bod uvnitr trojuhelniku
 
-            A.Normal = Norm * -1;
-            B.Normal = Norm * -1;
-            C.Normal = Norm * -1;
+            //A.Normal = Norm * -1;
+            //B.Normal = Norm * -1;
+            //C.Normal = Norm * -1;
             // P = C*u + B*v + A*w      ... procentualni nastaveni noveho vektoru
             Vektor interpVec = C.Normal * uB + B.Normal * vB + A.Normal * wB;
             interpVec.Normalize();
@@ -174,6 +157,40 @@ namespace RayTracerLib
             InterPoint.Add(sp);
             return true;
         }
+        /*
+         *             if (!IsActive) return false;
+
+            Vektor u = A - P0; // vektor z P0 do C
+
+            double n_v = Norm * Pd;
+            if (Math.Abs(n_v) < MyMath.EPSILON) return false; // rovnobezne, nebo splyvaji
+            double n_u = Norm * u;
+            double alfa = n_u / n_v;
+            if (alfa < MyMath.EPSILON) return false;  // paprsek neprotina rovinu trojuhelniku
+
+            // ted vime, ze paprsek protina rovinu
+            // musime zjistit, zda bod lezi uvnitr trojuhelniku
+            Vektor Pi = P0 + Pd * alfa;
+
+            Vektor v0 = C - A;
+            v0 = AC;
+            Vektor v1 = B - A;
+            v1 = AB;
+            Vektor v2 = Pi - A;
+
+            double dot00 = v0 * v0;
+            double dot01 = v0 * v1;
+            double dot02 = v0 * v2;
+            double dot11 = v1 * v1;
+            double dot12 = v1 * v2;
+
+            double invDenom = 1 / (dot00 * dot11 - dot01 * dot01);
+            double uB = (dot11 * dot02 - dot01 * dot12) * invDenom;
+            double vB = (dot00 * dot12 - dot01 * dot02) * invDenom;
+            double wB = 1 - uB - vB;
+
+            if (uB < 0 || vB < 0 || uB + vB > 1) return false;      // bod uvnitr trojuhelniku
+         * */
         public  bool Intersects2(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
         {
             Vektor w1 = AB;
@@ -235,6 +252,29 @@ namespace RayTracerLib
             Vektor interpVec = C.Normal * u + B.Normal * v + A.Normal * w;
 
             return interpVec;
+        }
+
+
+        /// <summary>
+        /// prunik paprsku s rovinou
+        /// vrati bod lezici na rovine trojuhelniku
+        /// bod muze lezet kdekoli na cele rovine - nemusi byt uvnitr trojuhelniku
+        /// </summary>
+        /// <param name="P0">pocatek paprsku</param>
+        /// <param name="Pd">smer paprsku</param>
+        /// <returns>bod pruniku, nebo NULL</returns>
+        private Vektor GetPointOnThisPlane(Vektor P0, Vektor Pd)
+        {
+            Vektor point = null;
+
+            Vektor u = C - P0; // vektor z P0 do C
+            double n_v = Norm * Pd;
+            if (Math.Abs(n_v) < MyMath.EPSILON) return point; // rovnobezne, nebo splyvaji
+            double n_u = Norm * u;
+            double alfa = n_u / n_v;
+            if (alfa < MyMath.EPSILON) return point;  // paprsek neprotina rovinu trojuhelniku
+            point = P0 + Pd * alfa;
+            return point;
         }
 
         public override void Move(double dx, double dy, double dz)

@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Animation.cs" />
+    <Compile Include="BoundingVolume.cs" />
     <Compile Include="Box.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Colour.cs" />
@@ -90,6 +91,10 @@
     <Compile Include="CustomObject.cs" />
     <Compile Include="Cylinder.cs" />
     <Compile Include="DefaultShape.cs" />
+    <Compile Include="IOptimize.cs" />
+    <Compile Include="NaiveRaytracing.cs" />
+    <Compile Include="Octree.cs" />
+    <Compile Include="Optimalizer.cs" />
     <Compile Include="RayImage.cs" />
     <Compile Include="Light.cs" />
     <Compile Include="Material.cs" />

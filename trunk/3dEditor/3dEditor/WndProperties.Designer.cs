@@ -114,12 +114,11 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.panelImage = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelOptimGroup = new System.Windows.Forms.Panel();
             this.imgRadioOptLocalMatrices = new System.Windows.Forms.RadioButton();
             this.imgRadioOptThreading = new System.Windows.Forms.RadioButton();
             this.imgRadioOptAABBTree = new System.Windows.Forms.RadioButton();
-            this.imgRadioOptQuadTree = new System.Windows.Forms.RadioButton();
-            this.imgRadioOptNone = new System.Windows.Forms.RadioButton();
+            this.imgRadioOptOctTree = new System.Windows.Forms.RadioButton();
             this.checkOptimize = new System.Windows.Forms.CheckBox();
             this.btnImageBgr = new System.Windows.Forms.Button();
             this.label121 = new System.Windows.Forms.Label();
@@ -443,6 +442,7 @@
             this.label202 = new System.Windows.Forms.Label();
             this.label203 = new System.Windows.Forms.Label();
             this.panelCustomObj = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.chbCustFilled = new System.Windows.Forms.CheckBox();
             this.txtbCustomLabel = new System.Windows.Forms.TextBox();
             this.label150 = new System.Windows.Forms.Label();
@@ -507,7 +507,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericKouleZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericKouleY)).BeginInit();
             this.panelImage.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.panelOptimGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericRecurs)).BeginInit();
             this.panelLight.SuspendLayout();
             this.panelSoftPasses.SuspendLayout();
@@ -1945,7 +1945,7 @@
             // panelImage
             // 
             this.panelImage.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
-            this.panelImage.Controls.Add(this.panel2);
+            this.panelImage.Controls.Add(this.panelOptimGroup);
             this.panelImage.Controls.Add(this.checkOptimize);
             this.panelImage.Controls.Add(this.btnImageBgr);
             this.panelImage.Controls.Add(this.label121);
@@ -1964,65 +1964,57 @@
             this.panelImage.Size = new System.Drawing.Size(372, 315);
             this.panelImage.TabIndex = 61;
             // 
-            // panel2
+            // panelOptimGroup
             // 
-            this.panel2.BackColor = System.Drawing.Color.Transparent;
-            this.panel2.Controls.Add(this.imgRadioOptLocalMatrices);
-            this.panel2.Controls.Add(this.imgRadioOptThreading);
-            this.panel2.Controls.Add(this.imgRadioOptAABBTree);
-            this.panel2.Controls.Add(this.imgRadioOptQuadTree);
-            this.panel2.Controls.Add(this.imgRadioOptNone);
-            this.panel2.Location = new System.Drawing.Point(16, 108);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(302, 128);
-            this.panel2.TabIndex = 76;
+            this.panelOptimGroup.BackColor = System.Drawing.Color.Transparent;
+            this.panelOptimGroup.Controls.Add(this.imgRadioOptLocalMatrices);
+            this.panelOptimGroup.Controls.Add(this.imgRadioOptThreading);
+            this.panelOptimGroup.Controls.Add(this.imgRadioOptAABBTree);
+            this.panelOptimGroup.Controls.Add(this.imgRadioOptOctTree);
+            this.panelOptimGroup.Location = new System.Drawing.Point(16, 108);
+            this.panelOptimGroup.Name = "panelOptimGroup";
+            this.panelOptimGroup.Size = new System.Drawing.Size(302, 128);
+            this.panelOptimGroup.TabIndex = 76;
             // 
             // imgRadioOptLocalMatrices
             // 
-            this.imgRadioOptLocalMatrices.Location = new System.Drawing.Point(6, 69);
+            this.imgRadioOptLocalMatrices.Location = new System.Drawing.Point(9, 49);
             this.imgRadioOptLocalMatrices.Name = "imgRadioOptLocalMatrices";
             this.imgRadioOptLocalMatrices.Size = new System.Drawing.Size(196, 17);
             this.imgRadioOptLocalMatrices.TabIndex = 81;
             this.imgRadioOptLocalMatrices.Text = "LocalMatrices";
             this.imgRadioOptLocalMatrices.UseVisualStyleBackColor = true;
+            this.imgRadioOptLocalMatrices.CheckedChanged += new System.EventHandler(this.OptimizeRadioChanged);
             // 
             // imgRadioOptThreading
             // 
-            this.imgRadioOptThreading.Location = new System.Drawing.Point(6, 91);
+            this.imgRadioOptThreading.Location = new System.Drawing.Point(9, 71);
             this.imgRadioOptThreading.Name = "imgRadioOptThreading";
             this.imgRadioOptThreading.Size = new System.Drawing.Size(196, 17);
             this.imgRadioOptThreading.TabIndex = 80;
             this.imgRadioOptThreading.Text = "Threading";
             this.imgRadioOptThreading.UseVisualStyleBackColor = true;
+            this.imgRadioOptThreading.CheckedChanged += new System.EventHandler(this.OptimizeRadioChanged);
             // 
             // imgRadioOptAABBTree
             // 
-            this.imgRadioOptAABBTree.Location = new System.Drawing.Point(6, 26);
+            this.imgRadioOptAABBTree.Location = new System.Drawing.Point(9, 6);
             this.imgRadioOptAABBTree.Name = "imgRadioOptAABBTree";
             this.imgRadioOptAABBTree.Size = new System.Drawing.Size(196, 17);
             this.imgRadioOptAABBTree.TabIndex = 79;
             this.imgRadioOptAABBTree.Text = "AABBTree";
             this.imgRadioOptAABBTree.UseVisualStyleBackColor = true;
+            this.imgRadioOptAABBTree.CheckedChanged += new System.EventHandler(this.OptimizeRadioChanged);
             // 
-            // imgRadioOptQuadTree
+            // imgRadioOptOctTree
             // 
-            this.imgRadioOptQuadTree.Location = new System.Drawing.Point(6, 47);
-            this.imgRadioOptQuadTree.Name = "imgRadioOptQuadTree";
-            this.imgRadioOptQuadTree.Size = new System.Drawing.Size(196, 17);
-            this.imgRadioOptQuadTree.TabIndex = 78;
-            this.imgRadioOptQuadTree.Text = "QuadTree";
-            this.imgRadioOptQuadTree.UseVisualStyleBackColor = true;
-            // 
-            // imgRadioOptNone
-            // 
-            this.imgRadioOptNone.Checked = true;
-            this.imgRadioOptNone.Location = new System.Drawing.Point(6, 5);
-            this.imgRadioOptNone.Name = "imgRadioOptNone";
-            this.imgRadioOptNone.Size = new System.Drawing.Size(196, 17);
-            this.imgRadioOptNone.TabIndex = 77;
-            this.imgRadioOptNone.TabStop = true;
-            this.imgRadioOptNone.Text = "None";
-            this.imgRadioOptNone.UseVisualStyleBackColor = true;
+            this.imgRadioOptOctTree.Location = new System.Drawing.Point(9, 27);
+            this.imgRadioOptOctTree.Name = "imgRadioOptOctTree";
+            this.imgRadioOptOctTree.Size = new System.Drawing.Size(196, 17);
+            this.imgRadioOptOctTree.TabIndex = 78;
+            this.imgRadioOptOctTree.Text = "Octree";
+            this.imgRadioOptOctTree.UseVisualStyleBackColor = true;
+            this.imgRadioOptOctTree.CheckedChanged += new System.EventHandler(this.OptimizeRadioChanged);
             // 
             // checkOptimize
             // 
@@ -2035,7 +2027,7 @@
             this.checkOptimize.TabIndex = 74;
             this.checkOptimize.Text = "Optimize";
             this.checkOptimize.UseVisualStyleBackColor = false;
-            this.checkOptimize.CheckedChanged += new System.EventHandler(this.actionImageSet);
+            this.checkOptimize.CheckedChanged += new System.EventHandler(this.actionImageOptimCheckChange);
             // 
             // btnImageBgr
             // 
@@ -6993,6 +6985,7 @@
             // panelCustomObj
             // 
             this.panelCustomObj.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelCustomObj.Controls.Add(this.button1);
             this.panelCustomObj.Controls.Add(this.chbCustFilled);
             this.panelCustomObj.Controls.Add(this.txtbCustomLabel);
             this.panelCustomObj.Controls.Add(this.label150);
@@ -7028,6 +7021,16 @@
             this.panelCustomObj.Name = "panelCustomObj";
             this.panelCustomObj.Size = new System.Drawing.Size(417, 343);
             this.panelCustomObj.TabIndex = 65;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(27, 88);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(61, 23);
+            this.button1.TabIndex = 223;
+            this.button1.Text = "Reset";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.CustomReset);
             // 
             // chbCustFilled
             // 
@@ -7461,6 +7464,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1188, 778);
+            this.Controls.Add(this.panelImage);
             this.Controls.Add(this.panelCustomObj);
             this.Controls.Add(this.panelTriangle);
             this.Controls.Add(this.panelLight);
@@ -7468,7 +7472,6 @@
             this.Controls.Add(this.panelRovina);
             this.Controls.Add(this.panelCylindr);
             this.Controls.Add(this.panelCamera);
-            this.Controls.Add(this.panelImage);
             this.Controls.Add(this.panelBox);
             this.Controls.Add(this.panelAnimace);
             this.Controls.Add(this.panelSphere);
@@ -7515,7 +7518,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericKouleY)).EndInit();
             this.panelImage.ResumeLayout(false);
             this.panelImage.PerformLayout();
-            this.panel2.ResumeLayout(false);
+            this.panelOptimGroup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericRecurs)).EndInit();
             this.panelLight.ResumeLayout(false);
             this.panelLight.PerformLayout();
@@ -8078,11 +8081,10 @@
         private System.Windows.Forms.NumericUpDown numericConePeakY;
         private System.Windows.Forms.Label label202;
         private System.Windows.Forms.Label label203;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelOptimGroup;
         private System.Windows.Forms.RadioButton imgRadioOptThreading;
         private System.Windows.Forms.RadioButton imgRadioOptAABBTree;
-        private System.Windows.Forms.RadioButton imgRadioOptQuadTree;
-        private System.Windows.Forms.RadioButton imgRadioOptNone;
+        private System.Windows.Forms.RadioButton imgRadioOptOctTree;
         private System.Windows.Forms.RadioButton imgRadioOptLocalMatrices;
         private System.Windows.Forms.NumericUpDown numericKameraAngle;
         private System.Windows.Forms.TextBox txtbAnimLabel;
@@ -8125,6 +8127,7 @@
         private System.Windows.Forms.Label label222;
         private System.Windows.Forms.Label label223;
         private System.Windows.Forms.CheckBox chbCustFilled;
+        private System.Windows.Forms.Button button1;
 
     }
 }

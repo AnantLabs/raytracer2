@@ -49,7 +49,68 @@ namespace RayTracerLib
             _ShiftMatrix = Matrix3D.PosunutiNewMatrix(0, 0, 0);
         }
 
-        public void SetCenter(Vektor center)
+        private static Vertex Searching;
+        private static bool VertexPredicate(Vertex vec)
+        {
+            if (vec.X == Searching.X && vec.Y == Searching.Y && vec.Z == Searching.Z)
+                return true;
+            else return false;
+        }
+        public CustomObject(List<Triangle> triangList)
+        {
+            IsActive = true;
+            this.Material = new Material();
+            InitializeForRayTr(triangList);
+        }
+
+        public void InitializeForRayTr()
+        {
+            this.InitializeForRayTr(this.FaceList);
+        }
+        public void InitializeForRayTr(List<Triangle> triangList)
+        {
+            this.SetFromTriangles(triangList);
+            SetCenter(this.Center);
+        }
+        private void SetFromTriangles(List<Triangle> triangList)
+        {
+            VertexList = new List<Vertex>();
+            FaceList = new List<Triangle>();
+
+            foreach (Triangle tr in triangList)
+            {
+                Vertex a = new Vertex((Vektor)tr.A);
+                Searching = a;
+                Vertex found = VertexList.Find(VertexPredicate);
+                if (found != null)
+                    a = found;
+                else
+                    VertexList.Add(a);
+
+                Vertex b = new Vertex((Vektor)tr.B);
+                Searching = b;
+                found = VertexList.Find(VertexPredicate);
+                if (found != null)
+                    b = found;
+                else
+                    VertexList.Add(b);
+
+                Vertex c = new Vertex((Vektor)tr.C);
+                Searching = c;
+                found = VertexList.Find(VertexPredicate);
+                if (found != null)
+                    c = found;
+                else
+                    VertexList.Add(c);
+                Triangle face = new Triangle(a, b, c, tr.Material);
+                FaceList.Add(face);
+            }
+        }
+        /// <summary>
+        /// HLAVNI METODA NASTAVENI normal objektu
+        /// </summary>
+        /// <param name="center"></param>
+        private void SetCenter(Vektor center)
         {
             Center = center;
             // zmen orientaci normal vsech trojuhelniku podle stredu
@@ -94,7 +155,15 @@ namespace RayTracerLib
 
         public override bool Intersects(Mathematics.Vektor P0, Mathematics.Vektor Pd, ref List<SolidPoint> InterPoint)
         {
-            throw new NotImplementedException();
+            if (!IsActive) return false;
+
+            bool result = false;
+            foreach (Triangle tr in FaceList)
+            {
+                bool res = tr.Intersects(P0, Pd, ref InterPoint);
+                if (!result && res) result = true;
+            }
+            return result;
         }
 
         public override void Move(double dx, double dy, double dz)

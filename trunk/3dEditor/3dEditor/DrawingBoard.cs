@@ -351,9 +351,9 @@ namespace _3dEditor
             string antialias = _rayImg.IsAntialiasing? "YES" : "NO";
             string optimal = _rayImg.IsOptimalizing? "YES" : "NO";
             int recurse = _rayImg.MaxRecurse;
-
+            ulong numInters = _rayTracer.RScene.GetTotalIntersections();
             AboutBoxInfo form = new AboutBoxInfo();
-            form.Set(_rayImg.MaxRecurse, _rayImg.IsAntialiasing, _rayImg.IsOptimalizing, _rayImg.CurrentSize);
+            form.Set(_rayImg.MaxRecurse, _rayImg.IsAntialiasing, _rayImg.OptimizType.ToString(), _rayImg.CurrentSize, numInters);
             form.ShowDialog();
             //MessageBox.Show("Recursion: " + recurse + "\n" + "Antialiasing: " + antialias + "\n" + "Optimization: " + optimal);
         }

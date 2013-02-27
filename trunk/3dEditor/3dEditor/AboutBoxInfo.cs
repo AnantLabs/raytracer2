@@ -18,12 +18,13 @@ namespace _3dEditor
             InitializeComponent();
         }
 
-        public void Set(int recurse, bool isAntialias, bool isOptim, Size size)
+        public void Set(int recurse, bool isAntialias, String optimaliz, Size size, ulong totalInters)
         {
             this.labelAntialias.Text += isAntialias ? "YES" : "NO";
-            this.labelOptimize.Text += isOptim ? "YES" : "NO";
+            this.labelOptimize.Text += optimaliz;
             this.labelRecurse.Text += recurse.ToString();
             this.labelSize.Text += size.Width.ToString() + " x " + size.Height.ToString();
+            this.labelTotalInters.Text += totalInters.ToString();
         }
 
     }

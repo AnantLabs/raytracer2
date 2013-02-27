@@ -28,6 +28,7 @@ namespace RayTracerLib
         public const int SizeHeightExtent = 60;
         private RayImage _rayImg;
 
+        public Optimalizer.OptimizeType OptimizType { get; set; }
         /// <summary>
         /// Aktualne vybrany index rozliseni
         /// </summary>
@@ -89,6 +90,7 @@ namespace RayTracerLib
             this.MaxRecurse = old.MaxRecurse;
             this.IsAntialiasing = old.IsAntialiasing;
             this.IsOptimalizing = old.IsOptimalizing;
+            this.OptimizType = old.OptimizType;
         }
 
         public override string ToString()

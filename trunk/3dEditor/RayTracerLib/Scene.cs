@@ -48,9 +48,14 @@ namespace RayTracerLib
         public RTree R_Tree { get; private set; }
         public bool IsOptimizing { get; set; }
 
-        public enum OptimizeType { None, AABBTree, QuadTree, LocalMatrices, Threading };
+        private Optimalizer Optimaliz;
 
         private string _caption;
+
+        /// <summary>
+        /// celkovy pocet vsech pruniku paprsku s objekty ve scene
+        /// </summary>
+        private static ulong totalInters = 0;
 
         /// <summary>
         /// nazev/popisek sceny
@@ -118,6 +123,7 @@ namespace RayTracerLib
                     SceneObjects.Add(ds);
                 }
             }
+            Optimaliz = old.Optimaliz;
         }
 
         /// <summary>
@@ -184,6 +190,17 @@ namespace RayTracerLib
                 Light l = (Light)itemToRemove;
                 this.Lights.Remove(l);
             }
+
+            else if (itemToRemove is Triangle)
+            {
+                Triangle tr = itemToRemove as Triangle;
+                this.SceneObjects.Remove(tr);
+            }
+            else if (itemToRemove is CustomObject)
+            {
+                CustomObject cust = itemToRemove as CustomObject;
+                this.SceneObjects.Remove(cust);
+            }
         }
         public void AddLight(Light l)
         {
@@ -204,6 +221,21 @@ namespace RayTracerLib
             BgColor = new Colour(0.2, 0.2, 0.2, 1);
         }
 
+        /// <summary>
+        /// zavolat pred spustenim raytraceru
+        /// </summary>
+        public void SetBeforeRayTr(RayImage rayimg)
+        {
+            Scene.totalInters = 0;
+            SetOptmimizer(rayimg.OptimizType);
+            BgColor = rayimg.BackgroundColor;
+            IsOptimizing = rayimg.IsOptimalizing;
+            if (this.Optimaliz == null) IsOptimizing = false;
+        }
+        private void SetOptmimizer(Optimalizer.OptimizeType optimType)
+        {
+            this.Optimaliz = new Optimalizer(optimType, this.SceneObjects);
+        }
 
         /// <summary>
         /// nastavi zakladni objekty ve scene
@@ -236,14 +268,16 @@ namespace RayTracerLib
             if (P0 == null || P1 == null)
                 return null;
 
+            
             List<SolidPoint> interSolids = new List<SolidPoint>();
 
             //P1.Normalize();
 
-            if (IsOptimizing)
-            {
-                if (R_Tree == null) this.SetRtree();
-                R_Tree.TestIntersection(P0, P1, ref interSolids);
+            //if (IsOptimizing)
+            //{
+                //if (R_Tree == null) this.SetRtree();
+                //R_Tree.TestIntersection(P0, P1, ref interSolids);
+                Optimaliz.Optimizer.Intersection(P0, P1, ref interSolids);
 
                 // rovina se do RStromu nepridava - nutno overit zlvast vsechny roviny
                 foreach (DefaultShape obj in this.SceneObjects)
@@ -251,19 +285,21 @@ namespace RayTracerLib
                     if (obj is Plane)
                         obj.Intersects(P0, P1, ref interSolids);
                 }
-            }
-            else
-            {
-                // pro kazdy objekt ve scene otestujeme, zda je protnut paprskem a zjistime body pruniku
-                foreach (DefaultShape obj in this.SceneObjects)
-                {
-                    obj.Intersects(P0, P1, ref interSolids);
-                }
-            }
+            //}
+            //else
+            //{
+            //    // pro kazdy objekt ve scene otestujeme, zda je protnut paprskem a zjistime body pruniku
+            //    foreach (DefaultShape obj in this.SceneObjects)
+            //    {
+            //        obj.Intersects(P0, P1, ref interSolids);
+            //    }
+            //}
 
             // paprsek neprotina zadny objekt ve scene:
             if (interSolids.Count == 0)
                 return null;
+
+            Scene.totalInters = Scene.totalInters + (uint)interSolids.Count;
 
             if (interSolids.Count > 1)
                 interSolids.Sort();
@@ -288,8 +324,8 @@ namespace RayTracerLib
 
             if (IsOptimizing)
             {
-                R_Tree.TestIntersection(P0, P1, ref interSolids);
-
+                //R_Tree.TestIntersection(P0, P1, ref interSolids);
+                Optimaliz.Optimizer.Intersection(P0, P1, ref interSolids);
                 if (interSolids.Count == 0)
                 {
 
@@ -804,6 +840,11 @@ namespace RayTracerLib
 
 
 
+
         
+        public ulong GetTotalIntersections()
+        {
+            return totalInters;
+        }
     }
 }

@@ -160,7 +160,7 @@ namespace _3dEditor
 
             _rayTracer.RScene.Lights[0].Coord = new Vektor(-4.2, 2.1, 0.6);
             _rayTracer.RScene.Lights[1].Coord = new Vektor(5.5, -0.4, 2.2);
-            _rayTracer.RCamera.Source = new Vektor(0, 0, 3);
+            _rayTracer.RCamera.Source = new Vektor(5.6, -1.7, 1.8);
             _rayTracer.RCamera.SetNormAndUp(new Vektor(-1, 0.3, -0.3), new Vektor(0, -0.1, -0.5));
             _rayTracer.RScene.SceneObjects.Add(sph1);
             //_rayTracer.RScene.SceneObjects.Add(sph2);
@@ -188,7 +188,10 @@ namespace _3dEditor
 
             DrawingAnimation drAnim = new DrawingAnimation();
             //this._WndBoard.AddAnimation(drAnim);
-            
+
+            Octree octree = new Octree(_rayTracer.RScene.SceneObjects);
+   
+
         }
 
         private void onMDIChildActivate(object sender, EventArgs e)
@@ -276,8 +279,9 @@ namespace _3dEditor
 
         private void BtnDraw_Click(object sender, EventArgs e)
         {
+            _WndBoard.InitForRaytracer();
             RayImage img = _WndScene.GetSelectedImage();
-            _rayTracer.RScene.BgColor = img.BackgroundColor;
+            _rayTracer.RScene.SetBeforeRayTr(img);
             DrawingBoard form = new DrawingBoard();
             form.Size = new Size(img.CurrentSize.Width + RayImage.SizeWidthExtent, img.CurrentSize.Height + RayImage.SizeHeightExtent);
             form.Set(new RayTracing(_rayTracer), new RayImage(img));
