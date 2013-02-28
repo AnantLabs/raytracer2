@@ -155,7 +155,6 @@ namespace _3dEditor
             Cone cone4 = new Cone(new Vektor(0, 3, -3), new Vektor(0.0001, -1, 0), 0.8, 3);
             Cone cone5 = new Cone(new Vektor(0, -3, -3), new Vektor(0, 1, 0), 0.8, 3);
 
-
             _rayTracer.RScene.SceneObjects.Clear();
 
             _rayTracer.RScene.Lights[0].Coord = new Vektor(-4.2, 2.1, 0.6);
@@ -283,8 +282,10 @@ namespace _3dEditor
             RayImage img = _WndScene.GetSelectedImage();
             _rayTracer.RScene.SetBeforeRayTr(img);
             DrawingBoard form = new DrawingBoard();
+            DefaultShape.TotalTested = 0;
             form.Size = new Size(img.CurrentSize.Width + RayImage.SizeWidthExtent, img.CurrentSize.Height + RayImage.SizeHeightExtent);
             form.Set(new RayTracing(_rayTracer), new RayImage(img));
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
             form.Show();
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Mathematics;
+using System.Threading;
 
 namespace RayTracerLib
 {
@@ -110,6 +111,8 @@ namespace RayTracerLib
         {
             if (!IsActive)
                 return false;
+
+            Interlocked.Increment(ref DefaultShape.TotalTested);
 
             Vektor normal = DirNom;
             Pd.Normalize();

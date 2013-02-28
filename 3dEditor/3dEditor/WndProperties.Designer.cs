@@ -115,7 +115,7 @@
             this.label19 = new System.Windows.Forms.Label();
             this.panelImage = new System.Windows.Forms.Panel();
             this.panelOptimGroup = new System.Windows.Forms.Panel();
-            this.imgRadioOptLocalMatrices = new System.Windows.Forms.RadioButton();
+            this.imgRadioOptKdtree = new System.Windows.Forms.RadioButton();
             this.imgRadioOptThreading = new System.Windows.Forms.RadioButton();
             this.imgRadioOptAABBTree = new System.Windows.Forms.RadioButton();
             this.imgRadioOptOctTree = new System.Windows.Forms.RadioButton();
@@ -1967,7 +1967,7 @@
             // panelOptimGroup
             // 
             this.panelOptimGroup.BackColor = System.Drawing.Color.Transparent;
-            this.panelOptimGroup.Controls.Add(this.imgRadioOptLocalMatrices);
+            this.panelOptimGroup.Controls.Add(this.imgRadioOptKdtree);
             this.panelOptimGroup.Controls.Add(this.imgRadioOptThreading);
             this.panelOptimGroup.Controls.Add(this.imgRadioOptAABBTree);
             this.panelOptimGroup.Controls.Add(this.imgRadioOptOctTree);
@@ -1976,15 +1976,15 @@
             this.panelOptimGroup.Size = new System.Drawing.Size(302, 128);
             this.panelOptimGroup.TabIndex = 76;
             // 
-            // imgRadioOptLocalMatrices
+            // imgRadioOptKdtree
             // 
-            this.imgRadioOptLocalMatrices.Location = new System.Drawing.Point(9, 49);
-            this.imgRadioOptLocalMatrices.Name = "imgRadioOptLocalMatrices";
-            this.imgRadioOptLocalMatrices.Size = new System.Drawing.Size(196, 17);
-            this.imgRadioOptLocalMatrices.TabIndex = 81;
-            this.imgRadioOptLocalMatrices.Text = "LocalMatrices";
-            this.imgRadioOptLocalMatrices.UseVisualStyleBackColor = true;
-            this.imgRadioOptLocalMatrices.CheckedChanged += new System.EventHandler(this.OptimizeRadioChanged);
+            this.imgRadioOptKdtree.Location = new System.Drawing.Point(9, 49);
+            this.imgRadioOptKdtree.Name = "imgRadioOptKdtree";
+            this.imgRadioOptKdtree.Size = new System.Drawing.Size(196, 17);
+            this.imgRadioOptKdtree.TabIndex = 81;
+            this.imgRadioOptKdtree.Text = "LocalMatrices";
+            this.imgRadioOptKdtree.UseVisualStyleBackColor = true;
+            this.imgRadioOptKdtree.CheckedChanged += new System.EventHandler(this.OptimizeRadioChanged);
             // 
             // imgRadioOptThreading
             // 
@@ -8085,7 +8085,7 @@
         private System.Windows.Forms.RadioButton imgRadioOptThreading;
         private System.Windows.Forms.RadioButton imgRadioOptAABBTree;
         private System.Windows.Forms.RadioButton imgRadioOptOctTree;
-        private System.Windows.Forms.RadioButton imgRadioOptLocalMatrices;
+        private System.Windows.Forms.RadioButton imgRadioOptKdtree;
         private System.Windows.Forms.NumericUpDown numericKameraAngle;
         private System.Windows.Forms.TextBox txtbAnimLabel;
         private System.Windows.Forms.TextBox txtbSphereLabel;

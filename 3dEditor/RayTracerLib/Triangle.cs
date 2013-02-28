@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Mathematics;
+using System.Threading;
 
 namespace RayTracerLib
 {
@@ -116,6 +117,7 @@ namespace RayTracerLib
         public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
         {
             if (!IsActive) return false;
+            Interlocked.Increment(ref DefaultShape.TotalTested);
 
             Vektor u = A - P0; // vektor z P0 do C
 

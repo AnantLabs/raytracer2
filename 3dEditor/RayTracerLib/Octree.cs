@@ -19,6 +19,7 @@ namespace RayTracerLib
         private int Depth = 0;
         private const double MIN_SIZE = 0.1;
         private const int MAX_DEPTH = 10;
+        private const int MAX_CAPACITY = 1;
 
         private OctNode() { }
         /// <summary>
@@ -58,6 +59,12 @@ namespace RayTracerLib
                 foreach (OctNode child in ChildList)
                     child.RecreateBoundingVolumes();
         }
+
+        /// <summary>
+        /// zkusi vlozit bod do uzlu. Bod musi lezet uvnitr bounding boxu
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns>TRUE, kdyz byl bod uspesne pridan</returns>
         public bool AddPoint(BoundingVolume point)
         {
             if (Boundary.Contains(point.Center))
@@ -71,7 +78,7 @@ namespace RayTracerLib
         public void Subdivide()
         {
             // uzel nerozdelime, kdyz
-            if (Points.Count < 2 ||     // pocet bodu v nem je mene nez 2
+            if (Points.Count <= MAX_CAPACITY ||     // pocet bodu v nem je mene nez 2
                 Size <= MIN_SIZE ||     // delka steny je mensi, nez povolene minimum
                 Depth >= MAX_DEPTH      // hloubka stromu je vetsi, nez povolene maximum
                 ) return;
@@ -165,7 +172,7 @@ namespace RayTracerLib
     }
     public class Octree : IOptimize
     {
-        public OctNode Root;
+        private OctNode Root;
 
         public Octree(List<DefaultShape> objects)
         {

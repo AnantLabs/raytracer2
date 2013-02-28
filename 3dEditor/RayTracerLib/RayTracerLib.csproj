@@ -92,6 +92,8 @@
     <Compile Include="Cylinder.cs" />
     <Compile Include="DefaultShape.cs" />
     <Compile Include="IOptimize.cs" />
+    <Compile Include="ISpatialPoint.cs" />
+    <Compile Include="KDTree.cs" />
     <Compile Include="NaiveRaytracing.cs" />
     <Compile Include="Octree.cs" />
     <Compile Include="Optimalizer.cs" />

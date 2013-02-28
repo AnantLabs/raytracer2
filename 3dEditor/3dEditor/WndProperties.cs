@@ -68,6 +68,8 @@ namespace _3dEditor
             imgRadioOptAABBTree.Tag = Optimalizer.OptimizeType.RTREE;
             imgRadioOptOctTree.Text = Enum.GetName(typeof(Optimalizer.OptimizeType), Optimalizer.OptimizeType.OCTREE);
             imgRadioOptOctTree.Tag = Optimalizer.OptimizeType.OCTREE;
+            imgRadioOptKdtree.Text = Enum.GetName(typeof(Optimalizer.OptimizeType), Optimalizer.OptimizeType.KDTREE);
+            imgRadioOptKdtree.Tag = Optimalizer.OptimizeType.KDTREE;
             SetAllInvisible();
             this.Text = "Properties";
         }
