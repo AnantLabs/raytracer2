@@ -21,6 +21,8 @@ namespace RayTracerLib
         public Matrix3D _RotatMatrix;
         public Matrix3D _ShiftMatrix;
 
+        public static long TotalTested;
+
         /// <summary>
         /// Materialove vlastnosti objektu
         /// </summary>

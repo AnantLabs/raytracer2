@@ -227,6 +227,7 @@ namespace RayTracerLib
         public void SetBeforeRayTr(RayImage rayimg)
         {
             Scene.totalInters = 0;
+            Cuboid.TotalTested = 0;
             SetOptmimizer(rayimg.OptimizType);
             BgColor = rayimg.BackgroundColor;
             IsOptimizing = rayimg.IsOptimalizing;

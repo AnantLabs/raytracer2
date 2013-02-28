@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Mathematics;
+using System.Threading;
 
 namespace RayTracerLib
 {
@@ -146,6 +147,8 @@ namespace RayTracerLib
         {
             if (!IsActive)
                 return false;
+
+            Interlocked.Increment(ref DefaultShape.TotalTested);
 
             // 1) spocitani pruniku s podstavami
             // rovina jedne podstavy: C*Norm = D

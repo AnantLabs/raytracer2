@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Mathematics;
+using System.Threading;
 
 namespace RayTracerLib
 {
@@ -16,6 +17,7 @@ namespace RayTracerLib
     * */
     public class Cuboid
     {
+        public static long TotalTested;
         /// <summary>
         /// uzel stromu, kteremu Cuboid nalezi
         /// </summary>
@@ -74,6 +76,11 @@ namespace RayTracerLib
             TestMinMax();
         }
 
+        /// <summary>
+        /// vytvori Cuboid obsahujici jen dany bod
+        /// </summary>
+        /// <param name="point"></param>
+        public Cuboid(Vektor point) : this(point, point) { }
         public Cuboid(Vektor minPoint, Vektor maxPoint)
         {
             MinPoint = new Vektor(minPoint);
@@ -213,6 +220,30 @@ namespace RayTracerLib
             return false;
         }
 
+        /// <summary>
+        /// rozsiri cuboid, aby obsahoval zadany bod
+        /// </summary>
+        /// <param name="point">bod, ktery bude obsazen v rozsirenem cuboidu</param>
+        public void EnlargeBy(Vektor point)
+        {
+            Xmin = Math.Min(Xmin, point.X);
+            Ymin = Math.Min(Ymin, point.Y);
+            Zmin = Math.Min(Zmin, point.Z);
+
+            Xmax = Math.Max(Xmax, point.X);
+            Ymax = Math.Max(Ymax, point.Y);
+            Zmax = Math.Max(Zmax, point.Z);
+        }
+        public static Cuboid CreateCuboid(ISpatialPoint[] points)
+        {
+            Cuboid cluster = new Cuboid(points[0].GetPoint());
+            foreach (ISpatialPoint point in points)
+            {
+                Vektor p = point.GetPoint();
+                cluster.EnlargeBy(p);
+            }
+            return cluster;
+        }
         /// <summary>
         /// k zadanemu objektu vytvori jeho obalku - CUBOID
         /// </summary>
@@ -370,6 +401,8 @@ namespace RayTracerLib
         /// <returns></returns>
         public bool IntersectsRay(Vektor P0, Vektor Pd)
         {
+            Interlocked.Increment(ref Cuboid.TotalTested);
+
             // pro kazdou osu overime prunik s paprskem
 
             byte osaFar = 0;

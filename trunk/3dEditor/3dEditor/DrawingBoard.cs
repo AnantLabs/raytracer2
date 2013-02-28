@@ -41,6 +41,10 @@ namespace _3dEditor
         /// </summary>
         Colour[,] _rawImgColours;
 
+        TimeSpan _timeDuration;
+        long _totalTestedObjects;
+        long _totalTestedCubes;
+
         public DrawingBoard()
         {
             InitializeComponent();
@@ -77,17 +81,19 @@ namespace _3dEditor
         private string GetStringTime(TimeSpan ts)
         {
             string time;
+            double ms = Math.Round(ts.Milliseconds / 100.0);
             if (ts.TotalHours > 1)
             {
-                time = String.Format("{0}h, {1}m", Math.Floor(ts.TotalHours).ToString(), Math.Floor(ts.TotalMinutes).ToString());
+                time = String.Format("{0}h, {1}m,  {2}s", ts.Hours.ToString(), ts.Minutes.ToString(), ts.TotalSeconds.ToString());
             }
             else if (ts.TotalMinutes > 1)
             {
-                time = String.Format("{0}m, {1}s", Math.Floor(ts.TotalMinutes).ToString(), ts.Seconds.ToString());
+                time = String.Format("{0}m, {1}s, {2}ms", ts.Minutes.ToString(), ts.Seconds.ToString(), ms.ToString());
             }
             else
             {
-                time = String.Format("{0}s", ts.Seconds.ToString());
+
+                time = String.Format("{0},{1}s", ts.Seconds.ToString(), ms.ToString());
             }
             return time;
         }
@@ -101,12 +107,14 @@ namespace _3dEditor
                 return;
             _bitmap = (Bitmap)e.Result;
             pictureBoard.Image = _bitmap;
-            TimeSpan duration = DateTime.Now -_startTime;
-            string time = GetStringTime(duration);
+            _timeDuration = DateTime.Now -_startTime;
+            string time = GetStringTime(_timeDuration);
 
             this.Text = String.Format("Done! {0}x{1} {2}Time: {3}", this.pictureBoard.Width, this.pictureBoard.Height,
                  _rayImg.IsAntialiasing ? "Antialias " : "", time);
             this.saveAsToolStripMenuItem.Enabled = true;
+            this._totalTestedObjects = DefaultShape.TotalTested;
+            this._totalTestedCubes = Cuboid.TotalTested;
         }
 
         /// <summary>
@@ -296,6 +304,8 @@ namespace _3dEditor
             {
                 Thread.Sleep(50);
             }
+            if (_childAboutBox != null)
+                _childAboutBox.Close();
         }
 
         private void OnCLosed(object sender, FormClosedEventArgs e)
@@ -346,16 +356,30 @@ namespace _3dEditor
             this.pictureBoard.Height = rayImg.CurrentSize.Height;
         }
 
+        public void AboutBoxClosed()
+        {
+            _IsShowedAboutBox = false;
+            _childAboutBox = null;
+        }
+        public bool _IsShowedAboutBox;
+        AboutBoxInfo _childAboutBox;
         private void infoDrawingBoard_Click(object sender, EventArgs e)
         {
+            if (_IsShowedAboutBox)
+            {
+                _childAboutBox.Location = new Point(this.Location.X + 30, this.Location.Y + 60);
+                _childAboutBox.Activate();
+                return;
+            } 
             string antialias = _rayImg.IsAntialiasing? "YES" : "NO";
             string optimal = _rayImg.IsOptimalizing? "YES" : "NO";
             int recurse = _rayImg.MaxRecurse;
             ulong numInters = _rayTracer.RScene.GetTotalIntersections();
-            AboutBoxInfo form = new AboutBoxInfo();
-            form.Set(_rayImg.MaxRecurse, _rayImg.IsAntialiasing, _rayImg.OptimizType.ToString(), _rayImg.CurrentSize, numInters);
-            form.ShowDialog();
-            //MessageBox.Show("Recursion: " + recurse + "\n" + "Antialiasing: " + antialias + "\n" + "Optimization: " + optimal);
+            _childAboutBox = new AboutBoxInfo();
+            _childAboutBox.Location = new Point(this.Location.X + 30, this.Location.Y + 60);
+            _childAboutBox.Set(this, _rayImg.MaxRecurse, _rayImg.IsAntialiasing, _rayImg.OptimizType.ToString(), _rayImg.CurrentSize, this._timeDuration, this._totalTestedObjects, this._totalTestedCubes);
+            _IsShowedAboutBox = true;
+            _childAboutBox.Show();
         }
     }
 }

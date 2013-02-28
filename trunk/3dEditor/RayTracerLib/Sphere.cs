@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Mathematics;
+using System.Threading;
 
 namespace RayTracerLib
 {
@@ -68,6 +69,8 @@ namespace RayTracerLib
             if (!IsActive)
                 return false;
 
+            Interlocked.Increment(ref DefaultShape.TotalTested);
+
             Vektor P0minusOrigin = P0 - Origin;
 
             Vektor Pd = new Vektor(P1);
@@ -89,7 +92,7 @@ namespace RayTracerLib
             double t0 = (-B - odmoc) / 2;
             double t1 = (-B + odmoc) / 2;
 
-            double jmenovatel = Math.Sqrt(discr) / 2;
+            double jmenovatel = odmoc / 2;
             //double t0 = (-B - jmenovatel);
             //double t1 = (-B + jmenovatel);
 
@@ -111,6 +114,9 @@ namespace RayTracerLib
             p2.Color = new Colour(this.Material.Color);
             p2.Material = this.Material;
             p2.Shape = this;
+
+
+            //t0 = Math.Max(t0, t1);
 
             //if (t0 > 0)
                 InterPoint.Add(p1);
