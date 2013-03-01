@@ -364,6 +364,16 @@ namespace _3dEditor
                 this.Text = "Properties: Triangle";
             }
 
+            if (_currentlyDisplayed is DrawingFacet)
+            {
+                this.btnTriangDivide.Visible = true;
+                this.btnTriangDelete.Visible = true;
+            }
+            else
+            {
+                this.btnTriangDivide.Visible = false;
+                this.btnTriangDelete.Visible = false;
+            }
             Triangle triangl = (Triangle)drTriangl.ModelObject;
 
             this.txtbTriangLabel.Text = drTriangl.Label;
@@ -1821,9 +1831,10 @@ namespace _3dEditor
                 _permissionToModify = false;
                 this.numTriangColR.Value = (decimal)col.R;
                 this.numTriangColG.Value = (decimal)col.G;
-                _permissionToModify = true;
                 this.numTriangColB.Value = (decimal)col.B;
+                _permissionToModify = true;
 
+                actionTriangleSet(sender, e);
                 Button btn = sender as Button;
                 btn.BackColor = colorDialog.Color;
             }
@@ -2080,6 +2091,8 @@ namespace _3dEditor
             {
                 DrawingCustom drCust = _currentlyDisplayed as DrawingCustom;
                 drCust.Reset();
+                WndBoard wnd = GetWndBoard();
+                wnd.RotationMatrix.TransformPoints(drCust.Points);
             }
         }
 
@@ -2107,6 +2120,32 @@ namespace _3dEditor
                 img.OptimizType = Optimalizer.OptimizeType.RTREE;
             }
             ShowImage(img);
+        }
+
+        private void OnTriangDivide(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed != null && _currentlyDisplayed is DrawingFacet)
+            {
+                DrawingFacet drFacet = _currentlyDisplayed as DrawingFacet;
+                WndBoard wnd = GetWndBoard();
+                //Matrix3D transp = wnd.RotationMatrix.Transpose();
+                //transp.TransformPoints(drFacet.DrCustObject.Points);
+                drFacet.Split(wnd.RotationMatrix);
+                wnd.RotationMatrix.TransformPoints(drFacet.DrCustObject.Points);
+            }
+        }
+
+        private void OnTriangDelete(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed != null && _currentlyDisplayed is DrawingFacet)
+            {
+                DrawingFacet drFacet = _currentlyDisplayed as DrawingFacet;
+                WndBoard wnd = GetWndBoard();
+                //Matrix3D transp = wnd.RotationMatrix.Transpose();
+                //transp.TransformPoints(drFacet.DrCustObject.Points);
+                drFacet.Delete(wnd.RotationMatrix);
+                wnd.RotationMatrix.TransformPoints(drFacet.DrCustObject.Points);
+            }
         }
         
 

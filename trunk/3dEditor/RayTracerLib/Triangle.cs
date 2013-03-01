@@ -306,5 +306,44 @@ namespace RayTracerLib
         {
             return;
         }
+
+        /// <summary>
+        /// rozdeli trojuhelnik na tri trojuhelniky a vrati dva nove.
+        /// Z puvodniho trojuhelniku se stane treti novy trojuhelnik.
+        /// </summary>
+        /// <returns>seznam 2 novych trojuhelniku</returns>
+        public List<Triangle> Split()
+        {
+            Vektor centerVektor = this.GetCenter();
+            Vertex cent = new Vertex(centerVektor);
+            // tri trojuhhelniky:
+
+            Triangle tr1 = new Triangle(A, B, cent, new Material(this.Material));
+            // 2) B, Cent, C
+            Triangle tr2 = new Triangle(cent, B, C, new Material(this.Material));
+            // 3) C, Cent, A
+            Triangle tr3 = new Triangle(A, cent, C, new Material(this.Material));
+            List<Triangle> trList = new List<Triangle>();
+            trList.Add(tr1);
+            trList.Add(tr2);
+            trList.Add(tr3);
+
+            // 1) A, Cent, B - bude tenhle trouhelnik
+            //this.Set(A, B, cent);
+
+            return trList;
+        }
+        /// <summary>
+        /// vrati teziste trojuhleniku
+        /// C = 1/3(A + B + C)
+        /// </summary>
+        /// <returns></returns>
+        public Vektor GetCenter()
+        {
+            double x = (A.X + B.X + C.X) / 3;
+            double y = (A.Y + B.Y + C.Y) / 3;
+            double z = (A.Z + B.Z + C.Z) / 3;
+            return new Vektor(Math.Round(x, 2), Math.Round(y, 2), Math.Round(z, 2));
+        }
     }
 }

@@ -474,6 +474,8 @@
             this.numCustomCenterY = new System.Windows.Forms.NumericUpDown();
             this.label222 = new System.Windows.Forms.Label();
             this.label223 = new System.Windows.Forms.Label();
+            this.btnTriangDivide = new System.Windows.Forms.Button();
+            this.btnTriangDelete = new System.Windows.Forms.Button();
             this.panelAnimace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).BeginInit();
@@ -5547,6 +5549,8 @@
             // panelTriangle
             // 
             this.panelTriangle.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelTriangle.Controls.Add(this.btnTriangDelete);
+            this.panelTriangle.Controls.Add(this.btnTriangDivide);
             this.panelTriangle.Controls.Add(this.txtbTriangLabel);
             this.panelTriangle.Controls.Add(this.label167);
             this.panelTriangle.Controls.Add(this.numTriangN);
@@ -7458,15 +7462,35 @@
             this.label223.TabIndex = 24;
             this.label223.Text = "Y:";
             // 
+            // btnTriangDivide
+            // 
+            this.btnTriangDivide.Location = new System.Drawing.Point(70, 87);
+            this.btnTriangDivide.Name = "btnTriangDivide";
+            this.btnTriangDivide.Size = new System.Drawing.Size(61, 23);
+            this.btnTriangDivide.TabIndex = 202;
+            this.btnTriangDivide.Text = "Divide";
+            this.btnTriangDivide.UseVisualStyleBackColor = true;
+            this.btnTriangDivide.Click += new System.EventHandler(this.OnTriangDivide);
+            // 
+            // btnTriangDelete
+            // 
+            this.btnTriangDelete.Location = new System.Drawing.Point(155, 87);
+            this.btnTriangDelete.Name = "btnTriangDelete";
+            this.btnTriangDelete.Size = new System.Drawing.Size(61, 23);
+            this.btnTriangDelete.TabIndex = 203;
+            this.btnTriangDelete.Text = "Delete";
+            this.btnTriangDelete.UseVisualStyleBackColor = true;
+            this.btnTriangDelete.Click += new System.EventHandler(this.OnTriangDelete);
+            // 
             // WndProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1188, 778);
+            this.Controls.Add(this.panelTriangle);
             this.Controls.Add(this.panelImage);
             this.Controls.Add(this.panelCustomObj);
-            this.Controls.Add(this.panelTriangle);
             this.Controls.Add(this.panelLight);
             this.Controls.Add(this.panelCone);
             this.Controls.Add(this.panelRovina);
@@ -8128,6 +8152,8 @@
         private System.Windows.Forms.Label label223;
         private System.Windows.Forms.CheckBox chbCustFilled;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnTriangDelete;
+        private System.Windows.Forms.Button btnTriangDivide;
 
     }
 }
