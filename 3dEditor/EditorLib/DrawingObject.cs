@@ -214,10 +214,9 @@ namespace EditorLib
         }
         #endregion
 
-        public virtual void InitForRaytracer()
+        public virtual void InitForRaytracer(Matrix3D rotMatrix)
         {
             return;
         }
-
     }
 }

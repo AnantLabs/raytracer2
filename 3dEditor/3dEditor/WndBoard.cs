@@ -558,6 +558,10 @@ namespace _3dEditor
                     Vektor[] points3;
                     PointF[] pointsF;
 
+                    PointF center = drCust.Center.To2D(_scale, _zoom, _centerPoint);
+                    g.DrawEllipse(_penObject, new RectangleF(center.X - 3, center.Y - 3, 6, 6));
+                    g.DrawEllipse(_penObject, new RectangleF(center.X - 2, center.Y - 2, 4, 4));
+
                     if (_Selected == obj)
                     {
                         _penObject.Color = Color.Black;
@@ -569,6 +573,7 @@ namespace _3dEditor
                         g.DrawLine(_penObject, a, b);
                     }
 
+                    
                     foreach (DrawingTriangle drTriang in drCust.DrawingFacesList)
                     {
                         points3 = drTriang.GetDrawingPoints();
@@ -699,6 +704,20 @@ namespace _3dEditor
                         continue;
                     EditorObject editorObject = new EditorObject(drLight);
                     GraphicsPath path = new GraphicsPath();
+
+                    PointF start, end;
+                    Pen p = new Pen(Brushes.Black, 3);
+                    if (_Selected == obj)
+                    {
+                        p.Width = 5;
+                    }
+                    foreach (Line3D line in drLight.Lines)
+                    {
+                        start = line.A.To2D(_scale, _zoom, _centerPoint);
+                        end = line.B.To2D(_scale, _zoom, _centerPoint);
+                        g.DrawLine(p, start, end);
+                        g.DrawLine(drLight.PenLight, start, end);
+                    }
 
                     a = drLight.Center.To2D(_scale, _zoom, _centerPoint);
                     float upperX = a.X - (float)(Properties.Resources.bulb_transp.Width / 2);
@@ -1940,7 +1959,7 @@ namespace _3dEditor
         {
             foreach (DrawingObject drOb in _objectsToDraw)
             {
-                drOb.InitForRaytracer();
+                drOb.InitForRaytracer(this.RotationMatrix);
             }
         }
 

@@ -122,5 +122,7 @@ namespace EditorLib
 
             _localMatrix = _RotatMatrix * _ShiftMatrix;
         }
+
+
     }
 }

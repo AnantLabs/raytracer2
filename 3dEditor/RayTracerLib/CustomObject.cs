@@ -58,6 +58,7 @@ namespace RayTracerLib
         }
         public CustomObject(List<Triangle> triangList)
         {
+            Center = new Vektor(1, 1, 1);
             IsActive = true;
             this.Material = new Material();
             InitializeForRayTr(triangList);
@@ -106,6 +107,7 @@ namespace RayTracerLib
                 FaceList.Add(face);
             }
         }
+
         /// <summary>
         /// HLAVNI METODA NASTAVENI normal objektu
         /// </summary>
@@ -126,7 +128,7 @@ namespace RayTracerLib
         {
             foreach (Triangle face in FaceList)
             {
-                Vektor v = face.A - Center;
+                Vektor v = face.GetCenter() - Center;
                 v.Normalize();
                 if (v * face.Norm < 0)
                     face.Norm.MultiplyBy(-1);

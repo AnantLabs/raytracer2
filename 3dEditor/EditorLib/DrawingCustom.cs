@@ -14,11 +14,11 @@ namespace EditorLib
         {
             get
             {
-                return Points[0];
+                return Points[Points.Length - 1];
             }
             set
             {
-                Points[0] = value;
+                Points[Points.Length - 1] = value;
             }
         }
 
@@ -46,6 +46,7 @@ namespace EditorLib
         /// </summary>
         public void SetModelObject(CustomObject custom)
         {
+            counter = 0;
             this.Set(custom);
         }
 
@@ -53,15 +54,21 @@ namespace EditorLib
         {
             this.SetModelObject(this.ModelObject);
         }
-        public override void InitForRaytracer()
+        public override void InitForRaytracer(Matrix3D rotMat)
         {
+            Matrix3D transp = rotMat.Transpose();
+            transp.TransformPoints(this.Points);
             CustomObject cust = ModelObject as CustomObject;
             List<Triangle> triangles = new List<Triangle>();
             foreach (DrawingTriangle drTr in DrawingFacesList)
             {
-                triangles.Add((Triangle)drTr.ModelObject);
+                Triangle tr = drTr.ModelObject as Triangle;
+                tr.Set(drTr.A, drTr.B, drTr.C);
+                triangles.Add(tr);
             }
+            cust.Center.Set(this.Center);
             cust.InitializeForRayTr(triangles);
+            rotMat.TransformPoints(this.Points);
         }
 
         private static Vektor Searching;
@@ -73,6 +80,8 @@ namespace EditorLib
         }
         private void Set(CustomObject custom)
         {
+            if (ModelObject != null)
+                this.ResetAll();
             this.ModelObject = custom;
 
             List<Vektor> vecs = new List<Vektor>();
@@ -82,7 +91,6 @@ namespace EditorLib
                 vecs.Add(new Vektor((Vektor)vert));
             }
 
-            Points = vecs.ToArray();
             this.Lines = new List<Line3D>();
             DrawingFacesList = new List<DrawingTriangle>();
             foreach (Triangle trian in custom.FaceList)
@@ -94,11 +102,11 @@ namespace EditorLib
                 Vektor b = (Vektor)trian.B;
                 Vektor c = (Vektor)trian.C;
                 Searching = a;
-                a = Array.Find(Points, VectorPredicate);
+                a = vecs.Find(VectorPredicate);
                 Searching = b;
-                b = Array.Find(Points, VectorPredicate);
+                b = vecs.Find(VectorPredicate);
                 Searching = c;
-                c = Array.Find(Points, VectorPredicate);
+                c = vecs.Find(VectorPredicate);
 
                 drTriang.SetVertices(a, b, c);
 
@@ -108,8 +116,9 @@ namespace EditorLib
                 Lines.Add(new Line3D(b, c));
                 Lines.Add(new Line3D(c, a));
             }
+            vecs.Add(new Vektor(custom.Center));
+            Points = vecs.ToArray();
 
-            
             //foreach (Triangle trian in custom.FaceList)
             //{
             //    DrawingTriangle drTriang = new DrawingFacet(trian, this);
@@ -120,6 +129,16 @@ namespace EditorLib
             _localMatrix = Matrix3D.Identity;
         }
 
+        private void ResetAll()
+        {
+            // zresetuje labely
+            foreach (DrawingFacet drFac in DrawingFacesList)
+            {
+                DrawingObject.labels.Remove(drFac.Label);
+            }
+            counter = 0;
+        }
+
         //public override void ApplyRotationMatrix(Matrix3D rotationMatrix)
         //{
         //    foreach (DrawingTriangle drTriang in DrawingFacesList)
@@ -128,7 +147,6 @@ namespace EditorLib
         //    }
         //    base.ApplyRotationMatrix(rotationMatrix);
         //}
-
 
         public override Vektor GetCenter()
         {
@@ -144,6 +162,7 @@ namespace EditorLib
                 drTr.SetMaterial(new Material(material));
             }
         }
+
 
         public override void Move(double moveX, double moveY, double moveZ)
         {
@@ -161,6 +180,51 @@ namespace EditorLib
             //{
             //    drTr.Move(moveX, moveY, moveZ);
             //}
+        }
+
+        public void AddDrawingTriangle(Triangle trian)
+        {
+            DrawingTriangle drTriang = new DrawingFacet(trian, this);
+
+
+            Vektor a = (Vektor)trian.A;
+            Vektor b = (Vektor)trian.B;
+            Vektor c = (Vektor)trian.C;
+
+            List<Vektor> vektors = new List<Vektor>(Points);
+
+            Searching = a;
+            a = Array.Find(Points, VectorPredicate);
+            if (a == null)      // a je novy vrchol
+            {
+                a = (Vektor)trian.A;
+                vektors.Add(a);
+            }
+            Searching = b;
+            b = Array.Find(Points, VectorPredicate);
+            if (b == null)
+            {
+                b = (Vektor)trian.B;
+                vektors.Add(b);
+            }
+            Searching = c;
+            c = Array.Find(Points, VectorPredicate);
+            if (c == null)
+            {
+                c = (Vektor)trian.C;
+                vektors.Add(c);
+            }
+
+            Points = vektors.ToArray();
+
+            drTriang.SetVertices(a, b, c);
+
+            DrawingFacesList.Add(drTriang);
+
+            Lines.Add(new Line3D(a, b));
+            Lines.Add(new Line3D(b, c));
+            Lines.Add(new Line3D(c, a));
+            
         }
 
         
