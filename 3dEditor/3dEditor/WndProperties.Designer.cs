@@ -476,6 +476,7 @@
             this.label223 = new System.Windows.Forms.Label();
             this.btnTriangDivide = new System.Windows.Forms.Button();
             this.btnTriangDelete = new System.Windows.Forms.Button();
+            this.label211 = new System.Windows.Forms.Label();
             this.panelAnimace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).BeginInit();
@@ -2601,6 +2602,7 @@
             // panelCamera
             // 
             this.panelCamera.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelCamera.Controls.Add(this.label211);
             this.panelCamera.Controls.Add(this.numericKameraAngle);
             this.panelCamera.Controls.Add(this.numericKamWidth);
             this.panelCamera.Controls.Add(this.label134);
@@ -2645,7 +2647,7 @@
             0,
             0,
             0});
-            this.numericKameraAngle.Location = new System.Drawing.Point(87, 91);
+            this.numericKameraAngle.Location = new System.Drawing.Point(115, 90);
             this.numericKameraAngle.Maximum = new decimal(new int[] {
             1360,
             0,
@@ -2683,7 +2685,7 @@
             // label134
             // 
             this.label134.AutoSize = true;
-            this.label134.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label134.BackColor = System.Drawing.Color.Transparent;
             this.label134.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label134.Location = new System.Drawing.Point(133, 158);
             this.label134.Name = "label134";
@@ -2713,7 +2715,7 @@
             // label133
             // 
             this.label133.AutoSize = true;
-            this.label133.BackColor = System.Drawing.Color.Gainsboro;
+            this.label133.BackColor = System.Drawing.Color.Transparent;
             this.label133.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label133.Location = new System.Drawing.Point(130, 136);
             this.label133.Name = "label133";
@@ -2743,7 +2745,7 @@
             // label132
             // 
             this.label132.AutoSize = true;
-            this.label132.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label132.BackColor = System.Drawing.Color.Transparent;
             this.label132.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label132.Location = new System.Drawing.Point(119, 114);
             this.label132.Name = "label132";
@@ -2754,7 +2756,7 @@
             // checkSide2
             // 
             this.checkSide2.AutoSize = true;
-            this.checkSide2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.checkSide2.BackColor = System.Drawing.Color.Transparent;
             this.checkSide2.Location = new System.Drawing.Point(14, 157);
             this.checkSide2.Name = "checkSide2";
             this.checkSide2.Size = new System.Drawing.Size(86, 17);
@@ -2766,7 +2768,7 @@
             // checkSide1
             // 
             this.checkSide1.AutoSize = true;
-            this.checkSide1.BackColor = System.Drawing.Color.Gainsboro;
+            this.checkSide1.BackColor = System.Drawing.Color.Transparent;
             this.checkSide1.Location = new System.Drawing.Point(14, 135);
             this.checkSide1.Name = "checkSide1";
             this.checkSide1.Size = new System.Drawing.Size(86, 17);
@@ -2778,7 +2780,7 @@
             // checkCross
             // 
             this.checkCross.AutoSize = true;
-            this.checkCross.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.checkCross.BackColor = System.Drawing.Color.Transparent;
             this.checkCross.Location = new System.Drawing.Point(14, 113);
             this.checkCross.Name = "checkCross";
             this.checkCross.Size = new System.Drawing.Size(82, 17);
@@ -2863,7 +2865,7 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label33.BackColor = System.Drawing.Color.Transparent;
             this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label33.Location = new System.Drawing.Point(268, 70);
             this.label33.Name = "label33";
@@ -2874,7 +2876,7 @@
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label34.BackColor = System.Drawing.Color.Transparent;
             this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label34.Location = new System.Drawing.Point(181, 70);
             this.label34.Name = "label34";
@@ -2885,7 +2887,7 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label35.BackColor = System.Drawing.Color.Transparent;
             this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label35.Location = new System.Drawing.Point(3, 69);
             this.label35.Name = "label35";
@@ -2970,7 +2972,7 @@
             // label100
             // 
             this.label100.AutoSize = true;
-            this.label100.BackColor = System.Drawing.Color.Gainsboro;
+            this.label100.BackColor = System.Drawing.Color.Transparent;
             this.label100.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label100.Location = new System.Drawing.Point(268, 49);
             this.label100.Name = "label100";
@@ -2981,7 +2983,7 @@
             // label105
             // 
             this.label105.AutoSize = true;
-            this.label105.BackColor = System.Drawing.Color.Gainsboro;
+            this.label105.BackColor = System.Drawing.Color.Transparent;
             this.label105.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label105.Location = new System.Drawing.Point(181, 49);
             this.label105.Name = "label105";
@@ -2992,7 +2994,7 @@
             // label107
             // 
             this.label107.AutoSize = true;
-            this.label107.BackColor = System.Drawing.Color.Gainsboro;
+            this.label107.BackColor = System.Drawing.Color.Transparent;
             this.label107.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label107.Location = new System.Drawing.Point(19, 47);
             this.label107.Name = "label107";
@@ -3003,7 +3005,7 @@
             // label108
             // 
             this.label108.AutoSize = true;
-            this.label108.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label108.BackColor = System.Drawing.Color.Transparent;
             this.label108.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label108.Location = new System.Drawing.Point(36, 24);
             this.label108.Name = "label108";
@@ -3033,7 +3035,7 @@
             // label109
             // 
             this.label109.AutoSize = true;
-            this.label109.BackColor = System.Drawing.Color.Gainsboro;
+            this.label109.BackColor = System.Drawing.Color.Transparent;
             this.label109.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label109.Location = new System.Drawing.Point(3, 2);
             this.label109.Name = "label109";
@@ -3098,7 +3100,7 @@
             // label111
             // 
             this.label111.AutoSize = true;
-            this.label111.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label111.BackColor = System.Drawing.Color.Transparent;
             this.label111.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label111.Location = new System.Drawing.Point(268, 26);
             this.label111.Name = "label111";
@@ -3109,7 +3111,7 @@
             // label112
             // 
             this.label112.AutoSize = true;
-            this.label112.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label112.BackColor = System.Drawing.Color.Transparent;
             this.label112.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label112.Location = new System.Drawing.Point(181, 26);
             this.label112.Name = "label112";
@@ -7482,20 +7484,31 @@
             this.btnTriangDelete.UseVisualStyleBackColor = true;
             this.btnTriangDelete.Click += new System.EventHandler(this.OnTriangDelete);
             // 
+            // label211
+            // 
+            this.label211.AutoSize = true;
+            this.label211.BackColor = System.Drawing.Color.Transparent;
+            this.label211.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label211.Location = new System.Drawing.Point(41, 92);
+            this.label211.Name = "label211";
+            this.label211.Size = new System.Drawing.Size(52, 16);
+            this.label211.TabIndex = 64;
+            this.label211.Text = "Angle:";
+            // 
             // WndProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1188, 778);
+            this.Controls.Add(this.panelCustomObj);
+            this.Controls.Add(this.panelCamera);
             this.Controls.Add(this.panelTriangle);
             this.Controls.Add(this.panelImage);
-            this.Controls.Add(this.panelCustomObj);
             this.Controls.Add(this.panelLight);
             this.Controls.Add(this.panelCone);
             this.Controls.Add(this.panelRovina);
             this.Controls.Add(this.panelCylindr);
-            this.Controls.Add(this.panelCamera);
             this.Controls.Add(this.panelBox);
             this.Controls.Add(this.panelAnimace);
             this.Controls.Add(this.panelSphere);
@@ -8154,6 +8167,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnTriangDelete;
         private System.Windows.Forms.Button btnTriangDivide;
+        private System.Windows.Forms.Label label211;
 
     }
 }
