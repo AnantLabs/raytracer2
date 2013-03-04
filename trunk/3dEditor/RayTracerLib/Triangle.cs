@@ -139,15 +139,17 @@ namespace RayTracerLib
             double vB = (_dot00 * dot12 - _dot01 * dot02) * _invDelitel;
             double wB = 1 - uB - vB;
 
-            if (uB < 0 || vB < 0 || uB + vB > 1) return false;      // bod uvnitr trojuhelniku
+            if (uB < -MyMath.EPSILON || vB < -MyMath.EPSILON || uB + vB > 1 + MyMath.EPSILON) return false;      // bod uvnitr trojuhelniku
 
             //A.Normal = Norm * -1;
             //B.Normal = Norm * -1;
             //C.Normal = Norm * -1;
             // P = C*u + B*v + A*w      ... procentualni nastaveni noveho vektoru
+            //Vektor interpVec = C.Normal * uB + B.Normal * vB + A.Normal * wB;
             Vektor interpVec = C.Normal * uB + B.Normal * vB + A.Normal * wB;
-            interpVec.Normalize();
+            interpVec.Normalize();    
 
+            
             SolidPoint sp = new SolidPoint();
             sp.Coord = Pi;
             sp.T = alfa;

@@ -1028,12 +1028,12 @@ namespace _3dEditor
                     _Selected = drawingList[drawingList.Count - 1];   // vybereme posledni ze seznamu - je nejbliz pozorovateli
                     wndsc.ShowNode(_Selected);
                 }
-                labelClick.Text = "Mouse Down";
+                //labelClick.Text = "Mouse Down";
             }
             else
             {
                 _Selected = null;   // otazka, zda po kliknuti do prazdneho prostoru, zobrazit vlastnosti
-                labelClick.Text = "---";
+                //labelClick.Text = "---";
             }
             pictureBoard.Focus();
             if (e.Button == MouseButtons.Left)
@@ -1136,6 +1136,16 @@ namespace _3dEditor
                             transp.TransformPoints(drCone.Points);
                             drCone.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
                             _matrixForever.TransformPoints(drCone.Points);
+                        }
+                        else if (ds is Plane)
+                        {
+                            DrawingPlane dp = _Selected as DrawingPlane;
+                            Matrix3D transp = this._matrixForever.Transpose();
+                            Vektor center = shift2DMatrix.Transform2NewPoint(dp.Center);
+                            Vektor centerTransp = transp.Transform2NewPoint(center);
+                            transp.TransformPoints(dp.Points);
+                            dp.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                            _matrixForever.TransformPoints(dp.Points);
                         }
                         else if (ds is Triangle)
                         {
@@ -1828,16 +1838,6 @@ namespace _3dEditor
             this._showCamera = btn.Checked;
         }
 
-        /// <summary>
-        /// udalost dvojkliku na kreslici platno.
-        /// Je-li osetrena i udalost OnMouseDown, pak ta bude osetrena pred touto udalosti
-        /// 
-        /// Ucel: vybrani objektu k jeho transformaci. Tedy krome toho, ze se zobrazi jeho vlastnosti
-        /// v okne Properties, tak se u objektu zobrazi nabidka na mozne transformace: 
-        ///     POSUN, ROTACE
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void OnMouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (e.Clicks < 2)   // neni-li doubleclick, konec
@@ -1848,7 +1848,7 @@ namespace _3dEditor
 
             _isDragging = false; // nepresouvame objekt;
 
-            labelClick.Text = "Double Click";
+            //labelClick.Text = "Double Click";
 
             Vektor zpoint = new Vektor(0, 0, 1);
             this._matrixForever.TransformPoint(zpoint);
@@ -1857,10 +1857,6 @@ namespace _3dEditor
             
             PointF pf1 = _Selected.Points[0].To2D(_scale, _zoom, _centerPoint);
             Vektor p3d = Vektor.To3D_From2D(pf1, zpoint.Z, _scale, _zoom, _centerPoint);
-            int asd = 2;
-
-            //MoveSelectedObject();
-
         }
 
         private void MoveSelectedObject(double dx, double dy, double dz)

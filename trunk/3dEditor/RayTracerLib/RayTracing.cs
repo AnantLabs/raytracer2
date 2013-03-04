@@ -225,6 +225,10 @@ namespace RayTracerLib
             Colour odrazBarva = this.ColourReflected(Pd, ray, sp.Normal, sp.Material);
 
             // pridani nasledne odrazene barvy:
+            if (odrazBarva.R > 5 || odrazBarva.G > 5 || odrazBarva.B > 5)
+            {
+                int x = 0;
+            }
             if (odrazBarva != null)
             {
                 novaBarva = DoRayTracing(depth, sp.Coord, ray);
@@ -237,18 +241,20 @@ namespace RayTracerLib
             double kt = sp.Material.KT;
             double n = sp.Material.N;
 
-            ray = MyMath.Refraction(Pd, sp.Normal, n);
-            if (ray == null)
+            if (kt != 0)
             {
-                return barvaVysled;
+                ray = MyMath.Refraction(Pd, sp.Normal, n);
+                if (ray == null)
+                {
+                    return barvaVysled;
+                }
+
+                novaBarva = DoRayTracing(depth, sp.Coord, ray);
+
+                novaBarva = novaBarva * kt;
+
+                barvaVysled = barvaVysled + novaBarva;
             }
-
-            novaBarva = DoRayTracing(depth, sp.Coord, ray);
-
-            novaBarva = novaBarva * kt;
-            
-            barvaVysled = barvaVysled + novaBarva;
-
 
             return barvaVysled;
         }
@@ -431,11 +437,15 @@ namespace RayTracerLib
                 double angle = Ray * outs;
                 if (angle > 0.0)
                     specular = colorCoef * ks * Math.Pow(angle, mat.SpecularExponent);
+                else
+                {
+                    int cd = 0;
+                }
             }
 
-            barvaVysl.R = diffuse * mat.Color.R + specular;
-            barvaVysl.G = diffuse * mat.Color.G + specular;
-            barvaVysl.B = diffuse * mat.Color.B + specular;
+            barvaVysl.R = diffuse * (mat.Color.R + specular);
+            barvaVysl.G = diffuse * (mat.Color.G + specular);
+            barvaVysl.B = diffuse * (mat.Color.B + specular);
 
             return barvaVysl;
         }

@@ -53,7 +53,6 @@
             this.drawItemFlowLayout1 = new _3dEditor.MenuDrawItemFlowLayout();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.labelClick = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -322,31 +321,21 @@
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.labelClick);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.numericUpDown1);
             this.panel1.Controls.Add(this.numericUpDown2);
             this.panel1.Controls.Add(this.numericUpDown3);
-            this.panel1.Location = new System.Drawing.Point(824, 404);
+            this.panel1.Location = new System.Drawing.Point(834, 404);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(100, 94);
+            this.panel1.Size = new System.Drawing.Size(90, 76);
             this.panel1.TabIndex = 0;
-            // 
-            // labelClick
-            // 
-            this.labelClick.AutoSize = true;
-            this.labelClick.Location = new System.Drawing.Point(9, 74);
-            this.labelClick.Name = "labelClick";
-            this.labelClick.Size = new System.Drawing.Size(29, 13);
-            this.labelClick.TabIndex = 1;
-            this.labelClick.Text = "click";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 54);
+            this.label3.Location = new System.Drawing.Point(8, 51);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(14, 13);
             this.label3.TabIndex = 5;
@@ -355,7 +344,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 34);
+            this.label2.Location = new System.Drawing.Point(8, 31);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(14, 13);
             this.label2.TabIndex = 2;
@@ -364,7 +353,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 11);
+            this.label1.Location = new System.Drawing.Point(8, 8);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(14, 13);
             this.label1.TabIndex = 0;
@@ -377,7 +366,7 @@
             0,
             0,
             0});
-            this.numericUpDown1.Location = new System.Drawing.Point(29, 9);
+            this.numericUpDown1.Location = new System.Drawing.Point(28, 6);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -400,7 +389,7 @@
             0,
             0,
             0});
-            this.numericUpDown2.Location = new System.Drawing.Point(29, 30);
+            this.numericUpDown2.Location = new System.Drawing.Point(28, 27);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -423,7 +412,7 @@
             0,
             0,
             0});
-            this.numericUpDown3.Location = new System.Drawing.Point(29, 51);
+            this.numericUpDown3.Location = new System.Drawing.Point(28, 48);
             this.numericUpDown3.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -518,7 +507,6 @@
         private System.Windows.Forms.ToolStripComboBox toolsComboViewAngle;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.Label labelClick;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private MenuDrawItemFlowLayout drawItemFlowLayout1;
     }

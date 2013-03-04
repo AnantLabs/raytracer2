@@ -22,6 +22,7 @@ namespace EditorLib
             }
         }
 
+        private Matrix3D _origShigMatrix;
         /// <summary>
         /// zda se objekt zobrazi vyplneny, nebo jen dratovy
         /// </summary>
@@ -126,6 +127,7 @@ namespace EditorLib
             //}
             _RotatMatrix = Matrix3D.Identity;
             _ShiftMatrix = Matrix3D.Identity;
+            _origShigMatrix = Matrix3D.Identity;
             _localMatrix = Matrix3D.Identity;
         }
 
@@ -153,6 +155,10 @@ namespace EditorLib
             return new Vektor(this.Center);
         }
 
+        public override double[] GetRotationAngles()
+        {
+            return _RotatMatrix.GetAnglesFromMatrix();
+        }
         public void SetMaterial2All(Material material)
         {
             CustomObject cust = ModelObject as CustomObject;
@@ -163,23 +169,31 @@ namespace EditorLib
             }
         }
 
+        public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)
+        {
+            Matrix3D newRot = Matrix3D.NewRotateByDegrees(degAroundX, degAroundY, degAroundZ);
+
+            Matrix3D transpRot = _RotatMatrix.Transpose();
+            Matrix3D transpShift = _origShigMatrix.GetOppositeShiftMatrix();
+
+            _origShigMatrix.TransformPoints(Points);    // posunuti na pocatecni pozici
+            transpRot.TransformPoints(Points);          // rotace na zakladni pozici
+
+            this._RotatMatrix = newRot;
+            _localMatrix = _RotatMatrix * transpShift;  // rotace o novy uhel a posunuti na posledni pozici
+            _localMatrix.TransformPoints(Points);
+        }
 
         public override void Move(double moveX, double moveY, double moveZ)
         {
-            //DefaultShape ds = (DefaultShape)ModelObject;
-            //ds.MoveToPoint(moveX, moveY, moveZ);
-
             Matrix3D transpShift = _ShiftMatrix.GetOppositeShiftMatrix();
             transpShift.TransformPoints(Points);
 
             _ShiftMatrix = Matrix3D.PosunutiNewMatrix(moveX, moveY, moveZ);
+            // budeme si pamatovat matici posunuti od puvodni pozice
+            _origShigMatrix.PosunutiAddMatrix(_ShiftMatrix);
 
             _localMatrix = _RotatMatrix * _ShiftMatrix;
-
-            //foreach (DrawingTriangle drTr in DrawingFacesList)
-            //{
-            //    drTr.Move(moveX, moveY, moveZ);
-            //}
         }
 
         public void AddDrawingTriangle(Triangle trian)

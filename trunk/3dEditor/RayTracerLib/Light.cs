@@ -163,13 +163,13 @@ namespace RayTracerLib
 
             dir.Normalize();
             Vektor normal = new Vektor(point.Normal);
-            normal.Normalize();
+            //normal.Normalize();
 
             // znamenko, zda neni bod "zady ke svetlu", neboli proste nebude vubec osvetlen
             // zda svetlo neni na druhe strane normaly
             double sign = dir * normal;
 
-            if (sign <= 0)
+            if (sign <= MyMath.EPSILON)
                 return false;
 
             // zjistime, zda lezi ve smeru paprsku dalsi bod sceny

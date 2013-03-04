@@ -106,6 +106,7 @@ namespace RayTracerLib
                 Triangle face = new Triangle(a, b, c, tr.Material);
                 FaceList.Add(face);
             }
+
         }
 
         /// <summary>
@@ -219,7 +220,7 @@ namespace RayTracerLib
             vecs.Add(v6); vecs.Add(v7); vecs.Add(v8);
             vecs.Add(v9); vecs.Add(v10); vecs.Add(v11);
             vecs.Add(v12); vecs.Add(v13);
-            int[] faces = new int[]{
+            int[] faces = new int[]{ // indexy vrcholu
                 0,3,8,
                 0,1,8,
                 1,2,8,
@@ -247,6 +248,25 @@ namespace RayTracerLib
             CustomObject cube = new CustomObject(vecs.ToArray(), faces);
             cube.SetCenter(new Vektor(1, 1, 1));
             return cube;
+        }
+
+        public static CustomObject CreatePlane()
+        {
+            Vektor v0 = new Vektor(-2, 0, 0);
+            Vektor v1 = new Vektor(2, 0, 0);
+            Vektor v2 = new Vektor(2, 0, 2);
+            Vektor v3 = new Vektor(-2, 0, 2);
+
+            List<Vektor> vecs = new List<Vektor>();
+            vecs.Add(v0); vecs.Add(v1);
+            vecs.Add(v2); vecs.Add(v3);
+            int[] faces = new int[]{ // indexy vrcholu
+                0,1,2,
+                0,2,3,
+            };
+            CustomObject plane = new CustomObject(vecs.ToArray(), faces);
+            plane.SetCenter(new Vektor(0, -1, 0));
+            return plane;
         }
     }
 }
