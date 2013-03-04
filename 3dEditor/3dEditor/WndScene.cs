@@ -651,7 +651,18 @@ namespace _3dEditor
         private void onAddCustomObject(object sender, EventArgs e)
         {
             WndBoard wndBoard = GetWndBoard();
-            wndBoard.AddCustomObject(new DrawingCustom(CustomObject.CreateCube()));
+            CustomObject cust = CustomObject.CreateCube();
+            wndBoard.AddRaytrObject(cust);
+            ParentEditor pared = (ParentEditor)this.ParentForm;
+            pared.AddRaytrObject(cust);
+        }
+        private void onAddCustomPlane(object sender, EventArgs e)
+        {
+            WndBoard wndBoard = GetWndBoard();
+            CustomObject cust = CustomObject.CreatePlane();
+            wndBoard.AddRaytrObject(cust);
+            ParentEditor pared = (ParentEditor)this.ParentForm;
+            pared.AddRaytrObject(cust);
         }
 
         public RayImage GetSelectedImage()
@@ -683,6 +694,8 @@ namespace _3dEditor
             foreach (TreeNode node in root.Nodes)
                 node.Checked = true;
         }
+
+        
 
     }
 }

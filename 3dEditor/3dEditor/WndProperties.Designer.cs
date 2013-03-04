@@ -162,6 +162,7 @@
             this.numericSvetloB = new System.Windows.Forms.NumericUpDown();
             this.label31 = new System.Windows.Forms.Label();
             this.panelCamera = new System.Windows.Forms.Panel();
+            this.label211 = new System.Windows.Forms.Label();
             this.numericKameraAngle = new System.Windows.Forms.NumericUpDown();
             this.numericKamWidth = new System.Windows.Forms.NumericUpDown();
             this.label134 = new System.Windows.Forms.Label();
@@ -255,18 +256,6 @@
             this.numPlaneRotZ = new System.Windows.Forms.NumericUpDown();
             this.numPlaneRotY = new System.Windows.Forms.NumericUpDown();
             this.numPlaneRotX = new System.Windows.Forms.NumericUpDown();
-            this.numMinZ = new System.Windows.Forms.NumericUpDown();
-            this.numMaxZ = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxMaxZ = new System.Windows.Forms.CheckBox();
-            this.checkBoxMinZ = new System.Windows.Forms.CheckBox();
-            this.numMinY = new System.Windows.Forms.NumericUpDown();
-            this.numMaxY = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxMaxY = new System.Windows.Forms.CheckBox();
-            this.checkBoxMinY = new System.Windows.Forms.CheckBox();
-            this.numMinX = new System.Windows.Forms.NumericUpDown();
-            this.numMaxX = new System.Windows.Forms.NumericUpDown();
-            this.checkBoxMaxX = new System.Windows.Forms.CheckBox();
-            this.checkBoxMinX = new System.Windows.Forms.CheckBox();
             this.label20 = new System.Windows.Forms.Label();
             this.numPlaneN = new System.Windows.Forms.NumericUpDown();
             this.label43 = new System.Windows.Forms.Label();
@@ -348,6 +337,8 @@
             this.label77 = new System.Windows.Forms.Label();
             this.label78 = new System.Windows.Forms.Label();
             this.panelTriangle = new System.Windows.Forms.Panel();
+            this.btnTriangDelete = new System.Windows.Forms.Button();
+            this.btnTriangDivide = new System.Windows.Forms.Button();
             this.txtbTriangLabel = new System.Windows.Forms.TextBox();
             this.label167 = new System.Windows.Forms.Label();
             this.numTriangN = new System.Windows.Forms.NumericUpDown();
@@ -474,9 +465,13 @@
             this.numCustomCenterY = new System.Windows.Forms.NumericUpDown();
             this.label222 = new System.Windows.Forms.Label();
             this.label223 = new System.Windows.Forms.Label();
-            this.btnTriangDivide = new System.Windows.Forms.Button();
-            this.btnTriangDelete = new System.Windows.Forms.Button();
-            this.label211 = new System.Windows.Forms.Label();
+            this.label212 = new System.Windows.Forms.Label();
+            this.label213 = new System.Windows.Forms.Label();
+            this.label214 = new System.Windows.Forms.Label();
+            this.label215 = new System.Windows.Forms.Label();
+            this.numCustomRotZ = new System.Windows.Forms.NumericUpDown();
+            this.numCustomRotY = new System.Windows.Forms.NumericUpDown();
+            this.numCustomRotX = new System.Windows.Forms.NumericUpDown();
             this.panelAnimace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).BeginInit();
@@ -565,12 +560,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numPlaneRotZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlaneRotY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlaneRotX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinZ)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxZ)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlaneN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlaneKt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlaneH)).BeginInit();
@@ -658,6 +647,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotX)).BeginInit();
             this.SuspendLayout();
             // 
             // colorDialog
@@ -1260,7 +1252,7 @@
             this.panelSphere.Controls.Add(this.numericKouleY);
             this.panelSphere.Controls.Add(this.label18);
             this.panelSphere.Controls.Add(this.label19);
-            this.panelSphere.Location = new System.Drawing.Point(404, 35);
+            this.panelSphere.Location = new System.Drawing.Point(404, 55);
             this.panelSphere.Name = "panelSphere";
             this.panelSphere.Size = new System.Drawing.Size(419, 293);
             this.panelSphere.TabIndex = 41;
@@ -2640,6 +2632,17 @@
             this.panelCamera.Size = new System.Drawing.Size(363, 254);
             this.panelCamera.TabIndex = 60;
             // 
+            // label211
+            // 
+            this.label211.AutoSize = true;
+            this.label211.BackColor = System.Drawing.Color.Transparent;
+            this.label211.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label211.Location = new System.Drawing.Point(41, 92);
+            this.label211.Name = "label211";
+            this.label211.Size = new System.Drawing.Size(52, 16);
+            this.label211.TabIndex = 64;
+            this.label211.Text = "Angle:";
+            // 
             // numericKameraAngle
             // 
             this.numericKameraAngle.Increment = new decimal(new int[] {
@@ -3853,6 +3856,7 @@
             // 
             // panelRovina
             // 
+            this.panelRovina.BackColor = System.Drawing.Color.Transparent;
             this.panelRovina.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
             this.panelRovina.Controls.Add(this.txtbPlaneLabel);
             this.panelRovina.Controls.Add(this.numPlaneDist);
@@ -3867,18 +3871,6 @@
             this.panelRovina.Controls.Add(this.numPlaneRotZ);
             this.panelRovina.Controls.Add(this.numPlaneRotY);
             this.panelRovina.Controls.Add(this.numPlaneRotX);
-            this.panelRovina.Controls.Add(this.numMinZ);
-            this.panelRovina.Controls.Add(this.numMaxZ);
-            this.panelRovina.Controls.Add(this.checkBoxMaxZ);
-            this.panelRovina.Controls.Add(this.checkBoxMinZ);
-            this.panelRovina.Controls.Add(this.numMinY);
-            this.panelRovina.Controls.Add(this.numMaxY);
-            this.panelRovina.Controls.Add(this.checkBoxMaxY);
-            this.panelRovina.Controls.Add(this.checkBoxMinY);
-            this.panelRovina.Controls.Add(this.numMinX);
-            this.panelRovina.Controls.Add(this.numMaxX);
-            this.panelRovina.Controls.Add(this.checkBoxMaxX);
-            this.panelRovina.Controls.Add(this.checkBoxMinX);
             this.panelRovina.Controls.Add(this.label20);
             this.panelRovina.Controls.Add(this.numPlaneN);
             this.panelRovina.Controls.Add(this.label43);
@@ -3912,7 +3904,7 @@
             this.panelRovina.Controls.Add(this.label89);
             this.panelRovina.Location = new System.Drawing.Point(705, 2);
             this.panelRovina.Name = "panelRovina";
-            this.panelRovina.Size = new System.Drawing.Size(407, 349);
+            this.panelRovina.Size = new System.Drawing.Size(397, 354);
             this.panelRovina.TabIndex = 58;
             // 
             // txtbPlaneLabel
@@ -3934,7 +3926,7 @@
             0,
             0,
             65536});
-            this.numPlaneDist.Location = new System.Drawing.Point(203, 309);
+            this.numPlaneDist.Location = new System.Drawing.Point(207, 286);
             this.numPlaneDist.Maximum = new decimal(new int[] {
             20,
             0,
@@ -3957,7 +3949,7 @@
             // 
             // numPlaneSize
             // 
-            this.numPlaneSize.Location = new System.Drawing.Point(100, 309);
+            this.numPlaneSize.Location = new System.Drawing.Point(104, 286);
             this.numPlaneSize.Minimum = new decimal(new int[] {
             1,
             0,
@@ -3976,9 +3968,9 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.BackColor = System.Drawing.Color.Gainsboro;
+            this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label12.Location = new System.Drawing.Point(63, 312);
+            this.label12.Location = new System.Drawing.Point(67, 289);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(30, 13);
             this.label12.TabIndex = 138;
@@ -3989,7 +3981,7 @@
             this.label14.AutoSize = true;
             this.label14.BackColor = System.Drawing.Color.Transparent;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label14.Location = new System.Drawing.Point(152, 312);
+            this.label14.Location = new System.Drawing.Point(156, 289);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(52, 13);
             this.label14.TabIndex = 140;
@@ -3998,9 +3990,9 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.BackColor = System.Drawing.Color.Gainsboro;
+            this.label15.BackColor = System.Drawing.Color.Transparent;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label15.Location = new System.Drawing.Point(5, 311);
+            this.label15.Location = new System.Drawing.Point(9, 288);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(53, 16);
             this.label15.TabIndex = 137;
@@ -4119,234 +4111,12 @@
             this.numPlaneRotX.TabIndex = 130;
             this.numPlaneRotX.ValueChanged += new System.EventHandler(this.actionPlaneRotate);
             // 
-            // numMinZ
-            // 
-            this.numMinZ.DecimalPlaces = 5;
-            this.numMinZ.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            this.numMinZ.Location = new System.Drawing.Point(313, 112);
-            this.numMinZ.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.numMinZ.Name = "numMinZ";
-            this.numMinZ.Size = new System.Drawing.Size(61, 20);
-            this.numMinZ.TabIndex = 127;
-            this.numMinZ.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            -2147483648});
-            this.numMinZ.ValueChanged += new System.EventHandler(this.actionPlaneSet);
-            // 
-            // numMaxZ
-            // 
-            this.numMaxZ.DecimalPlaces = 5;
-            this.numMaxZ.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            this.numMaxZ.Location = new System.Drawing.Point(313, 88);
-            this.numMaxZ.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.numMaxZ.Name = "numMaxZ";
-            this.numMaxZ.Size = new System.Drawing.Size(61, 20);
-            this.numMaxZ.TabIndex = 128;
-            this.numMaxZ.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numMaxZ.ValueChanged += new System.EventHandler(this.actionPlaneSet);
-            // 
-            // checkBoxMaxZ
-            // 
-            this.checkBoxMaxZ.AutoSize = true;
-            this.checkBoxMaxZ.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxMaxZ.Checked = true;
-            this.checkBoxMaxZ.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxMaxZ.Location = new System.Drawing.Point(263, 89);
-            this.checkBoxMaxZ.Name = "checkBoxMaxZ";
-            this.checkBoxMaxZ.Size = new System.Drawing.Size(53, 17);
-            this.checkBoxMaxZ.TabIndex = 129;
-            this.checkBoxMaxZ.Text = "MaxZ";
-            this.checkBoxMaxZ.UseVisualStyleBackColor = false;
-            // 
-            // checkBoxMinZ
-            // 
-            this.checkBoxMinZ.AutoSize = true;
-            this.checkBoxMinZ.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxMinZ.Checked = true;
-            this.checkBoxMinZ.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxMinZ.Location = new System.Drawing.Point(263, 113);
-            this.checkBoxMinZ.Name = "checkBoxMinZ";
-            this.checkBoxMinZ.Size = new System.Drawing.Size(50, 17);
-            this.checkBoxMinZ.TabIndex = 126;
-            this.checkBoxMinZ.Text = "MinZ";
-            this.checkBoxMinZ.UseVisualStyleBackColor = false;
-            // 
-            // numMinY
-            // 
-            this.numMinY.DecimalPlaces = 5;
-            this.numMinY.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            this.numMinY.Location = new System.Drawing.Point(186, 113);
-            this.numMinY.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.numMinY.Name = "numMinY";
-            this.numMinY.Size = new System.Drawing.Size(61, 20);
-            this.numMinY.TabIndex = 123;
-            this.numMinY.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            -2147483648});
-            this.numMinY.ValueChanged += new System.EventHandler(this.actionPlaneSet);
-            // 
-            // numMaxY
-            // 
-            this.numMaxY.DecimalPlaces = 5;
-            this.numMaxY.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            this.numMaxY.Location = new System.Drawing.Point(186, 89);
-            this.numMaxY.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.numMaxY.Name = "numMaxY";
-            this.numMaxY.Size = new System.Drawing.Size(61, 20);
-            this.numMaxY.TabIndex = 124;
-            this.numMaxY.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numMaxY.ValueChanged += new System.EventHandler(this.actionPlaneSet);
-            // 
-            // checkBoxMaxY
-            // 
-            this.checkBoxMaxY.AutoSize = true;
-            this.checkBoxMaxY.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxMaxY.Checked = true;
-            this.checkBoxMaxY.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxMaxY.Location = new System.Drawing.Point(136, 90);
-            this.checkBoxMaxY.Name = "checkBoxMaxY";
-            this.checkBoxMaxY.Size = new System.Drawing.Size(53, 17);
-            this.checkBoxMaxY.TabIndex = 125;
-            this.checkBoxMaxY.Text = "MaxY";
-            this.checkBoxMaxY.UseVisualStyleBackColor = false;
-            // 
-            // checkBoxMinY
-            // 
-            this.checkBoxMinY.AutoSize = true;
-            this.checkBoxMinY.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxMinY.Checked = true;
-            this.checkBoxMinY.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxMinY.Location = new System.Drawing.Point(136, 114);
-            this.checkBoxMinY.Name = "checkBoxMinY";
-            this.checkBoxMinY.Size = new System.Drawing.Size(50, 17);
-            this.checkBoxMinY.TabIndex = 122;
-            this.checkBoxMinY.Text = "MinY";
-            this.checkBoxMinY.UseVisualStyleBackColor = false;
-            // 
-            // numMinX
-            // 
-            this.numMinX.DecimalPlaces = 5;
-            this.numMinX.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            this.numMinX.Location = new System.Drawing.Point(57, 113);
-            this.numMinX.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.numMinX.Name = "numMinX";
-            this.numMinX.Size = new System.Drawing.Size(61, 20);
-            this.numMinX.TabIndex = 118;
-            this.numMinX.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            -2147483648});
-            this.numMinX.ValueChanged += new System.EventHandler(this.actionPlaneSet);
-            // 
-            // numMaxX
-            // 
-            this.numMaxX.DecimalPlaces = 5;
-            this.numMaxX.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            this.numMaxX.Location = new System.Drawing.Point(57, 89);
-            this.numMaxX.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.numMaxX.Name = "numMaxX";
-            this.numMaxX.Size = new System.Drawing.Size(61, 20);
-            this.numMaxX.TabIndex = 120;
-            this.numMaxX.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numMaxX.ValueChanged += new System.EventHandler(this.actionPlaneSet);
-            // 
-            // checkBoxMaxX
-            // 
-            this.checkBoxMaxX.AutoSize = true;
-            this.checkBoxMaxX.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxMaxX.Checked = true;
-            this.checkBoxMaxX.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxMaxX.Location = new System.Drawing.Point(7, 90);
-            this.checkBoxMaxX.Name = "checkBoxMaxX";
-            this.checkBoxMaxX.Size = new System.Drawing.Size(53, 17);
-            this.checkBoxMaxX.TabIndex = 121;
-            this.checkBoxMaxX.Text = "MaxX";
-            this.checkBoxMaxX.UseVisualStyleBackColor = false;
-            // 
-            // checkBoxMinX
-            // 
-            this.checkBoxMinX.AutoSize = true;
-            this.checkBoxMinX.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxMinX.Checked = true;
-            this.checkBoxMinX.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxMinX.Location = new System.Drawing.Point(7, 114);
-            this.checkBoxMinX.Name = "checkBoxMinX";
-            this.checkBoxMinX.Size = new System.Drawing.Size(50, 17);
-            this.checkBoxMinX.TabIndex = 66;
-            this.checkBoxMinX.Text = "MinX";
-            this.checkBoxMinX.UseVisualStyleBackColor = false;
-            // 
             // label20
             // 
             this.label20.AutoSize = true;
             this.label20.BackColor = System.Drawing.Color.Transparent;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label20.Location = new System.Drawing.Point(99, 268);
+            this.label20.Location = new System.Drawing.Point(103, 245);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(104, 13);
             this.label20.TabIndex = 115;
@@ -4360,7 +4130,7 @@
             0,
             0,
             65536});
-            this.numPlaneN.Location = new System.Drawing.Point(209, 266);
+            this.numPlaneN.Location = new System.Drawing.Point(213, 243);
             this.numPlaneN.Maximum = new decimal(new int[] {
             10,
             0,
@@ -4381,7 +4151,7 @@
             this.label43.AutoSize = true;
             this.label43.BackColor = System.Drawing.Color.Transparent;
             this.label43.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label43.Location = new System.Drawing.Point(69, 246);
+            this.label43.Location = new System.Drawing.Point(73, 224);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(134, 13);
             this.label43.TabIndex = 113;
@@ -4395,7 +4165,7 @@
             0,
             0,
             65536});
-            this.numPlaneKt.Location = new System.Drawing.Point(209, 243);
+            this.numPlaneKt.Location = new System.Drawing.Point(213, 221);
             this.numPlaneKt.Maximum = new decimal(new int[] {
             1,
             0,
@@ -4411,7 +4181,7 @@
             this.label44.AutoSize = true;
             this.label44.BackColor = System.Drawing.Color.Transparent;
             this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label44.Location = new System.Drawing.Point(88, 225);
+            this.label44.Location = new System.Drawing.Point(92, 202);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(115, 13);
             this.label44.TabIndex = 111;
@@ -4419,7 +4189,7 @@
             // 
             // btnPlaneMaterialColor
             // 
-            this.btnPlaneMaterialColor.Location = new System.Drawing.Point(324, 286);
+            this.btnPlaneMaterialColor.Location = new System.Drawing.Point(328, 263);
             this.btnPlaneMaterialColor.Name = "btnPlaneMaterialColor";
             this.btnPlaneMaterialColor.Size = new System.Drawing.Size(61, 23);
             this.btnPlaneMaterialColor.TabIndex = 104;
@@ -4429,7 +4199,7 @@
             // 
             // numPlaneH
             // 
-            this.numPlaneH.Location = new System.Drawing.Point(209, 222);
+            this.numPlaneH.Location = new System.Drawing.Point(213, 199);
             this.numPlaneH.Name = "numPlaneH";
             this.numPlaneH.Size = new System.Drawing.Size(61, 20);
             this.numPlaneH.TabIndex = 110;
@@ -4448,7 +4218,7 @@
             0,
             0,
             131072});
-            this.numPlaneColR.Location = new System.Drawing.Point(86, 287);
+            this.numPlaneColR.Location = new System.Drawing.Point(90, 264);
             this.numPlaneColR.Name = "numPlaneColR";
             this.numPlaneColR.Size = new System.Drawing.Size(61, 20);
             this.numPlaneColR.TabIndex = 106;
@@ -4462,7 +4232,7 @@
             0,
             0,
             131072});
-            this.numPlaneColB.Location = new System.Drawing.Point(261, 287);
+            this.numPlaneColB.Location = new System.Drawing.Point(265, 264);
             this.numPlaneColB.Name = "numPlaneColB";
             this.numPlaneColB.Size = new System.Drawing.Size(61, 20);
             this.numPlaneColB.TabIndex = 103;
@@ -4471,9 +4241,9 @@
             // label45
             // 
             this.label45.AutoSize = true;
-            this.label45.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label45.BackColor = System.Drawing.Color.Transparent;
             this.label45.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label45.Location = new System.Drawing.Point(66, 290);
+            this.label45.Location = new System.Drawing.Point(70, 267);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(18, 13);
             this.label45.TabIndex = 105;
@@ -4487,7 +4257,7 @@
             0,
             0,
             131072});
-            this.numPlaneColG.Location = new System.Drawing.Point(173, 287);
+            this.numPlaneColG.Location = new System.Drawing.Point(177, 264);
             this.numPlaneColG.Name = "numPlaneColG";
             this.numPlaneColG.Size = new System.Drawing.Size(61, 20);
             this.numPlaneColG.TabIndex = 107;
@@ -4498,7 +4268,7 @@
             this.label46.AutoSize = true;
             this.label46.BackColor = System.Drawing.Color.Transparent;
             this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label46.Location = new System.Drawing.Point(241, 290);
+            this.label46.Location = new System.Drawing.Point(245, 267);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(17, 13);
             this.label46.TabIndex = 108;
@@ -4509,7 +4279,7 @@
             this.label47.AutoSize = true;
             this.label47.BackColor = System.Drawing.Color.Transparent;
             this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label47.Location = new System.Drawing.Point(153, 290);
+            this.label47.Location = new System.Drawing.Point(157, 267);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(18, 13);
             this.label47.TabIndex = 109;
@@ -4518,9 +4288,9 @@
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label48.BackColor = System.Drawing.Color.Transparent;
             this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label48.Location = new System.Drawing.Point(6, 289);
+            this.label48.Location = new System.Drawing.Point(10, 266);
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(57, 16);
             this.label48.TabIndex = 102;
@@ -4534,7 +4304,7 @@
             0,
             0,
             65536});
-            this.numPlaneKa.Location = new System.Drawing.Point(209, 155);
+            this.numPlaneKa.Location = new System.Drawing.Point(213, 133);
             this.numPlaneKa.Name = "numPlaneKa";
             this.numPlaneKa.Size = new System.Drawing.Size(61, 20);
             this.numPlaneKa.TabIndex = 98;
@@ -4550,7 +4320,7 @@
             this.label80.AutoSize = true;
             this.label80.BackColor = System.Drawing.Color.Transparent;
             this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label80.Location = new System.Drawing.Point(6, 136);
+            this.label80.Location = new System.Drawing.Point(10, 113);
             this.label80.Name = "label80";
             this.label80.Size = new System.Drawing.Size(68, 16);
             this.label80.TabIndex = 95;
@@ -4564,7 +4334,7 @@
             0,
             0,
             65536});
-            this.numPlaneKd.Location = new System.Drawing.Point(209, 200);
+            this.numPlaneKd.Location = new System.Drawing.Point(213, 177);
             this.numPlaneKd.Name = "numPlaneKd";
             this.numPlaneKd.Size = new System.Drawing.Size(61, 20);
             this.numPlaneKd.TabIndex = 96;
@@ -4580,7 +4350,7 @@
             this.label81.AutoSize = true;
             this.label81.BackColor = System.Drawing.Color.Transparent;
             this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label81.Location = new System.Drawing.Point(80, 158);
+            this.label81.Location = new System.Drawing.Point(84, 136);
             this.label81.Name = "label81";
             this.label81.Size = new System.Drawing.Size(123, 13);
             this.label81.TabIndex = 97;
@@ -4594,7 +4364,7 @@
             0,
             0,
             65536});
-            this.numPlaneKs.Location = new System.Drawing.Point(209, 177);
+            this.numPlaneKs.Location = new System.Drawing.Point(213, 155);
             this.numPlaneKs.Name = "numPlaneKs";
             this.numPlaneKs.Size = new System.Drawing.Size(61, 20);
             this.numPlaneKs.TabIndex = 99;
@@ -4610,7 +4380,7 @@
             this.label82.AutoSize = true;
             this.label82.BackColor = System.Drawing.Color.Transparent;
             this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label82.Location = new System.Drawing.Point(84, 201);
+            this.label82.Location = new System.Drawing.Point(88, 180);
             this.label82.Name = "label82";
             this.label82.Size = new System.Drawing.Size(119, 13);
             this.label82.TabIndex = 100;
@@ -4621,7 +4391,7 @@
             this.label83.AutoSize = true;
             this.label83.BackColor = System.Drawing.Color.Transparent;
             this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label83.Location = new System.Drawing.Point(76, 178);
+            this.label83.Location = new System.Drawing.Point(80, 158);
             this.label83.Name = "label83";
             this.label83.Size = new System.Drawing.Size(127, 13);
             this.label83.TabIndex = 101;
@@ -4781,7 +4551,7 @@
             // label89
             // 
             this.label89.AutoSize = true;
-            this.label89.BackColor = System.Drawing.Color.Gainsboro;
+            this.label89.BackColor = System.Drawing.Color.Transparent;
             this.label89.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label89.Location = new System.Drawing.Point(99, 49);
             this.label89.Name = "label89";
@@ -4840,7 +4610,7 @@
             this.panelCylindr.Controls.Add(this.numericCylCentY);
             this.panelCylindr.Controls.Add(this.label77);
             this.panelCylindr.Controls.Add(this.label78);
-            this.panelCylindr.Location = new System.Drawing.Point(556, 29);
+            this.panelCylindr.Location = new System.Drawing.Point(554, 35);
             this.panelCylindr.Name = "panelCylindr";
             this.panelCylindr.Size = new System.Drawing.Size(458, 362);
             this.panelCylindr.TabIndex = 57;
@@ -5601,6 +5371,26 @@
             this.panelTriangle.Name = "panelTriangle";
             this.panelTriangle.Size = new System.Drawing.Size(417, 343);
             this.panelTriangle.TabIndex = 63;
+            // 
+            // btnTriangDelete
+            // 
+            this.btnTriangDelete.Location = new System.Drawing.Point(155, 87);
+            this.btnTriangDelete.Name = "btnTriangDelete";
+            this.btnTriangDelete.Size = new System.Drawing.Size(61, 23);
+            this.btnTriangDelete.TabIndex = 203;
+            this.btnTriangDelete.Text = "Delete";
+            this.btnTriangDelete.UseVisualStyleBackColor = true;
+            this.btnTriangDelete.Click += new System.EventHandler(this.OnTriangDelete);
+            // 
+            // btnTriangDivide
+            // 
+            this.btnTriangDivide.Location = new System.Drawing.Point(70, 87);
+            this.btnTriangDivide.Name = "btnTriangDivide";
+            this.btnTriangDivide.Size = new System.Drawing.Size(61, 23);
+            this.btnTriangDivide.TabIndex = 202;
+            this.btnTriangDivide.Text = "Divide";
+            this.btnTriangDivide.UseVisualStyleBackColor = true;
+            this.btnTriangDivide.Click += new System.EventHandler(this.OnTriangDivide);
             // 
             // txtbTriangLabel
             // 
@@ -6991,6 +6781,13 @@
             // panelCustomObj
             // 
             this.panelCustomObj.BackgroundImage = global::_3dEditor.Properties.Resources.bgProperties;
+            this.panelCustomObj.Controls.Add(this.label212);
+            this.panelCustomObj.Controls.Add(this.label213);
+            this.panelCustomObj.Controls.Add(this.label214);
+            this.panelCustomObj.Controls.Add(this.label215);
+            this.panelCustomObj.Controls.Add(this.numCustomRotZ);
+            this.panelCustomObj.Controls.Add(this.numCustomRotY);
+            this.panelCustomObj.Controls.Add(this.numCustomRotX);
             this.panelCustomObj.Controls.Add(this.button1);
             this.panelCustomObj.Controls.Add(this.chbCustFilled);
             this.panelCustomObj.Controls.Add(this.txtbCustomLabel);
@@ -7023,7 +6820,7 @@
             this.panelCustomObj.Controls.Add(this.numCustomCenterY);
             this.panelCustomObj.Controls.Add(this.label222);
             this.panelCustomObj.Controls.Add(this.label223);
-            this.panelCustomObj.Location = new System.Drawing.Point(386, 218);
+            this.panelCustomObj.Location = new System.Drawing.Point(636, 16);
             this.panelCustomObj.Name = "panelCustomObj";
             this.panelCustomObj.Size = new System.Drawing.Size(417, 343);
             this.panelCustomObj.TabIndex = 65;
@@ -7042,7 +6839,7 @@
             // 
             this.chbCustFilled.AutoSize = true;
             this.chbCustFilled.BackColor = System.Drawing.Color.Transparent;
-            this.chbCustFilled.Location = new System.Drawing.Point(27, 70);
+            this.chbCustFilled.Location = new System.Drawing.Point(97, 92);
             this.chbCustFilled.Name = "chbCustFilled";
             this.chbCustFilled.Size = new System.Drawing.Size(80, 17);
             this.chbCustFilled.TabIndex = 222;
@@ -7464,36 +7261,118 @@
             this.label223.TabIndex = 24;
             this.label223.Text = "Y:";
             // 
-            // btnTriangDivide
+            // label212
             // 
-            this.btnTriangDivide.Location = new System.Drawing.Point(70, 87);
-            this.btnTriangDivide.Name = "btnTriangDivide";
-            this.btnTriangDivide.Size = new System.Drawing.Size(61, 23);
-            this.btnTriangDivide.TabIndex = 202;
-            this.btnTriangDivide.Text = "Divide";
-            this.btnTriangDivide.UseVisualStyleBackColor = true;
-            this.btnTriangDivide.Click += new System.EventHandler(this.OnTriangDivide);
+            this.label212.AutoSize = true;
+            this.label212.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label212.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label212.Location = new System.Drawing.Point(125, 70);
+            this.label212.Name = "label212";
+            this.label212.Size = new System.Drawing.Size(15, 13);
+            this.label212.TabIndex = 227;
+            this.label212.Text = "x:";
             // 
-            // btnTriangDelete
+            // label213
             // 
-            this.btnTriangDelete.Location = new System.Drawing.Point(155, 87);
-            this.btnTriangDelete.Name = "btnTriangDelete";
-            this.btnTriangDelete.Size = new System.Drawing.Size(61, 23);
-            this.btnTriangDelete.TabIndex = 203;
-            this.btnTriangDelete.Text = "Delete";
-            this.btnTriangDelete.UseVisualStyleBackColor = true;
-            this.btnTriangDelete.Click += new System.EventHandler(this.OnTriangDelete);
+            this.label213.AutoSize = true;
+            this.label213.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label213.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label213.Location = new System.Drawing.Point(19, 69);
+            this.label213.Name = "label213";
+            this.label213.Size = new System.Drawing.Size(87, 16);
+            this.label213.TabIndex = 230;
+            this.label213.Text = "Orientation:";
             // 
-            // label211
+            // label214
             // 
-            this.label211.AutoSize = true;
-            this.label211.BackColor = System.Drawing.Color.Transparent;
-            this.label211.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label211.Location = new System.Drawing.Point(41, 92);
-            this.label211.Name = "label211";
-            this.label211.Size = new System.Drawing.Size(52, 16);
-            this.label211.TabIndex = 64;
-            this.label211.Text = "Angle:";
+            this.label214.AutoSize = true;
+            this.label214.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label214.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label214.Location = new System.Drawing.Point(302, 70);
+            this.label214.Name = "label214";
+            this.label214.Size = new System.Drawing.Size(15, 13);
+            this.label214.TabIndex = 229;
+            this.label214.Text = "z:";
+            // 
+            // label215
+            // 
+            this.label215.AutoSize = true;
+            this.label215.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label215.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label215.Location = new System.Drawing.Point(210, 70);
+            this.label215.Name = "label215";
+            this.label215.Size = new System.Drawing.Size(15, 13);
+            this.label215.TabIndex = 228;
+            this.label215.Text = "y:";
+            // 
+            // numCustomRotZ
+            // 
+            this.numCustomRotZ.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numCustomRotZ.Location = new System.Drawing.Point(319, 67);
+            this.numCustomRotZ.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numCustomRotZ.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numCustomRotZ.Name = "numCustomRotZ";
+            this.numCustomRotZ.Size = new System.Drawing.Size(45, 20);
+            this.numCustomRotZ.TabIndex = 226;
+            this.numCustomRotZ.ValueChanged += new System.EventHandler(this.actionCustRotate);
+            // 
+            // numCustomRotY
+            // 
+            this.numCustomRotY.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numCustomRotY.Location = new System.Drawing.Point(227, 67);
+            this.numCustomRotY.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numCustomRotY.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numCustomRotY.Name = "numCustomRotY";
+            this.numCustomRotY.Size = new System.Drawing.Size(45, 20);
+            this.numCustomRotY.TabIndex = 225;
+            this.numCustomRotY.ValueChanged += new System.EventHandler(this.actionCustRotate);
+            // 
+            // numCustomRotX
+            // 
+            this.numCustomRotX.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numCustomRotX.Location = new System.Drawing.Point(142, 67);
+            this.numCustomRotX.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numCustomRotX.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numCustomRotX.Name = "numCustomRotX";
+            this.numCustomRotX.Size = new System.Drawing.Size(45, 20);
+            this.numCustomRotX.TabIndex = 224;
+            this.numCustomRotX.ValueChanged += new System.EventHandler(this.actionCustRotate);
             // 
             // WndProperties
             // 
@@ -7501,17 +7380,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1188, 778);
+            this.Controls.Add(this.panelRovina);
             this.Controls.Add(this.panelCustomObj);
             this.Controls.Add(this.panelCamera);
             this.Controls.Add(this.panelTriangle);
             this.Controls.Add(this.panelImage);
             this.Controls.Add(this.panelLight);
-            this.Controls.Add(this.panelCone);
-            this.Controls.Add(this.panelRovina);
             this.Controls.Add(this.panelCylindr);
             this.Controls.Add(this.panelBox);
             this.Controls.Add(this.panelAnimace);
             this.Controls.Add(this.panelSphere);
+            this.Controls.Add(this.panelCone);
             this.Name = "WndProperties";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
@@ -7616,12 +7495,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numPlaneRotZ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlaneRotY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlaneRotX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinZ)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxZ)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMaxX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlaneN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlaneKt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPlaneH)).EndInit();
@@ -7713,6 +7586,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterZ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotX)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -7792,18 +7668,6 @@
         private System.Windows.Forms.Label label78;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Panel panelRovina;
-        private System.Windows.Forms.NumericUpDown numMinZ;
-        private System.Windows.Forms.NumericUpDown numMaxZ;
-        private System.Windows.Forms.CheckBox checkBoxMaxZ;
-        private System.Windows.Forms.CheckBox checkBoxMinZ;
-        private System.Windows.Forms.NumericUpDown numMinY;
-        private System.Windows.Forms.NumericUpDown numMaxY;
-        private System.Windows.Forms.CheckBox checkBoxMaxY;
-        private System.Windows.Forms.CheckBox checkBoxMinY;
-        private System.Windows.Forms.NumericUpDown numMinX;
-        private System.Windows.Forms.NumericUpDown numMaxX;
-        private System.Windows.Forms.CheckBox checkBoxMaxX;
-        private System.Windows.Forms.CheckBox checkBoxMinX;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.NumericUpDown numPlaneN;
         private System.Windows.Forms.Label label43;
@@ -8168,6 +8032,13 @@
         private System.Windows.Forms.Button btnTriangDelete;
         private System.Windows.Forms.Button btnTriangDivide;
         private System.Windows.Forms.Label label211;
+        private System.Windows.Forms.Label label212;
+        private System.Windows.Forms.Label label213;
+        private System.Windows.Forms.Label label214;
+        private System.Windows.Forms.Label label215;
+        private System.Windows.Forms.NumericUpDown numCustomRotZ;
+        private System.Windows.Forms.NumericUpDown numCustomRotY;
+        private System.Windows.Forms.NumericUpDown numCustomRotX;
 
     }
 }

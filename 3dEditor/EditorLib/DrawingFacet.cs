@@ -63,7 +63,9 @@ namespace EditorLib
             DrCustObject.DrawingFacesList.Remove(this);
             CustomObject cust = DrCustObject.ModelObject as CustomObject;
             count = cust.FaceList.Count;
-            cust.FaceList.Remove(this.trian);
+            Searching = trian;
+            Triangle trFind = cust.FaceList.Find(TriangPredicate);
+            cust.FaceList.Remove(trFind);
             cust.InitializeForRayTr(cust.FaceList);
             DrCustObject.SetModelObject(cust);
         }

@@ -164,7 +164,7 @@ namespace RayTracerLib
 
         public override string ToString()
         {
-            return "Plane: "+ Normal + "; D="  + this.D;
+            return "Plane: " + Normal + "; D=" + Math.Round(this.D, 1);
         }
 
         public void CreateBoundVektors()

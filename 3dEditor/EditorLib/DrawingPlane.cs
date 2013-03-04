@@ -11,6 +11,18 @@ namespace EditorLib
     public class DrawingPlane : DrawingDefaultShape
     {
 
+        public Vektor Center
+        {
+            get
+            {
+                return Points[0];
+            }
+            set
+            {
+                Points[0] = value;
+            }
+        }
+
         /// <summary>
         /// velikost mrizky
         /// </summary>
@@ -59,6 +71,7 @@ namespace EditorLib
             Vektor leftCorner = new Vektor(plane.Pocatek.X, plane.Pocatek.Y, plane.Pocatek.Z);
 
             List<Vektor> points = new List<Vektor>();
+            points.Add(leftCorner);
             List<Line3D> lines = new List<Line3D>(2 * (Size + 1));
             Line3D line;
             if (leftCorner == null)
@@ -111,7 +124,7 @@ namespace EditorLib
 
         public override Vektor GetCenter()
         {
-            return new Vektor(-10, -10, 10);
+            return this.Center;
         }
     }
 }

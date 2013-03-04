@@ -40,8 +40,8 @@
             this.lightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.animationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.customObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -143,8 +143,8 @@
             this.triangleToolStripMenuItem.Image = global::_3dEditor.Properties.Resources.TriangleMagenta16;
             this.triangleToolStripMenuItem.Name = "triangleToolStripMenuItem";
             this.triangleToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.triangleToolStripMenuItem.Text = "Triangle";
-            this.triangleToolStripMenuItem.Click += new System.EventHandler(this.onAddTriangle);
+            this.triangleToolStripMenuItem.Text = "Custom Plane";
+            this.triangleToolStripMenuItem.Click += new System.EventHandler(this.onAddCustomPlane);
             // 
             // lightToolStripMenuItem
             // 
@@ -171,6 +171,14 @@
             this.animationToolStripMenuItem.Text = "Animation";
             this.animationToolStripMenuItem.Click += new System.EventHandler(this.onAddAnimation);
             // 
+            // customObjectToolStripMenuItem
+            // 
+            this.customObjectToolStripMenuItem.Image = global::_3dEditor.Properties.Resources.wheel_32;
+            this.customObjectToolStripMenuItem.Name = "customObjectToolStripMenuItem";
+            this.customObjectToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.customObjectToolStripMenuItem.Text = "Custom Object";
+            this.customObjectToolStripMenuItem.Click += new System.EventHandler(this.onAddCustomObject);
+            // 
             // toolStripButton2
             // 
             this.toolStripButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
@@ -183,14 +191,6 @@
             this.toolStripButton2.Size = new System.Drawing.Size(40, 22);
             this.toolStripButton2.Text = "Remove from scene";
             this.toolStripButton2.Click += new System.EventHandler(this.OnRemoveObjectFromScene);
-            // 
-            // customObjectToolStripMenuItem
-            // 
-            this.customObjectToolStripMenuItem.Image = global::_3dEditor.Properties.Resources.wheel_32;
-            this.customObjectToolStripMenuItem.Name = "customObjectToolStripMenuItem";
-            this.customObjectToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.customObjectToolStripMenuItem.Text = "Custom Object";
-            this.customObjectToolStripMenuItem.Click += new System.EventHandler(this.onAddCustomObject);
             // 
             // WndScene
             // 

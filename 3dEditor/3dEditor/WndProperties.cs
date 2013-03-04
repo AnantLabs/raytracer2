@@ -232,31 +232,6 @@ namespace _3dEditor
 
             btnPlaneMaterialColor.BackColor = pl.Material.Color.SystemColor();
 
-            checkBoxMinX.Checked = (pl.MinX != Double.NegativeInfinity);
-            if (checkBoxMinX.Checked)
-                this.numMinX.Value = (decimal)pl.MinX;
-
-            checkBoxMaxX.Checked = (pl.MaxX != Double.PositiveInfinity);
-            if (checkBoxMaxX.Checked)
-                this.numMaxX.Value = (decimal)pl.MaxX;
-
-
-            checkBoxMinY.Checked = (pl.MinY != Double.NegativeInfinity);
-            if (checkBoxMinY.Checked)
-                this.numMinY.Value = (decimal)pl.MinY;
-
-            checkBoxMaxY.Checked = (pl.MaxY != Double.PositiveInfinity);
-            if (checkBoxMaxY.Checked)
-                this.numMaxY.Value = (decimal)pl.MaxY;
-
-            checkBoxMinZ.Checked = (pl.MinZ != Double.NegativeInfinity);
-            if (checkBoxMinZ.Checked)
-                this.numMinZ.Value = (decimal)pl.MinZ;
-
-            checkBoxMaxZ.Checked = (pl.MaxZ != Double.PositiveInfinity);
-            if (checkBoxMaxZ.Checked)
-                this.numMaxZ.Value = (decimal)pl.MaxZ;
-
             this.numPlaneSize.Value = (decimal)drPlane.Size;
             this.numPlaneDist.Value = (decimal)drPlane.Distance;
         }
@@ -428,6 +403,14 @@ namespace _3dEditor
             CustomObject cust = (CustomObject)drCust.ModelObject;
 
             this.txtbCustomLabel.Text = drCust.Label;
+
+            if (_showAngles)
+            {
+                double[] angles = drCust.GetRotationAngles();
+                this.numCustomRotX.Value = (decimal)MyMath.Clamp(angles[0], -360, 360);
+                this.numCustomRotY.Value = (decimal)MyMath.Clamp(angles[1], -360, 360);
+                this.numCustomRotZ.Value = (decimal)MyMath.Clamp(angles[2], -360, 360);
+            }
 
             this.numCustomCenterX.Value = (decimal)center.X;
             this.numCustomCenterY.Value = (decimal)center.Y;
@@ -800,30 +783,6 @@ namespace _3dEditor
                 (double)this.numericRovinaC.Value);
 
             double d = (double)numericRovinaD.Value;
-
-            double minx, maxx, miny, maxy, minz, maxz;
-            minx = miny = minz = Double.NegativeInfinity;
-            maxx = maxy = maxz = Double.PositiveInfinity;
-
-            if (checkBoxMinX.Checked)
-                minx = (double)numMinX.Value;
-            if (checkBoxMaxX.Checked)
-                maxx = (double)numMaxX.Value;
-            if (checkBoxMinY.Checked)
-                miny = (double)numMinY.Value;
-            if (checkBoxMaxY.Checked)
-                maxy = (double)numMaxY.Value;
-            if (checkBoxMinZ.Checked)
-                minz = (double)numMinZ.Value;
-            if (checkBoxMaxZ.Checked)
-                maxz = (double)numMaxZ.Value;
-
-            plane.MinX = minx;
-            plane.MaxX = maxx;
-            plane.MinY = miny;
-            plane.MaxY = maxy;
-            plane.MinZ = minz;
-            plane.MaxZ = maxz;
 
             Material mat = new Material();
             mat.Ka = (double)this.numPlaneKa.Value;
@@ -2146,6 +2105,49 @@ namespace _3dEditor
                 drFacet.Delete(wnd.RotationMatrix);
                 wnd.RotationMatrix.TransformPoints(drFacet.DrCustObject.Points);
             }
+        }
+
+        private void actionCustRotate(object sender, EventArgs e)
+        {
+
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingCustom))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
+
+            _permissionToModify = false;
+
+            NumericUpDown num = sender as NumericUpDown;
+            if (num.Value > 359)
+                num.Value = num.Value % 360;
+            else if (num.Value < 0)
+                num.Value = 360 + num.Value;
+
+            DrawingCustom drCust = _currentlyDisplayed as DrawingCustom;
+
+            double[] angles = new double[]{
+                (double)this.numCustomRotX.Value,
+                (double)this.numCustomRotY.Value,
+                (double)this.numCustomRotZ.Value};
+
+            WndBoard wnd = GetWndBoard();
+            Matrix3D transp = wnd.RotationMatrix.Transpose();
+            transp.TransformPoints(drCust.Points);
+            drCust.Rotate(angles[0], angles[1], angles[2]);
+            wnd.RotationMatrix.TransformPoints(drCust.Points);
+
+            _showAngles = false;
+            this.ShowCustom(drCust);
+            _permissionToModify = true;
+            _showAngles = true;
         }
         
 

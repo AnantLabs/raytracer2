@@ -102,7 +102,7 @@ namespace EditorLib
             rotationMatrix.TransformPoints(Points);
         }
 
-        public void Rotate(double degAroundX, double degAroundY, double degAroundZ)
+        public virtual void Rotate(double degAroundX, double degAroundY, double degAroundZ)
         {
             DefaultShape ds = (DefaultShape)ModelObject;
             if (ds != null)
@@ -141,7 +141,7 @@ namespace EditorLib
         public void Scale(double scale) { }
 
 
-        public double[] GetRotationAngles()
+        public virtual double[] GetRotationAngles()
         {
             //return _RotatMatrix.GetAnglesFromMatrix();
             return ((DefaultShape)ModelObject)._RotatMatrix.GetAnglesFromMatrix();
