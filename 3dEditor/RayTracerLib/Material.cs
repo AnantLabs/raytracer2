@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
@@ -9,6 +10,8 @@ namespace RayTracerLib
     /// <summary>
     /// Materialove vlastnosti pro osvetlovani objektu
     /// </summary>
+    [DataContract]
+    [KnownType(typeof(Colour))]
     public class Material
     {
 
@@ -71,6 +74,7 @@ namespace RayTracerLib
         /// <summary>
         /// Aktualni barva
         /// </summary>
+        [DataMember]
         public Colour Color { get; set; }
 
         /// <summary>

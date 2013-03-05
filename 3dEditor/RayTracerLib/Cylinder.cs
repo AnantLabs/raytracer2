@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Mathematics;
 using System.Threading;
+using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
@@ -65,6 +66,7 @@ namespace RayTracerLib
         #endregion
 
 
+        public Cylinder() : this(new Vektor(0, 0, 0), new Vektor(1, 0, 0), 1, 3) { }
         /// <summary>
         /// vytvori novy valec
         /// </summary>

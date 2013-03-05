@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Mathematics;
+using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
@@ -11,6 +12,8 @@ namespace RayTracerLib
     /// Obsahuje tedy souradnice stredu roviny a hodnoty potrebne pro sestaveni smeroveho vektoru:
     /// hranicni body projekcni roviny
     /// </summary>
+    [DataContract]
+    [KnownType(typeof(Vektor))]
     public class Camera
     {
 
@@ -21,6 +24,7 @@ namespace RayTracerLib
         /// <summary>
         /// Stred projekcni roviny (v karteskych souradnicich)
         /// </summary>
+        [DataMember]
         public Vektor Source { get; set; }
 
         private Vektor _norm;
@@ -28,6 +32,7 @@ namespace RayTracerLib
         /// <summary>
         /// Normala projekcni roviny
         /// </summary>
+        [DataMember(Name="Normal")]
         public Vektor Norm { get { return _norm; } 
             private set 
             { 

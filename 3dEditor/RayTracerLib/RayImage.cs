@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using Mathematics;
+using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
+    [DataContract]
     public class RayImage
     {
         /// <summary>
@@ -22,7 +24,7 @@ namespace RayTracerLib
                 new Size(1280,720),
                 new Size()
             };
-
+        [DataMember]
         public Size CurrentSize { get; set; }
         public const int SizeWidthExtent = 10;
         public const int SizeHeightExtent = 60;
@@ -37,21 +39,25 @@ namespace RayTracerLib
         /// <summary>
         /// Maximalni hloubka rekurze pri vykreslovani obrazku
         /// </summary>
+        [DataMember]
         public int MaxRecurse { get; set; }
 
         /// <summary>
         /// pozadi obrazku
         /// </summary>
+        [DataMember]
         public Colour BackgroundColor { get; set; }
 
         /// <summary>
         /// indikator zapnuti antialiasingu pri vykreslovani
         /// </summary>
+        [DataMember]
         public bool IsAntialiasing { get; set; }
 
         /// <summary>
         /// Zda se ma pouzit pri renderovani optimalizace
         /// </summary>
+        [DataMember]
         public bool IsOptimalizing { get; set; }
 
         public RayImage() : this(1, new Colour(0.1, 0.1, 0.1, 1), false) { }

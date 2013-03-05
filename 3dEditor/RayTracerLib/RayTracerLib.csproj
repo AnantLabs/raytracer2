@@ -69,6 +69,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -91,6 +92,7 @@
     <Compile Include="CustomObject.cs" />
     <Compile Include="Cylinder.cs" />
     <Compile Include="DefaultShape.cs" />
+    <Compile Include="ExternScene.cs" />
     <Compile Include="IOptimize.cs" />
     <Compile Include="ISpatialPoint.cs" />
     <Compile Include="KDTree.cs" />

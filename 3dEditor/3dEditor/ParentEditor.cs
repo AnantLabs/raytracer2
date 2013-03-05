@@ -11,6 +11,7 @@ using EditorLib;
 using RayTracerLib;
 using System.Runtime.InteropServices;
 using Mathematics;
+using System.IO;
 
 namespace _3dEditor
 {
@@ -161,7 +162,7 @@ namespace _3dEditor
             _rayTracer.RScene.Lights[1].Coord = new Vektor(5.5, -0.4, 2.2);
             _rayTracer.RCamera.Source = new Vektor(5.6, -1.7, 1.8);
             _rayTracer.RCamera.SetNormAndUp(new Vektor(-1, 0.3, -0.3), new Vektor(0, -0.1, -0.5));
-            //_rayTracer.RScene.SceneObjects.Add(sph1);
+            _rayTracer.RScene.SceneObjects.Add(sph1);
             //_rayTracer.RScene.SceneObjects.Add(sph2);
             //_rayTracer.RScene.SceneObjects.Add(cube1);
             //_rayTracer.RScene.SceneObjects.Add(cube2);
@@ -177,7 +178,7 @@ namespace _3dEditor
             //_rayTracer.RScene.SetDefaultScene4();
 
             CustomObject custom = CustomObject.CreateCube();
-            _rayTracer.RScene.SceneObjects.Add(custom);
+            //_rayTracer.RScene.SceneObjects.Add(custom);
 
             CustomObject planeCustom = CustomObject.CreatePlane();
             _rayTracer.RScene.SceneObjects.Add(planeCustom);
@@ -192,7 +193,11 @@ namespace _3dEditor
             //this._WndBoard.AddAnimation(drAnim);
 
             Octree octree = new Octree(_rayTracer.RScene.SceneObjects);
-   
+
+            String fullpath = Path.Combine(Application.StartupPath, "save.xml");
+            ExternScene extsc = new ExternScene();
+            extsc.Set(_rayTracer.RScene, new RayImage[]{img});
+            extsc.SerializeXML(fullpath, _rayTracer.RScene);
 
         }
 

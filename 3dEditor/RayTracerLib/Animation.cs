@@ -37,6 +37,7 @@ namespace RayTracerLib
     /// <summary>
     /// Trida slouzici pro vytvoreni animace
     /// </summary>
+    [Serializable]
     public class Animation
     {
 

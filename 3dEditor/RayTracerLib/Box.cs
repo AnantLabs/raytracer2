@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Mathematics;
 using System.Threading;
+using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
@@ -27,6 +28,7 @@ namespace RayTracerLib
         /// </summary>
         public Vektor Center { get; private set; }
 
+        public Box() : this(new Vektor(0, 0, 0), 1) { }
         public Box(Vektor center, double size)
         {
             IsActive = true;

@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace Mathematics
 {
-public class Matrix3D
+    public class Matrix3D
     {
         public static Matrix3D Identity
         { get {
@@ -18,6 +18,7 @@ public class Matrix3D
             }
         }
 
+        [NonSerialized]
         public double[,] Matrix = new double[4, 4];
 
         public Matrix3D()

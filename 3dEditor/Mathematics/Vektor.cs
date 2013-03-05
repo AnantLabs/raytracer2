@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
-
+using System.Runtime.Serialization;
 
 namespace Mathematics
 {
@@ -11,11 +11,15 @@ namespace Mathematics
     /// <summary>
     /// Zakladni manipulace a pocitani s vektory pouzite v cele aplikaci
     /// </summary>
+    [DataContract]
     public class Vektor
     {
 
+        [DataMember(Name="X")]
         public double X { get; set; }
+        [DataMember(Name = "Y")]
         public double Y { get; set; }
+        [DataMember(Name = "Z")]
         public double Z { get; set; }
         public double ZZ { get; set; }
 

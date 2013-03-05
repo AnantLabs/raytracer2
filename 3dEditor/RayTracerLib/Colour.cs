@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using Mathematics;
+using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
@@ -12,6 +13,7 @@ namespace RayTracerLib
     /// Trida pro barvu. - v RGB slozkach + Alfa slozka pro pruhlednost.
     /// Barvy se ukladaji jako realne cislo v intervalu [0, 1] pro presnejsi definici barvy.
     /// </summary>
+    [DataContract]
     public class Colour
     {
 
@@ -21,9 +23,11 @@ namespace RayTracerLib
         public static Colour White { get { return new Colour(1.0, 1.0, 1.0, 1.0); } }
 
 
-
+        [DataMember]
         public double R { get; set; }
+        [DataMember]
         public double G { get; set; }
+        [DataMember]
         public double B { get; set; }
 
         /// <summary>

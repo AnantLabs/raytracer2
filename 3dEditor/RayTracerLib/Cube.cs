@@ -42,6 +42,8 @@ namespace RayTracerLib
         private List<Plane> PlanesOpp;
 
 
+        public Cube() : this(new Vektor(0, 0, 0), new Vektor(0, 0, 1), 1) { }
+
         public Cube(Vektor center, Vektor dir, double size)
         {
             IsActive = true;
