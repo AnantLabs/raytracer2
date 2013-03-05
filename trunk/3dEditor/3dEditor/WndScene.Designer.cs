@@ -83,10 +83,10 @@
             this.cylinderToolStripMenuItem,
             this.coneToolStripMenuItem,
             this.triangleToolStripMenuItem,
+            this.customObjectToolStripMenuItem,
             this.lightToolStripMenuItem,
             this.imageToolStripMenuItem,
-            this.animationToolStripMenuItem,
-            this.customObjectToolStripMenuItem});
+            this.animationToolStripMenuItem});
             this.toolStripDropDownButton1.Image = global::_3dEditor.Properties.Resources.add_1_icon16;
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";

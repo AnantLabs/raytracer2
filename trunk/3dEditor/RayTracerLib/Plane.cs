@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Mathematics;
 using System.Threading;
+using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
@@ -18,6 +19,7 @@ namespace RayTracerLib
     /// Normal .. normala roviny
     /// D .. vzdalenost roviny od pocatku
     /// </summary>
+    [DataContract]
     public class Plane : DefaultShape
     {
         private Vektor DirNom;
@@ -26,6 +28,7 @@ namespace RayTracerLib
         /// <summary>
         /// Smer roviny - jeji normala
         /// </summary>
+        [DataMember]
         public Vektor Normal { get; set; }
         public Vektor Pocatek { get; set; }
 
@@ -38,6 +41,7 @@ namespace RayTracerLib
         /// <summary>
         /// Vzdalenost roviny od pocatku
         /// </summary>
+        [DataMember]
         public double D { get; set; }
 
         public double MinX { get; set; }
@@ -47,7 +51,7 @@ namespace RayTracerLib
         public double MinZ { get; set; }
         public double MaxZ { get; set; }
 
-
+        public Plane() : this(new Vektor(0, 1, 0), 1) { }
         public Plane(Vektor normal, double d)
         {
             IsActive = true;

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Mathematics;
+using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
@@ -14,11 +16,15 @@ namespace RayTracerLib
     ///     metodu, jenz vrati pro dany paprsek body, ktere protinaji objekt
     ///     transformacni metodu pro pohyb objektu
     /// </summary>
+    [DataContract]
     public abstract class DefaultShape
     {
 
+        [XmlIgnore]
         public Matrix3D _localMatrix;
+        [XmlIgnore]
         public Matrix3D _RotatMatrix;
+        [XmlIgnore]
         public Matrix3D _ShiftMatrix;
 
         public static long TotalTested;
@@ -26,12 +32,14 @@ namespace RayTracerLib
         /// <summary>
         /// Materialove vlastnosti objektu
         /// </summary>
+        [DataMember]
         public Material Material { get; set; }
 
         /// <summary>
         /// indikuje, zda bude bran zretel na objekt pri vykreslovani
         /// je-li true, objekt jako by ve scene vubec nebyl
         /// </summary>
+        [DataMember]
         public bool IsActive { get; set; }
 
         /// <summary>

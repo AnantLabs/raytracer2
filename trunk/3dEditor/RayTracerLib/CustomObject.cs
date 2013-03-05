@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Mathematics;
+using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
+    [DataContract]
     public class CustomObject : DefaultShape
     {
         /// <summary>
@@ -15,11 +17,23 @@ namespace RayTracerLib
         /// <summary>
         /// seznam plosek
         /// </summary>
+        [DataMember]
         public List<Triangle> FaceList;
 
         /// stred objektu
+        [DataMember]
         public Vektor Center { get; private set; }
 
+        public CustomObject() : this(CustomObject.CreateCube()) { }
+        public CustomObject(CustomObject old)
+        {
+            this.VertexList = old.VertexList;
+            this.FaceList = old.FaceList;
+            _ShiftMatrix = old._ShiftMatrix;
+            _RotatMatrix = old._RotatMatrix;
+            _localMatrix = old._localMatrix;
+            this.Material = old.Material;
+        }
         /// <summary>
         /// zadani objektu pres body a seznamem indexu
         /// </summary>
@@ -56,13 +70,14 @@ namespace RayTracerLib
                 return true;
             else return false;
         }
-        public CustomObject(List<Triangle> triangList)
+        public CustomObject(List<Triangle> triangList, Vektor center)
         {
-            Center = new Vektor(1, 1, 1);
+            Center = center;
             IsActive = true;
             this.Material = new Material();
             InitializeForRayTr(triangList);
         }
+        public CustomObject(List<Triangle> triangList) : this(triangList, new Vektor(1, 1, 1)) { }
 
         public void InitializeForRayTr()
         {

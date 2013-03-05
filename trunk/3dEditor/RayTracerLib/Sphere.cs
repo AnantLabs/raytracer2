@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Mathematics;
 using System.Threading;
+using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
@@ -12,20 +13,25 @@ namespace RayTracerLib
     /// zakladni objekt sceny - koule
     /// 
     /// </summary>
+    [DataContract]
     public class Sphere : DefaultShape
     {
 
         /// <summary>
         /// polomer koule
         /// </summary>
+        [DataMember]
         public double R { get; set; }
 
         /// <summary>
         /// pocatek koule
         /// </summary>
+        [DataMember]
         public Vektor Origin { get; set; }
 
 //        public Sphere(Vektor origin, double r) : this(origin, r, new Color(0.7, 0.5, 0.3, 1.0)) { }
+
+        public Sphere() : this(new Vektor(0, 0, 0), 1) { }
 
         public Sphere(Vektor origin, double r)
         {

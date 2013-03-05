@@ -3,15 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Mathematics;
+using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
+    [DataContract]
     public class Vertex : Vektor
     {
         public Vektor Normal { get; set; }
+
         public List<Triangle> NeighFaces { get; private set; }
 
         public Vertex() : this(Vektor.ZeroVektor) { }
+        public Vertex(double x, double y, double z)
+            : base(x, y, z)
+        {
+            this.Normal = Vektor.ZeroVektor;
+            NeighFaces = new List<Triangle>(8);
+        }
         public Vertex(Vektor vector) : base(vector)
         {
             this.Normal = Vektor.ZeroVektor;

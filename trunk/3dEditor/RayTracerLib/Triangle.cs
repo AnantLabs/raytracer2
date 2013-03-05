@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Mathematics;
 using System.Threading;
+using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
@@ -13,21 +14,26 @@ namespace RayTracerLib
     ///         /   \
     ///        A-----B
     /// </summary>
+    [DataContract]
     public class Triangle : DefaultShape
     {
         /// <summary>
         /// Levy dolni vrchol
         /// </summary>
-        public Vertex A { get { return Vertices[0]; } private set { Vertices[0] = value; } }
+        [DataMember]
+        public Vertex A { get { return Vertices[0]; } set { if (Vertices == null) Vertices = new Vertex[3]; Vertices[0] = value; } }
         /// <summary>
         /// Pravy dolni vrchol
         /// </summary>
-        public Vertex B { get { return Vertices[1]; } private set { Vertices[1] = value; } }
+        [DataMember]
+        public Vertex B { get { return Vertices[1]; } set { if (Vertices == null) Vertices = new Vertex[3]; Vertices[1] = value; } }
         /// <summary>
         /// Horni Vrchol
         /// </summary>
-        public Vertex C { get { return Vertices[2]; } private set { Vertices[2] = value; } }
-        Vertex[] Vertices;
+        [DataMember]
+        public Vertex C { get { return Vertices[2]; } set { if (Vertices == null) Vertices = new Vertex[3]; Vertices[2] = value; } }
+
+        private Vertex[] Vertices = new Vertex[3];
 
         // POMOCNE PROMENNE
         // ///////////////////////////
@@ -40,8 +46,9 @@ namespace RayTracerLib
         /// </summary>
         Vektor AB, AC;
 
-        public Triangle() : this(new Vektor(1, 0, 0), new Vektor(0, 1, 0), new Vektor(0, 0, 1)) { }
-        public Triangle(Vertex a, Vertex b, Vertex c) : this(a, b, c, new Material()) { }
+        public Triangle() : this(new Vertex(1, 0, 0), new Vertex(0, 1, 0), new Vertex(0, 0, 1)) { }
+        public Triangle(Vertex a, Vertex b, Vertex c)
+            : this(a, b, c, new Material()) { }
         public Triangle(Vertex a, Vertex b, Vertex c, Material mat)
         {
             Set(a, b, c);

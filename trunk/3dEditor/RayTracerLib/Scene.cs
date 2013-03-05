@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Mathematics;
+using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
@@ -18,11 +19,13 @@ namespace RayTracerLib
     /// Nejdulezitejsi je metoda GetIntersectPoint, ktera vraci nejblizsi bod pruniku, jenz vznikne protnutim
     /// zadaneho paprsku s objekty ve scene
     /// </summary>
+    [DataContract]
     public class Scene
     {
         /// <summary>
         /// generator paprsku
         /// </summary>
+        [DataMember]//(Name="KAMERA")]
         public Camera Camera { get; set; }
 
         /// <summary>
@@ -43,6 +46,7 @@ namespace RayTracerLib
         /// <summary>
         /// vsechny objekty ve scene, ktere osvetlujeme
         /// </summary>
+        [DataMember]
         public List<DefaultShape> SceneObjects { get; set; }
 
         public RTree R_Tree { get; private set; }
