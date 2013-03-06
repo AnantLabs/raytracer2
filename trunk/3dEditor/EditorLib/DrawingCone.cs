@@ -29,7 +29,7 @@ namespace EditorLib
 
         public DrawingCone(Cone cone)
         {
-            SetLabelPrefix("cone");
+            
             SetModelObject(cone);
         }
 

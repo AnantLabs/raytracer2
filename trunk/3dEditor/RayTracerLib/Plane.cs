@@ -54,6 +54,7 @@ namespace RayTracerLib
         public Plane() : this(new Vektor(0, 1, 0), 1) { }
         public Plane(Vektor normal, double d)
         {
+            SetLabelPrefix("plane");
             IsActive = true;
             this.SetValues(normal, d);
         }
@@ -312,6 +313,14 @@ namespace RayTracerLib
         //    return true;
         //}
 
+        public override DefaultShape FromDeserial()
+        {
+            Plane p = new Plane(this.Normal, this.D);
+            p.Label = this.Label;
+            p.Material = this.Material;
+            p.IsActive = this.IsActive;
+            return p;
+        }
 
     }
 }

@@ -17,7 +17,15 @@ namespace RayTracerLib
     ///     transformacni metodu pro pohyb objektu
     /// </summary>
     [DataContract]
-    public abstract class DefaultShape
+    [KnownType(typeof(LabeledShape))]
+    [KnownType(typeof(Sphere))]
+    [KnownType(typeof(CustomObject))]
+    [KnownType(typeof(Cone))]
+    [KnownType(typeof(Plane))]
+    [KnownType(typeof(Triangle))]
+    [KnownType(typeof(Cube))]
+    [KnownType(typeof(Cylinder))]
+    public abstract class DefaultShape : LabeledShape
     {
 
         [XmlIgnore]
@@ -28,6 +36,9 @@ namespace RayTracerLib
         public Matrix3D _ShiftMatrix;
 
         public static long TotalTested;
+
+        public DefaultShape() { }
+        public DefaultShape(DefaultShape old) : base(old) { }
 
         /// <summary>
         /// Materialove vlastnosti objektu
@@ -62,5 +73,9 @@ namespace RayTracerLib
         public abstract void MoveToPoint(double dx, double dy, double dz);
 
         public abstract void Rotate(double degAroundX, double degAroundY, double degAroundZ);
+
+        public abstract DefaultShape FromDeserial();
+
+
     }
 }

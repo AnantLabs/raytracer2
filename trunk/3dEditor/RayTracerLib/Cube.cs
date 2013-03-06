@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Mathematics;
 using System.Threading;
+using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
@@ -11,11 +12,15 @@ namespace RayTracerLib
     /// <summary>
     /// libovolne orientovana krychle
     /// </summary>
+    [DataContract]
     public class Cube :DefaultShape
     {
 
+        [DataMember]
         public Vektor Dir { get; private set; }
+        [DataMember]
         public Vektor Center { get; private set; }
+        [DataMember]
         public double Size { get; private set; }
 
 
@@ -46,6 +51,7 @@ namespace RayTracerLib
 
         public Cube(Vektor center, Vektor dir, double size)
         {
+            SetLabelPrefix("cube");
             IsActive = true;
             this.Material = new Material();
             SetValues(center, dir, size);
@@ -281,6 +287,15 @@ namespace RayTracerLib
 
             // 3) prenastavit objekt podle nove matice
             this.SetValues(this.Center, yAxe, this.Size);
+        }
+
+        public override DefaultShape FromDeserial()
+        {
+            Cube cube = new Cube(this.Center, this.Dir, this.Size);
+            cube.Label = this.Label;
+            cube.Material = this.Material;
+            cube.IsActive = this.IsActive;
+            return cube;
         }
     }
 }

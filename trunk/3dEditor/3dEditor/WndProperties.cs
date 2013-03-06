@@ -159,7 +159,7 @@ namespace _3dEditor
 
             Sphere sph = (Sphere)drSphere.ModelObject;
 
-            this.txtbSphereLabel.Text = drSphere.Label;
+            this.txtbSphereLabel.Text = sph.Label;
 
             this.numericKouleX.Value = (decimal)MyMath.Clamp(sph.Origin.X, -100, 100);
             this.numericKouleY.Value = (decimal)MyMath.Clamp(sph.Origin.Y, -100, 100);
@@ -204,7 +204,7 @@ namespace _3dEditor
 
             Plane pl = (Plane)drPlane.ModelObject;
 
-            this.txtbPlaneLabel.Text = drPlane.Label;
+            this.txtbPlaneLabel.Text = pl.Label;
 
             if (_showAngles)
             {
@@ -246,19 +246,19 @@ namespace _3dEditor
                 this.Text = "Properties: Cube";
             }
 
-            Cube c = (Cube)drCube.ModelObject;
+            Cube cube = (Cube)drCube.ModelObject;
 
-            this.txtbCubeLabel.Text = drCube.Label;
+            this.txtbCubeLabel.Text = cube.Label;
 
-            this.numericBoxX.Value = (decimal)MyMath.Clamp(c.Center.X, -100, 100);
-            this.numericBoxY.Value = (decimal)MyMath.Clamp(c.Center.Y, -100, 100);
-            this.numericBoxZ.Value = (decimal)MyMath.Clamp(c.Center.Z, -100, 100);
+            this.numericBoxX.Value = (decimal)MyMath.Clamp(cube.Center.X, -100, 100);
+            this.numericBoxY.Value = (decimal)MyMath.Clamp(cube.Center.Y, -100, 100);
+            this.numericBoxZ.Value = (decimal)MyMath.Clamp(cube.Center.Z, -100, 100);
 
-            this.numericBoxOsaX.Value = (decimal)MyMath.Clamp(c.Dir.X, -100, 100);
-            this.numericBoxOsaY.Value = (decimal)MyMath.Clamp(c.Dir.Y, -100, 100);
-            this.numericBoxOsaZ.Value = (decimal)MyMath.Clamp(c.Dir.Z, -100, 100);
+            this.numericBoxOsaX.Value = (decimal)MyMath.Clamp(cube.Dir.X, -100, 100);
+            this.numericBoxOsaY.Value = (decimal)MyMath.Clamp(cube.Dir.Y, -100, 100);
+            this.numericBoxOsaZ.Value = (decimal)MyMath.Clamp(cube.Dir.Z, -100, 100);
 
-            this.numericBoxSize.Value = (decimal)c.Size;
+            this.numericBoxSize.Value = (decimal)cube.Size;
 
             if (_showAngles)
             {
@@ -268,18 +268,18 @@ namespace _3dEditor
                 this.numBoxRotateZ.Value = (decimal)MyMath.Clamp(angles[2], -360, 360);
             }
 
-            this.numBoxKa.Value = (decimal)c.Material.Ka;
-            this.numBoxKs.Value = (decimal)c.Material.Ks;
-            this.numBoxKd.Value = (decimal)c.Material.Kd;
-            this.numBoxKt.Value = (decimal)c.Material.KT;
-            this.numBoxH.Value = (decimal)c.Material.SpecularExponent;
-            this.numBoxN.Value = (decimal)c.Material.N;
+            this.numBoxKa.Value = (decimal)cube.Material.Ka;
+            this.numBoxKs.Value = (decimal)cube.Material.Ks;
+            this.numBoxKd.Value = (decimal)cube.Material.Kd;
+            this.numBoxKt.Value = (decimal)cube.Material.KT;
+            this.numBoxH.Value = (decimal)cube.Material.SpecularExponent;
+            this.numBoxN.Value = (decimal)cube.Material.N;
 
-            this.numBoxColR.Value = (decimal)c.Material.Color.R;
-            this.numBoxColG.Value = (decimal)c.Material.Color.G;
-            this.numBoxColB.Value = (decimal)c.Material.Color.B;
+            this.numBoxColR.Value = (decimal)cube.Material.Color.R;
+            this.numBoxColG.Value = (decimal)cube.Material.Color.G;
+            this.numBoxColB.Value = (decimal)cube.Material.Color.B;
 
-            btnBoxMaterialColor.BackColor = c.Material.Color.SystemColor();
+            btnBoxMaterialColor.BackColor = cube.Material.Color.SystemColor();
         }
 
         private void ShowCylinder(DrawingCylinder drCyl)
@@ -292,20 +292,20 @@ namespace _3dEditor
                 this.Text = "Properties: Cylinder";
             }
 
-            Cylinder c = (Cylinder)drCyl.ModelObject;
+            Cylinder cyl = (Cylinder)drCyl.ModelObject;
 
-            this.txtbCylLabel.Text = drCyl.Label;
+            this.txtbCylLabel.Text = cyl.Label;
 
-            this.numericCylCentX.Value = (decimal)MyMath.Clamp(c.Center.X, -100, 100);
-            this.numericCylCentY.Value = (decimal)MyMath.Clamp(c.Center.Y, -100, 100);
-            this.numericCylCentZ.Value = (decimal)MyMath.Clamp(c.Center.Z, -100, 100);
+            this.numericCylCentX.Value = (decimal)MyMath.Clamp(cyl.Center.X, -100, 100);
+            this.numericCylCentY.Value = (decimal)MyMath.Clamp(cyl.Center.Y, -100, 100);
+            this.numericCylCentZ.Value = (decimal)MyMath.Clamp(cyl.Center.Z, -100, 100);
 
-            this.numericCylDirX.Value = (decimal)MyMath.Clamp(c.Dir.X, -100, 100);
-            this.numericCylDirY.Value = (decimal)MyMath.Clamp(c.Dir.Y, -100, 100);
-            this.numericCylDirZ.Value = (decimal)MyMath.Clamp(c.Dir.Z, -100, 100);
+            this.numericCylDirX.Value = (decimal)MyMath.Clamp(cyl.Dir.X, -100, 100);
+            this.numericCylDirY.Value = (decimal)MyMath.Clamp(cyl.Dir.Y, -100, 100);
+            this.numericCylDirZ.Value = (decimal)MyMath.Clamp(cyl.Dir.Z, -100, 100);
 
-            this.numericCylH.Value = (decimal)c.Height;
-            this.numericCylR.Value = (decimal)c.Rad;
+            this.numericCylH.Value = (decimal)cyl.Height;
+            this.numericCylR.Value = (decimal)cyl.Rad;
 
             if (_showAngles)
             {
@@ -315,18 +315,18 @@ namespace _3dEditor
                 this.numCylRotateZ.Value = (decimal)MyMath.Clamp(angles[2], -360, 360);
             }
 
-            this.numCylKa.Value = (decimal)c.Material.Ka;
-            this.numCylKs.Value = (decimal)c.Material.Ks;
-            this.numCylKd.Value = (decimal)c.Material.Kd;
-            this.numCylKt.Value = (decimal)c.Material.KT;
-            this.numCylH.Value = (decimal)c.Material.SpecularExponent;
-            this.numCylN.Value = (decimal)c.Material.N;
+            this.numCylKa.Value = (decimal)cyl.Material.Ka;
+            this.numCylKs.Value = (decimal)cyl.Material.Ks;
+            this.numCylKd.Value = (decimal)cyl.Material.Kd;
+            this.numCylKt.Value = (decimal)cyl.Material.KT;
+            this.numCylH.Value = (decimal)cyl.Material.SpecularExponent;
+            this.numCylN.Value = (decimal)cyl.Material.N;
 
-            this.numCylColR.Value = (decimal)c.Material.Color.R;
-            this.numCylColG.Value = (decimal)c.Material.Color.G;
-            this.numCylColB.Value = (decimal)c.Material.Color.B;
+            this.numCylColR.Value = (decimal)cyl.Material.Color.R;
+            this.numCylColG.Value = (decimal)cyl.Material.Color.G;
+            this.numCylColB.Value = (decimal)cyl.Material.Color.B;
 
-            btnCylMaterialColor.BackColor = c.Material.Color.SystemColor();
+            btnCylMaterialColor.BackColor = cyl.Material.Color.SystemColor();
         }
 
         private void ShowTriangle(DrawingTriangle drTriangl)
@@ -351,7 +351,7 @@ namespace _3dEditor
             }
             Triangle triangl = (Triangle)drTriangl.ModelObject;
 
-            this.txtbTriangLabel.Text = drTriangl.Label;
+            this.txtbTriangLabel.Text = triangl.Label;
 
             WndBoard wndB = GetWndBoard();
             Matrix3D transp = wndB.RotationMatrix.Transpose();
@@ -402,7 +402,7 @@ namespace _3dEditor
 
             CustomObject cust = (CustomObject)drCust.ModelObject;
 
-            this.txtbCustomLabel.Text = drCust.Label;
+            this.txtbCustomLabel.Text = cust.Label;
 
             if (_showAngles)
             {
@@ -476,26 +476,26 @@ namespace _3dEditor
                 this.Text = "Properties: Light";
             }
 
-            Light l = (Light)drLight.ModelObject;
+            Light light = (Light)drLight.ModelObject;
 
-            this.txtbLightLabel.Text = drLight.Label;
+            this.txtbLightLabel.Text = light.Label;
 
-            this.numericSvetloX.Value = (decimal)MyMath.Clamp(l.Coord.X, -100, 100);
-            this.numericSvetloY.Value = (decimal)MyMath.Clamp(l.Coord.Y, -100, 100);
-            this.numericSvetloZ.Value = (decimal)MyMath.Clamp(l.Coord.Z, -100, 100);
+            this.numericSvetloX.Value = (decimal)MyMath.Clamp(light.Coord.X, -100, 100);
+            this.numericSvetloY.Value = (decimal)MyMath.Clamp(light.Coord.Y, -100, 100);
+            this.numericSvetloZ.Value = (decimal)MyMath.Clamp(light.Coord.Z, -100, 100);
 
-            this.numericSvetloR.Value = (decimal)l.Color.R;
-            this.numericSvetloG.Value = (decimal)l.Color.G;
-            this.numericSvetloB.Value = (decimal)l.Color.B;
+            this.numericSvetloR.Value = (decimal)light.Color.R;
+            this.numericSvetloG.Value = (decimal)light.Color.G;
+            this.numericSvetloB.Value = (decimal)light.Color.B;
 
-            this.checkBoxLightIsSoft.Checked = l.IsSoftLight;
+            this.checkBoxLightIsSoft.Checked = light.IsSoftLight;
 
-            btnLighColor.BackColor = l.Color.SystemColor();
+            btnLighColor.BackColor = light.Color.SystemColor();
 
-            this.numericLightNum.Value = l.SoftNumSize;
-            this.numericLightEps.Value = (decimal)l.SoftEpsilon;
+            this.numericLightNum.Value = light.SoftNumSize;
+            this.numericLightEps.Value = (decimal)light.SoftEpsilon;
 
-            if (l.IsSinglePass)
+            if (light.IsSinglePass)
                 this.radioSinglePass.Checked = true;
             else
                 this.radioMultiPass.Checked = true;
@@ -518,6 +518,8 @@ namespace _3dEditor
                 this.txbResX.Text = img.CurrentSize.Width.ToString();
                 this.txbResY.Text = img.CurrentSize.Height.ToString();
             }
+            this.comboResolution.SelectedIndex = img.IndexPictureSize;
+            SetImgComboVisibility();
 
             this.numericRecurs.Value = (decimal)MyMath.Clamp(img.MaxRecurse, -1, 100);
             this.checkAntialias.Checked = img.IsAntialiasing;
@@ -563,7 +565,8 @@ namespace _3dEditor
                 this.panelAnimace.Visible = true;
                 this.Text = "Properties: Animation";
             }
-            this.txtbAnimLabel.Text = drAnim.Label;
+            Animation anim = drAnim.ModelObject as Animation;
+            this.txtbAnimLabel.Text = anim.Label;
 
             this.numAnimCenterX.Value = (decimal)drAnim.CenterWorld.X;
             this.numAnimCenterY.Value = (decimal)drAnim.CenterWorld.Y;
@@ -595,8 +598,7 @@ namespace _3dEditor
 
         #region comboResolution
 
-
-        private void ComboResolIndexChange(object sender, EventArgs e)
+        private void SetImgComboVisibility()
         {
             // je-li vybrana posledni polozka - zobrazi se vyber pro vlastni rozliseni
             if (this.comboResolution.SelectedIndex == this.comboResolution.Items.Count - 1)
@@ -613,6 +615,11 @@ namespace _3dEditor
                 this.labelResCross.Visible = false;
                 this.labelResPixels.Visible = false;
             }
+        }
+
+        private void ComboResolIndexChange(object sender, EventArgs e)
+        {
+            SetImgComboVisibility();
             this.actionImageSet(sender, e);
         }
 
@@ -1037,7 +1044,7 @@ namespace _3dEditor
 
             Cone c = (Cone)drCone.ModelObject;
 
-            this.txtbConeLabel.Text = drCone.Label;
+            this.txtbConeLabel.Text = c.Label;
 
             this.numericConePeakX.Value = (decimal)MyMath.Clamp(c.Peak.X, -100, 100);
             this.numericConePeakY.Value = (decimal)MyMath.Clamp(c.Peak.Y, -100, 100);
@@ -1987,7 +1994,7 @@ namespace _3dEditor
             TextBox txtb = sender as TextBox;
             if (!(_currentlyDisplayed is DrawingObject)) return;
             DrawingObject drob = _currentlyDisplayed as DrawingObject;
-            if (!DrawingObject.IsAvailable(txtb.Text) && drob.Label != txtb.Text)
+            if (!LabeledShape.IsAvailable(txtb.Text) && drob.Label != txtb.Text)
             {
                 txtb.BackColor = Color.Red;
             }
@@ -2006,7 +2013,7 @@ namespace _3dEditor
 
             if (e.KeyCode == Keys.Enter)
             {
-                if (DrawingObject.IsAvailable(txtb.Text))
+                if (LabeledShape.IsAvailable(txtb.Text))
                 {
                     drob.Label = txtb.Text;
                     WndScene wndSc = GetWndScene();

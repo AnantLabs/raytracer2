@@ -38,7 +38,7 @@ namespace RayTracerLib
     /// Trida slouzici pro vytvoreni animace
     /// </summary>
     [Serializable]
-    public class Animation
+    public class Animation : LabeledShape
     {
 
         /// <summary>
@@ -209,6 +209,7 @@ namespace RayTracerLib
 
         public Animation(RayTracing raytracer, Elipse elipsa, double fps, double time)
         {
+            SetLabelPrefix("anim");
             _animType = AnimationType.VideoOnly;
             _rayTracer = raytracer;
             Ellipse = elipsa;

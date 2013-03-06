@@ -18,7 +18,7 @@ namespace EditorLib
             // TODO: Complete member initialization
             this.trian = trian;
             DrCustObject = drCust;
-            SetLabelPrefix("facet");
+            
         }
 
         private static Triangle Searching;

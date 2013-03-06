@@ -19,13 +19,11 @@ namespace RayTracerLib
     /// Nejdulezitejsi je metoda GetIntersectPoint, ktera vraci nejblizsi bod pruniku, jenz vznikne protnutim
     /// zadaneho paprsku s objekty ve scene
     /// </summary>
-    [DataContract]
     public class Scene
     {
         /// <summary>
         /// generator paprsku
         /// </summary>
-        [DataMember]//(Name="KAMERA")]
         public Camera Camera { get; set; }
 
         /// <summary>
@@ -46,7 +44,6 @@ namespace RayTracerLib
         /// <summary>
         /// vsechny objekty ve scene, ktere osvetlujeme
         /// </summary>
-        [DataMember]
         public List<DefaultShape> SceneObjects { get; set; }
 
         public RTree R_Tree { get; private set; }
@@ -249,17 +246,17 @@ namespace RayTracerLib
         {
             this.SceneObjects = new List<DefaultShape>();
 
-            Sphere sp1 = new Sphere(new Vektor(-1.5, 0, -6), 1);
-            Sphere sp2 = new Sphere(new Vektor(0.0, 0, -6), 1);
+           // Sphere sp1 = new Sphere(new Vektor(-1.5, 0, -6), 1);
+           // Sphere sp2 = new Sphere(new Vektor(0.0, 0, -6), 1);
 
-            this.SceneObjects.Add(sp1);
-            this.SceneObjects.Add(sp2);
+           // this.SceneObjects.Add(sp1);
+           // this.SceneObjects.Add(sp2);
 
-            Plane p = new Plane(new Vektor(1, -9, 1), 1.9);
-           this.SceneObjects.Add(p);
+           // Plane p = new Plane(new Vektor(1, -9, 1), 1.9);
+           //this.SceneObjects.Add(p);
 
-            Box b = new Box(new Vektor(0, 0, -2), 1);
-            this.SceneObjects.Add(b);
+           // Box b = new Box(new Vektor(0, 0, -2), 1);
+           // this.SceneObjects.Add(b);
         }
 
         /// <summary>

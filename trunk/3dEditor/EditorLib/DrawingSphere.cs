@@ -53,7 +53,7 @@ namespace EditorLib
             Sides = _SIDES;
             DecremTheta = _DECREM_THETA;
             DecremPhi = _DECREM_PHI;
-            SetLabelPrefix("sphere");
+            //SetLabelPrefix("sphere");
             this.SetModelObject(sphere);
         }
         //public List<Rect

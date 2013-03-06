@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
+    
     [DataContract]
     public class CustomObject : DefaultShape
     {
@@ -25,7 +26,7 @@ namespace RayTracerLib
         public Vektor Center { get; private set; }
 
         public CustomObject() : this(CustomObject.CreateCube()) { }
-        public CustomObject(CustomObject old)
+        public CustomObject(CustomObject old):base(old)
         {
             this.VertexList = old.VertexList;
             this.FaceList = old.FaceList;
@@ -43,7 +44,8 @@ namespace RayTracerLib
         public CustomObject(Vektor[] points, int[] indeces)
         {
             if (points.Length < 3) throw new Exception("Wrong number of points");
-
+            
+            SetLabelPrefix("custom");
             IsActive = true;
             this.Material = new Material();
 
@@ -72,6 +74,7 @@ namespace RayTracerLib
         }
         public CustomObject(List<Triangle> triangList, Vektor center)
         {
+            SetLabelPrefix("custom");
             Center = center;
             IsActive = true;
             this.Material = new Material();
@@ -282,6 +285,15 @@ namespace RayTracerLib
             CustomObject plane = new CustomObject(vecs.ToArray(), faces);
             plane.SetCenter(new Vektor(0, -1, 0));
             return plane;
+        }
+
+        public override DefaultShape FromDeserial()
+        {
+            CustomObject cust = new CustomObject(this.FaceList, this.Center);
+            cust.Label = this.Label;
+            cust.Material = this.Material;
+            cust.IsActive = this.IsActive;
+            return cust;
         }
     }
 }

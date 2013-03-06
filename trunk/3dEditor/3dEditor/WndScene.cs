@@ -15,6 +15,7 @@ namespace _3dEditor
 {
     public partial class WndScene : Form
     {
+        public bool BlinkActivate = true;
         enum TreeNodeTypes
         {
             Objects, Lights, Camera, Images, Animations, // top level nodes
@@ -45,6 +46,7 @@ namespace _3dEditor
         public void ClearAll()
         {
             this.treeView1.Nodes.Clear();
+            FillTree();
         }
 
         private void FillTree()
@@ -266,6 +268,7 @@ namespace _3dEditor
 
         private void OnAfterSelect(object sender, TreeViewEventArgs e)
         {
+            if (BlinkActivate == false) return;
 
             //this.AddItem(new RayTracerLib.Sphere(new Vektor(), 1));
             TreeNode node = e.Node;
@@ -299,6 +302,16 @@ namespace _3dEditor
             }
         }
 
+        public void AddImages(RayImage[] rayImgs)
+        {
+            this.BlinkActivate = false;
+            foreach (RayImage img in rayImgs)
+            {
+                this.AddItem(img);
+            }
+            this.BlinkActivate = true;
+
+        }
 
         private void ShowNode(object shape, TreeNode rootNode)
         {
@@ -665,6 +678,25 @@ namespace _3dEditor
             pared.AddRaytrObject(cust);
         }
 
+        /// <summary>
+        /// vrati Vsechny RayImg vytvorene ve scene
+        /// </summary>
+        public RayImage[] GetImages()
+        {
+            List<RayImage> imgList = new List<RayImage>();
+
+            foreach (TreeNode node in treeView1.Nodes)
+            {
+                if ((TreeNodeTypes)node.Tag == TreeNodeTypes.Images)
+                {
+                    foreach (TreeNode n in node.Nodes)
+                    {
+                        imgList.Add((RayImage)n.Tag);
+                    }
+                }
+            }
+            return imgList.ToArray();
+        }
         public RayImage GetSelectedImage()
         {
             RayImage sel = null;
@@ -682,6 +714,7 @@ namespace _3dEditor
             }
             return sel;
         }
+
 
         private void UncheckChildren(TreeNode root)
         {

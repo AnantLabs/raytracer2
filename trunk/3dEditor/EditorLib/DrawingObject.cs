@@ -64,7 +64,30 @@ namespace EditorLib
 
     public abstract class DrawingObject
     {
-
+        /// <summary>
+        /// popisek, ktery je prirazen k Modelovanemu objektu
+        /// </summary>
+        public String Label
+        {
+            get
+            {
+                if (ModelObject is LabeledShape)
+                {
+                    LabeledShape ls = ModelObject as LabeledShape;
+                    return ls.Label;
+                }
+                if (ModelObject is Camera)
+                    return "camera";
+                return "";
+            }
+            set {
+                if (ModelObject is LabeledShape)
+                {
+                    LabeledShape ls = ModelObject as LabeledShape;
+                    ls.Label = value;
+                }
+            }
+        }
         public object ModelObject { get; protected set; }
 
         /// <summary>
@@ -149,70 +172,71 @@ namespace EditorLib
 
         public override string ToString()
         {
-            return Label + " {" + ModelObject.ToString() + "}";
+            return ModelObject.ToString();
+            //return Label + " {" + ModelObject.ToString() + "}";
         }
 
-        #region LABEL
-        private String _label;
-        /// <summary>
-        /// oznaceni objektu, jeho popisek. Maximalni delka = 9 znaku
-        /// </summary>
-        public String Label
-        {
-            get { return _label; }
-            set
-            {
-                String str;
-                if (value.Length > 9)
-                    str = value.Substring(0, 9);
-                else
-                    str = value;
-                str = str.ToLower();
-                if (!labels.Contains(str))
-                {
-                    _label = str;
-                    labels.Add(str);
-                }
-            }
-        }
+        //#region LABEL
+        //private String _label;
+        ///// <summary>
+        ///// oznaceni objektu, jeho popisek. Maximalni delka = 9 znaku
+        ///// </summary>
+        //public String Label
+        //{
+        //    get { return _label; }
+        //    set
+        //    {
+        //        String str;
+        //        if (value.Length > 9)
+        //            str = value.Substring(0, 9);
+        //        else
+        //            str = value;
+        //        str = str.ToLower();
+        //        if (!labels.Contains(str))
+        //        {
+        //            _label = str;
+        //            labels.Add(str);
+        //        }
+        //    }
+        //}
 
-        protected int counter;
-        protected String labelPrefix;
+        //protected int counter;
+        //protected String labelPrefix;
 
-        /// <summary>
-        /// nastavi prefix labelu a prejmenuje podle daneho prefixu rovnou label
-        /// </summary>
-        /// <param name="prefix"></param>
-        public void SetLabelPrefix(String prefix)
-        {
-            counter = 0;
-            String str;
-            if (prefix.Length > 6)
-                str = prefix.Substring(0, 6);
-            else
-                str = prefix;
-            str = str.ToLower();
-            labelPrefix = str;
-            Label = GetUniqueName();
-        }
-        public static bool IsAvailable(String label)
-        {
-            return !labels.Contains(label.ToLower());
-        }
-        protected static List<String> labels = new List<string>();
+        ///// <summary>
+        ///// nastavi prefix labelu a prejmenuje podle daneho prefixu rovnou label
+        ///// </summary>
+        ///// <param name="prefix"></param>
+        //public void SetLabelPrefix(String prefix)
+        //{
+        //    counter = 0;
+        //    String str;
+        //    if (prefix.Length > 6)
+        //        str = prefix.Substring(0, 6);
+        //    else
+        //        str = prefix;
+        //    str = str.ToLower();
+        //    labelPrefix = str;
+        //    Label = GetUniqueName();
+        //}
+        //public static bool IsAvailable(String label)
+        //{
+        //    return !labels.Contains(label.ToLower());
+        //}
+        //protected static List<String> labels = new List<string>();
         
-        public virtual string GetUniqueName()
-        {
-            String label;
-            do
-            {
-                counter++;
-                label = labelPrefix + counter;
-            }
-            while (labels.Contains(label));
-            return label;
-        }
-        #endregion
+        //public virtual string GetUniqueName()
+        //{
+        //    String label;
+        //    do
+        //    {
+        //        counter++;
+        //        label = labelPrefix + counter;
+        //    }
+        //    while (labels.Contains(label));
+        //    return label;
+        //}
+        //#endregion
 
         public virtual void InitForRaytracer(Matrix3D rotMatrix)
         {

@@ -1268,6 +1268,11 @@ namespace _3dEditor
 
 
 
+        public void SetRotationDegrees(double degx, double degy, double degz)
+        {
+            Matrix3D rot = Matrix3D.NewRotateByDegrees(degx, degy, degz);
+            this.RotateWholeEditor(rot);
+        }
         /// <summary>
         /// Rotuje celym editorem
         /// Neposouva zadny realny objekt ve svete sceny
@@ -1783,6 +1788,8 @@ namespace _3dEditor
         /// <param name="scene"></param>
         public void AddRaytrScene(RayTracerLib.Scene scene)
         {
+            WndScene wndScene = GetWndScene();
+            wndScene.BlinkActivate = false;
             _currentScene = scene;
             this._objectsToDraw.Clear();
             foreach (DefaultShape shape in scene.SceneObjects)
@@ -1794,6 +1801,7 @@ namespace _3dEditor
             foreach (Light l in scene.Lights)
                 AddRaytrObject(l);
 
+            wndScene.BlinkActivate = true;
             // nakonec pridame kameru
             AddRaytrObject(scene.Camera);
         }

@@ -26,7 +26,7 @@ namespace EditorLib
         public DrawingCube(RayTracerLib.Cube cube)
         {
             _RotatMatrix = Matrix3D.Identity;
-            SetLabelPrefix("cube");
+            
             this.SetModelObject(cube);
         }
 
@@ -35,7 +35,7 @@ namespace EditorLib
             Cube cube = new Cube(new Vektor(centerX, centerY, centerZ), new Vektor(1, 0, 0), 1);
             cube.Material = new Material();
             cube.Material.Color = new Colour(1, 0.5, 0.1, 1);
-            SetLabelPrefix("cube");
+            //SetLabelPrefix("cube");
             this.SetModelObject(cube);
         }
 

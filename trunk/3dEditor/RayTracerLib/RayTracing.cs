@@ -37,8 +37,22 @@ namespace RayTracerLib
         /// <summary>
         /// kamera snima scenu - vrha paprsky do sceny
         /// </summary>
-        public Camera RCamera { get; set; }
+        private Camera _rcamera;
+        public Camera RCamera
+        {
+            get { return _rcamera; }
+            set
+            {
+                _rcamera = value;
+                if (RScene != null)
+                    RScene.Camera = value;
+            }
+        }
 
+        private const double XMIN = 0;
+        private const double XMAX = 320;
+        private const double YMIN = 0;
+        private const double YMAX = 240;
         /// <summary>
         /// hranice kresliciho platna
         /// </summary>
@@ -61,43 +75,34 @@ namespace RayTracerLib
         /// </summary>
         double _yK;
 
-        int _MaxDepth;
+        private int _MaxDepth = 5;
 
 
         public RayTracing()
         {
-            _xMin = 0;
-            _xMax = 320;
-            _yMin = 0;
-            _yMax = 240;
-
-            _xA = 1;
-            _xK = 10;
-            _yA = 1;
-            _yK = 10;
-
             RScene = new Scene();
             if (RScene.Camera != null)
                 RCamera = RScene.Camera;
-
-            _MaxDepth = 3;
+            SetBoundValues();
         }
 
         public RayTracing(RayTracing old)
         {
             RScene = new Scene(old.RScene);
             RCamera = new Camera(old.RCamera);
-            _xA = old._xA;
-            _xK = old._xK;
-            _xMax = old._xMax;
-            _xMin = old._xMin;
-            _yA = old._yA;
-            _yK = old._yK;
-            _yMax = old._yMax;
-            _yMin = old._yMin;
             _MaxDepth = old._MaxDepth;
+            SetBoundValues(old._xMin, old._xMax, old._xMin, old._yMax);
+        }
+        public RayTracing(Scene scene)
+        {
+            this.RScene = scene;
+            SetBoundValues();
         }
 
+        public void SetBoundValues()
+        {
+            SetBoundValues(XMIN, XMAX, YMIN, YMAX);
+        }
         /// <summary>
         /// Nastavi hranice a koeficienty pro projekcni rovinu.
         /// Dostane hranicni souradnice kresliciho platna a vypocita z nich hranicni souradnice 

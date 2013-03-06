@@ -32,7 +32,7 @@ namespace EditorLib
 
         public DrawingCustom(CustomObject custom)
         {
-            SetLabelPrefix("custom");
+//            SetLabelPrefix("custom");
             Set(custom);
         }
                 
@@ -47,7 +47,7 @@ namespace EditorLib
         /// </summary>
         public void SetModelObject(CustomObject custom)
         {
-            counter = 0;
+            //counter = 0;
             this.Set(custom);
         }
 
@@ -134,11 +134,11 @@ namespace EditorLib
         private void ResetAll()
         {
             // zresetuje labely
-            foreach (DrawingFacet drFac in DrawingFacesList)
-            {
-                DrawingObject.labels.Remove(drFac.Label);
-            }
-            counter = 0;
+            //foreach (DrawingFacet drFac in DrawingFacesList)
+            //{
+            //    DrawingObject.labels.Remove(drFac.Label);
+            //}
+            //counter = 0;
         }
 
         //public override void ApplyRotationMatrix(Matrix3D rotationMatrix)

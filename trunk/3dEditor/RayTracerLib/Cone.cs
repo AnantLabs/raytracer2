@@ -4,19 +4,23 @@ using System.Linq;
 using System.Text;
 using Mathematics;
 using System.Threading;
+using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
+    [DataContract]
     public class Cone : DefaultShape
     {
         /// <summary>
         /// Vrchol kuzele
         /// </summary>
+        [DataMember]
         public Vektor Peak { get; private set; }
 
         /// <summary>
         /// Osa kuzele - smerujici z vrcholu k podstave
         /// </summary>
+        [DataMember]
         public Vektor Dir { get; private set; }
 
         /// <summary>
@@ -27,11 +31,13 @@ namespace RayTracerLib
         /// <summary>
         /// polomer podstravy
         /// </summary>
+        [DataMember]
         public double Rad { get; private set; }
 
         /// <summary>
         /// vyska kuzele
         /// </summary>
+        [DataMember]
         public double Height { get; private set; }
 
         private Vektor DirNom;
@@ -43,11 +49,11 @@ namespace RayTracerLib
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="c">vrchol kuzele</param>
+        /// <param name="peak">vrchol kuzele</param>
         /// <param name="dir">osa kuzele (nemusi byt normalizovana)</param>
         /// <param name="rad">polomer podstavy</param>
         /// <param name="height">vyska kuzele</param>
-        public Cone(Vektor c, Vektor dir, double rad, double height)
+        public Cone(Vektor peak, Vektor dir, double rad, double height)
         {
 
             //////_ShiftMatrix = Matrix3D.PosunutiNewMatrix(c.X, c.Y, c.Z);
@@ -72,13 +78,14 @@ namespace RayTracerLib
 
             //p1 = transp.Transform2NewPoint(p1);
             //p1 = transp.Transform2NewPoint(yAxe);
-
+            SetLabelPrefix("cone");
             IsActive = true;
             Material = new Material();
-            this.SetValues(c, dir, rad, height);
+            this.SetValues(peak, dir, rad, height);
         }
 
         public Cone(Cone old)
+            : base(old)
         {
             this.IsActive = old.IsActive;
             this.Peak = new Vektor(old.Peak);
@@ -321,5 +328,14 @@ namespace RayTracerLib
             // 3) prenastavit objekt podle nove matice
             this.SetValues(this.Peak, yAxe, this.Rad, this.Height);
         }
+
+        public override DefaultShape FromDeserial()
+        {
+            Cone c = new Cone(this.Peak, this.Dir, this.Rad, this.Height);
+            c.Label = this.Label;
+            c.IsActive = this.IsActive;
+            c.Material = this.Material;
+            return c;
+        }
     }
 }

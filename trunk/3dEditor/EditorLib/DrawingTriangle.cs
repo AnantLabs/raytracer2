@@ -40,7 +40,7 @@ namespace EditorLib
             Lines.Add(new Line3D(B, C));
             Lines.Add(new Line3D(C, A));
             _RotatMatrix = Matrix3D.Identity;
-            SetLabelPrefix("triang");
+            //SetLabelPrefix("triang");
         }
         public DrawingTriangle(Triangle triangle)
         {
@@ -50,7 +50,7 @@ namespace EditorLib
             Lines.Add(new Line3D(B, C));
             Lines.Add(new Line3D(C, A));
             _RotatMatrix = Matrix3D.Identity;
-            SetLabelPrefix("triang");
+            //SetLabelPrefix("triang");
             this.SetModelObject(triangle);
         }
 

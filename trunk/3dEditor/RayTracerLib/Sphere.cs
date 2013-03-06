@@ -13,6 +13,9 @@ namespace RayTracerLib
     /// zakladni objekt sceny - koule
     /// 
     /// </summary>
+    [KnownType(typeof(LabeledShape))]
+    [KnownType(typeof(DefaultShape))]
+    [KnownType(typeof(Vektor))]
     [DataContract]
     public class Sphere : DefaultShape
     {
@@ -31,10 +34,13 @@ namespace RayTracerLib
 
 //        public Sphere(Vektor origin, double r) : this(origin, r, new Color(0.7, 0.5, 0.3, 1.0)) { }
 
-        public Sphere() : this(new Vektor(0, 0, 0), 1) { }
+        public Sphere()
+            : this(new Vektor(0, 0, 0), 1) { }
+
 
         public Sphere(Vektor origin, double r)
         {
+            SetLabelPrefix("sphere");
             IsActive = true;
             Origin = new Vektor(origin);
             R = r;
@@ -51,6 +57,7 @@ namespace RayTracerLib
         }
 
         public Sphere(Sphere sp)
+            : base(sp)
         {
             IsActive = sp.IsActive;
             this.R = sp.R;
@@ -162,7 +169,7 @@ namespace RayTracerLib
 
         public override string ToString()
         {
-            return "Sphere: Center=" + Origin + "; R=" + R;
+            return Label + "{Center=" + Origin + "; R=" + R + "}";
         }
 
         public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)
@@ -171,5 +178,13 @@ namespace RayTracerLib
             _localMatrix = _RotatMatrix * _ShiftMatrix;
         }
 
+        public override DefaultShape FromDeserial()
+        {
+            Sphere sph = new Sphere(this.Origin, this.R);
+            sph.Label = this.Label;
+            sph.Material = this.Material;
+            sph.IsActive = this.IsActive;
+            return sph;
+        }
     }
 }

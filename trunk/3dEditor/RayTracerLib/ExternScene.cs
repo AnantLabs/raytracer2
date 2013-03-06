@@ -13,78 +13,7 @@ namespace RayTracerLib
     [DataContract]
     public class ExternScene
     {
-        [Serializable]
-        public abstract class ExternDefaultShape
-        {
-            public Material Material { get; set; }
-            public bool IsActive { get; set; }
-
-            public ExternDefaultShape() { }
-            public ExternDefaultShape(Material mat, bool isActive)
-            {
-                this.Material = mat;
-                this.IsActive = IsActive;
-            }
-            public abstract object GetShape();
-        }
-
-        public class ExternBox : ExternDefaultShape
-        {
-            public double Size { get; set; }
-            public Vektor Center { get; set; }
-            public ExternBox() { }
-            public ExternBox(Box obj)
-            {
-                this.IsActive = obj.IsActive;
-                this.Material = obj.Material;
-                this.Size = obj.Size;
-                this.Center = obj.Center;
-            }
-            public override object GetShape()
-            {
-                Box box = new Box(Center, Size);
-                box.IsActive = this.IsActive;
-                box.Material = this.Material;
-                return box;
-            }
-        }
-
-        //public class ExternTriangle : ExternDefaultShape
-        //{
-        //    public Vertex A { get; set; }
-        //    public Vertex B { get; set; }
-        //    public Vertex C { get; set; }
-        //    public ExternTriangle() { }
-        //    public ExternTriangle(Triangle obj)
-        //    {
-        //        this.IsActive = obj.IsActive;
-        //        this.Material = obj.Material;
-        //        this.A = obj.A;
-        //        this.B = obj.B;
-        //        this.C = obj.C;
-        //    }
-        //}
-        public class ExternCustom : ExternDefaultShape
-        {
-            public Triangle[] FaceList { get; set; }
-            public Vektor Center { get; set; }
-            public ExternCustom() { }
-            public ExternCustom(CustomObject obj)
-            {
-                this.IsActive = obj.IsActive;
-                this.Material = obj.Material;
-                this.Center = obj.Center;
-                this.FaceList = obj.FaceList.ToArray();
-            }
-            public override object GetShape()
-            {
-                CustomObject cust = new CustomObject(new List<Triangle>(FaceList), Center);
-                cust.IsActive = this.IsActive;
-                cust.Material = this.Material;
-                return cust;
-            }
-        }
-
+        
         //////////////////////////////////////////////////
         // SCENE
         ////////////////////////////////////////////////// S C E N E
@@ -92,16 +21,6 @@ namespace RayTracerLib
         public Light[] Lights { get; set; }
         [DataMember]
         public Camera Camera { get; set; }
-
-        [XmlArrayItem("Default", typeof(DefaultShape)),
-        XmlArrayItem("Box", typeof(Box)),
-        XmlArrayItem("Cone", typeof(Cone)),
-        XmlArrayItem("Cube", typeof(Cube)),
-        XmlArrayItem("Custom", typeof(CustomObject)),
-        XmlArrayItem("Cylinder", typeof(Cylinder)),
-        XmlArrayItem("Plane", typeof(Plane)),
-        XmlArrayItem("Sphere", typeof(Sphere)),
-        XmlArrayItem("Triangle", typeof(Triangle))]
         [DataMember]
         public DefaultShape[] SceneObjects { get; set; }
 
@@ -127,37 +46,127 @@ namespace RayTracerLib
         public double EditorAngleZ { get; set; }
 
         public ExternScene() { }
-        public void Set(Scene scene, RayImage[] imgs)//, Animation[] anims)
+        /// <summary>
+        /// nastaveni ukladanych objektu
+        /// </summary>
+        /// <param name="scene"></param>
+        /// <param name="imgs"></param>
+        /// <param name="degs">seznam uhlu natoceni editoru: deg[0]=uhel okolo X, deg[1]=Y, deg[2]=Z</param>
+        public void Set(Scene scene, RayImage[] imgs, double[] degs)//, Animation[] anims)
         {
             this.Lights = scene.Lights.ToArray();
             this.Camera = scene.Camera;
             this.SceneObjects = scene.SceneObjects.ToArray();
 
             this.RayImages = imgs;
+            EditorAngleX = degs[0];
+            EditorAngleY = degs[1];
+            EditorAngleZ = degs[2];
 
             //this.Animations = anims;
-
-
-
         }
-        public void SerializeXML(string fullPath, Scene scene)
+
+        public Scene GetScene()
+        {
+            Scene sc = new Scene();
+            sc.Camera = GetCamera();
+            sc.Lights = GetLights();
+            sc.SceneObjects = GetSceneObjects();
+            return sc;
+        }
+        private List<Light> GetLights()
+        {
+            List<Light> lightList = new List<Light>();
+            foreach (Light l in this.Lights)
+            {
+                Light light = Light.FromDeserial(l);
+                lightList.Add(light);
+            }
+            return lightList;
+        }
+
+        public RayImage[] GetRayImgs()
+        {
+            List<RayImage> listImgs = new List<RayImage>();
+            foreach (RayImage img in RayImages)
+            {
+                listImgs.Add(RayImage.FromDeserial(img));
+            }
+            return listImgs.ToArray();
+        }
+
+        private Camera GetCamera()
+        {
+            Camera cam = RayTracerLib.Camera.FromDeserial(this.Camera);
+            return cam;
+        }
+
+        private List<DefaultShape> GetSceneObjects()
+        {
+            List<DefaultShape> dsList = new List<DefaultShape>();
+            foreach (DefaultShape ds in SceneObjects)
+            {
+                dsList.Add(ds.FromDeserial());
+            }
+            return dsList;
+        }
+        public static void SerializeXML(string fullPath, ExternScene scene)
         {
             //StreamWriter sw = new StreamWriter(fullPath);
             //XmlSerializer serial = new XmlSerializer(typeof(Scene));
             //serial.Serialize(sw, scene);
 
-            NetDataContractSerializer serr;
             DataContractSerializer ser = new DataContractSerializer(typeof(ExternScene), new Type[]{typeof(Vektor), typeof(Colour), typeof(Scene), 
-                typeof(DefaultShape),typeof(CustomObject), typeof(Triangle), typeof(Sphere),   typeof(Plane),   typeof(Cone),typeof(Cylinder),         
-                typeof(RayImage), typeof(Animation), typeof(Camera), typeof(Light), typeof(Material)});
-            //using (XmlWriter xw = XmlWriter.Create(fullPath))
-            //{
-            //    ser.WriteObject(xw, this);
-            //}
-            using (XmlReader xr = XmlReader.Create(fullPath))
+                typeof(LabeledShape), typeof(DefaultShape), typeof(CustomObject), typeof(Triangle), typeof(Sphere),typeof(Cube), typeof(Plane), typeof(Cone),
+                typeof(Cylinder),         
+                typeof(RayImage), typeof(Animation), typeof(Camera), typeof(Light), typeof(Material), 
+                 typeof(Optimalizer.OptimizeType)});
+
+            try
             {
-                object ob = ser.ReadObject(xr);
+                using (XmlWriter xw = XmlWriter.Create(fullPath))
+                {
+                    ser.WriteObject(xw, scene);
+                }
             }
+            catch (Exception ex) // kdyz se nepovede ukladani, smaze se soubor
+            {
+                if (File.Exists(fullPath))
+                    File.Delete(fullPath);
+                throw ex;
+            }
+        }
+
+        public static ExternScene DeserializeXML(string fullPath)
+        {
+            DataContractSerializer ser = new DataContractSerializer(typeof(ExternScene), new Type[]{typeof(Vektor), typeof(Colour), typeof(Scene), 
+                typeof(LabeledShape), typeof(DefaultShape), typeof(CustomObject), typeof(Triangle), typeof(Sphere),typeof(Cube), typeof(Plane), typeof(Cone),
+                typeof(Cylinder),         
+                typeof(RayImage), typeof(Animation), typeof(Camera), typeof(Light), typeof(Material), 
+                 typeof(Optimalizer.OptimizeType)});
+            ExternScene ob = null;
+
+            try
+            {
+                using (XmlReader xr = XmlReader.Create(fullPath))
+                {
+                    ob = (ExternScene)ser.ReadObject(xr);
+                }
+            }
+
+            catch (System.Runtime.Serialization.SerializationException xmlEx)
+            {
+                throw new Exception(xmlEx.Message);
+            }
+            catch (UriFormatException urif)
+            {
+                throw new Exception(urif.Message);
+            }
+            catch (Exception)
+            {
+                throw new Exception("Scene could not be loaded");
+            }
+            return ob;
         }
     }
 }

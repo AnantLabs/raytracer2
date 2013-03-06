@@ -50,7 +50,7 @@ namespace EditorLib
         {
             Size = size > 0 ? size : SIZE;
             Distance = distance > 0 ? distance : DISTANCE;
-            SetLabelPrefix("plane");
+//            SetLabelPrefix("plane");
             this.Set(plane);
         }
 

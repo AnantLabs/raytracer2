@@ -10,6 +10,9 @@ namespace EditorLib
 {
     public class EditHelper
     {
+        /// <summary>
+        /// pohledy editoru
+        /// </summary>
         public class ComboViewAngle
         {
             public String Caption { get; private set; }
