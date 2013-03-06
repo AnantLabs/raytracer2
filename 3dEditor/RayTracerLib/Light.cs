@@ -11,41 +11,18 @@ namespace RayTracerLib
     /// <summary>
     /// Objekt svetla ve scene.
     /// </summary>
-    public class Light
+    public class Light : LabeledShape
     {
-
-        private String _label;
-        /// <summary>
-        /// oznaceni svetla, jeho popisek. Maximalni delka = 9 znaku
-        /// </summary>
-        public String Label
-        {
-            get { return _label; }
-            set
-            {
-                String str;
-                if (value.Length > 9)
-                    str = value.Substring(0, 9);
-                else
-                    str = value;
-                if (!labels.Contains(str))
-                {
-                    _label = str;
-                    labels.Add(str);
-                }
-            }
-        }
-
-        private static List<String> labels = new List<string>();
-
         /// <summary>
         /// posice svetla
         /// </summary>
+
         public Vektor Coord { get; set; }
 
         /// <summary>
         /// barva svetla
         /// </summary>
+
         public Colour Color { get; set; }
 
         public int SoftNumSize = 32;
@@ -75,6 +52,7 @@ namespace RayTracerLib
 
         public Light(Vektor coords, Colour color)
         {
+            SetLabelPrefix("light");
             IsActive = true;
             Coord = coords;
             Color = color;
@@ -92,6 +70,7 @@ namespace RayTracerLib
         /// <param name="epsSoftLights">epsilon vzdalenost mekkych svetel</param>
         public Light(Vektor coords, Colour color, int numSoftLights, double epsSoftLights)
         {
+            SetLabelPrefix("light");
             IsActive = true;
             Coord = coords;
             Color = color;
@@ -101,7 +80,7 @@ namespace RayTracerLib
             IsSinglePass = false;
         }
 
-        public Light(Light old)
+        public Light(Light old)//:base(old)
         {
             IsActive = old.IsActive;
             Coord = new Vektor(old.Coord);
@@ -110,24 +89,6 @@ namespace RayTracerLib
             SoftEpsilon = old.SoftEpsilon;
             SoftNumSize = old.SoftNumSize;
             IsSinglePass = old.IsSinglePass;
-            _label = old._label;
-        }
-
-        /// <summary>
-        /// vytvori jednoznacne jmeno mezi vsemi svetly
-        /// </summary>
-        /// <returns>jednoznacny retezec popisku svetla</returns>
-        private String GetUniqueName()
-        {
-            int count = labels.Count;
-            String label;
-            do
-            {
-                count++;
-                label = "Light" + count;
-            }
-            while (labels.Contains(label));
-            return label;
         }
 
         public void MoveToPoint(double dx, double dy, double dz)
@@ -544,6 +505,17 @@ namespace RayTracerLib
             return "Light: Center=" + Coord;
         }
 
-        
+        /// <summary>
+        /// vytvori plnohodnotne svetlo z deserializovaneho svetla
+        /// </summary>
+        /// <param name="light">deserializovane svetlo</param>
+        /// <returns>spravna instance svetla</returns>
+        public static Light FromDeserial(Light light)
+        {
+            Light l = new Light(light.Coord, light.Color);
+            l.Label = light.Label;
+            return l;
+        }
+
     }
 }

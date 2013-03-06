@@ -80,33 +80,45 @@ namespace RayTracerLib
         /// <summary>
         /// Ambientni koeficient - prenesena barva z okoli
         /// </summary>
-        public double Ka { get; set; }
+        [DataMember]
+        public double Ka { get { return _ka; } set { if (value < 0) _ka = 0; else _ka = value; } }
+        private double _ka;
 
         /// <summary>
         /// Difusni koeficient - kolik se pohlti - absorbuje
         /// </summary>
-        public double Kd { get; set; }
+        [DataMember]
+        public double Kd { get { return _kd; } set { if (value < 0) _kd = 0; else _kd = value; } }
+        private double _kd;
 
         /// <summary>
         /// Zrcadlovy odlesk koeficient - kolik se odrazi
         /// </summary>
-        public double Ks { get; set; }
+        [DataMember]
+        public double Ks { get { return _ks; } set { if (value < 0) _ks = 0; else _ks = value; } }
+        private double _ks;
 
         /// <summary>
         /// [h] Zrcadlovy odlesk - exponent urcujici siri hlavniho kolecka svetla
         /// cim vyssi exponent - tim mensi a zarivejsi kolecko
         /// </summary>
-        public int SpecularExponent { get; set; }
+        [DataMember]
+        public int SpecularExponent { get { return _spec; } set { if (value < 0) _spec = 0; else _spec = value; } }
+        private int _spec;
 
         /// <summary>
         /// [KT] Koeficient lomu [0,1] - kolik projde skrz
         /// </summary>
-        public double KT { get; set; }
+        [DataMember]
+        public double KT { get { return _kt; } set { if (value < 0) _kt = 0; else _kt = value; } }
+        private double _kt;
 
         /// <summary>
         /// [N] Index lomu
         /// </summary>
-        public double N { get; set; }
+        [DataMember]
+        public double N { get { return _n; } set { if (value < 0) _n = 0; else _n = value; } }
+        private double _n;
 
         public Material()
         {

@@ -33,7 +33,7 @@ namespace EditorLib
         public DrawingLight(Light light)
         {
             Points = new Vektor[1];
-            SetLabelPrefix("light");
+            //SetLabelPrefix("light");
             Set(light);
         }
 

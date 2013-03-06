@@ -433,6 +433,13 @@
             this.label202 = new System.Windows.Forms.Label();
             this.label203 = new System.Windows.Forms.Label();
             this.panelCustomObj = new System.Windows.Forms.Panel();
+            this.label212 = new System.Windows.Forms.Label();
+            this.label213 = new System.Windows.Forms.Label();
+            this.label214 = new System.Windows.Forms.Label();
+            this.label215 = new System.Windows.Forms.Label();
+            this.numCustomRotZ = new System.Windows.Forms.NumericUpDown();
+            this.numCustomRotY = new System.Windows.Forms.NumericUpDown();
+            this.numCustomRotX = new System.Windows.Forms.NumericUpDown();
             this.button1 = new System.Windows.Forms.Button();
             this.chbCustFilled = new System.Windows.Forms.CheckBox();
             this.txtbCustomLabel = new System.Windows.Forms.TextBox();
@@ -465,13 +472,6 @@
             this.numCustomCenterY = new System.Windows.Forms.NumericUpDown();
             this.label222 = new System.Windows.Forms.Label();
             this.label223 = new System.Windows.Forms.Label();
-            this.label212 = new System.Windows.Forms.Label();
-            this.label213 = new System.Windows.Forms.Label();
-            this.label214 = new System.Windows.Forms.Label();
-            this.label215 = new System.Windows.Forms.Label();
-            this.numCustomRotZ = new System.Windows.Forms.NumericUpDown();
-            this.numCustomRotY = new System.Windows.Forms.NumericUpDown();
-            this.numCustomRotX = new System.Windows.Forms.NumericUpDown();
             this.panelAnimace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).BeginInit();
@@ -635,6 +635,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakY)).BeginInit();
             this.panelCustomObj.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotZ)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomKt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomH)).BeginInit();
@@ -647,9 +650,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotZ)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotX)).BeginInit();
             this.SuspendLayout();
             // 
             // colorDialog
@@ -6825,6 +6825,119 @@
             this.panelCustomObj.Size = new System.Drawing.Size(417, 343);
             this.panelCustomObj.TabIndex = 65;
             // 
+            // label212
+            // 
+            this.label212.AutoSize = true;
+            this.label212.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label212.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label212.Location = new System.Drawing.Point(125, 70);
+            this.label212.Name = "label212";
+            this.label212.Size = new System.Drawing.Size(15, 13);
+            this.label212.TabIndex = 227;
+            this.label212.Text = "x:";
+            // 
+            // label213
+            // 
+            this.label213.AutoSize = true;
+            this.label213.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label213.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label213.Location = new System.Drawing.Point(19, 69);
+            this.label213.Name = "label213";
+            this.label213.Size = new System.Drawing.Size(87, 16);
+            this.label213.TabIndex = 230;
+            this.label213.Text = "Orientation:";
+            // 
+            // label214
+            // 
+            this.label214.AutoSize = true;
+            this.label214.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label214.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label214.Location = new System.Drawing.Point(302, 70);
+            this.label214.Name = "label214";
+            this.label214.Size = new System.Drawing.Size(15, 13);
+            this.label214.TabIndex = 229;
+            this.label214.Text = "z:";
+            // 
+            // label215
+            // 
+            this.label215.AutoSize = true;
+            this.label215.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.label215.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label215.Location = new System.Drawing.Point(210, 70);
+            this.label215.Name = "label215";
+            this.label215.Size = new System.Drawing.Size(15, 13);
+            this.label215.TabIndex = 228;
+            this.label215.Text = "y:";
+            // 
+            // numCustomRotZ
+            // 
+            this.numCustomRotZ.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numCustomRotZ.Location = new System.Drawing.Point(319, 67);
+            this.numCustomRotZ.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numCustomRotZ.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numCustomRotZ.Name = "numCustomRotZ";
+            this.numCustomRotZ.Size = new System.Drawing.Size(45, 20);
+            this.numCustomRotZ.TabIndex = 226;
+            this.numCustomRotZ.ValueChanged += new System.EventHandler(this.actionCustRotate);
+            // 
+            // numCustomRotY
+            // 
+            this.numCustomRotY.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numCustomRotY.Location = new System.Drawing.Point(227, 67);
+            this.numCustomRotY.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numCustomRotY.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numCustomRotY.Name = "numCustomRotY";
+            this.numCustomRotY.Size = new System.Drawing.Size(45, 20);
+            this.numCustomRotY.TabIndex = 225;
+            this.numCustomRotY.ValueChanged += new System.EventHandler(this.actionCustRotate);
+            // 
+            // numCustomRotX
+            // 
+            this.numCustomRotX.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numCustomRotX.Location = new System.Drawing.Point(142, 67);
+            this.numCustomRotX.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.numCustomRotX.Minimum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            -2147483648});
+            this.numCustomRotX.Name = "numCustomRotX";
+            this.numCustomRotX.Size = new System.Drawing.Size(45, 20);
+            this.numCustomRotX.TabIndex = 224;
+            this.numCustomRotX.ValueChanged += new System.EventHandler(this.actionCustRotate);
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(27, 88);
@@ -7261,130 +7374,17 @@
             this.label223.TabIndex = 24;
             this.label223.Text = "Y:";
             // 
-            // label212
-            // 
-            this.label212.AutoSize = true;
-            this.label212.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label212.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label212.Location = new System.Drawing.Point(125, 70);
-            this.label212.Name = "label212";
-            this.label212.Size = new System.Drawing.Size(15, 13);
-            this.label212.TabIndex = 227;
-            this.label212.Text = "x:";
-            // 
-            // label213
-            // 
-            this.label213.AutoSize = true;
-            this.label213.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label213.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label213.Location = new System.Drawing.Point(19, 69);
-            this.label213.Name = "label213";
-            this.label213.Size = new System.Drawing.Size(87, 16);
-            this.label213.TabIndex = 230;
-            this.label213.Text = "Orientation:";
-            // 
-            // label214
-            // 
-            this.label214.AutoSize = true;
-            this.label214.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label214.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label214.Location = new System.Drawing.Point(302, 70);
-            this.label214.Name = "label214";
-            this.label214.Size = new System.Drawing.Size(15, 13);
-            this.label214.TabIndex = 229;
-            this.label214.Text = "z:";
-            // 
-            // label215
-            // 
-            this.label215.AutoSize = true;
-            this.label215.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.label215.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label215.Location = new System.Drawing.Point(210, 70);
-            this.label215.Name = "label215";
-            this.label215.Size = new System.Drawing.Size(15, 13);
-            this.label215.TabIndex = 228;
-            this.label215.Text = "y:";
-            // 
-            // numCustomRotZ
-            // 
-            this.numCustomRotZ.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numCustomRotZ.Location = new System.Drawing.Point(319, 67);
-            this.numCustomRotZ.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.numCustomRotZ.Minimum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            -2147483648});
-            this.numCustomRotZ.Name = "numCustomRotZ";
-            this.numCustomRotZ.Size = new System.Drawing.Size(45, 20);
-            this.numCustomRotZ.TabIndex = 226;
-            this.numCustomRotZ.ValueChanged += new System.EventHandler(this.actionCustRotate);
-            // 
-            // numCustomRotY
-            // 
-            this.numCustomRotY.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numCustomRotY.Location = new System.Drawing.Point(227, 67);
-            this.numCustomRotY.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.numCustomRotY.Minimum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            -2147483648});
-            this.numCustomRotY.Name = "numCustomRotY";
-            this.numCustomRotY.Size = new System.Drawing.Size(45, 20);
-            this.numCustomRotY.TabIndex = 225;
-            this.numCustomRotY.ValueChanged += new System.EventHandler(this.actionCustRotate);
-            // 
-            // numCustomRotX
-            // 
-            this.numCustomRotX.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numCustomRotX.Location = new System.Drawing.Point(142, 67);
-            this.numCustomRotX.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.numCustomRotX.Minimum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            -2147483648});
-            this.numCustomRotX.Name = "numCustomRotX";
-            this.numCustomRotX.Size = new System.Drawing.Size(45, 20);
-            this.numCustomRotX.TabIndex = 224;
-            this.numCustomRotX.ValueChanged += new System.EventHandler(this.actionCustRotate);
-            // 
             // WndProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1188, 778);
+            this.Controls.Add(this.panelImage);
             this.Controls.Add(this.panelRovina);
             this.Controls.Add(this.panelCustomObj);
             this.Controls.Add(this.panelCamera);
             this.Controls.Add(this.panelTriangle);
-            this.Controls.Add(this.panelImage);
             this.Controls.Add(this.panelLight);
             this.Controls.Add(this.panelCylindr);
             this.Controls.Add(this.panelBox);
@@ -7574,6 +7574,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericConePeakY)).EndInit();
             this.panelCustomObj.ResumeLayout(false);
             this.panelCustomObj.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotZ)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomKt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomH)).EndInit();
@@ -7586,9 +7589,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterZ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotZ)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCustomRotX)).EndInit();
             this.ResumeLayout(false);
 
         }

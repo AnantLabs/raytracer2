@@ -31,7 +31,7 @@ namespace EditorLib
         {
             _RotatMatrix = Matrix3D.Identity;
             _ShiftMatrix = Matrix3D.PosunutiNewMatrix(cylinder.Center.X, cylinder.Center.Y, cylinder.Center.Z);
-            SetLabelPrefix("cylind");
+            //SetLabelPrefix("cylind");
             this.SetModelObject(cylinder);
         }
 

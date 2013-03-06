@@ -13,13 +13,13 @@ namespace RayTracerLib
     /// hranicni body projekcni roviny
     /// </summary>
     [DataContract]
-    [KnownType(typeof(Vektor))]
     public class Camera
     {
 
         /// <summary>
         /// uhel, o ktery vektor UP rotuje okolo smeru kamery Norm
         /// </summary>
+        [DataMember]
         public double AngleUp { get; private set; }
         /// <summary>
         /// Stred projekcni roviny (v karteskych souradnicich)
@@ -45,6 +45,7 @@ namespace RayTracerLib
         /// <summary>
         /// Vektor smeru nahoru (rovnobezny s y) v projekcni rovine (normalizovany)
         /// </summary>
+        [DataMember]
         public Vektor Up { get; private set; }
 
         /// <summary>
@@ -96,6 +97,7 @@ namespace RayTracerLib
 
         public Camera(Camera old)
         {
+            AngleUp = old.AngleUp;
             Source = new Vektor(old.Source);
             Norm = new Vektor(old.Norm);
             Up = new Vektor(old.Up);
@@ -267,6 +269,13 @@ namespace RayTracerLib
         public override string ToString()
         {
             return "Camera: Center=" + Source + "; Norm=" + Norm;
+        }
+
+        public static Camera FromDeserial(Camera camera)
+        {
+            camera.SetNormAndUp(camera.Norm, camera.Up);
+            camera.RotateUp(camera.AngleUp);
+            return camera;
         }
     }
 }

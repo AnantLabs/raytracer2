@@ -8,11 +8,13 @@ using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
+    [DataContract]
     public class Cylinder : DefaultShape
     {
         /// <summary>
         /// Stred
         /// </summary>
+        [DataMember]
         public Vektor Center { get; private set; }
 
         /// <summary>
@@ -23,6 +25,7 @@ namespace RayTracerLib
         /// <summary>
         /// smer osy valce - puvodni
         /// </summary>
+        [DataMember]
         public Vektor Dir { get; private set; }
 
         /// <summary>
@@ -34,10 +37,12 @@ namespace RayTracerLib
         /// <summary>
         /// polomer
         /// </summary>
+        [DataMember]
         public double Rad { get; private set; }
         /// <summary>
         /// vyska
         /// </summary>
+        [DataMember]
         public double Height { get; private set; }
 
         #region PrivateTempAtributes
@@ -76,12 +81,14 @@ namespace RayTracerLib
         /// <param name="heigh">vyska</param>
         public Cylinder(Vektor center, Vektor direction, double radius, double heigh)
         {
+            SetLabelPrefix("cylind");
             IsActive = true;
             this.Material = new Material();
             SetValues(center, direction, radius, heigh);
         }
 
         public Cylinder(Cylinder old)
+            : base(old)
         {
             IsActive = old.IsActive;
             Center = new Vektor(old.Center);
@@ -309,6 +316,15 @@ namespace RayTracerLib
 
             // 3) prenastavit objekt podle nove matice
             this.SetValues(this.Center, yAxe, this.Rad, this.Height);
+        }
+
+        public override DefaultShape FromDeserial()
+        {
+            Cylinder cyl = new Cylinder(this.Center, this.Dir, this.Rad, this.Height);
+            cyl.Label = this.Label;
+            cyl.IsActive = this.IsActive;
+            cyl.Material = this.Material;
+            return cyl;
         }
     }
 }

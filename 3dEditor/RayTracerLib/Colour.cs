@@ -24,11 +24,16 @@ namespace RayTracerLib
 
 
         [DataMember]
-        public double R { get; set; }
+        public double R { get { return _r; } set { if (value < 0) _r = 0; else _r = value; } }
+        private double _r;
+        
         [DataMember]
-        public double G { get; set; }
+        public double G { get { return _g; } set { if (value < 0) _g = 0; else _g = value; } }
+        private double _g;
+        
         [DataMember]
-        public double B { get; set; }
+        public double B { get { return _b; } set { if (value < 0) _b = 0; else _b = value; } }
+        private double _b;
 
         /// <summary>
         /// pruhlednost

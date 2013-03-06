@@ -180,5 +180,10 @@ namespace RayTracerLib
         {
             throw new NotImplementedException();
         }
+
+        public override DefaultShape FromDeserial()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

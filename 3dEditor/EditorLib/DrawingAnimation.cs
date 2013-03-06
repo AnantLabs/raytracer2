@@ -69,7 +69,7 @@ namespace EditorLib
             Time = _INIT_TIME;
             TypeAnim = _INIT_ANIM_TYPE;
             _RotatMatrix = Matrix3D.Identity;
-            SetLabelPrefix("anim");
+            //SetLabelPrefix("anim");
             this.Set(center, a, b);
         }
         /// <summary>
@@ -143,7 +143,7 @@ namespace EditorLib
 
         public override string ToString()
         {
-            return Label + ": {Center=" + CenterWorld + "; A=" + A + "; B=" + B + ";}";
+            return "{Center=" + CenterWorld + "; A=" + A + "; B=" + B + ";}";
         }
 
         public override Vektor GetCenter()

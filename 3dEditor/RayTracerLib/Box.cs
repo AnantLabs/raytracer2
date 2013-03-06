@@ -31,6 +31,7 @@ namespace RayTracerLib
         public Box() : this(new Vektor(0, 0, 0), 1) { }
         public Box(Vektor center, double size)
         {
+            SetLabelPrefix("box");
             IsActive = true;
             this.Material = new Material();
             SetCenterSize(center, size);
@@ -230,6 +231,11 @@ namespace RayTracerLib
         }
 
         public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override DefaultShape FromDeserial()
         {
             throw new NotImplementedException();
         }

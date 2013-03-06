@@ -63,10 +63,20 @@ namespace RayTracerLib
             Set(a, b, c);
             this.Material = new Material();
         }
-
+        public Triangle(Triangle old)
+            : base(old)
+        {
+            this.IsActive = old.IsActive;
+            this.Material = new RayTracerLib.Material(old.Material);
+            A = new Vertex(old.A);
+            B = new Vertex(old.B);
+            C = new Vertex(old.C);
+            Set(A, B, C);
+        }
         public void Set(Vektor a, Vektor b, Vektor c)
         {
             //CustomObject cube = CustomObject.CreateCube();
+            SetLabelPrefix("facet");
             IsActive = true;
             A.Set(a);
             B.Set(b);
@@ -87,6 +97,7 @@ namespace RayTracerLib
 
         public void Set(Vertex a, Vertex b, Vertex c)
         {
+            SetLabelPrefix("facet");
             IsActive = true;
             Vertices = new Vertex[3] { a, b, c };
             A.AddFace(this);
@@ -353,6 +364,14 @@ namespace RayTracerLib
             double y = (A.Y + B.Y + C.Y) / 3;
             double z = (A.Z + B.Z + C.Z) / 3;
             return new Vektor(Math.Round(x, 2), Math.Round(y, 2), Math.Round(z, 2));
+        }
+
+        public override DefaultShape FromDeserial()
+        {
+            Triangle tr = new Triangle(this.A, this.B, this.C, this.Material);
+            tr.Label = this.Label;
+            tr.IsActive = this.IsActive;
+            return tr;
         }
     }
 }

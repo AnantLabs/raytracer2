@@ -11,7 +11,7 @@ namespace Mathematics
     /// <summary>
     /// Zakladni manipulace a pocitani s vektory pouzite v cele aplikaci
     /// </summary>
-    [DataContract]
+    [DataContract(Namespace="")]
     public class Vektor
     {
 
@@ -21,6 +21,7 @@ namespace Mathematics
         public double Y { get; set; }
         [DataMember(Name = "Z")]
         public double Z { get; set; }
+        [DataMember(Name = "ZZ")]
         public double ZZ { get; set; }
 
         public double this[int i]

@@ -12,6 +12,7 @@ using RayTracerLib;
 using System.Runtime.InteropServices;
 using Mathematics;
 using System.IO;
+using System.Xml;
 
 namespace _3dEditor
 {
@@ -178,7 +179,7 @@ namespace _3dEditor
             //_rayTracer.RScene.SetDefaultScene4();
 
             CustomObject custom = CustomObject.CreateCube();
-            //_rayTracer.RScene.SceneObjects.Add(custom);
+            _rayTracer.RScene.SceneObjects.Add(custom);
 
             CustomObject planeCustom = CustomObject.CreatePlane();
             _rayTracer.RScene.SceneObjects.Add(planeCustom);
@@ -192,12 +193,9 @@ namespace _3dEditor
             DrawingAnimation drAnim = new DrawingAnimation();
             //this._WndBoard.AddAnimation(drAnim);
 
-            Octree octree = new Octree(_rayTracer.RScene.SceneObjects);
+            //Octree octree = new Octree(_rayTracer.RScene.SceneObjects);
 
-            String fullpath = Path.Combine(Application.StartupPath, "save.xml");
-            ExternScene extsc = new ExternScene();
-            extsc.Set(_rayTracer.RScene, new RayImage[]{img});
-            extsc.SerializeXML(fullpath, _rayTracer.RScene);
+            
 
         }
 
@@ -304,6 +302,95 @@ namespace _3dEditor
             else if (obj is Light)
                 _rayTracer.RScene.AddLight(obj as Light);
             
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //String fullpath = Path.Combine(Application.StartupPath, "save.xml");
+            ExternScene extsc = new ExternScene();
+            RayImage[] images = _WndScene.GetImages();
+            _WndBoard.InitForRaytracer();
+            double[] degs = _WndBoard.RotationMatrix.GetAnglesFromMatrix();
+            extsc.Set(_rayTracer.RScene, images, degs);
+
+            try
+            {
+                this.saveFileDialog.InitialDirectory = Environment.CurrentDirectory;    // adresar instalace programu
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    this.saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                }
+                catch (Exception)
+                {
+                    this.saveFileDialog.InitialDirectory = "";
+                }
+            }
+            if (this.saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string ext = Path.GetExtension(saveFileDialog.FileName);
+                try
+                {
+                    ExternScene.SerializeXML(saveFileDialog.FileName, extsc);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("During saving were some problems. It is possible, that scene was not correctly saved.", 
+                        "Error saving scene", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RayImage[] origimgs = _WndScene.GetImages();
+            RayTracing origRaytr = _rayTracer;
+            if (this.openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                RayImage[] imgs;
+                Scene scene;
+                ExternScene extsc;
+                // nacteni sceny - jen deserializace
+                try
+                {
+                    extsc = ExternScene.DeserializeXML(openFileDialog.FileName);
+                    LabeledShape.ResetLabels();
+                    imgs = extsc.GetRayImgs();
+                    scene = extsc.GetScene();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message,
+                        "Error loading scene", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                // zobrazeni nactene sceny
+                try
+                {
+                    _WndScene.ClearAll();
+                    _WndScene.AddImages(imgs);
+                    _rayTracer = new RayTracing(scene);
+                    this._WndBoard.AddRaytrScene(_rayTracer.RScene);
+                    RayImage imgsel = _WndScene.GetSelectedImage();
+                    _WndScene.ShowNode(imgsel);
+                    _WndBoard.SetRotationDegrees(extsc.EditorAngleX, extsc.EditorAngleY, extsc.EditorAngleZ);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message,
+                        "Error loading scene", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    _WndScene.ClearAll();
+                    _WndScene.AddImages(origimgs);
+                    _rayTracer = origRaytr;
+                    this._WndBoard.AddRaytrScene(_rayTracer.RScene);
+                    RayImage imgsel = _WndScene.GetSelectedImage();
+                    _WndScene.ShowNode(imgsel);
+                }
+            }
         }
     }
 }
