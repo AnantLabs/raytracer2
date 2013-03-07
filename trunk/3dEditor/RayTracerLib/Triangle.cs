@@ -319,7 +319,7 @@ namespace RayTracerLib
 
         public override string ToString()
         {
-            return "A:" + A.ToString() + "; B:" + B.ToString() + "; C:" + C.ToString() + ";";
+            return Label + " {A:" + A.ToString() + "; B:" + B.ToString() + "; C:" + C.ToString() + "}";
         }
 
         public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)

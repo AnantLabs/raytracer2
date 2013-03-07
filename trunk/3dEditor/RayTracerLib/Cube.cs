@@ -265,7 +265,7 @@ namespace RayTracerLib
 
         public override string ToString()
         {
-            return "Cube: Center=" + Center + "; Axis=" + Dir;
+            return Label + " {Center=" + Center + "; Axis=" + Dir + "}";
         }
 
         public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)

@@ -18,7 +18,15 @@ namespace _3dEditor
 {
     public partial class ParentEditor : Form
     {
-        private const int WM_HSCROLL = 0x114;
+        class MyForm : Form
+        {
+            public void method()
+            {
+                MessageBox.Show(this, "blablablablabla");
+            }
+        }
+
+        private const int WM_HSCROLL = 277;//0x114;
         private const int WM_VSCROLL = 0x115;
 
         private const int SB_HORZ = 0;
@@ -50,6 +58,7 @@ namespace _3dEditor
         public ParentEditor()
         {
             InitializeComponent();
+            
             //
             // Okno Kreslici plochy
             //
@@ -75,7 +84,6 @@ namespace _3dEditor
             _WndScene.Activate();
             _WndScene.Invalidate();
 
-
             //
             // Okno s nastavenim
             //
@@ -90,6 +98,10 @@ namespace _3dEditor
             //_WndScene.Paint += new PaintEventHandler
 
             Form[] fs = this.MdiChildren;
+            //foreach (Form f in this.MdiChildren)
+            //{
+            //    f.ClientSizeChanged += new EventHandler(onClientSizeChange);
+            //}
 
             //VScroll = true;
             //VScrollBar vs = new VScrollBar();
@@ -120,7 +132,7 @@ namespace _3dEditor
             //VScrollProperties vsp = new VScrollProperties(ScrVScroll);
             switch (m.Msg)
             {
-                case WM_VSCROLL:
+                case WM_HSCROLL:
                     int i = 2;
                     //ScrollInfoStruct si = new ScrollInfoStruct();
                     //si.fMask = SIF_ALL;
@@ -205,24 +217,9 @@ namespace _3dEditor
 
         private void onShown(object sender, EventArgs e)
         {
-            // zaktivuje hlavni plochu na kresleni
             this.MdiChildren[0].Activate();
             this.MdiChildren[1].Activate();
             this.MdiChildren[2].Activate();
-            this.MdiChildren[0].Focus();
-            this.MdiChildren[1].Focus();
-            this.MdiChildren[2].Focus();
-            this.MdiChildren[0].Invalidate();
-            this.MdiChildren[1].Invalidate();
-            this.MdiChildren[2].Invalidate(); 
-            //UpdateAll();
-            //_wndBoard.Activate();
-            //this.MdiChildren[0].Activate();
-            //nebo:
-            //for (int i = 0; i < MdiChildren.Length; i++ )
-            //{
-            //    this.MdiChildren[i].Activate();
-            //}
         }
 
         private void onPaint(object sender, PaintEventArgs e)
@@ -241,22 +238,22 @@ namespace _3dEditor
 
         private void UpdateAll()
         {
+            ////this.MdiChildren[0].Activate();
+            //this.MdiChildren[0].Update();
+            ////this.MdiChildren[1].Activate();
+            //this.MdiChildren[1].Update();
+            ////this.MdiChildren[2].Activate();
+            //this.MdiChildren[2].Update();
             //this.MdiChildren[0].Activate();
-            this.MdiChildren[0].Update();
             //this.MdiChildren[1].Activate();
-            this.MdiChildren[1].Update();
             //this.MdiChildren[2].Activate();
-            this.MdiChildren[2].Update();
-            this.MdiChildren[0].Activate();
-            this.MdiChildren[1].Activate();
-            this.MdiChildren[2].Activate();
-            this.MdiChildren[0].Focus();
-            this.MdiChildren[1].Focus();
-            this.MdiChildren[2].Focus();
-            this.MdiChildren[0].Invalidate(true);
-            this.MdiChildren[1].Invalidate(true);
-            this.MdiChildren[2].Invalidate(true);
-            this.Invalidate(true);
+            //this.MdiChildren[0].Focus();
+            //this.MdiChildren[1].Focus();
+            //this.MdiChildren[2].Focus();
+            //this.MdiChildren[0].Invalidate(true);
+            //this.MdiChildren[1].Invalidate(true);
+            //this.MdiChildren[2].Invalidate(true);
+            //this.Invalidate(true);
         }
 
         private void onScroll1(object sender, ScrollEventArgs e)
@@ -328,6 +325,7 @@ namespace _3dEditor
                     this.saveFileDialog.InitialDirectory = "";
                 }
             }
+            _WndBoard.AllowPaint(false);
             if (this.saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string ext = Path.GetExtension(saveFileDialog.FileName);
@@ -337,15 +335,30 @@ namespace _3dEditor
                 }
                 catch (Exception)
                 {
+                    _WndBoard.AllowPaint(false);
                     MessageBox.Show("During saving were some problems. It is possible, that scene was not correctly saved.", 
                         "Error saving scene", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    _WndBoard.AllowPaint(true);
                 }
             }
-            
+            _WndBoard.AllowPaint(true);
         }
 
+        void method()
+        {
+            
+            MyForm f = new MyForm();
+            f.TopMost = true;
+            //_WndBoard.WindowState = FormWindowState.Minimized;
+            //_WndBoard.TopMost = true;
+            //_WndBoard.Visible = false;
+            _WndBoard.AllowPaint(false);
+            MessageBox.Show(this, "blablablablabla1");
+            _WndBoard.AllowPaint(true);
+        }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            _WndBoard.AllowPaint(false);
             RayImage[] origimgs = _WndScene.GetImages();
             RayTracing origRaytr = _rayTracer;
             if (this.openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -363,8 +376,9 @@ namespace _3dEditor
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message,
-                        "Error loading scene", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    _WndBoard.AllowPaint(false);
+                    MessageBox.Show(ex.Message, "Error loading scene", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    _WndBoard.AllowPaint(true);
                     return;
                 }
                 // zobrazeni nactene sceny
@@ -380,9 +394,10 @@ namespace _3dEditor
                 }
                 catch (Exception ex)
                 {
+                    _WndBoard.AllowPaint(false);
                     MessageBox.Show(ex.Message,
                         "Error loading scene", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                    _WndBoard.AllowPaint(true);
                     _WndScene.ClearAll();
                     _WndScene.AddImages(origimgs);
                     _rayTracer = origRaytr;
@@ -391,6 +406,25 @@ namespace _3dEditor
                     _WndScene.ShowNode(imgsel);
                 }
             }
+            _WndBoard.AllowPaint(true);
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        public bool _IsClosing;
+        private void BeforeClose(object sender, FormClosingEventArgs e)
+        {
+
+        }
+
+        private void onClientSizeChange(object sender, EventArgs e)
+        {
+            //this.MdiChildren[0].Invalidate();
+            //this.MdiChildren[1].Invalidate();
+            //this.MdiChildren[2].Invalidate();
         }
     }
 }

@@ -37,10 +37,10 @@
             this.cylinderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.coneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.triangleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.customObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.animationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.customObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -58,7 +58,7 @@
             this.treeView1.TabIndex = 0;
             this.treeView1.BeforeCheck += new System.Windows.Forms.TreeViewCancelEventHandler(this.BeforeCheck);
             this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.AfterCheck);
-            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.OnAfterSelect);
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.AfterSelect);
             this.treeView1.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.NodeMouseDblClick);
             // 
             // toolStrip1
@@ -146,6 +146,14 @@
             this.triangleToolStripMenuItem.Text = "Custom Plane";
             this.triangleToolStripMenuItem.Click += new System.EventHandler(this.onAddCustomPlane);
             // 
+            // customObjectToolStripMenuItem
+            // 
+            this.customObjectToolStripMenuItem.Image = global::_3dEditor.Properties.Resources.wheel_32;
+            this.customObjectToolStripMenuItem.Name = "customObjectToolStripMenuItem";
+            this.customObjectToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.customObjectToolStripMenuItem.Text = "Custom Object";
+            this.customObjectToolStripMenuItem.Click += new System.EventHandler(this.onAddCustomObject);
+            // 
             // lightToolStripMenuItem
             // 
             this.lightToolStripMenuItem.Image = global::_3dEditor.Properties.Resources.sun16;
@@ -170,14 +178,6 @@
             this.animationToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.animationToolStripMenuItem.Text = "Animation";
             this.animationToolStripMenuItem.Click += new System.EventHandler(this.onAddAnimation);
-            // 
-            // customObjectToolStripMenuItem
-            // 
-            this.customObjectToolStripMenuItem.Image = global::_3dEditor.Properties.Resources.wheel_32;
-            this.customObjectToolStripMenuItem.Name = "customObjectToolStripMenuItem";
-            this.customObjectToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.customObjectToolStripMenuItem.Text = "Custom Object";
-            this.customObjectToolStripMenuItem.Click += new System.EventHandler(this.onAddCustomObject);
             // 
             // toolStripButton2
             // 
@@ -204,6 +204,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Scene";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BeforeClosing);
             this.Click += new System.EventHandler(this.OnClicked);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.onMouseDown);
             this.toolStrip1.ResumeLayout(false);

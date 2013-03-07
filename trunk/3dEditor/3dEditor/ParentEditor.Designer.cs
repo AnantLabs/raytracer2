@@ -74,22 +74,23 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.openToolStripMenuItem.Text = "&Load";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.openToolStripMenuItem.Text = "&Load...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveToolStripMenuItem.Text = "&Save";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.saveToolStripMenuItem.Text = "&Save...";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -170,9 +171,12 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "3D Editor";
             this.Activated += new System.EventHandler(this.onShown);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BeforeClose);
             this.MdiChildActivate += new System.EventHandler(this.onMDIActive);
             this.Shown += new System.EventHandler(this.onShown);
             this.Scroll += new System.Windows.Forms.ScrollEventHandler(this.onScroll1);
+            this.ClientSizeChanged += new System.EventHandler(this.onClientSizeChange);
+            this.SizeChanged += new System.EventHandler(this.onClientSizeChange);
             this.Click += new System.EventHandler(this.onClick);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.onPaint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.onMouse);
