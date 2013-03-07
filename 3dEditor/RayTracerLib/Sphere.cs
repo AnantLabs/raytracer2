@@ -169,7 +169,7 @@ namespace RayTracerLib
 
         public override string ToString()
         {
-            return Label + "{Center=" + Origin + "; R=" + R + "}";
+            return Label + " {Center=" + Origin + "; R=" + R + "}";
         }
 
         public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)

@@ -502,7 +502,7 @@ namespace RayTracerLib
 
         public override string ToString()
         {
-            return "Light: Center=" + Coord;
+            return Label + " {Center=" + Coord + "}";
         }
 
         /// <summary>

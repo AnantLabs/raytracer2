@@ -214,7 +214,7 @@ namespace RayTracerLib
 
         public override string ToString()
         {
-            return "Custom: "+ VertexList.Count + " vertices, " + FaceList.Count + " faces"; 
+            return Label + " {" + VertexList.Count + " vertices, " + FaceList.Count + " faces}"; ;
         }
         public static CustomObject CreateCube()
         {

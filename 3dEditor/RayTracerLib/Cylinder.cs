@@ -294,7 +294,7 @@ namespace RayTracerLib
 
         public override string ToString()
         {
-            return "Cylinder: Center=" + Center + "; Dir=" + Dir;
+            return Label + " {Center=" + Center + "; Dir=" + Dir + "}";
         }
 
         public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)

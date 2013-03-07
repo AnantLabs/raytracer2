@@ -227,7 +227,7 @@ namespace RayTracerLib
 
         public override string ToString()
         {
-            return "Box: [" + Center.X + "; " + Center.Y + "; " + Center.Z + "]";
+            return Label + " {[" + Center.X + "; " + Center.Y + "; " + Center.Z + "]}";
         }
 
         public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)

@@ -34,6 +34,7 @@ namespace _3dEditor
 
             foreach (DrawingObject obj in objectList)
             {
+                if (obj is DrawingVertex) continue;
                 MenuDrawItemCtrl item = new MenuDrawItemCtrl();
                 item.AddDrawingObject(obj);
                 this.Controls.Add(item);

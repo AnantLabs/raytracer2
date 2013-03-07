@@ -25,7 +25,7 @@ namespace EditorLib
             }
         }
 
-        public Pen PenLight;
+        public Brush BrushLight;
         double len = 0.4;
 
         public DrawingLight() : this(new Light()) { }
@@ -50,7 +50,7 @@ namespace EditorLib
 
         private void Set(Light light)
         {
-            PenLight = new Pen(light.Color.SystemColor(),2);
+            BrushLight = new SolidBrush(light.Color.SystemColor());
             this.ModelObject = light;
             List<Vektor> points = new List<Vektor>();
             Vektor center = new Vektor(light.Coord.X, light.Coord.Y, light.Coord.Z);

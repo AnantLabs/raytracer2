@@ -154,14 +154,14 @@ namespace RayTracerLib
                 }
             }
 
-            catch (System.Runtime.Serialization.SerializationException xmlEx)
-            {
-                throw new Exception(xmlEx.Message);
-            }
-            catch (UriFormatException urif)
-            {
-                throw new Exception(urif.Message);
-            }
+            //catch (System.Runtime.Serialization.SerializationException xmlEx)
+            //{
+            //    throw new Exception(xmlEx.Message);
+            //}
+            //catch (UriFormatException urif)
+            //{
+            //    throw new Exception(urif.Message);
+            //}
             catch (Exception)
             {
                 throw new Exception("Scene could not be loaded");

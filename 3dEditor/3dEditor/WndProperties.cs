@@ -16,6 +16,14 @@ namespace _3dEditor
     public partial class WndProperties : Form
     {
 
+        WndBoard _WndBoard
+        {
+            get
+            {
+                ParentEditor pf = (ParentEditor)this.ParentForm;
+                return pf._WndBoard;
+            }
+        }
         /// aktualne zobrazovany objekt
         object _currentlyDisplayed;
 
@@ -653,14 +661,7 @@ namespace _3dEditor
 
         private void btnImageBgCol_Click(object sender, EventArgs e)
         {
-            //this.colorDialog.ShowDialog();
-            //this.ParentForm.Visible = false;
-            //this.Parent.Parent.Hide();
-            this.SendToBack();
-            this.ParentForm.Hide();
-            //this.ParentForm.Parent.SendToBack();
-            
-            
+            _WndBoard.AllowPaint(false);
             if (this.colorDialog.ShowDialog(this.Parent.Parent) == DialogResult.OK)
             {
                 if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(RayImage))
@@ -675,7 +676,7 @@ namespace _3dEditor
                 Colour col = Colour.ColourCreate(colorDialog.Color);
                 img.BackgroundColor = col;
             }
-            this.ParentForm.Show();
+            _WndBoard.AllowPaint(true);
         }
 
         #endregion
@@ -743,6 +744,7 @@ namespace _3dEditor
 
         private void btnSphMaterialColor_Click(object sender, EventArgs e)
         {
+            _WndBoard.AllowPaint(false);
             if (this.colorDialog.ShowDialog() == DialogResult.OK)
             {
                 double r = colorDialog.Color.R / (double)255;
@@ -758,6 +760,7 @@ namespace _3dEditor
                 _permissionToModify = true;
                 this.numSphColB.Value = (decimal)col.B;
             }
+            _WndBoard.AllowPaint(true);
         }
 
 
@@ -822,6 +825,7 @@ namespace _3dEditor
 
         private void btnPlaneMaterialColor_Click(object sender, EventArgs e)
         {
+            _WndBoard.AllowPaint(false);
             if (this.colorDialog.ShowDialog() == DialogResult.OK)
             {
                 double r = colorDialog.Color.R / (double)255;
@@ -837,6 +841,7 @@ namespace _3dEditor
                 _permissionToModify = true;
                 this.numPlaneColB.Value = (decimal)col.B;
             }
+            _WndBoard.AllowPaint(true);
         }
 
         #endregion
@@ -902,6 +907,7 @@ namespace _3dEditor
 
         private void btnCubeMaterialColor_Click(object sender, EventArgs e)
         {
+            _WndBoard.AllowPaint(false);
             if (this.colorDialog.ShowDialog() == DialogResult.OK)
             {
                 double r = colorDialog.Color.R / (double)255;
@@ -920,6 +926,7 @@ namespace _3dEditor
                 Button btn = sender as Button;
                 btn.BackColor = colorDialog.Color;
             }
+            _WndBoard.AllowPaint(true);
         }
 
         ///////////////////////////////////////////////
@@ -1007,6 +1014,7 @@ namespace _3dEditor
 
         private void btnCylMaterialColor_Click(object sender, EventArgs e)
         {
+            _WndBoard.AllowPaint(false);
             if (this.colorDialog.ShowDialog() == DialogResult.OK)
             {
                 double r = colorDialog.Color.R / (double)255;
@@ -1024,6 +1032,7 @@ namespace _3dEditor
                 Button btn = sender as Button;
                 btn.BackColor = colorDialog.Color;
             }
+            _WndBoard.AllowPaint(true);
         }
         #endregion
 
@@ -1160,6 +1169,7 @@ namespace _3dEditor
 
         private void btnConeMaterialColor_Click(object sender, EventArgs e)
         {
+            _WndBoard.AllowPaint(false);
             if (this.colorDialog.ShowDialog() == DialogResult.OK)
             {
                 double r = colorDialog.Color.R / (double)255;
@@ -1177,6 +1187,7 @@ namespace _3dEditor
                 Button btn = sender as Button;
                 btn.BackColor = colorDialog.Color;
             }
+            _WndBoard.AllowPaint(true);
         }
 
         private void actionConeRotate(object sender, EventArgs e)
@@ -1349,6 +1360,7 @@ namespace _3dEditor
         /// </summary>
         private void btnLighColor_Click(object sender, EventArgs e)
         {
+            _WndBoard.AllowPaint(false);
             if (this.colorDialog.ShowDialog() == DialogResult.OK)
             {
                 double r = colorDialog.Color.R / (double)255;
@@ -1364,6 +1376,7 @@ namespace _3dEditor
                 _permissionToModify = true;
                 this.numericSvetloB.Value = (decimal)col.B;
             }
+            _WndBoard.AllowPaint(true);
         }
         private void OnScrollNum(object sender, EventArgs e)
         {
@@ -1785,6 +1798,7 @@ namespace _3dEditor
 
         private void btnTriangMaterialColor_Click(object sender, EventArgs e)
         {
+            _WndBoard.AllowPaint(false);
             if (this.colorDialog.ShowDialog() == DialogResult.OK)
             {
                 double r = colorDialog.Color.R / (double)255;
@@ -1804,6 +1818,7 @@ namespace _3dEditor
                 Button btn = sender as Button;
                 btn.BackColor = colorDialog.Color;
             }
+            _WndBoard.AllowPaint(true);
         }
 
         private void actionCameraSetUp(object sender, EventArgs e)
@@ -1961,7 +1976,7 @@ namespace _3dEditor
         {
             ParentEditor parrent = (ParentEditor)this.ParentForm;
             //parrent.colorDialog1.ShowDialog(this);
-
+            _WndBoard.AllowPaint(false);
             if (colorDialog.ShowDialog(this) == DialogResult.OK)
             {
                 double r = colorDialog.Color.R / (double)255;
@@ -1980,6 +1995,7 @@ namespace _3dEditor
                 Button btn = sender as Button;
                 btn.BackColor = colorDialog.Color;
             }
+            _WndBoard.AllowPaint(true);
         }
 
 
@@ -2156,7 +2172,20 @@ namespace _3dEditor
             _permissionToModify = true;
             _showAngles = true;
         }
-        
 
+        /// <summary>
+        /// udalost pred zavrenim formulare
+        /// </summary>
+        private void BeforeClosing(object sender, FormClosingEventArgs e)
+        {
+            // pouze pri zavreni od uzivatele se formular nezavre
+            if (e.CloseReason == CloseReason.UserClosing)
+                e.Cancel = true;
+        }
+
+        private void onClientSizeChange(object sender, EventArgs e)
+        {
+            int i = 0;
+        }
     }
 }

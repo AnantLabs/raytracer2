@@ -20,6 +20,12 @@ namespace _3dEditor
     public partial class WndBoard : Form
     {
 
+        /// <summary>
+        /// nastaveni povoleni prekreslovani
+        /// Nutno nastavit na FALSE pred zobrazenim dialogoveho okna
+        /// </summary>
+        bool _AllowPaint = true;
+
         EditHelper _editHelp;
         Graphics _g;
         Bitmap _editorBmp;
@@ -72,7 +78,7 @@ namespace _3dEditor
         /// <summary>
         /// citlivost pro prepocitani souradnic
         /// </summary>
-        int _MOUSE_SENSITIVITY = 12;
+        int _MOUSE_SENSITIVITY = 10;
 
         /// <summary>
         /// koeficient pri rotaci editoru mysi
@@ -125,6 +131,10 @@ namespace _3dEditor
         /// zda se v editoru zobrazi kamera
         /// </summary>
         private bool _showCamera = true;
+        /// <summary>
+        /// vybrany vrchol k labelu trojuhelniku
+        /// </summary>
+        private DrawingObject _LabelVertex;
 
         public WndBoard()
         {
@@ -291,11 +301,13 @@ namespace _3dEditor
 
         private void onPaintBoard(object sender, PaintEventArgs e)
         {
+            if (_AllowPaint) 
             this.Redraw(e.Graphics);
         }
 
         public void Redraw()
         {
+            if (_AllowPaint) 
             this.Redraw(_g);
         }
         private void Redraw(Graphics g)
@@ -586,6 +598,7 @@ namespace _3dEditor
                         Font myfont = EditHelper.FontTriangVert;
                         Rectangle rec = EditHelper.RecTriangVert;
                         Brush brush = EditHelper.BrushTriangVertRect;
+                        path = new GraphicsPath();
 
                         if (drCust.ShowFilled)
                         {
@@ -596,17 +609,36 @@ namespace _3dEditor
                             g.FillPolygon(drTriang.FillBrush, pointsF);
                             g.DrawPolygon(Pens.Black, pointsF);
 
+                            EditorObject editorObjectLabel;
                             //rec = new Rectangle(new Point((int)pointsF[0].X, (int)pointsF[0].Y), new Size(10, 10));
                             rec.Location = new Point((int)pointsF[0].X, (int)pointsF[0].Y);
                             g.FillRectangle(brush, rec);
                             g.DrawString("A", myfont, Brushes.Black, pointsF[0]);
+                            path = new GraphicsPath();
+                            path.AddRectangle(new RectangleF(rec.X, rec.Y, rec.Width, rec.Height));
+                            editorObjectLabel = new EditorObject(new DrawingVertex(drTriang, drTriang.A));
+                            editorObjectLabel.AddPath(path);
+                            _editHelp.AddClickableObject(editorObjectLabel);
+
                             rec.Location = new Point((int)pointsF[1].X, (int)pointsF[1].Y);
                             g.FillRectangle(brush, rec);
                             g.DrawString("B", myfont, Brushes.Black, pointsF[1]);
+                            path = new GraphicsPath();
+                            path.AddRectangle(new RectangleF(rec.X, rec.Y, rec.Width, rec.Height));
+                            editorObjectLabel = new EditorObject(new DrawingVertex(drTriang, drTriang.B));
+                            editorObjectLabel.AddPath(path);
+                            _editHelp.AddClickableObject(editorObjectLabel);
+
                             rec.Location = new Point((int)pointsF[2].X, (int)pointsF[2].Y);
                             g.FillRectangle(brush, rec);
                             g.DrawString("C", myfont, Brushes.Black, pointsF[2]);
+                            path = new GraphicsPath();
+                            path.AddRectangle(new RectangleF(rec.X, rec.Y, rec.Width, rec.Height));
+                            editorObjectLabel = new EditorObject(new DrawingVertex(drTriang, drTriang.C));
+                            editorObjectLabel.AddPath(path);
+                            _editHelp.AddClickableObject(editorObjectLabel);
                         }
+
                         path = new GraphicsPath();
                         path.AddPolygon(pointsF);
                         editorObjectTrianglFace = new EditorObject(drTriang);
@@ -709,21 +741,29 @@ namespace _3dEditor
                     Pen p = new Pen(Brushes.Black, 3);
                     if (_Selected == obj)
                     {
-                        p.Width = 5;
+                        p.Width = 6;
                     }
-                    foreach (Line3D line in drLight.Lines)
-                    {
-                        start = line.A.To2D(_scale, _zoom, _centerPoint);
-                        end = line.B.To2D(_scale, _zoom, _centerPoint);
-                        g.DrawLine(p, start, end);
-                        g.DrawLine(drLight.PenLight, start, end);
-                    }
+                    //foreach (Line3D line in drLight.Lines)
+                    //{
+                    //    start = line.A.To2D(_scale, _zoom, _centerPoint);
+                    //    end = line.B.To2D(_scale, _zoom, _centerPoint);
+                    //    g.DrawLine(p, start, end);
+                    //    g.DrawLine(drLight.PenLight, start, end);
+                    //}
 
                     a = drLight.Center.To2D(_scale, _zoom, _centerPoint);
-                    float upperX = a.X - (float)(Properties.Resources.bulb_transp.Width / 2);
-                    float upperY = a.Y - (float)(Properties.Resources.bulb_transp.Height / 2);
-                    g.DrawImage(Properties.Resources.bulb_transp, new PointF(upperX, upperY));
-                    path.AddRectangle(new RectangleF(upperX, upperY, Properties.Resources.bulb_transp.Width, Properties.Resources.bulb_transp.Height));
+                    int sizeOuter = 12;
+                    RectangleF rectf = new RectangleF(a.X - sizeOuter / 2, a.Y - sizeOuter / 2, sizeOuter, sizeOuter);
+
+                    
+                    g.DrawEllipse(p, rectf);
+                    g.FillEllipse(drLight.BrushLight, rectf);
+
+                    //float upperX = a.X - (float)(Properties.Resources.bulb_transp.Width / 2);
+                    //float upperY = a.Y - (float)(Properties.Resources.bulb_transp.Height / 2);
+                    //g.DrawImage(Properties.Resources.bulb_transp, new PointF(upperX, upperY));
+                    //path.AddRectangle(new RectangleF(upperX, upperY, Properties.Resources.bulb_transp.Width, Properties.Resources.bulb_transp.Height));
+                    path.AddEllipse(new RectangleF(a.X - sizeOuter / 2, a.Y - sizeOuter/2, sizeOuter, sizeOuter));
 
                     editorObject.AddPath(path);
                     _editHelp.AddClickableObject(editorObject);
@@ -1009,8 +1049,31 @@ namespace _3dEditor
             if (e.Button == MouseButtons.Right && _Selected == null)
                 _Selected = null;
             List<DrawingObject> drawingList = _editHelp.GetClickableObj(e.Location);
+            
             if (drawingList.Count > 0)
             {
+                #region LabelVerted
+                // vybrani vrcholu trojuhelniku
+                if (e.Button == MouseButtons.Right)
+                {
+                    _LabelVertex = null;
+                    foreach (DrawingObject drobj in drawingList)
+                    {
+                        if (drobj is DrawingVertex)
+                        {
+                            _Selected = (DrawingTriangle)drobj.ModelObject;
+                            _LabelVertex = drobj;
+                            break;
+                        }
+                    }
+                    if (_LabelVertex != null)
+                    {
+                        drawingList = new List<DrawingObject>();
+                        drawingList.Add(_Selected);
+                    }
+                }
+                #endregion
+
                 bool wasSelectedBefore = false;
                 foreach (DrawingObject drObj in drawingList)
                 {
@@ -1083,6 +1146,24 @@ namespace _3dEditor
                     //}
 
                     Matrix3D shift2DMatrix = Matrix3D.PosunutiNewMatrix(-xDel, -yDel, 0); // matice posunuti vzhledem k mysi - 2D
+
+                    if (_LabelVertex != null)
+                    {
+                        DrawingVertex drVert = _LabelVertex as DrawingVertex;
+                        Matrix3D transp = this._matrixForever.Transpose();
+                        Vektor center = shift2DMatrix.Transform2NewPoint(drVert.Center);
+                        Vektor centerTransp = transp.Transform2NewPoint(center);
+                        transp.TransformPoints(drVert.Points);
+                        //drVert.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                        Vektor diff =centerTransp -  drVert.Center;
+                        drVert.Move(diff.X, diff.Y, diff.Z);
+
+                        _matrixForever.TransformPoints(drVert.Points);
+                        WndScene wndsc = GetWndScene();
+                        wndsc.ShowNode(_Selected);
+                        pictureBoard.Focus();
+                    }
+                    else
                     if (_Selected.ModelObject is DefaultShape)
                     {
                         DefaultShape ds = _Selected.ModelObject as DefaultShape;
@@ -1967,6 +2048,30 @@ namespace _3dEditor
             }
         }
 
-        
+
+        /// <summary>
+        /// Zastavi prekreslovani
+        /// nutno zavolat pred zobrazenim jakehokoli dialogoveho okna v aplikaci
+        /// </summary>
+        internal void AllowPaint(bool val)
+        {
+            _AllowPaint = val;
+            if (val == true) this.Redraw();
+        }
+
+        /// <summary>
+        /// udalost pred zavrenim formulare
+        /// </summary>
+        private void BeforeClosing(object sender, FormClosingEventArgs e)
+        {
+            // pouze pri zavreni od uzivatele se formular nezavre
+            if (e.CloseReason == CloseReason.UserClosing)
+                e.Cancel = true;
+        }
+
+        private void OnActivate(object sender, EventArgs e)
+        {
+            this.toolStrip1.Refresh();
+        }
     }
 }

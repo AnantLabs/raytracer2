@@ -81,21 +81,27 @@ namespace RayTracerLib
         /// Ambientni koeficient - prenesena barva z okoli
         /// </summary>
         [DataMember]
-        public double Ka { get { return _ka; } set { if (value < 0) _ka = 0; else _ka = value; } }
+        public double Ka { 
+            get { return _ka; } 
+            set { if (value < 0) _ka = 0; else if (value > 1) _ka = 1; else _ka = value; } }
         private double _ka;
 
         /// <summary>
         /// Difusni koeficient - kolik se pohlti - absorbuje
         /// </summary>
         [DataMember]
-        public double Kd { get { return _kd; } set { if (value < 0) _kd = 0; else _kd = value; } }
+        public double Kd { 
+            get { return _kd; } 
+            set { if (value < 0) _kd = 0; else if (value > 1) _kd = 1; else _kd = value; } }
         private double _kd;
 
         /// <summary>
         /// Zrcadlovy odlesk koeficient - kolik se odrazi
         /// </summary>
         [DataMember]
-        public double Ks { get { return _ks; } set { if (value < 0) _ks = 0; else _ks = value; } }
+        public double Ks { 
+            get { return _ks; } 
+            set { if (value < 0) _ks = 0; else if (value > 1) _ks = 1; else _ks = value; } }
         private double _ks;
 
         /// <summary>
@@ -103,21 +109,27 @@ namespace RayTracerLib
         /// cim vyssi exponent - tim mensi a zarivejsi kolecko
         /// </summary>
         [DataMember]
-        public int SpecularExponent { get { return _spec; } set { if (value < 0) _spec = 0; else _spec = value; } }
+        public int SpecularExponent { 
+            get { return _spec; } 
+            set { if (value < 0) _spec = 0; else if (value > 100) _spec = 100; else _spec = value; } }
         private int _spec;
 
         /// <summary>
         /// [KT] Koeficient lomu [0,1] - kolik projde skrz
         /// </summary>
         [DataMember]
-        public double KT { get { return _kt; } set { if (value < 0) _kt = 0; else _kt = value; } }
+        public double KT { 
+            get { return _kt; } 
+            set { if (value < 0) _kt = 0; else if (value > 1) _kt = 1; else _kt = value; } }
         private double _kt;
 
         /// <summary>
         /// [N] Index lomu
         /// </summary>
         [DataMember]
-        public double N { get { return _n; } set { if (value < 0) _n = 0; else _n = value; } }
+        public double N { 
+            get { return _n; } 
+            set { if (value < 0) _n = 0; else if (value > 10) _n = 10; else _n = value; } }
         private double _n;
 
         public Material()

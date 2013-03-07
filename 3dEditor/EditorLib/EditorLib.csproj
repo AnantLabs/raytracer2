@@ -84,6 +84,7 @@
     <Compile Include="DrawingPlane.cs" />
     <Compile Include="DrawingSphere.cs" />
     <Compile Include="DrawingTriangle.cs" />
+    <Compile Include="DrawingVertex.cs" />
     <Compile Include="EditHelper.cs" />
     <Compile Include="EditorObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

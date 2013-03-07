@@ -53,7 +53,8 @@ namespace _3dEditor
         {
             TreeNode nodeObjects = new TreeNode(TreeNodeTypes.Objects.ToString());
             nodeObjects.Tag = TreeNodeTypes.Objects;
-            
+            nodeObjects.Checked = true;
+
             TreeNode nodeSpheres = new TreeNode(TreeNodeTypes.Spheres.ToString());
             nodeSpheres.Tag = TreeNodeTypes.Spheres;
             TreeNode nodePlanes = new TreeNode(TreeNodeTypes.Planes.ToString());
@@ -85,6 +86,7 @@ namespace _3dEditor
 
             TreeNode nodeImages = new TreeNode(TreeNodeTypes.Images.ToString());
             nodeImages.Tag = TreeNodeTypes.Images;
+            nodeImages.Checked = true;
 
             TreeNode nodeAnimations = new TreeNode(TreeNodeTypes.Animations.ToString());
             nodeAnimations.Tag = TreeNodeTypes.Animations;
@@ -129,7 +131,13 @@ namespace _3dEditor
                             TreeNode novyNode = new TreeNode(ds.ToString());
                             novyNode.Tag = obj;
                             if (ds.IsActive)
+                            {
                                 novyNode.Checked = true;
+                                isChecking = true;
+                                node2.Checked = true;
+                                isChecking = false;
+                            }
+                            
 
                             node2.Nodes.Add(novyNode);
                         }
@@ -144,7 +152,12 @@ namespace _3dEditor
                     TreeNode novyNode = new TreeNode(obj.ToString());
                     novyNode.Tag = obj;
                     if (light.IsActive)
+                    {
                         novyNode.Checked = true;
+                        isChecking = true;
+                        node.Checked = true;
+                        isChecking = false;
+                    }
                     node.Nodes.Add(novyNode);
                 }
                 else if ((TreeNodeTypes)node.Tag == rootTyp && rootTyp == TreeNodeTypes.Camera)
@@ -163,7 +176,8 @@ namespace _3dEditor
                     RayImage img = (RayImage)obj;
                     TreeNode novyNode = new TreeNode(img.ToString());
                     novyNode.Tag = img;
-                    novyNode.Checked = true;
+                    if (node.Nodes.Count == 0)
+                        novyNode.Checked = true;
                     //node.Checked = true;
                     node.Nodes.Add(novyNode);
                 }
@@ -266,7 +280,7 @@ namespace _3dEditor
             this.AddItem(img, TreeNodeTypes.Images);
         }
 
-        private void OnAfterSelect(object sender, TreeViewEventArgs e)
+        private void AfterSelect(object sender, TreeViewEventArgs e)
         {
             if (BlinkActivate == false) return;
 
@@ -463,6 +477,12 @@ namespace _3dEditor
                 DrawingDefaultShape dds = (DrawingDefaultShape)e.Node.Tag;
                 DefaultShape ds = (DefaultShape)dds.ModelObject;
                 ds.IsActive = e.Node.Checked;
+                if (e.Node.Checked)
+                {
+                    isChecking = true;
+                    e.Node.Parent.Checked = true;
+                    isChecking = false;
+                }
                 ParentEditor pe = (ParentEditor)this.ParentForm;
                 pe._WndBoard.Redraw();
                 this.Invalidate();
@@ -473,6 +493,12 @@ namespace _3dEditor
                 DrawingLight dl = (DrawingLight)e.Node.Tag;
                 Light l = (Light)dl.ModelObject;
                 l.IsActive = e.Node.Checked;
+                if (e.Node.Checked)
+                {
+                    isChecking = true;
+                    e.Node.Parent.Checked = true;
+                    isChecking = false;
+                }
                 ParentEditor pe = (ParentEditor)this.ParentForm;
                 pe._WndBoard.Redraw();
                 this.Invalidate();
@@ -500,9 +526,11 @@ namespace _3dEditor
                     isChecking = false;
                 }
             }
+            
             else
             {
-                SetChildNodes(e.Node);
+                if (!isChecking)
+                    SetChildNodes(e.Node);
             }
 
         }
@@ -523,7 +551,12 @@ namespace _3dEditor
         private void BeforeCheck(object sender, TreeViewCancelEventArgs e)
         {
 
-            if (e.Node.Tag is DrawingCamera)
+            if (e.Node.Tag is TreeNodeTypes && (TreeNodeTypes)e.Node.Tag == TreeNodeTypes.Images)
+            {
+                e.Cancel = true;
+            }
+
+            else if (e.Node.Tag is DrawingCamera)
             {
                 e.Cancel = true;
             }
@@ -728,7 +761,15 @@ namespace _3dEditor
                 node.Checked = true;
         }
 
-        
 
+        /// <summary>
+        /// udalost pred zavrenim formulare
+        /// </summary>
+        private void BeforeClosing(object sender, FormClosingEventArgs e)
+        {
+            // pouze pri zavreni od uzivatele se formular nezavre
+            if (e.CloseReason == CloseReason.UserClosing)
+                e.Cancel = true;
+        }
     }
 }
