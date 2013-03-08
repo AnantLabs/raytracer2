@@ -82,6 +82,12 @@
     <Compile Include="AboutBoxInfo.Designer.cs">
       <DependentUpon>AboutBoxInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="AnimBoard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnimBoard.Designer.cs">
+      <DependentUpon>AnimBoard.cs</DependentUpon>
+    </Compile>
     <Compile Include="DrawingBoard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +132,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AboutBoxInfo.resx">
       <DependentUpon>AboutBoxInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnimBoard.resx">
+      <DependentUpon>AnimBoard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DrawingBoard.resx">
       <DependentUpon>DrawingBoard.cs</DependentUpon>

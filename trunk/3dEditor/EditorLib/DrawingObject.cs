@@ -127,6 +127,7 @@ namespace EditorLib
 
         public virtual void Rotate(double degAroundX, double degAroundY, double degAroundZ)
         {
+            
             DefaultShape ds = (DefaultShape)ModelObject;
             if (ds != null)
                 ds.Rotate(degAroundX, degAroundY, degAroundZ);

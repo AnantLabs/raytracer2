@@ -10,6 +10,7 @@ using Splicer.Timeline;
 using Splicer.Renderer;
 using System.Threading;
 using Mathematics;
+using System.Runtime.Serialization;
 
 namespace RayTracerLib
 {
@@ -37,7 +38,7 @@ namespace RayTracerLib
     /// <summary>
     /// Trida slouzici pro vytvoreni animace
     /// </summary>
-    [Serializable]
+    [DataContract]
     public class Animation : LabeledShape
     {
 
@@ -56,16 +57,18 @@ namespace RayTracerLib
             public Vektor Center { get; private set; }
             public double A { get; private set; }
             public double B { get; private set; }
-            public double C { get; private set; }
+            private Matrix3D _shiftMatrix;
+            private Matrix3D _rotatMatrix;
 
-            public Elipse() : this(new Vektor(0, -2, -5), 11, 2, 9) { }
+            public Elipse() : this(new Vektor(1, -1, 1), 8, 6) { }
 
-            public Elipse(Vektor center, double a, double b, double c)
+            public Elipse(Vektor center, double a, double b)
             {
                 Center = center;
                 A = a;
                 B = b;
-                C = c;
+                _shiftMatrix = Matrix3D.PosunutiNewMatrix(center);
+                _rotatMatrix = Matrix3D.Identity;
             }
 
             public Elipse(Elipse old)
@@ -73,7 +76,8 @@ namespace RayTracerLib
                 Center = new Vektor(old.Center);
                 A = old.A;
                 B = old.B;
-                C = old.C;
+                _shiftMatrix = new Matrix3D(old._shiftMatrix);
+                _rotatMatrix = new Matrix3D(old._rotatMatrix);
             }
 
 
@@ -85,45 +89,94 @@ namespace RayTracerLib
             /// </summary>
             /// <param name="count"></param>
             /// <returns></returns>
+            //public List<Vektor> GetEllipsePoints(int count)
+            //{
+            //    if (count < 0)
+            //        count = 32;
+
+            //    List<Vektor> points = new List<Vektor>(count);
+
+            //    double beta = 180.0 * (Math.PI / 180.0); //(Math.PI/180) converts Degree Value into Radians
+            //    double sinbeta = Math.Sin(beta);
+            //    double cosbeta = Math.Cos(beta);
+
+            //    double alpha, sinalpha, cosalpha;
+
+            //    double x, y, z;
+            //    double incr = 360.0 / count;
+            //    for (double i = 0.0; i < 360; i += incr)
+            //    {
+            //        alpha = i * (Math.PI / 180);
+            //        sinalpha = Math.Sin(alpha);
+            //        cosalpha = Math.Cos(alpha);
+
+            //        x = Center.X + (A * cosalpha * cosbeta - B * sinalpha * sinbeta);
+            //        y = Center.Y + (B * cosalpha * sinbeta + B * sinalpha * cosbeta);
+            //        z = Center.Z + (C * sinalpha);
+
+            //        Vektor p = new Vektor(x, y, z);
+            //        points.Add(p);
+            //    }
+
+            //    return points;
+            //}
+
+
+            public List<Vektor> GetEllipsePoints(double fps, double time)
+            {
+                int numberOfPoints = ComputeNumberOfPoints(fps, time);
+                List<Vektor> points = GetEllipsePoints(numberOfPoints);
+                return points;
+            }
+
+            /// <summary>
+            /// vypocita vsechny body na elipse
+            /// </summary>
+            /// <param name="count">pocet bodu, kolik se ma vratit</param>
+            /// <returns>body na elipse</returns>
             public List<Vektor> GetEllipsePoints(int count)
             {
-                if (count < 0)
-                    count = 32;
+                //int sides = _SIDE_NUM;  // The amount of segment to create the circle
+                int sides = count;
 
-                List<Vektor> points = new List<Vektor>(count);
-
-                double beta = 180.0 * (Math.PI / 180.0); //(Math.PI/180) converts Degree Value into Radians
-                double sinbeta = Math.Sin(beta);
-                double cosbeta = Math.Cos(beta);
-
-                double alpha, sinalpha, cosalpha;
-
-                double x, y, z;
-                double incr = 360.0 / count;
-                for (double i = 0.0; i < 360; i += incr)
+                double thetaRads = 0;
+                List<Vektor> points = new List<Vektor>();
+                for (int a = 0; a < 360; a += 360 / sides)
                 {
-                    alpha = i * (Math.PI / 180);
-                    sinalpha = Math.Sin(alpha);
-                    cosalpha = Math.Cos(alpha);
-
-                    x = Center.X + (A * cosalpha * cosbeta - B * sinalpha * sinbeta);
-                    y = Center.Y + (B * cosalpha * sinbeta + B * sinalpha * cosbeta);
-                    z = Center.Z + (C * sinalpha);
-
-                    Vektor p = new Vektor(x, y, z);
+                    double phi = a * Math.PI / 180;
+                    float x = (float)(Math.Cos(thetaRads) * Math.Sin(phi) * A);
+                    float y = (float)(Math.Sin(phi) * Math.Sin(thetaRads));
+                    float z = (float)(Math.Cos(phi) * B);
+                    Vektor p = new Vektor(x, z, y);
                     points.Add(p);
                 }
+                //points.Add(new Vektor(points[0].X, points[0].Y, points[0].Z)); // posledni bod stejny jako prvni?
+                
+                Matrix3D _localMatrix = _rotatMatrix * _shiftMatrix;
+                _localMatrix.TransformPoints(points);
 
                 return points;
+            }
+
+            public void Rotate(Matrix3D rotMatrix)
+            {
+                _rotatMatrix = rotMatrix;
+            }
+
+            public void Move(Matrix3D shiftMatrix)
+            {
+                _shiftMatrix = shiftMatrix;
             }
 
             /// <summary>
             /// spocita obvod elipsy
             /// </summary>
             /// <returns>obvod elipsy</returns>
-            public double Circumference()
+            private double Circumference()
             {
-                double cit1 = (A - B - C) / (A + B + C);
+                if (Math.Abs(A) < MyMath.EPSILON && Math.Abs(B) < MyMath.EPSILON) return 0;
+
+                double cit1 = (A - B) / (A + B);
                 cit1 = 3 * cit1 * cit1;
 
                 double jmenov = Math.Sqrt(4 - cit1);
@@ -131,7 +184,7 @@ namespace RayTracerLib
 
                 double zlom = 1 + cit1 / jmenov;
 
-                double obvod = Math.PI * (A + B + C) * zlom;
+                double obvod = Math.PI * (A + B) * zlom;
 
                 return obvod;
             }
@@ -146,6 +199,8 @@ namespace RayTracerLib
             public int ComputeNumberOfPoints(double fps, double time)
             {
                 double obvod = Circumference();
+                if (obvod == 0) return 0;
+
                 double num = obvod;
                 if (time > 0.0)
                 {
@@ -179,7 +234,7 @@ namespace RayTracerLib
         /// Elipsa popisujici drahu kamery
         /// Smer kamery bude od bodu elipsy do stredu elipsy
         /// </summary>
-        public Elipse Ellipse { get; private set; }
+        public Elipse ElipsePath { get; private set; }
 
         /// <summary>
         /// souradnice vsech bodu na elipse, z nichz se bude vykreslovat animace
@@ -192,49 +247,73 @@ namespace RayTracerLib
         /// </summary>
         private int _numPoints;
         private string _fileName;
+
+        public String FileFullPath { get; set; }
         private string _imgName;
 
-        private AnimationType _animType;
+        public AnimationType AnimType { get; set; }
 
         RayImage _rayImg;
 
-        double _fps;
+        private double _fps = 25;
+        /// <summary>
+        /// frames per second. Minimalne 20, Maximalne 50
+        /// </summary>
+        public double Fps { get { return _fps; } set { if (value < 20 && value > 50) _fps = 25; else _fps = value; } }
+
+        private double _time = 1;
+        /// <summary>
+        /// cas v sekundach. minimalne 1s, maximalne 10s
+        /// </summary>
+        public double Time { get { return _time; } set { if (value < 1) _time = 1; else if (value > 10)  _time = 10; else _time = value; } }
         bool _generateImages;
 
         bool _isBusy;
 
         //public Animation(RayTracing raytracer) :this(raytracer,
 
-        public Animation(RayTracing raytracer) :this(raytracer,new Elipse(), 25, 0.0){}
+        /// <summary>
+        /// konstruktor s prednastavenymi hodnotami: fps=20, time =1
+        /// </summary>
+        /// <param name="raytracer"></param>
+        public Animation() :this(25, 1.0){}
 
-        public Animation(RayTracing raytracer, Elipse elipsa, double fps, double time)
+        public Animation(double fps, double time) : this(new Vektor(1, -1, 1), 10, 8, fps, time) { }
+        public Animation(Vektor center, double a, double b, double fps, double time)
         {
             SetLabelPrefix("anim");
-            _animType = AnimationType.VideoOnly;
-            _rayTracer = raytracer;
-            Ellipse = elipsa;
-            SetPath(elipsa, fps, time);
-            _counter = 0;
-            _fileName = "anim";
+            AnimType = AnimationType.VideoOnly;
+            SetPath(center, a, b, fps, time);
+            _fileName = "anim.avi";
+            FileFullPath = Path.Combine(Environment.CurrentDirectory, _fileName);
             InitAll();
         }
 
         public Animation(Animation old)
         {
-            _animType = old._animType;
+            AnimType = old.AnimType;
             _rayTracer = new RayTracing(old._rayTracer);
-            Ellipse = new Elipse(old.Ellipse);
+            ElipsePath = new Elipse(old.ElipsePath);
             _numPoints = old._numPoints;
             _pathPoints = new List<Vektor>(old._pathPoints);
             _counter = old._counter;
             _fileName = old._fileName;
             _rayImg = new RayImage(_rayImg);
-            _fps = old._fps;
+            Fps = old.Fps;
+            Time = old.Time;
             _bw = old._bw;
+            FileFullPath = old.FileFullPath;
         }
 
-        private void InitAll()
+        /// <summary>
+        /// inicializace potrebna pred kazdym spustenim cele animace
+        /// </summary>
+        public void InitAll()
         {
+            _numPoints = ElipsePath.ComputeNumberOfPoints(Fps, Time);
+            _pathPoints = ElipsePath.GetEllipsePoints(_numPoints);
+            _counter = 0;
+
             _bw = new BackgroundWorker();
             _bw.WorkerSupportsCancellation = true;
             _bw.WorkerReportsProgress = true;
@@ -244,6 +323,13 @@ namespace RayTracerLib
             _bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(_bw_WorkerCompleted);
         }
 
+        public void SetElipse(Elipse elipse, double fps, double time)
+        {
+            ElipsePath = elipse;
+            Fps = fps;
+            Time = time;
+        }
+
         /// <summary>
         /// nastavi celou cestu k animaci
         /// </summary>
@@ -251,13 +337,11 @@ namespace RayTracerLib
         /// <param name="fps">pocet snimku za sekundu</param>
         /// <param name="time">delka animace (ve vterinach). 
         /// je-li 0, pak bude delka optimalni vzhledem k fps.</param>
-        public void SetPath(Elipse elipsa, double fps, double time)
+        public void SetPath(Vektor center, double a, double b, double fps, double time)
         {
-            Ellipse = elipsa;
-            _fps = fps;
-            _numPoints = elipsa.ComputeNumberOfPoints(fps, time);
-            _pathPoints = Ellipse.GetEllipsePoints(_numPoints);
-            
+            ElipsePath = new Elipse(center, a, b);
+            Fps = fps;
+            Time = time;
         }
 
         /// <summary>
@@ -285,7 +369,7 @@ namespace RayTracerLib
 
             Vektor camSource = _pathPoints[_counter];
             _rayTracer.RCamera.Source = camSource;
-            Vektor camNorm = Vektor.ToDirectionVektor(camSource, Ellipse.Center);
+            Vektor camNorm = Vektor.ToDirectionVektor(camSource, ElipsePath.Center);
             camNorm.Normalize();
 
             _rayTracer.RCamera.SetNormAndUp(camNorm, _rayTracer.RCamera.Up);
@@ -302,18 +386,18 @@ namespace RayTracerLib
         /// <param name="antialias">antialiasing</param>
         /// <param name="file">soubor animace</param>
         /// <param name="generateImages">maji-li se s animaci generovat i obrazky</param>
-        public void StartAnimation(Size size, string file, AnimationType animType)
+        public void StartAnimation(RayTracing rayTracer, RayImage rayImage)
         {
+            this._rayTracer = rayTracer;
+            this._rayImg = rayImage;
+
             if ((_bw.IsBusy == true))
                 return;
 
-            _fileName = file;
-            _animType = animType;
-
-            if (_animType != AnimationType.VideoOnly)
+            if (AnimType != AnimationType.VideoOnly)
             {
-                _imgName = Path.GetFileNameWithoutExtension(file);
-                _imgName = Path.Combine(Path.GetDirectoryName(file), _imgName);
+                _imgName = Path.GetFileNameWithoutExtension(FileFullPath);
+                _imgName = Path.Combine(Path.GetDirectoryName(FileFullPath), _imgName);
             }
 
             _counter = 0;
@@ -355,11 +439,11 @@ namespace RayTracerLib
             Bitmap bmp;
             StreamWriter str = new StreamWriter(Path.Combine(Path.GetDirectoryName(_fileName), "out.txt"));
 
-            ITimeline timeline = new DefaultTimeline(_fps);
+            ITimeline timeline = new DefaultTimeline(Fps);
             IGroup group = timeline.AddVideoGroup(24, _rayImg.CurrentSize.Width, _rayImg.CurrentSize.Height);
             ITrack videoTrack = group.AddTrack();
 
-            double secs = (double)(1.0 / _fps);     // doba obrazku v sekundach
+            double secs = (double)(1.0 / Fps);     // doba obrazku v sekundach
             int progres;
 
             while (MoveToNextImage() && !_bw.CancellationPending)
@@ -431,13 +515,13 @@ namespace RayTracerLib
                 Renderer renderer = new Renderer(_rayTracer, _rayImg);
                 renderer.AddRenderCompletedEventHandler(new RunWorkerCompletedEventHandler(this.OnRenderedImage));
 
-                timeline = new DefaultTimeline(_fps);
+                timeline = new DefaultTimeline(Fps);
                 IGroup group = timeline.AddVideoGroup(24, _rayImg.CurrentSize.Width, _rayImg.CurrentSize.Height);
                 _videoTrack = group.AddTrack();
 
                 _iter = 0;
                 _finished = true;
-                _secs = (double)(1.0 / _fps);     // doba jednoho obrazku v sekundach
+                _secs = (double)(1.0 / Fps);     // doba jednoho obrazku v sekundach
 
                 while (!IsEndOfAnimation())
                 {
@@ -496,10 +580,10 @@ namespace RayTracerLib
                 {
                     Bitmap bmp = (Bitmap)e.Result;
 
-                    if (_animType != AnimationType.VideoOnly)
+                    if (AnimType != AnimationType.VideoOnly)
                         bmp.Save(String.Format("{0}{1:0000}.png", _imgName, _iter), System.Drawing.Imaging.ImageFormat.Png);
 
-                    if (_animType != AnimationType.ImagesOnly)
+                    if (AnimType != AnimationType.ImagesOnly)
                     {
                         // pridani obrazku do animace na konec predchozich obrazku
                         // s dobou zobrazeni obrazku: secs 
@@ -513,7 +597,7 @@ namespace RayTracerLib
                         _bw.ReportProgress(progres, new Bitmap(bmp));
                     }
 
-                    if (_animType != AnimationType.VideoOnly)
+                    if (AnimType != AnimationType.VideoOnly)
                         bmp.Dispose();
                 }
             }
@@ -544,7 +628,7 @@ namespace RayTracerLib
 
         public override string ToString()
         {
-            return String.Format("Dráha: {0}", this.Ellipse);
+            return String.Format("Dráha: {0}", this.ElipsePath);
         }
 
 

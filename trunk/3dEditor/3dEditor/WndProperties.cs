@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using EditorLib;
 using RayTracerLib;
 using Mathematics;
+using System.IO;
 
 namespace _3dEditor
 {
@@ -583,9 +584,9 @@ namespace _3dEditor
             this.numAnimElipseA.Value = (decimal)drAnim.A;
             this.numAnimElipseB.Value = (decimal)drAnim.B;
 
-            this.numAnimFps.Value = (decimal)drAnim.FPS;
-            this.numAnimSecs.Value = (decimal)drAnim.Time;
-            this.textBAnimFile.Text = drAnim.FileFullPath;
+            this.numAnimFps.Value = (decimal)anim.Fps;
+            this.numAnimSecs.Value = (decimal)anim.Time;
+            this.textBAnimFile.Text = anim.FileFullPath;
 
             switch (drAnim.TypeAnim)
             {
@@ -599,7 +600,8 @@ namespace _3dEditor
                     this.radioAnimBothImgVideo.Checked = true;
                     break;
             }
-            
+
+            this.textBAnimFile.Text = anim.FileFullPath;
 
         }
 
@@ -1469,6 +1471,7 @@ namespace _3dEditor
             }
 
             DrawingAnimation drAnim = (DrawingAnimation)_currentlyDisplayed;
+            Animation anim = drAnim.ModelObject as Animation;
 
             Vektor center = new Vektor();
             center.X = (double)this.numAnimCenterX.Value;
@@ -1479,24 +1482,67 @@ namespace _3dEditor
             double b = (double)this.numAnimElipseB.Value;
             double c = (double)this.numAnimElipseB.Value;
 
-            drAnim.Set(center, a, b);
+            
 
-            drAnim.FPS=(double)this.numAnimFps.Value;
-            drAnim.Time = (double)this.numAnimSecs.Value;
-            drAnim.FileFullPath = this.textBAnimFile.Text;
+            double fps =(double)this.numAnimFps.Value;
+            double time = (double)this.numAnimSecs.Value;
 
-            if (this.radioAnimVideoOnly.Checked)
-                drAnim.TypeAnim = AnimationType.VideoOnly;
-            else if (this.radioAnimImgsOnly.Checked)
-                drAnim.TypeAnim = AnimationType.ImagesOnly;
-            else if (this.radioAnimBothImgVideo.Checked)
-                drAnim.TypeAnim = AnimationType.BothImagesAndVideo;
+            drAnim.Set(center, a, b, fps, time);
+            
+
+
 
             WndBoard wnd = GetWndBoard();
             wnd.RotationMatrix.TransformPoints(drAnim.Points);
             WndScene wndSc = GetWndScene();
             wndSc.UpdateRecords();
         }
+        private void actionAnimationPathSet(object sender, EventArgs e)
+        {
+            if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(DrawingAnimation))
+                return;
+
+            if (!_permissionToModify)
+                return;
+
+            // modifikovany objekt musi byt stejny, jako prave vybrany objekt na platne (Boardu)
+            WndBoard wndBoard = GetWndBoard();
+            if (wndBoard._Selected != (DrawingObject)_currentlyDisplayed)
+            {
+                wndBoard.SetObjectSelected((DrawingObject)_currentlyDisplayed);
+            }
+
+            DrawingAnimation drAnim = (DrawingAnimation)_currentlyDisplayed;
+            Animation anim = drAnim.ModelObject as Animation;
+
+            anim.FileFullPath = GetRealFullPath(this.textBAnimFile.Text);
+
+            if (this.radioAnimVideoOnly.Checked)
+                anim.AnimType = AnimationType.VideoOnly;
+            else if (this.radioAnimImgsOnly.Checked)
+                anim.AnimType = AnimationType.ImagesOnly;
+            else if (this.radioAnimBothImgVideo.Checked)
+                anim.AnimType = AnimationType.BothImagesAndVideo;
+        }
+        private string GetRealFullPath(string text)
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string dir;
+            if (Path.GetExtension(text).ToLower() != ".avi")
+            {
+                MessageBox.Show("Output file must be in AVI format");
+                return path;
+            }
+
+            if (!Directory.Exists(Path.GetDirectoryName(text)))
+            {
+                MessageBox.Show("Nonexisting file path");
+                return path;
+            }
+            return text;
+        }
+
+
         public void UpdateSelected()
         {
 

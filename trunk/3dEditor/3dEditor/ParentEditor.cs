@@ -279,7 +279,7 @@ namespace _3dEditor
             //this.Invalidate(true);
         }
 
-        private void BtnDraw_Click(object sender, EventArgs e)
+        private void onDrawClick(object sender, EventArgs e)
         {
             _WndBoard.InitForRaytracer();
             RayImage img = _WndScene.GetSelectedImage();
@@ -409,6 +409,23 @@ namespace _3dEditor
             _WndBoard.AllowPaint(true);
         }
 
+        /// <summary>
+        /// Jedina spravna metoda na zobrazeni messageBoxu.
+        /// Jedna se o seskupeni metod:
+        ///     _WndBoard.AllowPaint(false);
+        ///     MessageBox.Show(text, caption, msgButtons, msgIcon);
+        ///     _WndBoard.AllowPaint(true);
+        /// </summary>
+        /// <param name="text">zprava msgboxu</param>
+        /// <param name="caption">nadpis</param>
+        /// <param name="msgButtons">tlacitka</param>
+        /// <param name="msgIcon">icona</param>
+        public void MessageBoxShow(string text, string caption, MessageBoxButtons msgButtons, MessageBoxIcon msgIcon)
+        {
+            _WndBoard.AllowPaint(false);
+            MessageBox.Show(text, caption, msgButtons, msgIcon);
+            _WndBoard.AllowPaint(true);
+        }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -425,6 +442,23 @@ namespace _3dEditor
             //this.MdiChildren[0].Invalidate();
             //this.MdiChildren[1].Invalidate();
             //this.MdiChildren[2].Invalidate();
+        }
+
+        private void onAnimeClick(object sender, EventArgs e)
+        {
+            _WndBoard.InitForRaytracer();
+            RayImage rayImg = _WndScene.GetSelectedImage();
+            _rayTracer.RScene.SetBeforeRayTr(rayImg);
+            DrawingAnimation anim = _WndScene.GetSelectedAnimation();
+            DefaultShape.TotalTested = 0;
+            AnimBoard animForm = new AnimBoard(_rayTracer, rayImg, (Animation)anim.ModelObject, this);
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+            animForm.Show();
+        }
+
+        internal void SetAnimationEnabled(bool isEnabled)
+        {
+            this.toolStripAnimate.Enabled = isEnabled;
         }
     }
 }

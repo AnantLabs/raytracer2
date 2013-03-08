@@ -895,14 +895,18 @@ namespace _3dEditor
                     if (drAnim == _Selected)
                         penElips = DrawingAnimation.EllipseSelectedPen;
 
+                    RectangleF rectf = new RectangleF(new PointF(), new SizeF(4, 4));
                     for (int i = 0; i < points.Length - 1; i++)
                     {
                         PointF pf1 = points[i].To2D(_scale, _zoom, _centerPoint);
                         PointF pf2 = points[i + 1].To2D(_scale, _zoom, _centerPoint);
                         g.DrawLine(penElips, pf1, pf2);
                         path.AddLine(pf1, pf2);
+                        rectf.Location = new PointF(pf2.X - 2, pf2.Y - 2);
+                        g.DrawEllipse(penElips, rectf);
                     }
-
+                    g.DrawEllipse(Pens.Red, rectf);
+                    g.FillEllipse(Brushes.Red, rectf);
 
 
                     //path.AddEllipse(a.X - rad, a.Y - rad, 2 * rad, 2 * rad);
@@ -1325,7 +1329,8 @@ namespace _3dEditor
                         //}
                         Matrix3D transp = this._matrixForever.Transpose();
                         Vektor centerTransp = transp.Transform2NewPoint(drAnim.Center);
-                        drAnim.CenterWorld = centerTransp;
+                        drAnim.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                        //_matrixForever.TransformPoints(drAnim.Points);
                         WndScene wnd = GetWndScene();
                         wnd.UpdateRecords();
                     }
@@ -1832,8 +1837,9 @@ namespace _3dEditor
 
         }
 
-        public void AddAnimation(DrawingAnimation drAnim)
+        public void AddAnimation(Animation anim)
         {
+            DrawingAnimation drAnim = new DrawingAnimation(anim);
             drAnim.ApplyRotationMatrix(_matrixForever);
             _objectsToDraw.Add(drAnim);
             WndScene wndScene = GetWndScene();
