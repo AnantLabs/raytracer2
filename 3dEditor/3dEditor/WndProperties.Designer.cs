@@ -848,6 +848,7 @@
             this.radioAnimImgsOnly.TabIndex = 60;
             this.radioAnimImgsOnly.Text = "Frames only";
             this.radioAnimImgsOnly.UseVisualStyleBackColor = true;
+            this.radioAnimImgsOnly.CheckedChanged += new System.EventHandler(this.actionAnimationPathSet);
             // 
             // radioAnimBothImgVideo
             // 
@@ -858,6 +859,7 @@
             this.radioAnimBothImgVideo.TabIndex = 59;
             this.radioAnimBothImgVideo.Text = "Video with frames";
             this.radioAnimBothImgVideo.UseVisualStyleBackColor = true;
+            this.radioAnimBothImgVideo.CheckedChanged += new System.EventHandler(this.actionAnimationPathSet);
             // 
             // radioAnimVideoOnly
             // 
@@ -869,6 +871,7 @@
             this.radioAnimVideoOnly.TabStop = true;
             this.radioAnimVideoOnly.Text = "Video only";
             this.radioAnimVideoOnly.UseVisualStyleBackColor = true;
+            this.radioAnimVideoOnly.CheckedChanged += new System.EventHandler(this.actionAnimationPathSet);
             // 
             // label115
             // 
@@ -968,6 +971,7 @@
             this.textBAnimFile.Size = new System.Drawing.Size(257, 20);
             this.textBAnimFile.TabIndex = 44;
             this.textBAnimFile.Text = "D:\\MYWORKS\\RAYTRACER\\OUT\\ANIM.AVI";
+            this.textBAnimFile.TextChanged += new System.EventHandler(this.actionAnimationPathSet);
             // 
             // label117
             // 
@@ -7425,6 +7429,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1188, 778);
+            this.Controls.Add(this.panelAnimace);
             this.Controls.Add(this.panelImage);
             this.Controls.Add(this.panelRovina);
             this.Controls.Add(this.panelCamera);
@@ -7432,7 +7437,6 @@
             this.Controls.Add(this.panelLight);
             this.Controls.Add(this.panelCylindr);
             this.Controls.Add(this.panelBox);
-            this.Controls.Add(this.panelAnimace);
             this.Controls.Add(this.panelCone);
             this.Controls.Add(this.panelSphere);
             this.Controls.Add(this.panelCustomObj);

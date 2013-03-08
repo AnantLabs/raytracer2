@@ -186,9 +186,16 @@ namespace _3dEditor
                     DrawingAnimation drAnim = (DrawingAnimation)obj;
                     TreeNode novyNode = new TreeNode(drAnim.ToString());
                     novyNode.Tag = drAnim;
+                    node.Nodes.Add(novyNode);
+                    if (node.Nodes.Count == 1)
+                    {
+                        isChecking = true;
+                        node.Checked = true;
+                        isChecking = false;
+                    }
                     novyNode.Checked = drAnim.ShowAnimation;
                     //node.Checked = true;
-                    node.Nodes.Add(novyNode);
+                    
                 }
                 else if ((TreeNodeTypes)node.Tag == rootTyp)
                 {
@@ -506,15 +513,32 @@ namespace _3dEditor
             }
             else if (e.Node.Tag is DrawingAnimation)
             {
-                if (!isChecking)
+                //if (!isChecking && e.Node.Checked)
+                //{
+                //    isChecking = true;
+                //    this.UncheckChildren(e.Node.Parent);
+                //    e.Node.Checked = true;
+                //    isChecking = false;
+                DrawingAnimation drAnim;
+                if (!_checkingFromParent)
                 {
-                    isChecking = true;
-                    this.UncheckChildren(e.Node.Parent);
-                    e.Node.Checked = true;
-                    isChecking = false;
-                    DrawingAnimation drAnim = (DrawingAnimation)e.Node.Tag;
-                    drAnim.ShowAnimation = e.Node.Checked;
+                    drAnim = GetSelectedAnimation();
+                    if (drAnim == null)
+                    {
+                        isChecking = true;
+                        e.Node.Parent.Checked = false;
+                        isChecking = false;
+                    }
+                    else
+                    {
+                        isChecking = true;
+                        e.Node.Parent.Checked = true;
+                        isChecking = false;
+                    }
                 }
+                drAnim = (DrawingAnimation)e.Node.Tag;
+                drAnim.ShowAnimation = e.Node.Checked;
+                //}
             }
             else if (e.Node.Tag is RayImage)
             {
@@ -529,19 +553,38 @@ namespace _3dEditor
             
             else
             {
-                if (!isChecking)
+                if (((TreeNodeTypes)e.Node.Tag) == TreeNodeTypes.Animations && e.Node.Nodes.Count > 0)
+                {
+                    ParentEditor pe = (ParentEditor)this.ParentForm;
+                    pe.SetAnimationEnabled(e.Node.Checked);
+                }
+                if (!isChecking) // zaskrtnut korenovy uzel, takze se musi podle nej nastavit vsichni jeho potomci
+                {
+                    //if (((TreeNodeTypes)e.Node.Tag) == TreeNodeTypes.Animations && e.Node.Nodes.Count > 0)
+                    //{
+                    //    ParentEditor pe = (ParentEditor)this.ParentForm;
+                    //    pe.SetAnimationEnabled(e.Node.Checked);
+                    //}
+                     
                     SetChildNodes(e.Node);
+                }
             }
 
         }
 
+        /// <summary>
+        /// nastavovani od otce. Je-li TRUE, tak syn nesmi menit check otci
+        /// </summary>
+        bool _checkingFromParent;
         private void SetChildNodes(TreeNode root)
         {
+            _checkingFromParent = true;
             foreach (TreeNode node in root.Nodes)
             {
                 node.Checked = root.Checked;
                 SetChildNodes(node);
             }
+            _checkingFromParent = false;
         }
         private void NodeMouseDblClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -550,12 +593,18 @@ namespace _3dEditor
 
         private void BeforeCheck(object sender, TreeViewCancelEventArgs e)
         {
-
+            
             if (e.Node.Tag is TreeNodeTypes && (TreeNodeTypes)e.Node.Tag == TreeNodeTypes.Images)
             {
                 e.Cancel = true;
             }
 
+            else if (e.Node.Tag is TreeNodeTypes && (TreeNodeTypes)e.Node.Tag == TreeNodeTypes.Animations)
+            {
+
+                if (!isChecking && e.Node.Nodes.Count == 0)
+                    e.Cancel = true;
+            }
             else if (e.Node.Tag is DrawingCamera)
             {
                 e.Cancel = true;
@@ -607,6 +656,15 @@ namespace _3dEditor
             {
                 return;
             }
+            
+            // kdyz byl z podstromu odstranen posledni uzel, odskrtneme uzel otce
+            if (treeView1.SelectedNode.Parent.Nodes.Count == 1)
+            {
+                isChecking = true;
+                treeView1.SelectedNode.Parent.Checked = false;
+                isChecking = false;
+            }
+
             WndBoard wndBoard = GetWndBoard();
             wndBoard.RemoveRaytrObject(treeView1.SelectedNode.Tag);// musi byt pred odstranenim z Editoru
 
@@ -690,8 +748,9 @@ namespace _3dEditor
 
         private void onAddAnimation(object sender, EventArgs e)
         {
+            Animation anim = new Animation();
             WndBoard wndBoard = GetWndBoard();
-            wndBoard.AddAnimation(new DrawingAnimation());
+            wndBoard.AddAnimation(anim);
         }
 
         private void onAddCustomObject(object sender, EventArgs e)
@@ -770,6 +829,24 @@ namespace _3dEditor
             // pouze pri zavreni od uzivatele se formular nezavre
             if (e.CloseReason == CloseReason.UserClosing)
                 e.Cancel = true;
+        }
+
+        internal DrawingAnimation GetSelectedAnimation()
+        {
+            DrawingAnimation sel = null;
+
+            foreach (TreeNode node in treeView1.Nodes)
+            {
+                if ((TreeNodeTypes)node.Tag == TreeNodeTypes.Animations)
+                {
+                    foreach (TreeNode n in node.Nodes)
+                    {
+                        if (n.Checked)
+                            sel = (DrawingAnimation)n.Tag;
+                    }
+                }
+            }
+            return sel;
         }
     }
 }

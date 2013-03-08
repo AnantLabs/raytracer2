@@ -39,7 +39,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.BtnDraw = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripAnimate = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
@@ -114,7 +114,7 @@
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.BtnDraw,
-            this.toolStripButton2,
+            this.toolStripAnimate,
             this.toolStripSeparator1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
@@ -130,16 +130,18 @@
             this.BtnDraw.Name = "BtnDraw";
             this.BtnDraw.Size = new System.Drawing.Size(38, 22);
             this.BtnDraw.Text = "Draw";
-            this.BtnDraw.Click += new System.EventHandler(this.BtnDraw_Click);
+            this.BtnDraw.Click += new System.EventHandler(this.onDrawClick);
             // 
-            // toolStripButton2
+            // toolStripAnimate
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(56, 22);
-            this.toolStripButton2.Text = "Animate";
+            this.toolStripAnimate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripAnimate.Enabled = false;
+            this.toolStripAnimate.Image = ((System.Drawing.Image)(resources.GetObject("toolStripAnimate.Image")));
+            this.toolStripAnimate.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripAnimate.Name = "toolStripAnimate";
+            this.toolStripAnimate.Size = new System.Drawing.Size(56, 22);
+            this.toolStripAnimate.Text = "Animate";
+            this.toolStripAnimate.Click += new System.EventHandler(this.onAnimeClick);
             // 
             // toolStripSeparator1
             // 
@@ -201,7 +203,7 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton BtnDraw;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton toolStripAnimate;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         public  System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
