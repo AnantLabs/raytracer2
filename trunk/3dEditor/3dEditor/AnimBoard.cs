@@ -46,6 +46,8 @@ namespace _3dEditor
             path = Path.Combine(path, now);
             path = Path.ChangeExtension(path, ".avi");
 
+            textBoxOutput.Text = anim.FileFullPath;
+
         }
 
         private void InitializeAndStart()

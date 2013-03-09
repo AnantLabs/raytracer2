@@ -33,6 +33,7 @@
             this.labelProgress = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.textBoxOutput = new System.Windows.Forms.TextBox();
             this.panelProgress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProgress)).BeginInit();
             this.SuspendLayout();
@@ -44,7 +45,7 @@
             this.panelProgress.Controls.Add(this.progressBar);
             this.panelProgress.Location = new System.Drawing.Point(12, 12);
             this.panelProgress.Name = "panelProgress";
-            this.panelProgress.Size = new System.Drawing.Size(416, 296);
+            this.panelProgress.Size = new System.Drawing.Size(396, 296);
             this.panelProgress.TabIndex = 59;
             // 
             // pictureBoxProgress
@@ -52,7 +53,7 @@
             this.pictureBoxProgress.BackColor = System.Drawing.Color.White;
             this.pictureBoxProgress.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pictureBoxProgress.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBoxProgress.Location = new System.Drawing.Point(40, 3);
+            this.pictureBoxProgress.Location = new System.Drawing.Point(35, 3);
             this.pictureBoxProgress.Name = "pictureBoxProgress";
             this.pictureBoxProgress.Size = new System.Drawing.Size(320, 240);
             this.pictureBoxProgress.TabIndex = 54;
@@ -61,7 +62,7 @@
             // labelProgress
             // 
             this.labelProgress.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelProgress.Location = new System.Drawing.Point(63, 246);
+            this.labelProgress.Location = new System.Drawing.Point(65, 246);
             this.labelProgress.Name = "labelProgress";
             this.labelProgress.Size = new System.Drawing.Size(260, 15);
             this.labelProgress.TabIndex = 53;
@@ -70,14 +71,14 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(18, 264);
+            this.progressBar.Location = new System.Drawing.Point(3, 264);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(370, 23);
+            this.progressBar.Size = new System.Drawing.Size(384, 23);
             this.progressBar.TabIndex = 43;
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(367, 314);
+            this.btnCancel.Location = new System.Drawing.Point(338, 313);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(61, 23);
             this.btnCancel.TabIndex = 58;
@@ -85,11 +86,20 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // textBoxOutput
+            // 
+            this.textBoxOutput.Location = new System.Drawing.Point(12, 316);
+            this.textBoxOutput.Name = "textBoxOutput";
+            this.textBoxOutput.ReadOnly = true;
+            this.textBoxOutput.Size = new System.Drawing.Size(314, 20);
+            this.textBoxOutput.TabIndex = 60;
+            // 
             // AnimBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(445, 346);
+            this.ClientSize = new System.Drawing.Size(420, 346);
+            this.Controls.Add(this.textBoxOutput);
             this.Controls.Add(this.panelProgress);
             this.Controls.Add(this.btnCancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -103,6 +113,7 @@
             this.panelProgress.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProgress)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -113,5 +124,6 @@
         private System.Windows.Forms.Label labelProgress;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.TextBox textBoxOutput;
     }
 }

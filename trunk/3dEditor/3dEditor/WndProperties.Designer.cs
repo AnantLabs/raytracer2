@@ -658,6 +658,8 @@
             // 
             // saveFileDialog
             // 
+            this.saveFileDialog.AddExtension = false;
+            this.saveFileDialog.AutoUpgradeEnabled = false;
             this.saveFileDialog.DefaultExt = "avi";
             this.saveFileDialog.FileName = "anim";
             this.saveFileDialog.Filter = "AVI|*.avi";
@@ -965,13 +967,12 @@
             // 
             // textBAnimFile
             // 
-            this.textBAnimFile.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textBAnimFile.Location = new System.Drawing.Point(59, 220);
             this.textBAnimFile.Name = "textBAnimFile";
+            this.textBAnimFile.ReadOnly = true;
             this.textBAnimFile.Size = new System.Drawing.Size(257, 20);
             this.textBAnimFile.TabIndex = 44;
             this.textBAnimFile.Text = "D:\\MYWORKS\\RAYTRACER\\OUT\\ANIM.AVI";
-            this.textBAnimFile.TextChanged += new System.EventHandler(this.actionAnimationPathSet);
             // 
             // label117
             // 

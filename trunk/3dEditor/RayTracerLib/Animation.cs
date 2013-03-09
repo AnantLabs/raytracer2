@@ -249,7 +249,10 @@ namespace RayTracerLib
         private string _fileName;
 
         public String FileFullPath { get; set; }
-        private string _imgName;
+        /// <summary>
+        /// fullPath Without Extension
+        /// </summary>
+        private string _BaseName;
 
         public AnimationType AnimType { get; set; }
 
@@ -394,11 +397,9 @@ namespace RayTracerLib
             if ((_bw.IsBusy == true))
                 return;
 
-            if (AnimType != AnimationType.VideoOnly)
-            {
-                _imgName = Path.GetFileNameWithoutExtension(FileFullPath);
-                _imgName = Path.Combine(Path.GetDirectoryName(FileFullPath), _imgName);
-            }
+            // oddelime priponu pro ukladani stejne jmneno animace i obrazku
+            _BaseName = Path.GetFileNameWithoutExtension(FileFullPath);
+            _BaseName = Path.Combine(Path.GetDirectoryName(FileFullPath), _BaseName); 
 
             _counter = 0;
             _isBusy = true;
@@ -454,7 +455,7 @@ namespace RayTracerLib
                 
                 bmp = renderer.Render2Bitmap();
                 if (_generateImages)
-                    bmp.Save(String.Format("{0}{1:0000}.png", _imgName, i), System.Drawing.Imaging.ImageFormat.Png);
+                    bmp.Save(String.Format("{0}{1:0000}.png", _BaseName, i), System.Drawing.Imaging.ImageFormat.Png);
 
                 images.Add(bmp);
                 videoTrack.AddImage(bmp, 0, secs);  // pridani obrazku do animace na konec predchozich obrazku
@@ -556,7 +557,7 @@ namespace RayTracerLib
                     Thread.Sleep(50);
                 }
                 if (_videoTrack.Duration > 0.0)
-                    using (AviFileRenderer animRenderer = new AviFileRenderer(timeline, _fileName))
+                    using (AviFileRenderer animRenderer = new AviFileRenderer(timeline, String.Format("{0}.avi", _BaseName)))
                     {
                         animRenderer.Render();
                     }
@@ -581,7 +582,7 @@ namespace RayTracerLib
                     Bitmap bmp = (Bitmap)e.Result;
 
                     if (AnimType != AnimationType.VideoOnly)
-                        bmp.Save(String.Format("{0}{1:0000}.png", _imgName, _iter), System.Drawing.Imaging.ImageFormat.Png);
+                        bmp.Save(String.Format("{0}{1:0000}.png", _BaseName, _iter), System.Drawing.Imaging.ImageFormat.Png);
 
                     if (AnimType != AnimationType.ImagesOnly)
                     {

@@ -1524,20 +1524,30 @@ namespace _3dEditor
             else if (this.radioAnimBothImgVideo.Checked)
                 anim.AnimType = AnimationType.BothImagesAndVideo;
         }
+
+        private void OnFileAnimSelect(object sender, EventArgs e)
+        {
+            _WndBoard.AllowPaint(false);
+            if (this.saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filename = saveFileDialog.FileName;
+                this.textBAnimFile.Text = GetRealFullPath(filename);
+            }
+            _WndBoard.AllowPaint(true);
+        }
+
         private string GetRealFullPath(string text)
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string path = Environment.CurrentDirectory;
             string dir;
             if (Path.GetExtension(text).ToLower() != ".avi")
             {
-                MessageBox.Show("Output file must be in AVI format");
-                return path;
+                return Path.ChangeExtension(text, "avi");
             }
 
             if (!Directory.Exists(Path.GetDirectoryName(text)))
             {
-                MessageBox.Show("Nonexisting file path");
-                return path;
+                return Path.Combine(path, "anim.avi");
             }
             return text;
         }
@@ -1760,14 +1770,7 @@ namespace _3dEditor
             wnd.RotationMatrix.TransformPoints(drAnim.Points);
         }
 
-        private void OnFileAnimSelect(object sender, EventArgs e)
-        {
-            if (this.saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string filename = saveFileDialog.FileName;
-                this.textBAnimFile.Text = filename;
-            }
-        }
+        
 
         ///////////////////////////////////////////////
         //////// T R I A N G L E
