@@ -209,13 +209,18 @@ namespace EditorLib
         public List<DrawingObject> GetClickableObj(Point point)
         {
             List<DrawingObject> clickedList = new List<DrawingObject>();
+            EditorObject drAnim = null;
             foreach (EditorObject obj in ClickableObjects)
             {
                 if (obj.IsContained(point))
                 {
-                    clickedList.Add(obj.AssociatedObject);
+                    if (obj.AssociatedObject is DrawingAnimation) drAnim = obj;
+                    else
+                        clickedList.Add(obj.AssociatedObject);
                 }
             }
+            if (drAnim != null)
+                clickedList.Add(drAnim.AssociatedObject);
             return clickedList;
         }
     }

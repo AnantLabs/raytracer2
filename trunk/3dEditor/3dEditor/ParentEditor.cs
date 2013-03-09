@@ -152,7 +152,7 @@ namespace _3dEditor
         {
             _rayTracer = new RayTracing();
             _rayTracer.RScene = new Scene();
-            Sphere sph1 = new Sphere(new Vektor(0, 0, -3), 1, new Colour(1, 0.5, 0.1, 1));
+            Sphere sph1 = new Sphere(new Vektor(0.5, -1.5, -1.5), 1, new Colour(1, 0.5, 0.1, 1));
             Sphere sph2 = new Sphere(new Vektor(-2, -1, -10), 1.5);
             Cube cube1 = new Cube(new Vektor(0.1, 0.7, -3), new Vektor(1, 1, 1), 1);
             //Cube cube2 = new Cube(new Vektor(1.6, -0.1, -5.2), new Vektor(1, 1, 1), 1);
@@ -194,7 +194,7 @@ namespace _3dEditor
             _rayTracer.RScene.SceneObjects.Add(custom);
 
             CustomObject planeCustom = CustomObject.CreatePlane();
-            _rayTracer.RScene.SceneObjects.Add(planeCustom);
+            //_rayTracer.RScene.SceneObjects.Add(planeCustom);
 
             this._WndBoard.AddRaytrScene(_rayTracer.RScene);
 

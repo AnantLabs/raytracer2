@@ -384,6 +384,8 @@ namespace RayTracerLib
                     {
                         lightsList.Add(l);
                     }
+                    else
+                        lightsList.Add(null);
                 }
             }
 

@@ -111,6 +111,7 @@ namespace Mathematics
             // TODO: zjistit, zda + nebo -:
             Vektor vysl = norm - ins;
             //Vektor vysl = norm + ins;
+            vysl.Normalize();
             return vysl;
         }
 
@@ -132,6 +133,7 @@ namespace Mathematics
             Vektor refl = norm * (temp * 2);
             Vektor vysl = refl - ins;
 
+            vysl.Normalize();
             return vysl;
         }
 

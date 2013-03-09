@@ -62,18 +62,37 @@ namespace _3dEditor
         }
 
         /// <summary>
-        /// vrati typ z radiobuttonu
+        /// pocet zobrazeni daneho procenta
         /// </summary>
+        int _countPerProcent;
+        /// <summary>
+        /// predchozi procento
+        /// </summary>
+        int _prevPercent;
+
+        /// Spocita zbyvajici cas do ukonceni animace
         /// <param name="procenta"></param>
         /// <returns></returns>
         private TimeSpan GetEstimatedTime(int procenta)
         {
+            if (_prevPercent == procenta) _countPerProcent++;
+            else
+            {
+                _prevPercent = procenta;
+                _countPerProcent = 1;
+            }
+
             TimeSpan duration = DateTime.Now - _startAnimTime;
             long ticks = duration.Ticks;
             if (procenta < 1)
                 ticks = ticks * 100;
             else
-                ticks = ticks / procenta * (100 - procenta);
+            {
+                // 2 + 1 - 1/3 ... dokoncene procento + dokoncena cast: (1 - 1/3) je MENE procent, nez (1 - 1/4).. 
+                // proto procenta v promenne "procs" rostou s kazdym pokrokem pri stejnem celociselnem procentu 
+                double procs = procenta + 1.0 - (1.0 / _countPerProcent); // k soucasnym procentum pridame zlomek dokoncenych procent
+                ticks = (long)(ticks / procs * (100.0 - procs));
+            }
             TimeSpan estim = new TimeSpan(ticks);
             return estim;
         }
@@ -120,14 +139,14 @@ namespace _3dEditor
                 {
                     this.progressBar.Value = e.ProgressPercentage;
                     this.labelProgress.Text = e.ProgressPercentage.ToString() + "%";
-                    this.Text = e.ProgressPercentage.ToString() + "%";
+                    this.Text = String.Format("Animation {0}%", e.ProgressPercentage.ToString());
                     TimeSpan estimated = GetEstimatedTime(e.ProgressPercentage);
                     this.labelProgress.Text += " estimated time: " + GetStringTime(estimated);
                 }
                 else
                 {
                     this.labelProgress.Text = "99%" + " estimated time: few seconds...";
-                    this.Text = "99%";
+                    this.Text = "Animation 99%";
                 }
             }
             catch (Exception ex)
@@ -142,15 +161,15 @@ namespace _3dEditor
             if ((e.Cancelled == true))
             {
                 this.labelProgress.Text = "Cancelled!";
-                this.Text = "Cancelled!";
+                this.Text = "Animation cancelled!";
             }
             else
             {
                 TimeSpan duration = DateTime.Now - _startAnimTime;
                 string time = GetStringTime(duration);
                 this.progressBar.Value = 100;
-                this.labelProgress.Text = String.Format("Done! Time: {0}", time);
-                this.Text = "100%";
+                this.labelProgress.Text = String.Format("Done! Total time: {0}", time);
+                this.Text = "Animation 100%";
                 _ParentForm.MessageBoxShow("Animation was succesfully created", "Finished", 
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

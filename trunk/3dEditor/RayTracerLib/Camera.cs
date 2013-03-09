@@ -117,6 +117,7 @@ namespace RayTracerLib
         /// <param name="up">vektor pohledu nahoru</param>
         public void SetNormAndUp(Vektor norm, Vektor up)
         {
+            double temp = up * norm;
             if (Math.Abs(up * norm) > MyMath.EPSILON)
             {
                 SetUpByNorm(norm);
@@ -140,6 +141,7 @@ namespace RayTracerLib
         {
             Vektor up = norm.GetOrthogonal();
             up.Normalize();
+            //if (up * Up < 0) up.MultiplyBy(-1);
             SetNormAndUp(norm, up);
         }
 

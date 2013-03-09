@@ -973,6 +973,7 @@
             this.textBAnimFile.Size = new System.Drawing.Size(257, 20);
             this.textBAnimFile.TabIndex = 44;
             this.textBAnimFile.Text = "D:\\MYWORKS\\RAYTRACER\\OUT\\ANIM.AVI";
+            this.textBAnimFile.TextChanged += new System.EventHandler(this.actionAnimationPathSet);
             // 
             // label117
             // 
