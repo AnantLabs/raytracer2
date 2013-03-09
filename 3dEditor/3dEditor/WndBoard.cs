@@ -1089,10 +1089,13 @@ namespace _3dEditor
                         break;
                     }
                 }
-                if (!wasSelectedBefore && drawingList[0] is DrawingObject)
+                if (!wasSelectedBefore && drawingList[drawingList.Count - 1] is DrawingObject)
                 {
                     WndScene wndsc = GetWndScene();
-                    _Selected = drawingList[drawingList.Count - 1];   // vybereme posledni ze seznamu - je nejbliz pozorovateli
+                    if (drawingList[drawingList.Count - 1] is DrawingAnimation && drawingList.Count > 1) // animaci vybrat nechceme nikdy
+                        _Selected = drawingList[drawingList.Count - 2];
+                    else
+                        _Selected = drawingList[drawingList.Count - 1];   // vybereme posledni ze seznamu - je nejbliz pozorovateli
                     wndsc.ShowNode(_Selected);
                 }
                 //labelClick.Text = "Mouse Down";
@@ -1177,6 +1180,7 @@ namespace _3dEditor
                             //{
                             //    p.Posunuti(-xDel, -yDel, 0);    // potreba nahradit zpusobem s matici a nasobeni rotacni matice
                             //}
+                        bool update = true;
                         if (ds is Sphere)
                         {
                             DrawingSphere drawSphere = _Selected as DrawingSphere;
@@ -1234,14 +1238,25 @@ namespace _3dEditor
                         }
                         else if (ds is Triangle)
                         {
-                            DrawingTriangle drTriangl = _Selected as DrawingTriangle;
-                            Matrix3D transp = this._matrixForever.Transpose();
-                            Vektor center = shift2DMatrix.Transform2NewPoint(drTriangl.Center);
-                            Vektor centerTransp = transp.Transform2NewPoint(center);
-                            transp.TransformPoints(drTriangl.Points);
-                            Vektor diff = drTriangl.Center - centerTransp;
-                            drTriangl.Move(diff.X, diff.Y, diff.Z);
-                            _matrixForever.TransformPoints(drTriangl.Points);
+                            // je-li bybrana ploska, nebudeme ji hybat, ale bybeme CustomObjectem, ktery zobrazime ve WndScene
+                            if (_Selected is DrawingFacet)
+                            {
+                                DrawingFacet drFacet = _Selected as DrawingFacet;
+                                WndScene wnd1 = GetWndScene();
+                                wnd1.ShowNode(drFacet.DrCustObject);
+                                update = false;
+                            }
+                            else
+                            {
+                                DrawingTriangle drTriangl = _Selected as DrawingTriangle;
+                                Matrix3D transp = this._matrixForever.Transpose();
+                                Vektor center = shift2DMatrix.Transform2NewPoint(drTriangl.Center);
+                                Vektor centerTransp = transp.Transform2NewPoint(center);
+                                transp.TransformPoints(drTriangl.Points);
+                                Vektor diff = drTriangl.Center - centerTransp;
+                                drTriangl.Move(diff.X, diff.Y, diff.Z);
+                                _matrixForever.TransformPoints(drTriangl.Points);
+                            }
                             //drTriangl.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
                             //drTriangl.Move(-diff.X, -diff.Y, -diff.Z);
                             //Matrix3D shift3D = Matrix3D.PosunutiNewMatrix(-diff.X, -diff.Y, -diff.Z);
@@ -1271,6 +1286,7 @@ namespace _3dEditor
                             //drCust.MoveDiff2(centerTransp.X, centerTransp.Y, centerTransp.Z);
                             //drCust.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
                             _matrixForever.TransformPoints(drCust.Points);
+
                             //foreach (DrawingTriangle drTr in drCust.DrawingFacesList)
                             //{
                             //    center = shift2DMatrix.Transform2NewPoint(drTr.Center);
@@ -1282,8 +1298,11 @@ namespace _3dEditor
                             //}
                         }
                         // aktualizace seznamu objektu ve scene
-                        WndScene wnd = GetWndScene();
-                        wnd.UpdateRecords();
+                        if (update)
+                        {
+                            WndScene wnd = GetWndScene();
+                            wnd.UpdateRecords();
+                        }
                     }
                     else if (_Selected.ModelObject is Camera)
                     {

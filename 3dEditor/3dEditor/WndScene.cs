@@ -341,6 +341,10 @@ namespace _3dEditor
 
             if (shape is DrawingFacet)
             {
+                DrawingFacet drF = shape as DrawingFacet;
+                BlinkActivate = false;
+                this.ShowNode(drF.DrCustObject);
+                BlinkActivate = true;
                 ParentEditor form = (ParentEditor)this.ParentForm;
                 form._WndProperties.ShowObject((DrawingTriangle)shape);
                 return;

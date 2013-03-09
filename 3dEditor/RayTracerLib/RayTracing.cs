@@ -213,7 +213,7 @@ namespace RayTracerLib
             }
 
             Vektor Pd = Vektor.ZeroVektor - P1;
-            //Pd.Normalize;
+            Pd.Normalize();
 
             Light[] lights = RScene.GetAllLightningsToPoint(sp);
 
@@ -227,6 +227,7 @@ namespace RayTracerLib
 
             // REFLECTION:
             Vektor ray = MyMath.Reflection(Pd, sp.Normal);
+            ray.Normalize();
             Colour odrazBarva = this.ColourReflected(Pd, ray, sp.Normal, sp.Material);
 
             // pridani nasledne odrazene barvy:
@@ -249,6 +250,7 @@ namespace RayTracerLib
             if (kt != 0)
             {
                 ray = MyMath.Refraction(Pd, sp.Normal, n);
+                ray.Normalize();
                 if (ray == null)
                 {
                     return barvaVysled;
@@ -285,12 +287,16 @@ namespace RayTracerLib
 
             foreach (Light light in lights)
             {
-                if (light == null)
-                    continue;
-
-                lightDir = light.GetDirection(sp.Coord);
-                lightIntens = light.GetIntensity(sp.Coord);
-
+                if (light != null)
+                {
+                    lightDir = light.GetDirection(sp.Coord);
+                    lightIntens = light.GetIntensity(sp.Coord);
+                }
+                else
+                {
+                    lightDir = null;
+                    lightIntens = new Colour(0.3, 0.3, 0.3, 0); // ambientni barva
+                }
                 lightContr = this.ColourSpecular(lightDir, Pd, sp.Normal, sp.Material);
                 if (lightContr == null)
                     continue;
@@ -312,11 +318,14 @@ namespace RayTracerLib
         /// <returns>vysledna barva</returns>
         private Colour ColourSpecular(Vektor ins, Vektor outs, Vektor normal, Material mat)
         {
+            //ins.Normalize();
+            //outs.Normalize();
+            //normal.Normalize();
+
             double outXnormal = outs * normal;
             bool isOutsForward = outXnormal > 0.0;
 
-            double insXnormal = ins * normal;
-            bool isInsForward = insXnormal > 0.0;
+
 
             double ks = mat.Ks;
             double kd = mat.Kd;
@@ -338,6 +347,9 @@ namespace RayTracerLib
 
                 return barvaVysl;                
             }
+
+            double insXnormal = ins * normal;
+            bool isInsForward = insXnormal > 0.0;
 
             colorCoef = 1.0;
             Vektor Ray = null;
@@ -387,11 +399,14 @@ namespace RayTracerLib
         /// <returns>vysledna barva</returns>
         private Colour ColourReflected(Vektor ins, Vektor outs, Vektor normal, Material mat)
         {
+            //ins.Normalize();
+            //outs.Normalize();
+            //normal.Normalize();
+
             double outXnormal = outs * normal;
             bool isOutsForward = outXnormal > 0.0;
             
-            double insXnormal = ins * normal;
-            bool isInsForward = insXnormal > 0.0;
+
 
             double ks = mat.Ks;
             double kd = mat.Kd;
@@ -414,6 +429,9 @@ namespace RayTracerLib
                 return barvaVysl;
             }
 
+            double insXnormal = ins * normal;
+            bool isInsForward = insXnormal > 0.0;
+
             colorCoef = 1.0;
             Vektor Ray = null;
 
@@ -434,23 +452,30 @@ namespace RayTracerLib
                 colorCoef = kt;
             }
 
-            double diffuse = 0.0;
+            double diffuse = colorCoef * kd * Math.Abs(insXnormal);
             double specular = 0.0;
 
             if (Ray != null)
             {
+                Ray.Normalize();
                 double angle = Ray * outs;
                 if (angle > 0.0)
+                {
                     specular = colorCoef * ks * Math.Pow(angle, mat.SpecularExponent);
+                }
                 else
                 {
                     int cd = 0;
                 }
             }
+            else
+            {
+                int x12 = 0;
+            }
 
-            barvaVysl.R = diffuse * (mat.Color.R + specular);
-            barvaVysl.G = diffuse * (mat.Color.G + specular);
-            barvaVysl.B = diffuse * (mat.Color.B + specular);
+            barvaVysl.R = diffuse * mat.Color.R + specular;
+            barvaVysl.G = diffuse * mat.Color.G + specular;
+            barvaVysl.B = diffuse * mat.Color.B + specular;
 
             return barvaVysl;
         }

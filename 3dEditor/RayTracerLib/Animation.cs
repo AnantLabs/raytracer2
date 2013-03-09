@@ -141,7 +141,8 @@ namespace RayTracerLib
 
                 double thetaRads = 0;
                 List<Vektor> points = new List<Vektor>();
-                for (int a = 0; a < 360; a += 360 / sides)
+                double loops = 360.0 / sides;
+                for (double a = 0; a < 360; a += loops)
                 {
                     double phi = a * Math.PI / 180;
                     float x = (float)(Math.Cos(thetaRads) * Math.Sin(phi) * A);
@@ -268,7 +269,7 @@ namespace RayTracerLib
         /// <summary>
         /// cas v sekundach. minimalne 1s, maximalne 10s
         /// </summary>
-        public double Time { get { return _time; } set { if (value < 1) _time = 1; else if (value > 10)  _time = 10; else _time = value; } }
+        public double Time { get { return _time; } set { if (value < 1) _time = 1; else if (value > 50)  _time = 50; else _time = value; } }
         bool _generateImages;
 
         bool _isBusy;
@@ -308,6 +309,7 @@ namespace RayTracerLib
             FileFullPath = old.FileFullPath;
         }
 
+        Vektor _up;
         /// <summary>
         /// inicializace potrebna pred kazdym spustenim cele animace
         /// </summary>
@@ -316,6 +318,7 @@ namespace RayTracerLib
             _numPoints = ElipsePath.ComputeNumberOfPoints(Fps, Time);
             _pathPoints = ElipsePath.GetEllipsePoints(_numPoints);
             _counter = 0;
+            _up = CreateUpVektor();
 
             _bw = new BackgroundWorker();
             _bw.WorkerSupportsCancellation = true;
@@ -361,6 +364,20 @@ namespace RayTracerLib
             _bw.RunWorkerCompleted += eventHandler;
         }
 
+        private Vektor CreateUpVektor()
+        {
+            int count = _pathPoints.Count;
+            Random rnd = new Random();
+            int i1 = rnd.Next(0, (int)Math.Round(count / 2.0) - 1);
+            int i2 = rnd.Next((int)Math.Round(count / 2.0), count);
+            Vektor v1 = Vektor.ToDirectionVektor( ElipsePath.Center, _pathPoints[i1]);
+            v1.Normalize();
+            Vektor v2 = Vektor.ToDirectionVektor(ElipsePath.Center, _pathPoints[i2]);
+            v2.Normalize();
+            Vektor up = v1.CrossProduct(v2);
+            up.Normalize();
+            return up;
+        }
         /// <summary>
         /// Hlavni metoda animace, ktera se posune do dalsiho policka animace
         /// </summary>
@@ -375,7 +392,7 @@ namespace RayTracerLib
             Vektor camNorm = Vektor.ToDirectionVektor(camSource, ElipsePath.Center);
             camNorm.Normalize();
 
-            _rayTracer.RCamera.SetNormAndUp(camNorm, _rayTracer.RCamera.Up);
+            _rayTracer.RCamera.SetNormAndUp(camNorm, _up);
             _counter++;
             return true;
         }
