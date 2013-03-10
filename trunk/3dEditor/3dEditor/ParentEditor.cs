@@ -190,6 +190,8 @@ namespace _3dEditor
 
             //_rayTracer.RScene.SetDefaultScene4();
 
+            
+
             CustomObject custom = CustomObject.CreateCube();
             _rayTracer.RScene.SceneObjects.Add(custom);
 
@@ -202,8 +204,8 @@ namespace _3dEditor
             this._WndScene.AddItem(img);
             _WndScene.ShowNode(img);
 
-            DrawingAnimation drAnim = new DrawingAnimation();
-            //this._WndBoard.AddAnimation(drAnim);
+            Animation anim = new Animation();
+            _WndBoard.AddAnimation(anim);
 
             //Octree octree = new Octree(_rayTracer.RScene.SceneObjects);
 
@@ -420,11 +422,12 @@ namespace _3dEditor
         /// <param name="caption">nadpis</param>
         /// <param name="msgButtons">tlacitka</param>
         /// <param name="msgIcon">icona</param>
-        public void MessageBoxShow(string text, string caption, MessageBoxButtons msgButtons, MessageBoxIcon msgIcon)
+        public DialogResult MessageBoxShow(string text, string caption, MessageBoxButtons msgButtons, MessageBoxIcon msgIcon)
         {
             _WndBoard.AllowPaint(false);
-            MessageBox.Show(text, caption, msgButtons, msgIcon);
+            DialogResult result= MessageBox.Show(text, caption, msgButtons, msgIcon);
             _WndBoard.AllowPaint(true);
+            return result;
         }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {

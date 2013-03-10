@@ -50,7 +50,7 @@ namespace RayTracerLib
             {
                 this.Normal += face.Norm;
             }
-            //this.Normal.MultiplyBy(1.0 / NeighFaces.Count);
+            this.Normal.MultiplyBy(1.0 / NeighFaces.Count);
             this.Normal.Normalize();
         }
     }

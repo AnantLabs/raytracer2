@@ -368,11 +368,13 @@ namespace RayTracerLib
         {
             int count = _pathPoints.Count;
             Random rnd = new Random();
-            int i1 = rnd.Next(0, (int)Math.Round(count / 2.0) - 1);
-            int i2 = rnd.Next((int)Math.Round(count / 2.0), count);
-            Vektor v1 = Vektor.ToDirectionVektor( ElipsePath.Center, _pathPoints[i1]);
+            int i11 = 0; //rnd.Next(0, (int)Math.Round(count / 2.0) - 1);
+            int i12 = count / 4;
+            int i21 = count / 2;//rnd.Next((int)Math.Round(count / 2.0), count);
+            int i22 = count * 3 / 4;
+            Vektor v1 = Vektor.ToDirectionVektor(_pathPoints[i11], _pathPoints[i21]);
             v1.Normalize();
-            Vektor v2 = Vektor.ToDirectionVektor(ElipsePath.Center, _pathPoints[i2]);
+            Vektor v2 = Vektor.ToDirectionVektor(_pathPoints[i12], _pathPoints[i22]);
             v2.Normalize();
             Vektor up = v1.CrossProduct(v2);
             up.Normalize();
