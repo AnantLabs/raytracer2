@@ -185,20 +185,40 @@ namespace _3dEditor
         
         }
 
+        /// <summary>
+        /// pred zavrenim zaviranim formulare.
+        /// Je-li animace aktivni, zakaze zavreni formulare a zepta se, jestli se ma skutecne animace ukoncit.
+        /// Je-li potvrzeno ukonceni, zrusi animaci;
+        /// Neni-li animace aktivni, zavre formular.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnClosing(object sender, FormClosingEventArgs e)
         {
-            
+            if (_animation.IsBusy())
+            {
+                e.Cancel = true;
+                DialogResult result = _ParentForm.MessageBoxShow("Are you sure you want to cancel animation?", "Confirm cancel",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == System.Windows.Forms.DialogResult.Yes)
+                {
+                    Cancel();
+                }
+            }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+
+        private void Cancel()
         {
             if (_animation.IsBusy())
             {
                 this.labelProgress.Text = "Cancelling! Please wait...";
                 FinishAnimationWorker();
             }
-            else
-                this.Close();
+        }
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void OnShown(object sender, EventArgs e)
@@ -206,10 +226,9 @@ namespace _3dEditor
             InitializeAndStart();
         }
 
-        private void OnClosing(object sender, FormClosedEventArgs e)
+        private void OnClosed(object sender, FormClosedEventArgs e)
         {
             FinishAnimationWorker();
-            //this.Close();
         }
     }
 }
