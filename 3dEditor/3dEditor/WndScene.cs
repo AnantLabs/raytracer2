@@ -336,8 +336,11 @@ namespace _3dEditor
 
         private void ShowNode(object shape, TreeNode rootNode)
         {
+            
             if (rootNode.Nodes == null)
                 return;
+
+            rootNode.ExpandAll();
 
             if (shape is DrawingFacet)
             {
@@ -353,69 +356,77 @@ namespace _3dEditor
             {
                 // zjisteni dedicneho typu: zda-li je node.Tag zdedeny typ od DefaultShape
 
-                if (node.Tag is DrawingLight)
+                //if (node.Tag is DrawingLight)
+                //{
+                //    if (node.Tag == shape)
+                //    {
+                //        treeView1.SelectedNode = null;
+                //        treeView1.SelectedNode = node;
+                //        node.Text = node.Tag.ToString();
+                //        //this.OnMouseDown(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                //        //this.OnClicked(this, new EventArgs());
+                //        //this.onMouseDown(this, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                //        //this.treeView1.Focus();
+                //        //this.treeView1.HideSelection = false;
+                //        //this.OnMouseClick(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                //        //this.Update();
+                //    }
+                //}
+                //else if (node.Tag is DrawingCamera)
+                //{
+                //    if (node.Tag == shape)
+                //    {
+                //        treeView1.SelectedNode = null;
+                //        treeView1.SelectedNode = node;
+                //        node.Text = node.Tag.ToString();
+                //        this.treeView1.Focus();
+                //        this.treeView1.HideSelection = false;
+                //    }
+                //}
+                //else if (node.Tag is DrawingDefaultShape)
+                //{
+                //    if (node.Tag == shape)
+                //    {
+                //        //treeView1.SelectedNode = null;
+                //        treeView1.SelectedNode = node;
+                //        //node.Text = node.Tag.ToString();
+                //        //this.OnMouseDown(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                //        //this.OnClicked(this, new EventArgs());
+                //        //this.onMouseDown(this, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                //        //this.treeView1.Focus();
+                //        //this.treeView1.HideSelection = false;
+                //        //this.OnMouseClick(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                //        //this.Update();
+                //    }
+                //}
+                //else if (node.Tag is DrawingAnimation)
+                //{
+                //    if (node.Tag == shape)
+                //    {
+                //        treeView1.SelectedNode = null;
+                //        treeView1.SelectedNode = node;
+                //        node.Text = node.Tag.ToString();
+                //        this.treeView1.Focus();
+                //        this.treeView1.HideSelection = false;
+                //    }
+                //}
+                //else if (node.Tag is RayImage)
+                //{
+                //    if (node.Tag == shape)
+                //    {
+                //        treeView1.SelectedNode = node;
+                //        node.Text = node.Tag.ToString();
+                //        this.treeView1.Focus();
+                //        this.treeView1.HideSelection = false;
+                //    }
+                //}
+                if (node.Tag == shape)
                 {
-                    if (node.Tag == shape)
-                    {
-                        treeView1.SelectedNode = node;
-                        this.OnMouseDown(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
-                        this.OnClicked(this, new EventArgs());
-                        this.onMouseDown(this, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
-                        this.treeView1.Focus();
-                        this.treeView1.HideSelection = false;
-                        this.OnMouseClick(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
-                        this.Update();
-                    }
-                }
-                else if (node.Tag is DrawingCamera)
-                {
-                    if (node.Tag == shape)
-                    {
-                        treeView1.SelectedNode = node;
-                        this.treeView1.Focus();
-                        this.treeView1.HideSelection = false;
-                    }
-                }
-                else if (node.Tag is DrawingDefaultShape)
-                {
-                    if (node.Tag == shape)
-                    {
-                        treeView1.SelectedNode = null;
-                        treeView1.SelectedNode = node;
-                        node.Text = node.Tag.ToString();
-                        this.OnMouseDown(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
-                        this.OnClicked(this, new EventArgs());
-                        this.onMouseDown(this, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
-                        this.treeView1.Focus();
-                        this.treeView1.HideSelection = false;
-                        this.OnMouseClick(new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
-                        //this.OnGotFocus(new EventArgs());
-                        //this.Activate();
-                        //this.Focus();
-                        this.Update();
-                        //this.Validate();
-                        //this.Refresh();
-                    }
-                }
-                else if (node.Tag is DrawingAnimation)
-                {
-                    if (node.Tag == shape)
-                    {
-                        treeView1.SelectedNode = node;
-                        node.Text = node.Tag.ToString();
-                        this.treeView1.Focus();
-                        this.treeView1.HideSelection = false;
-                    }
-                }
-                else if (node.Tag is RayImage)
-                {
-                    if (node.Tag == shape)
-                    {
-                        treeView1.SelectedNode = node;
-                        node.Text = node.Tag.ToString();
-                        this.treeView1.Focus();
-                        this.treeView1.HideSelection = false;
-                    }
+                    treeView1.SelectedNode = null;
+                    treeView1.SelectedNode = node;
+                    node.Text = node.Tag.ToString();
+                    this.treeView1.Focus();
+                    this.treeView1.HideSelection = false;
                 }
                 else
                 {
@@ -656,9 +667,18 @@ namespace _3dEditor
                 return;
 
             // kdyz chce odstranit posledni obrazek, nesmazeme ho
-            if (treeView1.SelectedNode.Tag is RayImage && treeView1.SelectedNode.Parent.Nodes.Count == 1)
+            if (treeView1.SelectedNode.Tag is RayImage)
             {
-                return;
+                if (treeView1.SelectedNode.Parent.Nodes.Count == 1)
+                    return;
+                else if (treeView1.SelectedNode.Checked)
+                {
+                    TreeNode neigh = treeView1.SelectedNode.PrevNode;
+                    if (neigh == null) neigh = treeView1.SelectedNode.NextNode;
+                    treeView1.Nodes.Remove(treeView1.SelectedNode);
+                    neigh.Checked = true;
+                    return;
+                }
             }
             
             // kdyz byl z podstromu odstranen posledni uzel, odskrtneme uzel otce
@@ -851,6 +871,35 @@ namespace _3dEditor
                 }
             }
             return sel;
+        }
+
+        internal Animation[] GetAnimations()
+        {
+            List<Animation> anims = new List<Animation>();
+            foreach (TreeNode node in treeView1.Nodes)
+            {
+                if ((TreeNodeTypes)node.Tag == TreeNodeTypes.Animations)
+                {
+                    foreach (TreeNode n in node.Nodes)
+                    {
+                        DrawingAnimation dranim = n.Tag as DrawingAnimation;
+                        anims.Add((Animation)dranim.ModelObject);
+                    }
+                }
+            }
+            return anims.ToArray();
+        }
+
+        internal void AddAnimations(Animation[] anims)
+        {
+            if (anims == null) return;
+            this.BlinkActivate = false;
+            foreach (Animation anim in anims)
+            {
+                DrawingAnimation drAnim = new DrawingAnimation(anim);
+                this.AddItem(drAnim);
+            }
+            this.BlinkActivate = true;
         }
     }
 }

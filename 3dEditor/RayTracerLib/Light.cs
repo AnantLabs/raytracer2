@@ -58,7 +58,6 @@ namespace RayTracerLib
             Color = color;
             IsSoftLight = false;
             IsSinglePass = false;
-            Label = GetUniqueName();
         }
 
         /// <summary>

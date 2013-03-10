@@ -210,7 +210,8 @@ namespace RayTracerLib
         /// </summary>
         public void StopRendering()
         {
-            _bw.CancelAsync();
+            if (_bw.IsBusy)
+                _bw.CancelAsync();
         }
         /// <summary>
         /// antialiasingova procedura

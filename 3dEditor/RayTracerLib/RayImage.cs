@@ -137,5 +137,20 @@ namespace RayTracerLib
 
             return rayImg;
         }
+
+        public static RayImage[] MergeRayImgs(RayImage[] imgs1, RayImage[] imgs2)
+        {
+            if (imgs1 == null) return imgs2;
+            if (imgs2 == null) return imgs1;
+
+            List<RayImage> animList = new List<RayImage>(imgs1);
+            animList.AddRange(imgs2);
+            //foreach (RayImage img in imgs2)
+            //{
+            //    animList.Add(img);
+            //}
+
+            return animList.ToArray();
+        }
     }
 }

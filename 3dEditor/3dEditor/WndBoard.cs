@@ -307,12 +307,14 @@ namespace _3dEditor
 
         public void Redraw()
         {
-            if (_AllowPaint) 
+            if (_AllowPaint)
             this.Redraw(_g);
         }
         private void Redraw(Graphics g)
         {
             _editHelp.ClearAllClickableObjects();
+
+            if (this.WindowState == FormWindowState.Minimized) return;
 
             _editorBmp = new Bitmap(pictureBoard.Width, pictureBoard.Height);
             g = Graphics.FromImage(_editorBmp);
@@ -1858,6 +1860,7 @@ namespace _3dEditor
 
         public void AddAnimation(Animation anim)
         {
+            if (anim == null) return;
             DrawingAnimation drAnim = new DrawingAnimation(anim);
             drAnim.ApplyRotationMatrix(_matrixForever);
             _objectsToDraw.Add(drAnim);
@@ -2097,6 +2100,15 @@ namespace _3dEditor
         private void OnActivate(object sender, EventArgs e)
         {
             this.toolStrip1.Refresh();
+        }
+
+        internal void AddAnimations(Animation[] anims)
+        {
+            if (anims == null) return;
+            foreach (Animation anim in anims)
+            {
+                this.AddAnimation(anim);
+            }
         }
     }
 }
