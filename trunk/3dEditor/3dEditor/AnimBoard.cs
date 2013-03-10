@@ -24,7 +24,9 @@ namespace _3dEditor
 
         int _imgCounter;
         ParentEditor _ParentForm;
-        
+
+
+        bool _isCanceling;
 
         public AnimBoard(RayTracing raytracer, RayImage rayimage, Animation anim, ParentEditor parentForm)
         {
@@ -58,6 +60,7 @@ namespace _3dEditor
             this.labelProgress.Text = initPercents;
             this.progressBar.Value = 0;
             _startAnimTime = DateTime.Now;
+            _isCanceling = false;
             _animation.StartAnimation(_rayTracer, _rayImg);
         }
 
@@ -173,9 +176,13 @@ namespace _3dEditor
                 _ParentForm.MessageBoxShow("Animation was succesfully created", "Finished", 
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            _isCanceling = false;
+            btnCancel.Enabled = true;
+            btnCancel.Focus();
             this.btnCancel.Text = "Close";
         }
 
+        
         private void FinishAnimationWorker()
         {
             if (_animation.IsBusy())
@@ -195,6 +202,11 @@ namespace _3dEditor
         /// <param name="e"></param>
         private void OnClosing(object sender, FormClosingEventArgs e)
         {
+            if (_isCanceling)
+            {
+                e.Cancel = true;
+                return;
+            }
             if (_animation.IsBusy())
             {
                 e.Cancel = true;
@@ -212,6 +224,10 @@ namespace _3dEditor
         {
             if (_animation.IsBusy())
             {
+                _isCanceling = true;
+                btnCancel.Enabled = false;
+                Control ctr = this.GetNextControl(btnCancel, true);
+                ctr.Focus();
                 this.labelProgress.Text = "Cancelling! Please wait...";
                 FinishAnimationWorker();
             }

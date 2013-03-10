@@ -65,7 +65,7 @@
             this.labelProgress.Location = new System.Drawing.Point(70, 246);
             this.labelProgress.Name = "labelProgress";
             this.labelProgress.Size = new System.Drawing.Size(260, 15);
-            this.labelProgress.TabIndex = 53;
+            this.labelProgress.TabIndex = 59;
             this.labelProgress.Text = "Progress:";
             this.labelProgress.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -74,7 +74,7 @@
             this.progressBar.Location = new System.Drawing.Point(5, 264);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(390, 23);
-            this.progressBar.TabIndex = 43;
+            this.progressBar.TabIndex = 61;
             // 
             // btnCancel
             // 
@@ -92,7 +92,7 @@
             this.textBoxOutput.Name = "textBoxOutput";
             this.textBoxOutput.ReadOnly = true;
             this.textBoxOutput.Size = new System.Drawing.Size(325, 20);
-            this.textBoxOutput.TabIndex = 60;
+            this.textBoxOutput.TabIndex = 70;
             // 
             // AnimBoard
             // 

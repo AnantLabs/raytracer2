@@ -52,7 +52,19 @@ namespace EditorLib
         /// <summary>
         /// zda se ma trajektorie zobrazit v Editoru
         /// </summary>
-        public bool ShowAnimation { get; set; }
+        public bool ShowAnimation
+        {
+            get
+            {
+                Animation anim = ModelObject as Animation;
+                return anim.IsVisible;
+            }
+            set
+            {
+                Animation anim = ModelObject as Animation;
+                anim.IsVisible = value;
+            }
+        }
 
         public double A { get; private set; }
         public double B { get; private set; }
@@ -68,7 +80,6 @@ namespace EditorLib
         public DrawingAnimation(Animation anim)
         {
             this.ModelObject = anim;
-            ShowAnimation = true;
             FileFullPath = anim.FileFullPath;
             FPS = anim.Fps;
             Time = anim.Time;

@@ -850,5 +850,42 @@ namespace RayTracerLib
         {
             return totalInters;
         }
+
+
+        /// <summary>
+        /// sleje dve sceny dohromady
+        /// Zaklad je prvni scena, do niz se budou pridavat objekty z druhe sceny.
+        /// Je-li ve druhe scene pritomna kamera, tak bude nahrazena v prvni scene
+        /// </summary>
+        /// <param name="sc1">puvodni scena</param>
+        /// <param name="sc2">pridavana scena</param>
+        /// <returns></returns>
+        public static Scene MergeScenes(Scene sc1, Scene sc2)
+        {
+            Scene scene = sc1;
+            
+            if (sc2.Camera != null) scene.Camera = sc2.Camera;
+            
+            if (sc2.Lights != null)
+                foreach (Light l in sc2.Lights)
+                {
+                    if (!LabeledShape.IsAvailable(l.Label))
+                        l.Label = l.GetUniqueName();
+                    scene.Lights.Add(l);
+                }
+
+            if (sc2.SceneObjects != null)
+                foreach (DefaultShape ds in sc2.SceneObjects)
+                {
+                    if (!LabeledShape.IsAvailable(ds.Label))
+                    {
+                        string nlabel = ds.GetUniqueName();
+                        ds.Label = nlabel;
+                    }
+                    scene.SceneObjects.Add(ds);
+                }
+            
+            return scene;
+        }
     }
 }

@@ -52,13 +52,19 @@ namespace RayTracerLib
         /// X = X0 + a*cos(t)*cos(phi) - b*sin(t)*sin(phi)
         /// Y = Y0 + b*cos(t)*sin(phi) + b*sin(t)*cos(phi)
         /// </summary>
+        [DataContract]
         public class Elipse
         {
+            [DataMember]
             public Vektor Center { get; private set; }
+            [DataMember]
             public double A { get; private set; }
+            [DataMember]
             public double B { get; private set; }
-            private Matrix3D _shiftMatrix;
-            private Matrix3D _rotatMatrix;
+
+            [DataMember]
+            private double[] Degs { get; set; }
+
 
             public Elipse() : this(new Vektor(1, -1, 1), 8, 6) { }
 
@@ -67,8 +73,9 @@ namespace RayTracerLib
                 Center = center;
                 A = a;
                 B = b;
-                _shiftMatrix = Matrix3D.PosunutiNewMatrix(center);
-                _rotatMatrix = Matrix3D.Identity;
+                //_shiftMatrix = Matrix3D.PosunutiNewMatrix(center);
+                //_rotatMatrix = Matrix3D.Identity;
+                Degs = new double[3] { 0, 0, 0 };
             }
 
             public Elipse(Elipse old)
@@ -76,50 +83,10 @@ namespace RayTracerLib
                 Center = new Vektor(old.Center);
                 A = old.A;
                 B = old.B;
-                _shiftMatrix = new Matrix3D(old._shiftMatrix);
-                _rotatMatrix = new Matrix3D(old._rotatMatrix);
+                Degs = new double[3] { old.Degs[0], old.Degs[1], old.Degs[2] };
+                //_shiftMatrix = new Matrix3D(old._shiftMatrix);
+                //_rotatMatrix = new Matrix3D(old._rotatMatrix);
             }
-
-
-            /// <summary>
-            /// Spocita pozadovane BODY na elipse
-            /// 
-            /// X = X0 + a*cos(t)*cos(phi) - b*sin(t)*sin(phi)
-            /// Y = Y0 + b*cos(t)*sin(phi) + b*sin(t)*cos(phi)
-            /// </summary>
-            /// <param name="count"></param>
-            /// <returns></returns>
-            //public List<Vektor> GetEllipsePoints(int count)
-            //{
-            //    if (count < 0)
-            //        count = 32;
-
-            //    List<Vektor> points = new List<Vektor>(count);
-
-            //    double beta = 180.0 * (Math.PI / 180.0); //(Math.PI/180) converts Degree Value into Radians
-            //    double sinbeta = Math.Sin(beta);
-            //    double cosbeta = Math.Cos(beta);
-
-            //    double alpha, sinalpha, cosalpha;
-
-            //    double x, y, z;
-            //    double incr = 360.0 / count;
-            //    for (double i = 0.0; i < 360; i += incr)
-            //    {
-            //        alpha = i * (Math.PI / 180);
-            //        sinalpha = Math.Sin(alpha);
-            //        cosalpha = Math.Cos(alpha);
-
-            //        x = Center.X + (A * cosalpha * cosbeta - B * sinalpha * sinbeta);
-            //        y = Center.Y + (B * cosalpha * sinbeta + B * sinalpha * cosbeta);
-            //        z = Center.Z + (C * sinalpha);
-
-            //        Vektor p = new Vektor(x, y, z);
-            //        points.Add(p);
-            //    }
-
-            //    return points;
-            //}
 
 
             public List<Vektor> GetEllipsePoints(double fps, double time)
@@ -152,21 +119,25 @@ namespace RayTracerLib
                     points.Add(p);
                 }
                 //points.Add(new Vektor(points[0].X, points[0].Y, points[0].Z)); // posledni bod stejny jako prvni?
-                
-                Matrix3D _localMatrix = _rotatMatrix * _shiftMatrix;
-                _localMatrix.TransformPoints(points);
+
+                Matrix3D rotatMat = Matrix3D.NewRotateByDegrees(Degs[0], Degs[1], Degs[2]);
+                Matrix3D shiftMat = Matrix3D.PosunutiNewMatrix(Center);
+                Matrix3D localMatrix = rotatMat * shiftMat;
+                localMatrix.TransformPoints(points);
 
                 return points;
             }
 
             public void Rotate(Matrix3D rotMatrix)
             {
-                _rotatMatrix = rotMatrix;
+                //_rotatMatrix = rotMatrix;
+                Degs = rotMatrix.GetAnglesFromMatrix();
             }
 
             public void Move(Matrix3D shiftMatrix)
             {
-                _shiftMatrix = shiftMatrix;
+                Center = new Vektor(shiftMatrix.Matrix[0, 3], shiftMatrix.Matrix[1, 3], shiftMatrix.Matrix[2, 3], shiftMatrix.Matrix[3, 3]);
+                //_shiftMatrix = shiftMatrix;
             }
 
             /// <summary>
@@ -225,6 +196,12 @@ namespace RayTracerLib
                 return String.Format("Elipsa {0}; A={1}; B={2}", this.Center, this.A, this.B);
             }
 
+            public Elipse FromDeserial()
+            {
+                Elipse elips = new Elipse(this);
+                return elips;
+            }
+
         }
 
         private BackgroundWorker _bw;
@@ -235,6 +212,7 @@ namespace RayTracerLib
         /// Elipsa popisujici drahu kamery
         /// Smer kamery bude od bodu elipsy do stredu elipsy
         /// </summary>
+        [DataMember]
         public Elipse ElipsePath { get; private set; }
 
         /// <summary>
@@ -249,12 +227,14 @@ namespace RayTracerLib
         private int _numPoints;
         private string _fileName;
 
+        [DataMember]
         public String FileFullPath { get; set; }
         /// <summary>
         /// fullPath Without Extension
         /// </summary>
         private string _BaseName;
 
+        [DataMember]
         public AnimationType AnimType { get; set; }
 
         RayImage _rayImg;
@@ -263,17 +243,21 @@ namespace RayTracerLib
         /// <summary>
         /// frames per second. Minimalne 20, Maximalne 50
         /// </summary>
+        [DataMember]
         public double Fps { get { return _fps; } set { if (value < 20 && value > 50) _fps = 25; else _fps = value; } }
 
         private double _time = 1;
         /// <summary>
         /// cas v sekundach. minimalne 1s, maximalne 10s
         /// </summary>
+        [DataMember]
         public double Time { get { return _time; } set { if (value < 1) _time = 1; else if (value > 50)  _time = 50; else _time = value; } }
         bool _generateImages;
 
         bool _isBusy;
 
+        [DataMember]
+        public bool IsVisible { get; set; }
         //public Animation(RayTracing raytracer) :this(raytracer,
 
         /// <summary>
@@ -295,18 +279,11 @@ namespace RayTracerLib
 
         public Animation(Animation old)
         {
+            this.SetElipse(new Elipse(old.ElipsePath), old.Fps, old.Time);
             AnimType = old.AnimType;
-            _rayTracer = new RayTracing(old._rayTracer);
-            ElipsePath = new Elipse(old.ElipsePath);
-            _numPoints = old._numPoints;
-            _pathPoints = new List<Vektor>(old._pathPoints);
-            _counter = old._counter;
-            _fileName = old._fileName;
-            _rayImg = new RayImage(_rayImg);
-            Fps = old.Fps;
-            Time = old.Time;
-            _bw = old._bw;
+            this.Label = old.Label;
             FileFullPath = old.FileFullPath;
+            IsVisible = old.IsVisible;
         }
 
         Vektor _up;
@@ -566,6 +543,7 @@ namespace RayTracerLib
                     MoveToNextImage();              //posuneme se do dalsiho bodu cesty
                     renderer.RenderAsyncImage();
                     _iter++;
+
                     _finished = false;
 
                 };
@@ -655,6 +633,28 @@ namespace RayTracerLib
         public void Rotate(double degAroundX, double degAroundY, double degAroundZ)
         {
             return;
+        }
+
+        public Animation FromDeserial()
+        {
+            Animation anim = new Animation(this);
+            return anim;
+        }
+
+        public static Animation[] MergeAnimations(Animation[] anim1, Animation[] anim2)
+        {
+            if (anim1 == null) return anim2;
+            if (anim2 == null) return anim1;
+
+            List<Animation> animList = new List<Animation>(anim1);
+            foreach (Animation anim in anim2)
+            {
+                if (!LabeledShape.IsAvailable(anim.Label))
+                    anim.Label = anim.GetUniqueName();
+                animList.Add(anim);
+            }
+
+            return animList.ToArray();
         }
     }
 
