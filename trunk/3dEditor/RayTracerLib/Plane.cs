@@ -87,13 +87,15 @@ namespace RayTracerLib
 
             D = d;
             this.Material = new Material();
-            this.Pocatek = new Vektor(0, 0, -10);
+            this.Pocatek = new Vektor(0, 0, 0);
             MinX = MinY = MinZ = Double.NegativeInfinity;
             MaxX = MaxY = MaxZ = Double.PositiveInfinity;
 
-            CreateBoundVektors();
+            //CreateBoundVektors();
 
-            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(0, -d, 0);
+            Vektor shift = new Vektor(DirNom);
+            shift = shift.MultiplyBy(-d);
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(shift);
             Vektor yAxe = new Vektor(0, 1, 0);
             Quaternion q = new Quaternion(yAxe, new Vektor(normal));
             double[] degss = q.ToEulerDegs();
@@ -154,7 +156,7 @@ namespace RayTracerLib
 
             sp.Normal.Normalize();
             sp.Color = new Colour(this.Material.Color);
-            sp.Material = this.Material;
+            sp.Material = new Material(this.Material);
             sp.Shape = this;
 
             InterPoint.Add(sp);

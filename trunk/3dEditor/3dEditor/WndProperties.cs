@@ -80,9 +80,35 @@ namespace _3dEditor
             imgRadioOptKdtree.Text = Enum.GetName(typeof(Optimalizer.OptimizeType), Optimalizer.OptimizeType.KDTREE);
             imgRadioOptKdtree.Tag = Optimalizer.OptimizeType.KDTREE;
             SetAllInvisible();
+            SetPanelsSize(380, 340);
             this.Text = "Properties";
         }
-        
+
+        int _MIN_WIDTH = 380;
+        int _MIN_HEIGHT = 340;
+        int _PanelsWidth;
+        int _PanelsHeight;
+
+        public void SetPanelsSize(int width, int height)
+        {
+            if (width < _MIN_WIDTH) width = _MIN_WIDTH;
+            if (height < _MIN_HEIGHT) height = _MIN_HEIGHT;
+
+            _PanelsWidth = width;
+            _PanelsHeight = height;
+            
+            this.panelSphere.Size = new Size(width, height);
+            this.panelCylindr.Size = new Size(width, height);
+            this.panelRovina.Size = new Size(width, height);
+            this.panelBox.Size = new Size(width, height);
+            this.panelLight.Size = new Size(width, height);
+            this.panelCamera.Size = new Size(width, height);
+            this.panelImage.Size = new Size(width, height);
+            this.panelAnimace.Size = new Size(width, height);
+            this.panelTriangle.Size = new Size(width, height);
+            this.panelCone.Size = new Size(width, height);
+            this.panelCustomObj.Size = new Size(width, height);
+        }
         public void ShowObject(object obj)
         {
             if (obj == null) return;
@@ -520,6 +546,8 @@ namespace _3dEditor
                 this.Text = "Properties: Image";
             }
 
+            this.numericImgAbsorb.Value = (decimal)img.Absorbtion;
+
             this.comboResolution.DataSource = img.PictureSize;
             this.comboResolution.SelectedIndex = img.IndexPictureSize;         // nastaveni prvni polozky
             if (img.IndexPictureSize == img.PictureSize.Length - 1)
@@ -534,6 +562,16 @@ namespace _3dEditor
             this.checkAntialias.Checked = img.IsAntialiasing;
             this.checkOptimize.Checked = img.IsOptimalizing;
             this.btnImageBgr.BackColor = img.BackgroundColor.SystemColor();
+            this.btnImgAmbientCol.BackColor = img.AmbientColor.SystemColor();
+
+            this.numericImgBackR.Value = (decimal)img.BackgroundColor.R;
+            this.numericImgBackG.Value = (decimal)img.BackgroundColor.G;
+            this.numericImgBackB.Value = (decimal)img.BackgroundColor.B;
+
+            
+            this.numericImgAmbR.Value = (decimal)img.AmbientColor.R;
+            this.numericImgAmbG.Value = (decimal)img.AmbientColor.G;
+            this.numericImgAmbB.Value = (decimal)img.AmbientColor.B;
 
             if (img.IsOptimalizing)
             {
@@ -587,6 +625,13 @@ namespace _3dEditor
             this.numAnimFps.Value = (decimal)anim.Fps;
             this.numAnimSecs.Value = (decimal)anim.Time;
             this.textBAnimFile.Text = anim.FileFullPath;
+
+            double[] degs = anim.ElipsePath.GetRotationAngles();
+            
+            this.numAnimRotX.Value = (decimal)degs[0];
+            this.numAnimRotY.Value = (decimal)degs[1];
+            this.numAnimRotZ.Value = (decimal)degs[2];
+
 
             switch (drAnim.TypeAnim)
             {
@@ -674,9 +719,55 @@ namespace _3dEditor
 
                 RayImage img = (RayImage)_currentlyDisplayed;
 
+                double r = colorDialog.Color.R / (double)255;
+                double g = colorDialog.Color.G / (double)255;
+                double b = colorDialog.Color.B / (double)255;
+                double a = colorDialog.Color.A / (double)255;
+
+                RayTracerLib.Colour col = new RayTracerLib.Colour(r, g, b, a);
+
+                _permissionToModify = false;
+                this.numericImgBackR.Value = (decimal)col.R;
+                this.numericImgBackG.Value = (decimal)col.G;
+                this.numericImgBackB.Value = (decimal)col.B;
+                _permissionToModify = true;
+
                 btnImageBgr.BackColor = colorDialog.Color;
-                Colour col = Colour.ColourCreate(colorDialog.Color);
-                img.BackgroundColor = col;
+                Colour color = Colour.ColourCreate(colorDialog.Color);
+                img.BackgroundColor = color;
+            }
+            _WndBoard.AllowPaint(true);
+        }
+
+        private void btnImageAmbientCol_Click(object sender, EventArgs e)
+        {
+            _WndBoard.AllowPaint(false);
+            if (this.colorDialog.ShowDialog(this.Parent.Parent) == DialogResult.OK)
+            {
+                if (_currentlyDisplayed == null || _currentlyDisplayed.GetType() != typeof(RayImage))
+                    return;
+
+                if (!_permissionToModify)
+                    return;
+
+                RayImage img = (RayImage)_currentlyDisplayed;
+
+                double r = colorDialog.Color.R / (double)255;
+                double g = colorDialog.Color.G / (double)255;
+                double b = colorDialog.Color.B / (double)255;
+                double a = colorDialog.Color.A / (double)255;
+
+                RayTracerLib.Colour col = new RayTracerLib.Colour(r, g, b, a);
+
+                _permissionToModify = false;
+                this.numericImgAmbR.Value = (decimal)col.R;
+                this.numericImgAmbG.Value = (decimal)col.G;
+                this.numericImgAmbB.Value = (decimal)col.B;
+                _permissionToModify = true;
+
+                btnImgAmbientCol.BackColor = colorDialog.Color;
+                Colour colour = Colour.ColourCreate(colorDialog.Color);
+                img.AmbientColor = colour;
             }
             _WndBoard.AllowPaint(true);
         }
@@ -814,7 +905,7 @@ namespace _3dEditor
             plane.SetValues(norm, d);
 
             plane.Material = mat;
-            plane.CreateBoundVektors();
+            //plane.CreateBoundVektors();
 
             //btnPlaneMaterialColor.BackColor = mat.Color.SystemColor();
 
@@ -1428,7 +1519,20 @@ namespace _3dEditor
             //img.BackgroundColor = col;
 
             img.MaxRecurse = (int)this.numericRecurs.Value;
+            img.Absorbtion = (double)this.numericImgAbsorb.Value;
             img.IsAntialiasing = this.checkAntialias.Checked;
+
+            double r = (double)this.numericImgBackR.Value;
+            double g = (double)this.numericImgBackG.Value;
+            double b = (double)this.numericImgBackB.Value;
+            img.BackgroundColor = new Colour(r, g, b, 1);
+            btnImageBgr.BackColor = img.BackgroundColor.SystemColor();
+
+            r = (double)this.numericImgAmbR.Value;
+            g = (double)this.numericImgAmbG.Value;
+            b = (double)this.numericImgAmbB.Value;
+            img.AmbientColor = new Colour(r, g, b, 1);
+            btnImgAmbientCol.BackColor = img.AmbientColor.SystemColor();
 
             img.IndexPictureSize = this.comboResolution.SelectedIndex;
             int w = 100;
@@ -1736,6 +1840,10 @@ namespace _3dEditor
             this.ShowPlane(drPlane);
             _permissionToModify = true;
             _showAngles = true;
+
+            //drPlane.SetModelObject(drPlane.ModelObject);
+            //WndBoard wndB = GetWndBoard();
+            //drPlane.ApplyRotationMatrix(wndB.RotationMatrix);
         }
 
         private void actionAnimRotate(object sender, EventArgs e)
@@ -2161,7 +2269,7 @@ namespace _3dEditor
                 WndBoard wnd = GetWndBoard();
                 //Matrix3D transp = wnd.RotationMatrix.Transpose();
                 //transp.TransformPoints(drFacet.DrCustObject.Points);
-                drFacet.Split(wnd.RotationMatrix);
+                drFacet.Divide(wnd.RotationMatrix);
                 wnd.RotationMatrix.TransformPoints(drFacet.DrCustObject.Points);
             }
         }

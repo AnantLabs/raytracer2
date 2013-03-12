@@ -90,8 +90,9 @@ namespace _3dEditor
             _WndProperties = new WndProperties();
             _WndProperties.MdiParent = this;
             _WndProperties.Location = new Point(_WndBoard.Width, _WndScene.Height);
-            _WndProperties.Width = _WndScene.Width;
-            _WndProperties.Height = (int)(_WndBoard.Height * (1 - _ratioSize));
+            //_WndProperties.Width = _WndScene.Width;
+            //_WndProperties.Height = (int)(_WndBoard.Height * (1 - _ratioSize));
+            _WndProperties.SetPanelsSize(_WndScene.GetSize().Width, _WndScene.GetSize().Height);
             _WndProperties.Show();
             _WndProperties.Invalidate();
             //_WndProperties.Anchor = AnchorStyles.Right;
@@ -173,9 +174,9 @@ namespace _3dEditor
 
             _rayTracer.RScene.Lights[0].Coord = new Vektor(-4.2, 2.1, 0.6);
             _rayTracer.RScene.Lights[1].Coord = new Vektor(5.5, -0.4, 2.2);
-            _rayTracer.RCamera.Source = new Vektor(5.6, -1.7, 1.8);
-            _rayTracer.RCamera.SetNormAndUp(new Vektor(-1, 0.3, -0.3), new Vektor(0, -0.1, -0.5));
-            _rayTracer.RScene.SceneObjects.Add(sph1);
+            _rayTracer.RCamera.Source = new Vektor(0, 0, -10);
+            _rayTracer.RCamera.SetNormAndUp(new Vektor(0, 0, 1), new Vektor(0, 1, 0));
+            //_rayTracer.RScene.SceneObjects.Add(sph1);
             //_rayTracer.RScene.SceneObjects.Add(sph2);
             //_rayTracer.RScene.SceneObjects.Add(cube1);
             //_rayTracer.RScene.SceneObjects.Add(cube2);
@@ -184,7 +185,7 @@ namespace _3dEditor
             //_rayTracer.RScene.SceneObjects.Add(cone3);
             //_rayTracer.RScene.SceneObjects.Add(cone4);
             //_rayTracer.RScene.SceneObjects.Add(cone5);
-            //_rayTracer.RScene.SceneObjects.Add(plane1);
+            _rayTracer.RScene.SceneObjects.Add(plane1);
             //_rayTracer.RScene.SceneObjects.Add(cyl);
             //sph2.IsActive = false;
 
@@ -285,8 +286,8 @@ namespace _3dEditor
         {
             _WndBoard.InitForRaytracer();
             RayImage img = _WndScene.GetSelectedImage();
-            _rayTracer.RScene.SetBeforeRayTr(img);
-            DrawingBoard form = new DrawingBoard();
+            _rayTracer.SetRayImage(img);
+            DrawingBoard form = new DrawingBoard(this);
             DefaultShape.TotalTested = 0;
             form.Size = new Size(img.CurrentSize.Width + RayImage.SizeWidthExtent, img.CurrentSize.Height + RayImage.SizeHeightExtent);
             form.Set(new RayTracing(_rayTracer), new RayImage(img));
@@ -529,6 +530,16 @@ namespace _3dEditor
             _WndBoard.AllowPaint(true);
             return result;
         }
+
+        /// <summary>
+        /// nastavi promenne pro zobrazeni message boxu, aby nebyl schovany za formularem
+        /// musi se zavolat dvakrat - pred zobrazenim msgboxu a po nem
+        /// </summary>
+        /// <param name="isBeforeMsgBox">true pred msgBoxem, False po msgBoxu</param>
+        public void PrepareForMsgBoxes(bool isBeforeMsgBox)
+        {
+            _WndBoard.AllowPaint(!isBeforeMsgBox);
+        }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -550,15 +561,35 @@ namespace _3dEditor
         private void onAnimeClick(object sender, EventArgs e)
         {
             _WndBoard.InitForRaytracer();
-            RayImage rayImg = _WndScene.GetSelectedImage();
-            _rayTracer.RScene.SetBeforeRayTr(rayImg);
-            DrawingAnimation anim = _WndScene.GetSelectedAnimation();
+            
+            RayImage rayImg = new RayImage(_WndScene.GetSelectedImage());
+
+            RayTracing raytr = new RayTracing(_rayTracer);
+            raytr.RScene.SetBeforeRayTr(rayImg);
+
+            DrawingAnimation drAnim = _WndScene.GetSelectedAnimation();
+            Animation anim = new Animation((Animation)drAnim.ModelObject);
+
             DefaultShape.TotalTested = 0;
-            AnimBoard animForm = new AnimBoard(_rayTracer, rayImg, (Animation)anim.ModelObject, this);
-            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
+
+            AnimBoard animForm = new AnimBoard(raytr, rayImg,anim , this);
+            
+            this.toolStripAnimate.Enabled = false;
+            animForm.FormClosed += animForm_FormClosed;
             animForm.Show();
         }
 
+        /// <summary>
+        /// po zavreni formulare animace se opet povoli tlacitko animace
+        /// </summary>
+        /// <param name="sender">formular animace</param>
+        /// <param name="e"></param>
+        void animForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.toolStripAnimate.Enabled = true;
+        }
+
+        
         internal void SetAnimationEnabled(bool isEnabled)
         {
             this.toolStripAnimate.Enabled = isEnabled;
