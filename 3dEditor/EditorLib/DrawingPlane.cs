@@ -68,14 +68,16 @@ namespace EditorLib
             _ShiftMatrix = plane._ShiftMatrix;
             _localMatrix = _RotatMatrix * _ShiftMatrix;
 
-            Vektor leftCorner = new Vektor(plane.Pocatek.X, plane.Pocatek.Y, plane.Pocatek.Z);
+            Vektor leftCorner = new Vektor(0, 0, 0);
+            Vektor n = new Vektor(plane.Normal);
+            n.Normalize();
+            Vektor norm = leftCorner + n;
+            norm.Normalize();
 
             List<Vektor> points = new List<Vektor>();
             points.Add(leftCorner);
             List<Line3D> lines = new List<Line3D>(2 * (Size + 1));
             Line3D line;
-            if (leftCorner == null)
-                leftCorner = new Vektor(-5, 0, -5);
 
             // MRIZKA
             for (float i = 0; i <= Size; i += Distance)
@@ -97,11 +99,18 @@ namespace EditorLib
                 lines.Add(line);
             }
 
-            this.Points = points.ToArray();
+            
             this.Lines = lines;
 
             _localMatrix = _RotatMatrix * _ShiftMatrix;
-            _localMatrix.TransformPoints(Points);
+            _localMatrix.TransformPoints(points);
+
+
+            _ShiftMatrix.TransformPoint(norm);
+            points.Add(norm);
+            Lines.Add(new Line3D(points[0], norm));
+
+            this.Points = points.ToArray();
         }
 
         public override void SetModelObject(object modelObject)
@@ -117,6 +126,15 @@ namespace EditorLib
             this.Set(plane);
         }
 
+        public override void Rotate(double degAroundX, double degAroundY, double degAroundZ)
+        {
+            //base.Rotate(degAroundX, degAroundY, degAroundZ);
+            Plane plane = (Plane)ModelObject;
+            if (plane != null)
+                plane.Rotate(degAroundX, degAroundY, degAroundZ);
+
+            Set(plane);
+        }
         public void SetModelObject(RayTracerLib.Plane plane)
         {
             this.SetModelObject(plane, Size, Distance);

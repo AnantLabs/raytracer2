@@ -77,6 +77,10 @@ namespace RayTracerLib
 
         private int _MaxDepth = 5;
 
+        /// <summary>
+        /// Tlumeni svetla pri odrazech
+        /// </summary>
+        private double _Absorb = 1.0;
 
         public RayTracing()
         {
@@ -91,6 +95,7 @@ namespace RayTracerLib
             RScene = new Scene(old.RScene);
             RCamera = new Camera(old.RCamera);
             _MaxDepth = old._MaxDepth;
+            _Absorb = old._Absorb;
             SetBoundValues(old._xMin, old._xMax, old._xMin, old._yMax);
         }
         public RayTracing(Scene scene)
@@ -99,6 +104,12 @@ namespace RayTracerLib
             SetBoundValues();
         }
 
+
+        public void SetRayImage(RayImage img)
+        {
+            this.RScene.SetBeforeRayTr(img);
+            this._Absorb = img.Absorbtion;
+        }
         public void SetBoundValues()
         {
             SetBoundValues(XMIN, XMAX, YMIN, YMAX);
@@ -230,6 +241,15 @@ namespace RayTracerLib
             ray.Normalize();
             Colour odrazBarva = this.ColourReflected(Pd, ray, sp.Normal, sp.Material);
 
+            //odrazBarva.R *= _ScaleRecurse;
+            //odrazBarva.G *= _ScaleRecurse;
+            //odrazBarva.B *= _ScaleRecurse;
+
+            double scale = Math.Pow(_Absorb, depth - 1);
+            odrazBarva.R *= scale;
+            odrazBarva.G *= scale;
+            odrazBarva.B *= scale;
+
             // pridani nasledne odrazene barvy:
             if (odrazBarva.R > 5 || odrazBarva.G > 5 || odrazBarva.B > 5)
             {
@@ -250,7 +270,7 @@ namespace RayTracerLib
             if (kt != 0)
             {
                 ray = MyMath.Refraction(Pd, sp.Normal, n);
-                ray.Normalize();
+                //ray.Normalize();
                 if (ray == null)
                 {
                     return barvaVysled;
@@ -295,7 +315,7 @@ namespace RayTracerLib
                 else
                 {
                     lightDir = null;
-                    lightIntens = new Colour(0.3, 0.3, 0.3, 0); // ambientni barva
+                    lightIntens = new Colour(RScene.AmbientColor); // ambientni barva
                 }
                 lightContr = this.ColourSpecular(lightDir, Pd, sp.Normal, sp.Material);
                 if (lightContr == null)

@@ -78,7 +78,7 @@ namespace _3dEditor
         /// <summary>
         /// citlivost pro prepocitani souradnic
         /// </summary>
-        int _MOUSE_SENSITIVITY = 10;
+        int _MOUSE_SENSITIVITY = 7;
 
         /// <summary>
         /// koeficient pri rotaci editoru mysi
@@ -158,7 +158,7 @@ namespace _3dEditor
             
 
             this.MouseWheel += new MouseEventHandler(onBoard_MouseWheel);
-            _grid = new List<Line3D>((int)Math.Pow(_GRID_SIZE_INIT + 1, 3));
+            //_grid = new List<Line3D>((int)Math.Pow(_GRID_SIZE_INIT + 1, 3));
             _objectsToDraw = new List<DrawingObject>(30);
 
             _updateAll = false;
@@ -234,7 +234,7 @@ namespace _3dEditor
             Line3D l2 = new Line3D(_axisC3, _axisY3);
             Line3D l3 = new Line3D(_axisC3, _axisZ3);
 
-            _grid = EditHelper.FillGrid(_GRID_SIZE_INIT-1);
+            //_grid = EditHelper.FillGrid(_GRID_SIZE_INIT-1);
             
             _centerPoint = new Point(this.pictureBoard.Width / 2, this.pictureBoard.Height / 2);
 
@@ -264,7 +264,7 @@ namespace _3dEditor
             //
             //  ROTACE VSECH OBJEKTU V EDITORU
             //
-            _matrix.TransformLines(_grid);
+            //_matrix.TransformLines(_grid);
             foreach (DrawingObject obj in _objectsToDraw)
             {
                 obj.ApplyRotationMatrix(_matrix);
@@ -272,8 +272,8 @@ namespace _3dEditor
 
             this._matrix = Matrix3D.Identity;
 
-            this.toolsComboGridSize.SelectedIndex = _GRID_SIZE_INIT - 2;      // init nastaveni typu mrizky
-            this.toolsComboViewAngle.SelectedIndex = 0;
+            //this.toolsComboGridSize.SelectedIndex = _GRID_SIZE_INIT - 2;      // init nastaveni typu mrizky
+            //this.toolsComboViewAngle.SelectedIndex = 0;
             
             //this.numericUpDown1.Value = (int)degreesX;
             //this.numericUpDown2.Value = (int)degreesY;
@@ -312,6 +312,7 @@ namespace _3dEditor
         }
         private void Redraw(Graphics g)
         {
+            
             _editHelp.ClearAllClickableObjects();
 
             if (this.WindowState == FormWindowState.Minimized) return;
@@ -325,8 +326,8 @@ namespace _3dEditor
             // =========================================
             // vykresli vsechny primky
             //
-            if (toolBtnGrid.Checked)
-                DrawGrid(g, _grid);
+            //if (toolBtnGrid.Checked)
+            //    DrawGrid(g, _grid);
 
             // osy:
             if (toolBtnAxes.Checked)
@@ -1230,13 +1231,13 @@ namespace _3dEditor
                         }
                         else if (ds is Plane)
                         {
-                            DrawingPlane dp = _Selected as DrawingPlane;
-                            Matrix3D transp = this._matrixForever.Transpose();
-                            Vektor center = shift2DMatrix.Transform2NewPoint(dp.Center);
-                            Vektor centerTransp = transp.Transform2NewPoint(center);
-                            transp.TransformPoints(dp.Points);
-                            dp.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
-                            _matrixForever.TransformPoints(dp.Points);
+                            //DrawingPlane dp = _Selected as DrawingPlane;
+                            //Matrix3D transp = this._matrixForever.Transpose();
+                            //Vektor center = shift2DMatrix.Transform2NewPoint(dp.Center);
+                            //Vektor centerTransp = transp.Transform2NewPoint(center);
+                            //transp.TransformPoints(dp.Points);
+                            //dp.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
+                            //_matrixForever.TransformPoints(dp.Points);
                         }
                         else if (ds is Triangle)
                         {
@@ -1244,9 +1245,19 @@ namespace _3dEditor
                             if (_Selected is DrawingFacet)
                             {
                                 DrawingFacet drFacet = _Selected as DrawingFacet;
-                                WndScene wnd1 = GetWndScene();
-                                wnd1.ShowNode(drFacet.DrCustObject);
-                                update = false;
+                                //WndScene wnd1 = GetWndScene();
+                                //wnd1.ShowNode(drFacet.DrCustObject);
+                                //update = false;
+                                
+                                DrawingCustom drCust = drFacet.DrCustObject;
+                                _Selected = drCust;
+                                Matrix3D transp = this._matrixForever.Transpose();
+                                Vektor center = shift2DMatrix.Transform2NewPoint(drCust.Center);
+                                Vektor centerTransp = transp.Transform2NewPoint(center);
+                                transp.TransformPoints(drCust.Points);
+                                Vektor diff = drCust.Center - centerTransp;
+                                drCust.Move(diff.X, diff.Y, diff.Z);
+                                _matrixForever.TransformPoints(drCust.Points);
                             }
                             else
                             {
@@ -1283,8 +1294,9 @@ namespace _3dEditor
                             Vektor center = shift2DMatrix.Transform2NewPoint(drCust.Center);
                             Vektor centerTransp = transp.Transform2NewPoint(center);
                             transp.TransformPoints(drCust.Points);
-                            Vektor diff = drCust.Center - centerTransp;
+                            Vektor diff = centerTransp - drCust.Center;
                             drCust.Move(diff.X, diff.Y, diff.Z);
+                            drCust.MoveToPoint(centerTransp);
                             //drCust.MoveDiff2(centerTransp.X, centerTransp.Y, centerTransp.Z);
                             //drCust.Move(centerTransp.X, centerTransp.Y, centerTransp.Z);
                             _matrixForever.TransformPoints(drCust.Points);
@@ -1414,8 +1426,8 @@ namespace _3dEditor
             {
                 obj.ApplyRotationMatrix(_matrix);
             }
-            if (toolBtnGrid.Checked)
-                _matrix.TransformLines(_grid);
+            //if (toolBtnGrid.Checked)
+            //    _matrix.TransformLines(_grid);
 
             Vektor newX3d = _matrix * _axisX3;
             _axisX3 = newX3d;
@@ -1473,11 +1485,11 @@ namespace _3dEditor
                 obj.ApplyRotationMatrix(transp);
                 obj.ApplyRotationMatrix(rotationMatrix);
             }
-            if (toolBtnGrid.Checked)
-            {
-                transp.TransformLines(_grid);
-                rotationMatrix.TransformLines(_grid);
-            }
+            //if (toolBtnGrid.Checked)
+            //{
+            //    transp.TransformLines(_grid);
+            //    rotationMatrix.TransformLines(_grid);
+            //}
 
             Vektor newX3d = rotationMatrix * (transp * _axisX3);
             _axisX3 = newX3d;
@@ -1587,7 +1599,9 @@ namespace _3dEditor
                 // VPRED
                 Vektor dirNorm = new Vektor(_currentScene.Camera.Norm);
                 dirNorm.Normalize();
+                //if (1 == _currentScene.Camera.Up.Y) dirNorm.MultiplyBy(-1);
                 Vektor z = new Vektor(0, 0, 1);
+                //if (dirNorm == z) dirNorm.MultiplyBy(-1);
                 Quaternion q = new Quaternion(dirNorm, z);
                 //double[] degss1 = q.ToEulerDegs();
                 //Matrix3D m1 = Matrix3D.NewRotateByDegrees(-degss1[0], -degss1[1], -degss1[2]);
@@ -1598,8 +1612,8 @@ namespace _3dEditor
 
                 // NAHORU
                 Vektor y = new Vektor(0, -1, 0);
-
                 Vektor up = new Vektor(_currentScene.Camera.Up);
+                //if (y.Y == -up.Y) up = up.MultiplyBy(-1);
                 up.Normalize();
                 Matrix3D m1transp = new Matrix3D(m1);
                 m1transp.Transpose();
@@ -1610,7 +1624,13 @@ namespace _3dEditor
                 //double[] degss2 = q.ToEulerDegs();
                 //Matrix3D m2 = Matrix3D.NewRotateByDegrees(-degss2[0], -degss2[1], -degss2[2]);
                 Matrix3D m2 = q.Matrix();
+                
                 m = m1 * m2;
+                if (up == new Vektor(0, 1, 0) && dirNorm == new Vektor(0,0,1))
+                {
+                    Matrix3D matAdd = Matrix3D.NewRotateByDegrees(0, 0, 180);
+                    m = m * matAdd;
+                }
             }
             else if (obj.Caption == EditHelper.CAMERAVIEW2_string)
             {
@@ -1641,6 +1661,11 @@ namespace _3dEditor
                 //Matrix3D m2 = Matrix3D.NewRotateByDegrees(-degss2[0], -degss2[1], -degss2[2]);
                 Matrix3D m2 = q.Matrix();
                 m = m1 * m2;
+                if (up == new Vektor(0, 1, 0) && dirNorm == new Vektor(0, 0, 1))
+                {
+                    Matrix3D matAdd = Matrix3D.NewRotateByDegrees(180, 180, 0);
+                    m = m * matAdd;
+                }
             }
             else
             {
@@ -1658,6 +1683,7 @@ namespace _3dEditor
         /// <returns>true, kdyz jsou bliz, nez je maxVal</returns>
         private bool IsCloserThanPoint(Point p1, Point p2, int maxVal)
         {
+            if (maxVal < 2) maxVal = 2;
             int xDelta = Math.Abs(p1.X - p2.X);
             int yDelta = Math.Abs(p1.Y - p2.Y);
             if (xDelta + yDelta < maxVal)
@@ -1913,6 +1939,7 @@ namespace _3dEditor
             wndScene.BlinkActivate = true;
             // nakonec pridame kameru
             AddRaytrObject(scene.Camera);
+            wndScene.ExpandAll();
         }
 
         /// <summary>
@@ -2109,6 +2136,22 @@ namespace _3dEditor
             {
                 this.AddAnimation(anim);
             }
+        }
+
+        private void OnToolStripPanelPaint(object sender, PaintEventArgs e)
+        {
+            //toolStrip1.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+            int asd = 0;
+        }
+
+        private void onToolStripPaint(object sender, PaintEventArgs e)
+        {
+            int i = 0;
+        }
+
+        private void onBoardActiate(object sender, EventArgs e)
+        {
+            toolStrip1.Refresh();
         }
     }
 }

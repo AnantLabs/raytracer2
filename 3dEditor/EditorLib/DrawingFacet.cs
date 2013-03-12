@@ -35,7 +35,7 @@ namespace EditorLib
         /// Z puvodniho draw.Tr. se stal treti novy triangl
         /// </summary>
         /// <returns>dva nove drawing trojuhelniky</returns>
-        public void Split(Matrix3D rotMat)
+        public void Divide(Matrix3D rotMat)
         {
             DrCustObject.InitForRaytracer(rotMat);
             Triangle tr = ModelObject as Triangle;

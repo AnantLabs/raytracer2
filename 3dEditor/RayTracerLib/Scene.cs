@@ -26,6 +26,8 @@ namespace RayTracerLib
         /// </summary>
         public Camera Camera { get; set; }
 
+        public static Colour DefaultAmbient { get { return new Colour(0.25, 0.25, 0.25, 1); } }
+
         /// <summary>
         /// seznam svetel
         /// </summary>
@@ -34,8 +36,10 @@ namespace RayTracerLib
         /// <summary>
         /// okolni barva
         /// </summary>
-        public Colour AmbientLightColor { get; set; }
-
+        public Colour AmbientColor { 
+            get { if (_ambient == null) return Scene.DefaultAmbient; else return _ambient; } 
+            set { _ambient = value; } }
+        private Colour _ambient = Scene.DefaultAmbient;
         /// <summary>
         /// barva pozadi sceny
         /// </summary>
@@ -93,7 +97,7 @@ namespace RayTracerLib
                 Light nl = new Light(l);
                 Lights.Add(nl);
             }
-            AmbientLightColor = new Colour(old.AmbientLightColor);
+            AmbientColor = new Colour(old.AmbientColor);
             BgColor = new Colour(old.BgColor);
 
             SceneObjects = new List<DefaultShape>(old.SceneObjects.Count);
@@ -218,7 +222,7 @@ namespace RayTracerLib
         /// </summary>
         public void SetDefaultColors()
         {
-            AmbientLightColor = new Colour(0.5, 0.0, 0.0, 1);
+            AmbientColor = new Colour(0.25, 0.25, 0.25, 1);
             BgColor = new Colour(0.2, 0.2, 0.2, 1);
         }
 
@@ -230,6 +234,7 @@ namespace RayTracerLib
             Scene.totalInters = 0;
             Cuboid.TotalTested = 0;
             SetOptmimizer(rayimg.OptimizType);
+            AmbientColor = rayimg.AmbientColor;
             BgColor = rayimg.BackgroundColor;
             IsOptimizing = rayimg.IsOptimalizing;
             if (this.Optimaliz == null) IsOptimizing = false;

@@ -133,6 +133,7 @@ namespace EditorLib
             points.Add(new Vektor(0, 0, 0));
             points.Add(a1); points.Add(a2);
             points.Add(c1); points.Add(c2);
+            _RotatMatrix = elipse.GetRotationMatrix();
             _localMatrix = _RotatMatrix * _ShiftMatrix;
             _localMatrix.TransformPoints(points);
             Lines = new List<Line3D>();
@@ -153,6 +154,7 @@ namespace EditorLib
         {
             Animation.Elipse elipse = new Animation.Elipse(center, a, b);
             elipse.Rotate(this._RotatMatrix);
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(center);
             elipse.Move(this._ShiftMatrix);
             Animation anim = ModelObject as Animation;
             anim.SetElipse(elipse, fps, time);

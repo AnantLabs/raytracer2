@@ -125,10 +125,13 @@ namespace EditorLib
             //    DrawingTriangle drTriang = new DrawingFacet(trian, this);
             //    DrawingFacesList.Add(drTriang);
             //}
-            _RotatMatrix = Matrix3D.Identity;
-            _ShiftMatrix = Matrix3D.Identity;
-            _origShigMatrix = Matrix3D.Identity;
-            _localMatrix = Matrix3D.Identity;
+            if (_RotatMatrix == null)
+                _RotatMatrix = Matrix3D.Identity;
+            if (_ShiftMatrix == null)
+                _ShiftMatrix = Matrix3D.Identity;
+            if (_origShigMatrix == null)
+                _origShigMatrix = Matrix3D.Identity;
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
         }
 
         private void ResetAll()
@@ -186,14 +189,14 @@ namespace EditorLib
 
         public override void Move(double moveX, double moveY, double moveZ)
         {
-            Matrix3D transpShift = _ShiftMatrix.GetOppositeShiftMatrix();
+            Matrix3D transpShift = _origShigMatrix.GetOppositeShiftMatrix();
             transpShift.TransformPoints(Points);
 
             _ShiftMatrix = Matrix3D.PosunutiNewMatrix(moveX, moveY, moveZ);
             // budeme si pamatovat matici posunuti od puvodni pozice
             _origShigMatrix.PosunutiAddMatrix(_ShiftMatrix);
-
-            _localMatrix = _RotatMatrix * _ShiftMatrix;
+            _origShigMatrix.TransformPoints(Points);
+            _localMatrix = _RotatMatrix * _origShigMatrix;
         }
 
         public void AddDrawingTriangle(Triangle trian)
@@ -241,6 +244,15 @@ namespace EditorLib
             
         }
 
-        
+
+
+        public void MoveToPoint(Vektor shift)
+        {
+        //    Matrix3D transpShift = _ShiftMatrix.GetOppositeShiftMatrix();
+        //    //transpShift.TransformPoints(Points);
+        //    _ShiftMatrix = Matrix3D.PosunutiNewMatrix(shift);
+        //    _ShiftMatrix.TransformPoints(Points);
+        //    _localMatrix = _RotatMatrix * _ShiftMatrix;
+        }
     }
 }

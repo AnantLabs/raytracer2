@@ -340,7 +340,7 @@ namespace _3dEditor
             if (rootNode.Nodes == null)
                 return;
 
-            rootNode.ExpandAll();
+            //rootNode.ExpandAll();
 
             if (shape is DrawingFacet)
             {
@@ -464,8 +464,13 @@ namespace _3dEditor
                     ShowNode(shape, node);
                 }
             }
+            
         }
 
+        public Size GetSize()
+        {
+            return treeView1.Size;
+        }
         private void OnClicked(object sender, EventArgs e)
         {
 
@@ -484,6 +489,10 @@ namespace _3dEditor
             //this.treeView1.Nodes[0].Collapse(false);
         }
 
+        public void ExpandAll()
+        {
+            this.treeView1.ExpandAll();
+        }
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             ToolStripButton btn = (ToolStripButton)sender;

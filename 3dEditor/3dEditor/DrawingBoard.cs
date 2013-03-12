@@ -24,6 +24,8 @@ namespace _3dEditor
                 Graph = graphics;
             }
         }
+        ParentEditor _parentEdit;
+
         BackgroundWorker _bw;
         RayTracing _rayTracer;
         RayImage _rayImg;
@@ -45,8 +47,9 @@ namespace _3dEditor
         long _totalTestedObjects;
         long _totalTestedCubes;
 
-        public DrawingBoard()
+        public DrawingBoard(ParentEditor parent)
         {
+            _parentEdit = parent;
             InitializeComponent();
             InitAll();
         }
@@ -322,6 +325,7 @@ namespace _3dEditor
         /// </summary>
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            _parentEdit.PrepareForMsgBoxes(true);
             if (this.saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string ext = Path.GetExtension(saveFileDialog.FileName);
@@ -346,6 +350,7 @@ namespace _3dEditor
                 }
                 
             }
+            _parentEdit.PrepareForMsgBoxes(false);
         }
 
         internal void Set(RayTracing rayTracer, RayImage rayImg)

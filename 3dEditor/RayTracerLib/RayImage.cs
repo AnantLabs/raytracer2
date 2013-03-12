@@ -18,8 +18,10 @@ namespace RayTracerLib
         public readonly Size[] PictureSize = {
                 new Size(320,240),
                 new Size(512,384),
+                new Size(640,360),
                 new Size(640,480),
-                new Size(854,480), //856x480
+                new Size(852,480), //856x480
+                new Size(960,540),
                 new Size(1024,768),
                 new Size(1280,720),
                 new Size()
@@ -62,6 +64,21 @@ namespace RayTracerLib
         [DataMember]
         public bool IsOptimalizing { get; set; }
 
+        /// <summary>
+        /// Tlumeni svetla pri odrazech
+        /// </summary>
+        [DataMember(Name = "Absorbtion")]
+        public double Absorbtion { get { return _absorb; } set { if (value < 0.1) _absorb = 1.0; else if (value > 1.0) _absorb = 1.0; else _absorb = value; } }
+        private double _absorb = 1.0;
+
+        [DataMember]
+        public Colour AmbientColor
+        {
+            get { if (_ambient == null) return Scene.DefaultAmbient; else return _ambient; }
+            set { _ambient = value; }
+        }
+        private Colour _ambient = Scene.DefaultAmbient;
+
         public RayImage() : this(1, new Colour(0.1, 0.1, 0.1, 1), false) { }
 
         
@@ -99,8 +116,17 @@ namespace RayTracerLib
             this.IsAntialiasing = old.IsAntialiasing;
             this.IsOptimalizing = old.IsOptimalizing;
             this.OptimizType = old.OptimizType;
+            this.Absorbtion = old.Absorbtion;
         }
 
+        /// <summary>
+        /// zjisti, zda je vybrano uzivatelske rozliseni
+        /// </summary>
+        /// <returns></returns>
+        public bool IsCustomResolution()
+        {
+            return (this.IndexPictureSize == this.PictureSize.Length - 1);
+        }
         public override string ToString()
         {
             return "Res=" + CurrentSize + "; " + "Recurse=" + MaxRecurse;
@@ -113,6 +139,8 @@ namespace RayTracerLib
             rayImg.BackgroundColor = serImg.BackgroundColor;
             
             rayImg.IndexPictureSize = serImg.IndexPictureSize;
+            if (serImg.IndexPictureSize < 0) rayImg.IndexPictureSize = 0;
+
             rayImg.CurrentSize = serImg.CurrentSize;
             if (serImg.IndexPictureSize < rayImg.PictureSize.Length - 1 && serImg.IndexPictureSize >= 0)
             {
@@ -135,6 +163,9 @@ namespace RayTracerLib
 
             rayImg.OptimizType = serImg.OptimizType;
 
+            rayImg.Absorbtion = serImg.Absorbtion;
+
+            rayImg.AmbientColor = serImg.AmbientColor;
             return rayImg;
         }
 
@@ -151,6 +182,31 @@ namespace RayTracerLib
             //}
 
             return animList.ToArray();
+        }
+
+        /// <summary>
+        /// je/li vybrano uzivatelske rozliseni, zmeni se vybrane rozliseni na nejblizsi preddefinovane rozliseni
+        /// </summary>
+        internal void SelectClosestResolution()
+        {
+            if (!IsCustomResolution()) return;
+
+            int w = this.CurrentSize.Width;
+            int h = this.CurrentSize.Height;
+
+            int closest = 0;
+            for (int i = 0; i < this.PictureSize.Length; i++ )
+            {
+                if (PictureSize[i].Width > w)
+                {
+                    if ((PictureSize[i].Width - w) < Math.Abs(PictureSize[closest].Width - w))
+                        closest = i;
+                    break;
+                }
+                else closest = i;
+            }
+            this.IndexPictureSize = closest;
+            this.CurrentSize = new Size(PictureSize[closest].Width, PictureSize[closest].Height);
         }
     }
 }

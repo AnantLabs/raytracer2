@@ -90,6 +90,18 @@ namespace Mathematics
             }
             return m;
         }
+        //public static bool operator ==(Matrix3D m1, Matrix3D m2)
+        //{
+            
+        //    for (int i = 0; i < 4; i++)
+        //    {
+        //        for (int j = 0; j < 4; j++)
+        //        {
+        //            if (m1.Matrix[i, j] != m2.Matrix[i, j]) return false;
+        //        }
+        //    }
+        //    return true;
+        //}
 
     /// <summary>
     /// Vynasobi matici cislem

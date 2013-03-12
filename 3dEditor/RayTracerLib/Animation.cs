@@ -11,6 +11,7 @@ using Splicer.Renderer;
 using System.Threading;
 using Mathematics;
 using System.Runtime.Serialization;
+using Splicer.WindowsMedia;
 
 namespace RayTracerLib
 {
@@ -128,6 +129,16 @@ namespace RayTracerLib
                 return points;
             }
 
+            public Matrix3D GetRotationMatrix()
+            {
+                return Matrix3D.NewRotateByDegrees(Degs[0], Degs[1], Degs[2]);
+            }
+
+            public double[] GetRotationAngles()
+            {
+                double[] degs = new double[3] { Degs[0], Degs[1], Degs[2] };
+                return degs;
+            }
             public void Rotate(Matrix3D rotMatrix)
             {
                 //_rotatMatrix = rotMatrix;
@@ -388,6 +399,8 @@ namespace RayTracerLib
         public void StartAnimation(RayTracing rayTracer, RayImage rayImage)
         {
             this._rayTracer = rayTracer;
+            // animace pracuje nepracuje spravne pro vsechna rozliseni - vyvarujeme se toho zvolenim nejblilzsich odzkousenych rozlisenich
+            if (rayImage.IsCustomResolution()) rayImage.SelectClosestResolution(); 
             this._rayImg = rayImage;
 
             if ((_bw.IsBusy == true))
@@ -556,7 +569,21 @@ namespace RayTracerLib
                 if (_videoTrack.Duration > 0.0)
                     using (AviFileRenderer animRenderer = new AviFileRenderer(timeline, String.Format("{0}.avi", _BaseName)))
                     {
+                        //AsyncCallback callback = new AsyncCallback(RenderCallback);
+                        //IAsyncResult result = animRenderer.BeginRender(callback, null);
+
+                        //try
+                        //{
+                        //    animRenderer.EndRender(result);
+                        //}
+                        //catch (Exception ex)
+                        //{
+                        //    int das = 0;
+                        //}
+
                         animRenderer.Render();
+
+
                     }
             }
             catch (Exception ex)
@@ -568,6 +595,15 @@ namespace RayTracerLib
                 _videoTrack.Dispose();
                 _isBusy = false;
             }
+        }
+
+        static void RenderCallback(IAsyncResult result)
+        {
+            int i = 0;
+        }
+        void animRenderer_RenderCompleted(object sender, EventArgs e)
+        {
+            int i = 0;
         }
 
         private void OnRenderedImage(object sender, RunWorkerCompletedEventArgs e)
