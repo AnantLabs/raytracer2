@@ -204,7 +204,7 @@ namespace RayTracerLib
 
             public override string ToString()
             {
-                return String.Format("Elipsa {0}; A={1}; B={2}", this.Center, this.A, this.B);
+                return String.Format("Ellipse {0}; A={1}; B={2}", this.Center, this.A, this.B);
             }
 
             public Elipse FromDeserial()
@@ -662,7 +662,7 @@ namespace RayTracerLib
 
         public override string ToString()
         {
-            return String.Format("Dráha: {0}", this.ElipsePath);
+            return String.Format("{0} Path: {1}", Label, this.ElipsePath);
         }
 
 

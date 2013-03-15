@@ -181,6 +181,7 @@ namespace RayTracerLib
             Root = new OctNode(cube, 0, null);
             foreach (DefaultShape item in objects)
             {
+                if (item is Plane || !item.IsActive) continue;
                 BoundingVolume bv = new BoundingVolume(item);
                 Root.AddPoint(bv);
             }

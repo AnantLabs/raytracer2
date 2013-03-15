@@ -31,7 +31,7 @@ namespace RayTracerLib
             List<RtreeNode> nodes = new List<RtreeNode>();
             foreach (DefaultShape obj in objects)
             {
-                if (obj is Plane || obj is Plane2) continue;
+                if (!obj.IsActive || obj is Plane || obj is Plane2) continue;
 
                 RtreeNode node = new RtreeNode(obj);
                 nodes.Add(node);
@@ -158,7 +158,8 @@ namespace RayTracerLib
                 }
                 return STR3DPack(nextLevCubs.ToArray());
             }
-            else return nodeList[0];
+            else if (nodeList.Count == 1) return nodeList[0];
+            else return null;
         }
 
         private Cuboid[][][] CreateSlabs3D(Cuboid[] cuboids, int dim)

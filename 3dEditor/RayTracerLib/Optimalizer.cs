@@ -7,7 +7,7 @@ namespace RayTracerLib
 {
     public class Optimalizer
     {
-        public enum OptimizeType { NONE, RTREE, OCTREE, KDTREE };
+        public enum OptimizeType { NONE, RTREE, OCTREE, KDTREE, KDTREE_POINTS };
         public OptimizeType OptimType;
         public IOptimize Optimizer;
 
@@ -29,6 +29,10 @@ namespace RayTracerLib
             else if (type == OptimizeType.KDTREE)
             {
                 Optimizer = new KDTree(objects, KDTree.KdtreeType.Volumes);
+            }
+            else if (type == OptimizeType.KDTREE_POINTS)
+            {
+                Optimizer = new KDTreeExtend(objects, KDTreeExtend.KdtreeType.Points);
             }
 
         }

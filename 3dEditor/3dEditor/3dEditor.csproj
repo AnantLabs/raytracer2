@@ -21,7 +21,7 @@
     <SccLocalPath>Svn</SccLocalPath>
     <SccAuxPath>Svn</SccAuxPath>
     <SccProvider>SubversionScc</SccProvider>
-    <PublishUrl>publish\</PublishUrl>
+    <PublishUrl>D:\My Works\VisualStudio apps\3dEditor\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -31,9 +31,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -57,6 +58,24 @@
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>7B82F38B1A2DFA650158D458A7B297A7AF72AE8D</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>3dEditor_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -99,6 +118,12 @@
     </Compile>
     <Compile Include="DrawingBoard.Designer.cs">
       <DependentUpon>DrawingBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelpAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HelpAbout.Designer.cs">
+      <DependentUpon>HelpAbout.cs</DependentUpon>
     </Compile>
     <Compile Include="MenuDrawItemCtrl.cs">
       <SubType>UserControl</SubType>
@@ -149,6 +174,9 @@
       <DependentUpon>DrawingBoard.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="HelpAbout.resx">
+      <DependentUpon>HelpAbout.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MenuDrawItemCtrl.resx">
       <DependentUpon>MenuDrawItemCtrl.cs</DependentUpon>
     </EmbeddedResource>
@@ -182,6 +210,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="3dEditor_TemporaryKey.pfx" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -266,13 +296,35 @@
     <EmbeddedResource Include="Images\rectangle16.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Images\TriangleMagenta16.png" />
+    <EmbeddedResource Include="Images\TriangleMagenta16.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\cone_gray16.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\wheel_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\About\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\About\draw.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\About\anim.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\About\board.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon.ico" />
+    <EmbeddedResource Include="Images\About\LOGO_LARGE_transp.png" />
+    <Content Include="Images\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\About\scene.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

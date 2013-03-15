@@ -90,8 +90,11 @@ namespace RayTracerLib
 
         public Cuboid(Cuboid oldCub)
         {
-            this.MinPoint = new Vektor(oldCub.MinPoint);
-            this.MaxPoint = new Vektor(oldCub.MaxPoint);
+            if (oldCub != null)
+            {
+                this.MinPoint = new Vektor(oldCub.MinPoint);
+                this.MaxPoint = new Vektor(oldCub.MaxPoint);
+            }
         }
         public Cuboid(DefaultShape item) : this(Cuboid.CreateCuboid(item)) { }
 
@@ -118,6 +121,36 @@ namespace RayTracerLib
 
         }
 
+        public Vektor GetMinVectorShallow()
+        {
+            return new Vektor(Xmin, Ymin, Zmin);
+        }
+        public Vektor GetMaxVectorShallow()
+        {
+            return new Vektor(Xmax, Ymax, Zmax);
+        }
+        /// <summary>
+        /// vrati rohove body
+        /// </summary>
+        /// <returns>seznam 8 rohovych bodu</returns>
+        public Vektor[] Get8Points()
+        {
+            List<Vektor> points = new List<Vektor>();
+            points.Add(new Vektor(MinPoint.X, MinPoint.Y, MinPoint.Z));
+            points.Add(new Vektor(MinPoint.X, MinPoint.Y, MaxPoint.Z));
+
+            points.Add(new Vektor(MinPoint.X, MaxPoint.Y, MinPoint.Z));
+            points.Add(new Vektor(MinPoint.X, MaxPoint.Y, MaxPoint.Z));
+
+            points.Add(new Vektor(MaxPoint.X, MaxPoint.Y, MinPoint.Z));
+            points.Add(new Vektor(MaxPoint.X, MaxPoint.Y, MaxPoint.Z));
+
+            points.Add(new Vektor(MaxPoint.X, MinPoint.Y, MinPoint.Z));
+            points.Add(new Vektor(MaxPoint.X, MinPoint.Y, MaxPoint.Z));
+
+            return points.ToArray();
+
+        }
         /// <summary>
         /// Objem Cuboidu
         /// </summary>
@@ -260,7 +293,7 @@ namespace RayTracerLib
             }
             else if (item is Plane)
             {
-                //cluster = new Cuboid(1);
+                cluster = new Cuboid(0);
             }
             else if (item is Cube)
             {
@@ -279,8 +312,8 @@ namespace RayTracerLib
             else if (item is Cone)
             {
                 Cone cone = (Cone)item;
-                double s = Math.Sqrt(cone.Rad * cone.Rad + cone.Height * cone.Height);
-                double spul = s / 2;
+                double s = Math.Sqrt(cone.Rad * cone.Rad + cone.Height / 2.0 * cone.Height / 2.0);
+                double spul = s;
                 Vektor dirNorm = cone.Dir;
                 dirNorm.Normalize();
                 Vektor center = cone.Peak + dirNorm * (cone.Height / 2);
@@ -592,11 +625,16 @@ namespace RayTracerLib
 
         public static Cuboid CreateCuboid(List<DefaultShape> objects)
         {
+            if (objects == null || objects.Count == 0) return null;
+
             Cuboid cuboid = new Cuboid(objects[0]);
+            
             foreach (DefaultShape item in objects)
             {
-                Cuboid cuboid2 = new Cuboid(item);
-                cuboid = Cuboid.Union(cuboid, cuboid2);
+                //if (!item.IsActive) continue;
+                Cuboid cuboid2 = Cuboid.CreateCuboid(item);
+                if (cuboid2 != null)
+                    cuboid = Cuboid.Union(cuboid, cuboid2);
             }
             return cuboid;
         }

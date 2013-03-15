@@ -595,6 +595,12 @@ namespace _3dEditor
             this.toolStripAnimate.Enabled = isEnabled;
         }
 
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Help help = new Help();
+            help.ShowDialog();
+        }
+
         
     }
 }

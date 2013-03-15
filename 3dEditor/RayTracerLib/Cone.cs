@@ -224,6 +224,7 @@ namespace RayTracerLib
                 if (MyMath.Distance2Points(sps.Coord, Center) <= this.Rad)
                 {
                     sps.Shape = this;
+                    sps.Material = this.Material;
                     InterPoint.Add(sps);
                     toReturn = true;
                 }

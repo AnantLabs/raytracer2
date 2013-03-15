@@ -67,7 +67,7 @@ namespace _3dEditor
             string time;
             if (ts.TotalHours > 1)
             {
-                time = String.Format("{0}h, {1}m, {2}s, {3}ms ", ts.Hours.ToString(), ts.Minutes.ToString(), ts.TotalSeconds.ToString(), ts.Milliseconds.ToString());
+                time = String.Format("{0}h, {1}m, {2}s, {3}ms ", ts.Hours.ToString(), ts.Minutes.ToString(), ts.Seconds.ToString(), ts.Milliseconds.ToString());
             }
             else if (ts.TotalMinutes > 1)
             {
