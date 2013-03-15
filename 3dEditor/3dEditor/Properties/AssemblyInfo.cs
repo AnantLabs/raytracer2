@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("3D Editor")]
+[assembly: AssemblyTitle("Raytracer 3D Editor")]
 [assembly: AssemblyDescription("3D editor for raytracing")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ondrej Bahounek")]
-[assembly: AssemblyProduct("3D Editor")]
+[assembly: AssemblyProduct("Raytracer 3D Editor")]
 [assembly: AssemblyCopyright("Copyright © OndrejBahounek 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

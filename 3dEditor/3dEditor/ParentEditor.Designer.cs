@@ -166,7 +166,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ParentEditor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "3D Editor";
+            this.Text = "RayTracer 3D Editor";
             this.Activated += new System.EventHandler(this.onShown);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BeforeClose);
             this.MdiChildActivate += new System.EventHandler(this.onMDIActive);
