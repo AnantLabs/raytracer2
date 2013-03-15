@@ -114,6 +114,22 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.panelImage = new System.Windows.Forms.Panel();
+            this.numericImgBackR = new System.Windows.Forms.NumericUpDown();
+            this.numericImgBackB = new System.Windows.Forms.NumericUpDown();
+            this.label226 = new System.Windows.Forms.Label();
+            this.numericImgBackG = new System.Windows.Forms.NumericUpDown();
+            this.label227 = new System.Windows.Forms.Label();
+            this.label228 = new System.Windows.Forms.Label();
+            this.numericImgAmbR = new System.Windows.Forms.NumericUpDown();
+            this.numericImgAmbB = new System.Windows.Forms.NumericUpDown();
+            this.label218 = new System.Windows.Forms.Label();
+            this.numericImgAmbG = new System.Windows.Forms.NumericUpDown();
+            this.label224 = new System.Windows.Forms.Label();
+            this.label225 = new System.Windows.Forms.Label();
+            this.btnImgAmbientCol = new System.Windows.Forms.Button();
+            this.label217 = new System.Windows.Forms.Label();
+            this.numericImgAbsorb = new System.Windows.Forms.NumericUpDown();
+            this.label216 = new System.Windows.Forms.Label();
             this.panelOptimGroup = new System.Windows.Forms.Panel();
             this.imgRadioOptKdtree = new System.Windows.Forms.RadioButton();
             this.imgRadioOptKdTreePoints = new System.Windows.Forms.RadioButton();
@@ -472,22 +488,6 @@
             this.numCustomCenterY = new System.Windows.Forms.NumericUpDown();
             this.label222 = new System.Windows.Forms.Label();
             this.label223 = new System.Windows.Forms.Label();
-            this.numericImgAbsorb = new System.Windows.Forms.NumericUpDown();
-            this.label216 = new System.Windows.Forms.Label();
-            this.btnImgAmbientCol = new System.Windows.Forms.Button();
-            this.label217 = new System.Windows.Forms.Label();
-            this.numericImgAmbR = new System.Windows.Forms.NumericUpDown();
-            this.numericImgAmbB = new System.Windows.Forms.NumericUpDown();
-            this.label218 = new System.Windows.Forms.Label();
-            this.numericImgAmbG = new System.Windows.Forms.NumericUpDown();
-            this.label224 = new System.Windows.Forms.Label();
-            this.label225 = new System.Windows.Forms.Label();
-            this.numericImgBackR = new System.Windows.Forms.NumericUpDown();
-            this.numericImgBackB = new System.Windows.Forms.NumericUpDown();
-            this.label226 = new System.Windows.Forms.Label();
-            this.numericImgBackG = new System.Windows.Forms.NumericUpDown();
-            this.label227 = new System.Windows.Forms.Label();
-            this.label228 = new System.Windows.Forms.Label();
             this.panelAnimace.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAnimRotY)).BeginInit();
@@ -521,6 +521,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericKouleZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericKouleY)).BeginInit();
             this.panelImage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericImgBackR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericImgBackB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericImgBackG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericImgAmbR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericImgAmbB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericImgAmbG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericImgAbsorb)).BeginInit();
             this.panelOptimGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericRecurs)).BeginInit();
             this.panelLight.SuspendLayout();
@@ -666,13 +673,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterY)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericImgAbsorb)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericImgAmbR)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericImgAmbB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericImgAmbG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericImgBackR)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericImgBackB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericImgBackG)).BeginInit();
             this.SuspendLayout();
             // 
             // colorDialog
@@ -1058,7 +1058,7 @@
             -2147483648});
             this.numAnimCenterX.Name = "numAnimCenterX";
             this.numAnimCenterX.Size = new System.Drawing.Size(61, 20);
-            this.numAnimCenterX.TabIndex = 20;
+            this.numAnimCenterX.TabIndex = 15;
             this.numAnimCenterX.ValueChanged += new System.EventHandler(this.actionAnimationSet);
             // 
             // label126
@@ -2018,6 +2018,219 @@
             this.panelImage.Name = "panelImage";
             this.panelImage.Size = new System.Drawing.Size(380, 340);
             this.panelImage.TabIndex = 61;
+            // 
+            // numericImgBackR
+            // 
+            this.numericImgBackR.DecimalPlaces = 4;
+            this.numericImgBackR.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericImgBackR.Location = new System.Drawing.Point(126, 67);
+            this.numericImgBackR.Name = "numericImgBackR";
+            this.numericImgBackR.Size = new System.Drawing.Size(61, 20);
+            this.numericImgBackR.TabIndex = 118;
+            this.numericImgBackR.ValueChanged += new System.EventHandler(this.actionImageSet);
+            // 
+            // numericImgBackB
+            // 
+            this.numericImgBackB.DecimalPlaces = 4;
+            this.numericImgBackB.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericImgBackB.Location = new System.Drawing.Point(277, 67);
+            this.numericImgBackB.Name = "numericImgBackB";
+            this.numericImgBackB.Size = new System.Drawing.Size(61, 20);
+            this.numericImgBackB.TabIndex = 116;
+            this.numericImgBackB.ValueChanged += new System.EventHandler(this.actionImageSet);
+            // 
+            // label226
+            // 
+            this.label226.AutoSize = true;
+            this.label226.BackColor = System.Drawing.Color.Transparent;
+            this.label226.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label226.Location = new System.Drawing.Point(109, 70);
+            this.label226.Name = "label226";
+            this.label226.Size = new System.Drawing.Size(18, 13);
+            this.label226.TabIndex = 117;
+            this.label226.Text = "R:";
+            // 
+            // numericImgBackG
+            // 
+            this.numericImgBackG.DecimalPlaces = 4;
+            this.numericImgBackG.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericImgBackG.Location = new System.Drawing.Point(203, 67);
+            this.numericImgBackG.Name = "numericImgBackG";
+            this.numericImgBackG.Size = new System.Drawing.Size(61, 20);
+            this.numericImgBackG.TabIndex = 119;
+            this.numericImgBackG.ValueChanged += new System.EventHandler(this.actionImageSet);
+            // 
+            // label227
+            // 
+            this.label227.AutoSize = true;
+            this.label227.BackColor = System.Drawing.Color.Transparent;
+            this.label227.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label227.Location = new System.Drawing.Point(264, 70);
+            this.label227.Name = "label227";
+            this.label227.Size = new System.Drawing.Size(17, 13);
+            this.label227.TabIndex = 120;
+            this.label227.Text = "B:";
+            // 
+            // label228
+            // 
+            this.label228.AutoSize = true;
+            this.label228.BackColor = System.Drawing.Color.Transparent;
+            this.label228.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label228.Location = new System.Drawing.Point(187, 70);
+            this.label228.Name = "label228";
+            this.label228.Size = new System.Drawing.Size(18, 13);
+            this.label228.TabIndex = 121;
+            this.label228.Text = "G:";
+            // 
+            // numericImgAmbR
+            // 
+            this.numericImgAmbR.DecimalPlaces = 4;
+            this.numericImgAmbR.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericImgAmbR.Location = new System.Drawing.Point(126, 112);
+            this.numericImgAmbR.Name = "numericImgAmbR";
+            this.numericImgAmbR.Size = new System.Drawing.Size(61, 20);
+            this.numericImgAmbR.TabIndex = 112;
+            this.numericImgAmbR.ValueChanged += new System.EventHandler(this.actionImageSet);
+            // 
+            // numericImgAmbB
+            // 
+            this.numericImgAmbB.DecimalPlaces = 4;
+            this.numericImgAmbB.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericImgAmbB.Location = new System.Drawing.Point(277, 112);
+            this.numericImgAmbB.Name = "numericImgAmbB";
+            this.numericImgAmbB.Size = new System.Drawing.Size(61, 20);
+            this.numericImgAmbB.TabIndex = 110;
+            this.numericImgAmbB.ValueChanged += new System.EventHandler(this.actionImageSet);
+            // 
+            // label218
+            // 
+            this.label218.AutoSize = true;
+            this.label218.BackColor = System.Drawing.Color.Transparent;
+            this.label218.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label218.Location = new System.Drawing.Point(109, 115);
+            this.label218.Name = "label218";
+            this.label218.Size = new System.Drawing.Size(18, 13);
+            this.label218.TabIndex = 111;
+            this.label218.Text = "R:";
+            // 
+            // numericImgAmbG
+            // 
+            this.numericImgAmbG.DecimalPlaces = 4;
+            this.numericImgAmbG.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericImgAmbG.Location = new System.Drawing.Point(203, 112);
+            this.numericImgAmbG.Name = "numericImgAmbG";
+            this.numericImgAmbG.Size = new System.Drawing.Size(61, 20);
+            this.numericImgAmbG.TabIndex = 113;
+            this.numericImgAmbG.ValueChanged += new System.EventHandler(this.actionImageSet);
+            // 
+            // label224
+            // 
+            this.label224.AutoSize = true;
+            this.label224.BackColor = System.Drawing.Color.Transparent;
+            this.label224.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label224.Location = new System.Drawing.Point(264, 115);
+            this.label224.Name = "label224";
+            this.label224.Size = new System.Drawing.Size(17, 13);
+            this.label224.TabIndex = 114;
+            this.label224.Text = "B:";
+            // 
+            // label225
+            // 
+            this.label225.AutoSize = true;
+            this.label225.BackColor = System.Drawing.Color.Transparent;
+            this.label225.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label225.Location = new System.Drawing.Point(187, 115);
+            this.label225.Name = "label225";
+            this.label225.Size = new System.Drawing.Size(18, 13);
+            this.label225.TabIndex = 115;
+            this.label225.Text = "G:";
+            // 
+            // btnImgAmbientCol
+            // 
+            this.btnImgAmbientCol.BackColor = System.Drawing.Color.Red;
+            this.btnImgAmbientCol.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnImgAmbientCol.Location = new System.Drawing.Point(342, 110);
+            this.btnImgAmbientCol.Name = "btnImgAmbientCol";
+            this.btnImgAmbientCol.Size = new System.Drawing.Size(34, 23);
+            this.btnImgAmbientCol.TabIndex = 81;
+            this.btnImgAmbientCol.Text = "...";
+            this.btnImgAmbientCol.UseVisualStyleBackColor = false;
+            this.btnImgAmbientCol.Click += new System.EventHandler(this.btnImageAmbientCol_Click);
+            // 
+            // label217
+            // 
+            this.label217.AutoSize = true;
+            this.label217.BackColor = System.Drawing.Color.Transparent;
+            this.label217.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label217.Location = new System.Drawing.Point(3, 113);
+            this.label217.Name = "label217";
+            this.label217.Size = new System.Drawing.Size(109, 16);
+            this.label217.TabIndex = 80;
+            this.label217.Text = "Ambient Color:";
+            // 
+            // numericImgAbsorb
+            // 
+            this.numericImgAbsorb.DecimalPlaces = 2;
+            this.numericImgAbsorb.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            131072});
+            this.numericImgAbsorb.Location = new System.Drawing.Point(132, 45);
+            this.numericImgAbsorb.Maximum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericImgAbsorb.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numericImgAbsorb.Name = "numericImgAbsorb";
+            this.numericImgAbsorb.Size = new System.Drawing.Size(61, 20);
+            this.numericImgAbsorb.TabIndex = 79;
+            this.numericImgAbsorb.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericImgAbsorb.ValueChanged += new System.EventHandler(this.actionImageSet);
+            // 
+            // label216
+            // 
+            this.label216.AutoSize = true;
+            this.label216.BackColor = System.Drawing.Color.Transparent;
+            this.label216.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label216.Location = new System.Drawing.Point(3, 48);
+            this.label216.Name = "label216";
+            this.label216.Size = new System.Drawing.Size(128, 16);
+            this.label216.TabIndex = 78;
+            this.label216.Text = "Color Absorbtion:";
             // 
             // panelOptimGroup
             // 
@@ -7464,219 +7677,6 @@
             this.label223.TabIndex = 24;
             this.label223.Text = "Y:";
             // 
-            // numericImgAbsorb
-            // 
-            this.numericImgAbsorb.DecimalPlaces = 2;
-            this.numericImgAbsorb.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            131072});
-            this.numericImgAbsorb.Location = new System.Drawing.Point(132, 45);
-            this.numericImgAbsorb.Maximum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericImgAbsorb.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.numericImgAbsorb.Name = "numericImgAbsorb";
-            this.numericImgAbsorb.Size = new System.Drawing.Size(61, 20);
-            this.numericImgAbsorb.TabIndex = 79;
-            this.numericImgAbsorb.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericImgAbsorb.ValueChanged += new System.EventHandler(this.actionImageSet);
-            // 
-            // label216
-            // 
-            this.label216.AutoSize = true;
-            this.label216.BackColor = System.Drawing.Color.Transparent;
-            this.label216.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label216.Location = new System.Drawing.Point(3, 48);
-            this.label216.Name = "label216";
-            this.label216.Size = new System.Drawing.Size(128, 16);
-            this.label216.TabIndex = 78;
-            this.label216.Text = "Color Absorbtion:";
-            // 
-            // btnImgAmbientCol
-            // 
-            this.btnImgAmbientCol.BackColor = System.Drawing.Color.Red;
-            this.btnImgAmbientCol.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnImgAmbientCol.Location = new System.Drawing.Point(342, 110);
-            this.btnImgAmbientCol.Name = "btnImgAmbientCol";
-            this.btnImgAmbientCol.Size = new System.Drawing.Size(34, 23);
-            this.btnImgAmbientCol.TabIndex = 81;
-            this.btnImgAmbientCol.Text = "...";
-            this.btnImgAmbientCol.UseVisualStyleBackColor = false;
-            this.btnImgAmbientCol.Click += new System.EventHandler(this.btnImageAmbientCol_Click);
-            // 
-            // label217
-            // 
-            this.label217.AutoSize = true;
-            this.label217.BackColor = System.Drawing.Color.Transparent;
-            this.label217.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label217.Location = new System.Drawing.Point(3, 113);
-            this.label217.Name = "label217";
-            this.label217.Size = new System.Drawing.Size(109, 16);
-            this.label217.TabIndex = 80;
-            this.label217.Text = "Ambient Color:";
-            // 
-            // numericImgAmbR
-            // 
-            this.numericImgAmbR.DecimalPlaces = 4;
-            this.numericImgAmbR.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericImgAmbR.Location = new System.Drawing.Point(126, 112);
-            this.numericImgAmbR.Name = "numericImgAmbR";
-            this.numericImgAmbR.Size = new System.Drawing.Size(61, 20);
-            this.numericImgAmbR.TabIndex = 112;
-            this.numericImgAmbR.ValueChanged += new System.EventHandler(this.actionImageSet);
-            // 
-            // numericImgAmbB
-            // 
-            this.numericImgAmbB.DecimalPlaces = 4;
-            this.numericImgAmbB.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericImgAmbB.Location = new System.Drawing.Point(277, 112);
-            this.numericImgAmbB.Name = "numericImgAmbB";
-            this.numericImgAmbB.Size = new System.Drawing.Size(61, 20);
-            this.numericImgAmbB.TabIndex = 110;
-            this.numericImgAmbB.ValueChanged += new System.EventHandler(this.actionImageSet);
-            // 
-            // label218
-            // 
-            this.label218.AutoSize = true;
-            this.label218.BackColor = System.Drawing.Color.Transparent;
-            this.label218.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label218.Location = new System.Drawing.Point(109, 115);
-            this.label218.Name = "label218";
-            this.label218.Size = new System.Drawing.Size(18, 13);
-            this.label218.TabIndex = 111;
-            this.label218.Text = "R:";
-            // 
-            // numericImgAmbG
-            // 
-            this.numericImgAmbG.DecimalPlaces = 4;
-            this.numericImgAmbG.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericImgAmbG.Location = new System.Drawing.Point(203, 112);
-            this.numericImgAmbG.Name = "numericImgAmbG";
-            this.numericImgAmbG.Size = new System.Drawing.Size(61, 20);
-            this.numericImgAmbG.TabIndex = 113;
-            this.numericImgAmbG.ValueChanged += new System.EventHandler(this.actionImageSet);
-            // 
-            // label224
-            // 
-            this.label224.AutoSize = true;
-            this.label224.BackColor = System.Drawing.Color.Transparent;
-            this.label224.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label224.Location = new System.Drawing.Point(264, 115);
-            this.label224.Name = "label224";
-            this.label224.Size = new System.Drawing.Size(17, 13);
-            this.label224.TabIndex = 114;
-            this.label224.Text = "B:";
-            // 
-            // label225
-            // 
-            this.label225.AutoSize = true;
-            this.label225.BackColor = System.Drawing.Color.Transparent;
-            this.label225.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label225.Location = new System.Drawing.Point(187, 115);
-            this.label225.Name = "label225";
-            this.label225.Size = new System.Drawing.Size(18, 13);
-            this.label225.TabIndex = 115;
-            this.label225.Text = "G:";
-            // 
-            // numericImgBackR
-            // 
-            this.numericImgBackR.DecimalPlaces = 4;
-            this.numericImgBackR.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericImgBackR.Location = new System.Drawing.Point(126, 67);
-            this.numericImgBackR.Name = "numericImgBackR";
-            this.numericImgBackR.Size = new System.Drawing.Size(61, 20);
-            this.numericImgBackR.TabIndex = 118;
-            this.numericImgBackR.ValueChanged += new System.EventHandler(this.actionImageSet);
-            // 
-            // numericImgBackB
-            // 
-            this.numericImgBackB.DecimalPlaces = 4;
-            this.numericImgBackB.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericImgBackB.Location = new System.Drawing.Point(277, 67);
-            this.numericImgBackB.Name = "numericImgBackB";
-            this.numericImgBackB.Size = new System.Drawing.Size(61, 20);
-            this.numericImgBackB.TabIndex = 116;
-            this.numericImgBackB.ValueChanged += new System.EventHandler(this.actionImageSet);
-            // 
-            // label226
-            // 
-            this.label226.AutoSize = true;
-            this.label226.BackColor = System.Drawing.Color.Transparent;
-            this.label226.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label226.Location = new System.Drawing.Point(109, 70);
-            this.label226.Name = "label226";
-            this.label226.Size = new System.Drawing.Size(18, 13);
-            this.label226.TabIndex = 117;
-            this.label226.Text = "R:";
-            // 
-            // numericImgBackG
-            // 
-            this.numericImgBackG.DecimalPlaces = 4;
-            this.numericImgBackG.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericImgBackG.Location = new System.Drawing.Point(203, 67);
-            this.numericImgBackG.Name = "numericImgBackG";
-            this.numericImgBackG.Size = new System.Drawing.Size(61, 20);
-            this.numericImgBackG.TabIndex = 119;
-            this.numericImgBackG.ValueChanged += new System.EventHandler(this.actionImageSet);
-            // 
-            // label227
-            // 
-            this.label227.AutoSize = true;
-            this.label227.BackColor = System.Drawing.Color.Transparent;
-            this.label227.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label227.Location = new System.Drawing.Point(264, 70);
-            this.label227.Name = "label227";
-            this.label227.Size = new System.Drawing.Size(17, 13);
-            this.label227.TabIndex = 120;
-            this.label227.Text = "B:";
-            // 
-            // label228
-            // 
-            this.label228.AutoSize = true;
-            this.label228.BackColor = System.Drawing.Color.Transparent;
-            this.label228.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label228.Location = new System.Drawing.Point(187, 70);
-            this.label228.Name = "label228";
-            this.label228.Size = new System.Drawing.Size(18, 13);
-            this.label228.TabIndex = 121;
-            this.label228.Text = "G:";
-            // 
             // WndProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -7741,6 +7741,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericKouleY)).EndInit();
             this.panelImage.ResumeLayout(false);
             this.panelImage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericImgBackR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericImgBackB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericImgBackG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericImgAmbR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericImgAmbB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericImgAmbG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericImgAbsorb)).EndInit();
             this.panelOptimGroup.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericRecurs)).EndInit();
             this.panelLight.ResumeLayout(false);
@@ -7896,13 +7903,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterZ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCustomCenterY)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericImgAbsorb)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericImgAmbR)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericImgAmbB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericImgAmbG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericImgBackR)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericImgBackB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericImgBackG)).EndInit();
             this.ResumeLayout(false);
 
         }

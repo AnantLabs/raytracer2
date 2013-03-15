@@ -4691,7 +4691,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
 		<row><td>UNINST_Uninstall_Raytracer_3D_Editor_</td><td>raytracer_3d_editor_</td><td>##IDS_SHORTCUT_DISPLAY_NAME3##</td><td>NewComponent1</td><td>[SystemFolder]msiexec.exe</td><td>/x {2379EC6E-E7B3-491A-9BFD-38BE514CD215}</td><td/><td/><td>UNINST_Uninstall_R_C7ECEDF3902C48BC93A66B801A5B9528.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>_Built</td><td>raytracer_3d_editor_</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>_dEditor.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_A82476B687C247A9A98605103745EA08.exe</td><td>0</td><td>3</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built</td><td>raytracer_3d_editor_</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>_dEditor.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_A82476B687C247A9A98605103745EA08.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

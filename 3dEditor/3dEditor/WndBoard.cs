@@ -68,7 +68,7 @@ namespace _3dEditor
 
         int _scale;
         int _zoom;
-        int _ZOOM_INCREMENT = 5;
+        int _ZOOM_INCREMENT = 3;
         const int _SCALE_INIT = 150;
         const int _ZOOM_INIT = 70;
         /// <summary>
@@ -175,7 +175,6 @@ namespace _3dEditor
             // nastaveni obsluhy udalosti k menu vybratelnych objektu kliknutim
             this.drawItemFlowLayout1.OnMyEnter += new MenuDrawItemFlowLayout.MenuDrawingItemEventHandler(OnShowItemFromControlMenu);
             this.drawItemFlowLayout1.OnMyClick += new MenuDrawItemFlowLayout.MenuDrawingItemEventHandler(OnClickItemFromControlMenu);
-
             Reset();
         }
 
@@ -293,10 +292,9 @@ namespace _3dEditor
             else
             {
                 _zoom -= _ZOOM_INCREMENT;
-                if (_zoom < 0)
-                    _zoom = 0;
+                if (_zoom < 10)
+                    _zoom = 10;
             }
-
         }
 
         private void onPaintBoard(object sender, PaintEventArgs e)
@@ -312,7 +310,6 @@ namespace _3dEditor
         }
         private void Redraw(Graphics g)
         {
-            
             _editHelp.ClearAllClickableObjects();
 
             if (this.WindowState == FormWindowState.Minimized) return;
@@ -321,14 +318,12 @@ namespace _3dEditor
             g = Graphics.FromImage(_editorBmp);
             g.SmoothingMode = SmoothingMode.AntiAlias;      // ANTIALIASING!!!
 
-
             // ================================ DRAWING:
             // =========================================
             // vykresli vsechny primky
             //
             //if (toolBtnGrid.Checked)
             //    DrawGrid(g, _grid);
-
             // osy:
             if (toolBtnAxes.Checked)
                 DrawAxes(g);
@@ -917,7 +912,6 @@ namespace _3dEditor
                     _editHelp.AddClickableObject(editorObject);
 
                 }
-
             }
 
             pictureBoard.Image = _editorBmp;
@@ -998,7 +992,6 @@ namespace _3dEditor
             g.DrawString("X", _fontAxis, Brushes.Black, x);
             g.DrawString("Y", _fontAxis, Brushes.Black, y);
             g.DrawString("Z", _fontAxis, Brushes.Black, z);
-
 
             PointF xy = _axisXY.To2D(_scale, _zoom, _centerPoint);
             //g.FillPolygon(Brushes.Tomato, new PointF[] { c, x, xy, y, c}, FillMode.Alternate);
@@ -1106,7 +1099,8 @@ namespace _3dEditor
             }
             else
             {
-                //_Selected = null;   // otazka, zda po kliknuti do prazdneho prostoru, zobrazit vlastnosti
+                if(e.Button == MouseButtons.Right)
+                _Selected = null;   // otazka, zda po kliknuti do prazdneho prostoru, zobrazit vlastnosti
                 //labelClick.Text = "---";
             }
             pictureBoard.Focus();
@@ -1988,8 +1982,8 @@ namespace _3dEditor
             if (e.Clicks < 2)   // neni-li doubleclick, konec
                 return;
 
-            if (_Selected == null)   // nebyl-li vybran zadny kreslici objekt v mouseDown, pak konec
-                return;
+            //if (_Selected == null)   // nebyl-li vybran zadny kreslici objekt v mouseDown, pak konec
+            //    return;
 
             _Selected = null;
 
