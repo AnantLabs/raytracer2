@@ -116,7 +116,7 @@
             this.panelImage = new System.Windows.Forms.Panel();
             this.panelOptimGroup = new System.Windows.Forms.Panel();
             this.imgRadioOptKdtree = new System.Windows.Forms.RadioButton();
-            this.imgRadioOptThreading = new System.Windows.Forms.RadioButton();
+            this.imgRadioOptKdTreePoints = new System.Windows.Forms.RadioButton();
             this.imgRadioOptAABBTree = new System.Windows.Forms.RadioButton();
             this.imgRadioOptOctTree = new System.Windows.Forms.RadioButton();
             this.checkOptimize = new System.Windows.Forms.CheckBox();
@@ -2023,7 +2023,7 @@
             // 
             this.panelOptimGroup.BackColor = System.Drawing.Color.Transparent;
             this.panelOptimGroup.Controls.Add(this.imgRadioOptKdtree);
-            this.panelOptimGroup.Controls.Add(this.imgRadioOptThreading);
+            this.panelOptimGroup.Controls.Add(this.imgRadioOptKdTreePoints);
             this.panelOptimGroup.Controls.Add(this.imgRadioOptAABBTree);
             this.panelOptimGroup.Controls.Add(this.imgRadioOptOctTree);
             this.panelOptimGroup.Location = new System.Drawing.Point(21, 174);
@@ -2037,19 +2037,19 @@
             this.imgRadioOptKdtree.Name = "imgRadioOptKdtree";
             this.imgRadioOptKdtree.Size = new System.Drawing.Size(196, 17);
             this.imgRadioOptKdtree.TabIndex = 81;
-            this.imgRadioOptKdtree.Text = "LocalMatrices";
+            this.imgRadioOptKdtree.Text = "KdTree";
             this.imgRadioOptKdtree.UseVisualStyleBackColor = true;
             this.imgRadioOptKdtree.CheckedChanged += new System.EventHandler(this.OptimizeRadioChanged);
             // 
-            // imgRadioOptThreading
+            // imgRadioOptKdTreePoints
             // 
-            this.imgRadioOptThreading.Location = new System.Drawing.Point(9, 71);
-            this.imgRadioOptThreading.Name = "imgRadioOptThreading";
-            this.imgRadioOptThreading.Size = new System.Drawing.Size(196, 17);
-            this.imgRadioOptThreading.TabIndex = 80;
-            this.imgRadioOptThreading.Text = "Threading";
-            this.imgRadioOptThreading.UseVisualStyleBackColor = true;
-            this.imgRadioOptThreading.CheckedChanged += new System.EventHandler(this.OptimizeRadioChanged);
+            this.imgRadioOptKdTreePoints.Location = new System.Drawing.Point(9, 71);
+            this.imgRadioOptKdTreePoints.Name = "imgRadioOptKdTreePoints";
+            this.imgRadioOptKdTreePoints.Size = new System.Drawing.Size(196, 17);
+            this.imgRadioOptKdTreePoints.TabIndex = 80;
+            this.imgRadioOptKdTreePoints.Text = "KdTree Points";
+            this.imgRadioOptKdTreePoints.UseVisualStyleBackColor = true;
+            this.imgRadioOptKdTreePoints.CheckedChanged += new System.EventHandler(this.OptimizeRadioChanged);
             // 
             // imgRadioOptAABBTree
             // 
@@ -8297,7 +8297,7 @@
         private System.Windows.Forms.Label label202;
         private System.Windows.Forms.Label label203;
         private System.Windows.Forms.Panel panelOptimGroup;
-        private System.Windows.Forms.RadioButton imgRadioOptThreading;
+        private System.Windows.Forms.RadioButton imgRadioOptKdTreePoints;
         private System.Windows.Forms.RadioButton imgRadioOptAABBTree;
         private System.Windows.Forms.RadioButton imgRadioOptOctTree;
         private System.Windows.Forms.RadioButton imgRadioOptKdtree;

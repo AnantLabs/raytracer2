@@ -148,6 +148,7 @@ namespace RayTracerLib
                 List<BoundingVolume> bounds = new List<BoundingVolume>();
                 foreach (DefaultShape shape in objects)
                 {
+                    if (shape is Plane || !shape.IsActive) continue;
                     BoundingVolume bv = new BoundingVolume(shape);
                     bounds.Add(bv);
                 }

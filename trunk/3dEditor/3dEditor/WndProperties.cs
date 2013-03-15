@@ -79,6 +79,8 @@ namespace _3dEditor
             imgRadioOptOctTree.Tag = Optimalizer.OptimizeType.OCTREE;
             imgRadioOptKdtree.Text = Enum.GetName(typeof(Optimalizer.OptimizeType), Optimalizer.OptimizeType.KDTREE);
             imgRadioOptKdtree.Tag = Optimalizer.OptimizeType.KDTREE;
+            imgRadioOptKdTreePoints.Text = Enum.GetName(typeof(Optimalizer.OptimizeType), Optimalizer.OptimizeType.KDTREE_POINTS);
+            imgRadioOptKdTreePoints.Tag = Optimalizer.OptimizeType.KDTREE_POINTS;
             SetAllInvisible();
             SetPanelsSize(380, 340);
             this.Text = "Properties";
@@ -850,8 +852,12 @@ namespace _3dEditor
                 _permissionToModify = false;
                 this.numSphColR.Value = (decimal)col.R;
                 this.numSphColG.Value = (decimal)col.G;
-                _permissionToModify = true;
                 this.numSphColB.Value = (decimal)col.B;
+                _permissionToModify = true;
+
+                actionSphereSet(sender, e);
+                Button btn = sender as Button;
+                btn.BackColor = colorDialog.Color;
             }
             _WndBoard.AllowPaint(true);
         }
@@ -931,8 +937,12 @@ namespace _3dEditor
                 _permissionToModify = false;
                 this.numPlaneColR.Value = (decimal)col.R;
                 this.numPlaneColG.Value = (decimal)col.G;
-                _permissionToModify = true;
                 this.numPlaneColB.Value = (decimal)col.B;
+                _permissionToModify = true;
+
+                actionPlaneSet(sender, e);
+                Button btn = sender as Button;
+                btn.BackColor = colorDialog.Color;
             }
             _WndBoard.AllowPaint(true);
         }
@@ -1013,9 +1023,10 @@ namespace _3dEditor
                 _permissionToModify = false;
                 this.numBoxColR.Value = (decimal)col.R;
                 this.numBoxColG.Value = (decimal)col.G;
-                _permissionToModify = true;
                 this.numBoxColB.Value = (decimal)col.B;
+                _permissionToModify = true;
 
+                actionCubeSet(sender, e);
                 Button btn = sender as Button;
                 btn.BackColor = colorDialog.Color;
             }
@@ -1120,8 +1131,10 @@ namespace _3dEditor
                 _permissionToModify = false;
                 this.numCylColR.Value = (decimal)col.R;
                 this.numCylColG.Value = (decimal)col.G;
-                _permissionToModify = true;
                 this.numCylColB.Value = (decimal)col.B;
+                _permissionToModify = true;
+
+                actionCylinderSetMaterial(sender, e);
                 Button btn = sender as Button;
                 btn.BackColor = colorDialog.Color;
             }
@@ -1275,8 +1288,10 @@ namespace _3dEditor
                 _permissionToModify = false;
                 this.numericConeColR.Value = (decimal)col.R;
                 this.numericConeColG.Value = (decimal)col.G;
-                _permissionToModify = true;
                 this.numericConeColB.Value = (decimal)col.B;
+                _permissionToModify = true;
+
+                actionConeSetMaterial(sender, e);
                 Button btn = sender as Button;
                 btn.BackColor = colorDialog.Color;
             }
@@ -1466,8 +1481,12 @@ namespace _3dEditor
                 _permissionToModify = false;
                 this.numericSvetloR.Value = (decimal)col.R;
                 this.numericSvetloG.Value = (decimal)col.G;
-                _permissionToModify = true;
                 this.numericSvetloB.Value = (decimal)col.B;
+                _permissionToModify = true;
+
+                actionLightSet(sender, e);
+                Button btn = sender as Button;
+                btn.BackColor = colorDialog.Color;
             }
             _WndBoard.AllowPaint(true);
         }
@@ -2146,9 +2165,10 @@ namespace _3dEditor
                 _permissionToModify = false;
                 this.numCustomColR.Value = (decimal)col.R;
                 this.numCustomColG.Value = (decimal)col.G;
-                _permissionToModify = true;
                 this.numCustomColB.Value = (decimal)col.B;
+                _permissionToModify = true;
 
+                actionCustomSet(sender, e);
                 Button btn = sender as Button;
                 btn.BackColor = colorDialog.Color;
             }

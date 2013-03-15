@@ -85,18 +85,22 @@ namespace _3dEditor
         {
             string time;
             double ms = Math.Round(ts.Milliseconds / 100.0);
+            //int secs = ts.Seconds;
+            //if (ms == 10) { secs++; ms = 0; }
+            double secs = Math.Round(ts.TotalMilliseconds / 1000.0,2);
+            //ms = ts.Milliseconds;
             if (ts.TotalHours > 1)
             {
-                time = String.Format("{0}h, {1}m,  {2}s", ts.Hours.ToString(), ts.Minutes.ToString(), ts.TotalSeconds.ToString());
+                time = String.Format("{0}h, {1}m,  {2}s", ts.Hours.ToString(), ts.Minutes.ToString(), ts.Seconds.ToString());
             }
             else if (ts.TotalMinutes > 1)
             {
-                time = String.Format("{0}m, {1}s, {2}ms", ts.Minutes.ToString(), ts.Seconds.ToString(), ms.ToString());
+                time = String.Format("{0}m, {1}s, {2}ms", ts.Minutes.ToString(), secs.ToString(), ms.ToString());
             }
             else
             {
 
-                time = String.Format("{0},{1}s", ts.Seconds.ToString(), ms.ToString());
+                time = String.Format("{0}s", secs.ToString());//, ms.ToString());
             }
             return time;
         }

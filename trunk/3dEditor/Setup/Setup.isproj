@@ -1,0 +1,48 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+	<PropertyGroup>
+		<!-- Select a Product Configuration -->
+		<InstallShieldProductConfiguration>Express</InstallShieldProductConfiguration>
+		<!-- Select a Visual Studio Configuration / InstallShield Release -->
+		<Configuration>Debug</Configuration>
+		<InstallShieldRelease>$(Configuration)</InstallShieldRelease>
+	</PropertyGroup>
+	<ItemGroup>
+		<!-- The InstallShieldProject item selects the project to build -->
+		<InstallShieldProject Include="$(MSBuildProjectDirectory)\$(MSBuildProjectName).isl"/>
+		<!-- The InstallShieldReleaseFlags sets Release Flags -->
+		<!--<InstallShieldReleaseFlags Include=""/>-->
+		<!-- The InstallShieldMergeModulePath specifies what directories are
+		searched for Merge Modules -->
+		<!--<InstallShieldMergeModulePath Include=""/>-->
+	</ItemGroup>
+	<ItemGroup>
+		<!-- The ProjectReference items refer to any Visual Studio solutions you want to automatically probe for Project Output Groups.  -->
+	</ItemGroup>
+	<ItemGroup>
+		<!-- The TaggedOutputs items allow you to explicitly add extra files to output groups. Each item must include both Name and OutputGroup, as well as TargetPath metadata values. -->
+		<!--<TaggedOutputs Include="C:\My Test Exe.exe">
+			<Name>My Test Project</Name>
+			<OutputGroup>Primary output</OutputGroup>
+			<TargetPath>My Test Exe.exe</TargetPath>
+		</TaggedOutputs> -->
+	</ItemGroup>
+	<Import Project="$(MSBuildExtensionsPath32)\InstallShield\2012SpringLimited\InstallShield.targets"/>
+	<ItemGroup>
+		<ProjectReference Include="..\3dEditor\3dEditor.csproj">
+			<Name>3dEditor</Name>
+			<Project>{A58244ED-5CFD-4972-BDD5-B7B579DADD30}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\EditorLib\EditorLib.csproj">
+			<Name>EditorLib</Name>
+			<Project>{910F9DBC-754D-47AE-BAB4-F24EC4268ACF}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\Mathematics\Mathematics.csproj">
+			<Name>Mathematics</Name>
+			<Project>{5D8D6B50-76B0-4A34-B5D5-6B5DFDD5BE34}</Project>
+		</ProjectReference>
+		<ProjectReference Include="..\RayTracerLib\RayTracerLib.csproj">
+			<Name>RayTracerLib</Name>
+			<Project>{1276C07D-7BA3-466C-8D0E-3B4342F3583E}</Project>
+		</ProjectReference>
+	</ItemGroup>
+</Project>

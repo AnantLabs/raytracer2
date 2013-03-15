@@ -18,6 +18,7 @@ namespace RayTracerLib
             bool isInters = false;
             foreach (DefaultShape df in DefaultShapes)
             {
+                if (df is Plane) continue;
                 isInters = df.Intersects(P0, Pd, ref intersPts) || isInters;
             }
             return isInters;

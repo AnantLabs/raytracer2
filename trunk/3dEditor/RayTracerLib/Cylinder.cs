@@ -165,7 +165,7 @@ namespace RayTracerLib
             // vime: C .. stred roviny
             //       Norm .. normala roviny = Dir nebo -Dir
             // chceme: D
-
+            bool toReturn = false;
             if (_plane1 == null)
             {
                 _c1 = this.Center + DirNorm * (Height / 2);
@@ -181,7 +181,9 @@ namespace RayTracerLib
                 if (MyMath.Distance2Points(sps.Coord, _c1) <= this.Rad)
                 {
                     sps.Shape = this;
+                    sps.Material = this.Material;
                     InterPoint.Add(sps);
+                    toReturn = true;
                 }
             }
 
@@ -201,7 +203,9 @@ namespace RayTracerLib
                 if (MyMath.Distance2Points(sps.Coord, _c2) <= this.Rad)
                 {
                     sps.Shape = this;
+                    sps.Material = this.Material;
                     InterPoint.Add(sps);
+                    toReturn = true;
                 }
             }
 
@@ -232,7 +236,7 @@ namespace RayTracerLib
 
             double discr = B * B - 4 * A * C;
             if (discr < MyMath.EPSILON)
-                return false;
+                return toReturn;
 
             discr = Math.Sqrt(discr);
             double jmenovatel = 2 * A;
@@ -246,7 +250,7 @@ namespace RayTracerLib
             if (tMin < MyMath.EPSILON)
                 t = tMax;
             if (t < MyMath.EPSILON)
-                return false;
+                return toReturn;
 
             SolidPoint sp = new SolidPoint();
             sp.T = t;
@@ -256,7 +260,7 @@ namespace RayTracerLib
             Vektor PC2 = Vektor.Projection(DirNorm, PC);
 
             if (PC2 * DirNorm < MyMath.EPSILON || PC2.Size() > Height)
-                return false;
+                return toReturn;
 
             //sp.Shape = new Sphere(PC2, this.R);
             Vektor v1 = sp.Coord - CenterLow;

@@ -472,7 +472,7 @@ namespace RayTracerLib
                 colorCoef = kt;
             }
 
-            double diffuse = colorCoef * kd * Math.Abs(insXnormal);
+            double diffuse = 0.0;//colorCoef * kd * Math.Abs(insXnormal);
             double specular = 0.0;
 
             if (Ray != null)

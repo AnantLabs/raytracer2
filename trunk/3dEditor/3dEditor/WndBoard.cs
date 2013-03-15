@@ -1033,10 +1033,11 @@ namespace _3dEditor
                     this.drawItemFlowLayout1.Visible = false;
                     if (drawingList.Count == 0)
                     {
-                        WndScene wndSc = GetWndScene();
-                        RayImage img = wndSc.GetSelectedImage();
-                        wndSc.ShowNode(img);
-                        pictureBoard.Focus();
+                        //_Selected = null;
+                        //WndScene wndSc = GetWndScene();
+                        //RayImage img = wndSc.GetSelectedImage();
+                        //wndSc.ShowNode(img);
+                        //pictureBoard.Focus();
                         
                     } 
                 }
@@ -1105,7 +1106,7 @@ namespace _3dEditor
             }
             else
             {
-                _Selected = null;   // otazka, zda po kliknuti do prazdneho prostoru, zobrazit vlastnosti
+                //_Selected = null;   // otazka, zda po kliknuti do prazdneho prostoru, zobrazit vlastnosti
                 //labelClick.Text = "---";
             }
             pictureBoard.Focus();
@@ -1990,17 +1991,14 @@ namespace _3dEditor
             if (_Selected == null)   // nebyl-li vybran zadny kreslici objekt v mouseDown, pak konec
                 return;
 
+            _Selected = null;
+
             _isDragging = false; // nepresouvame objekt;
 
-            //labelClick.Text = "Double Click";
-
-            Vektor zpoint = new Vektor(0, 0, 1);
-            this._matrixForever.TransformPoint(zpoint);
-            Vektor zpointNorm = new Vektor(zpoint);
-            zpointNorm.Normalize();
-            
-            PointF pf1 = _Selected.Points[0].To2D(_scale, _zoom, _centerPoint);
-            Vektor p3d = Vektor.To3D_From2D(pf1, zpoint.Z, _scale, _zoom, _centerPoint);
+            WndScene wndSc = GetWndScene();
+            RayImage img = wndSc.GetSelectedImage();
+            wndSc.ShowNode(img);
+            pictureBoard.Focus();
         }
 
         private void MoveSelectedObject(double dx, double dy, double dz)

@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Animation.cs" />
+    <Compile Include="BoundingPoint.cs" />
     <Compile Include="BoundingVolume.cs" />
     <Compile Include="Box.cs" />
     <Compile Include="Camera.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="IOptimize.cs" />
     <Compile Include="ISpatialPoint.cs" />
     <Compile Include="KDTree.cs" />
+    <Compile Include="KDTreeExtend.cs" />
     <Compile Include="LabeledShape.cs" />
     <Compile Include="NaiveRaytracing.cs" />
     <Compile Include="Octree.cs" />
