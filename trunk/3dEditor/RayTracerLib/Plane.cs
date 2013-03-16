@@ -122,7 +122,7 @@ namespace RayTracerLib
             Interlocked.Increment(ref DefaultShape.TotalTested);
 
             Vektor normal = DirNom;
-            Pd.Normalize();
+            //Pd.Normalize();
 
             double Vd = normal * Pd;
 
@@ -137,7 +137,7 @@ namespace RayTracerLib
             double t = V0 / Vd;
 
             // paprsek protina rovinu zezadu
-            if (t < 0.0)
+            if (t <= 0.0)
                 return false;
 
             Vektor Bounds = P0 + Pd * t;

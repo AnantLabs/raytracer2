@@ -248,7 +248,7 @@ namespace RayTracerLib
 
             double discr = b * b - 4 * a * c;
 
-            if (discr < MyMath.EPSILON) return toReturn;
+            if (discr < 0.0) return toReturn;
 
             double discrSqrt = Math.Sqrt(discr);
             double t1 = (-b - discrSqrt) / (2 * a);
@@ -263,8 +263,24 @@ namespace RayTracerLib
                 t = tMax;
             if (t < MyMath.EPSILON)
                 return toReturn;
-
+            //t = tMax;
             Vektor Point = P0 + Pd * t;
+            double dasda = Math.Acos(uw);
+            if (uw > 0 &&  1-Math.Abs(uw) < 0.001)
+            {
+                t = tMax;
+                Point = P0 + Pd * t;
+            }
+            //if ( uw > 0 &&tMin * tMax < 0)// uw>0 &&Math.Acos(uw) <0.2)//(uw > 0 && 1 - Math.Abs(uw) > 0.0 && 1 - Math.Abs(uw) < 0.01)
+            //{
+            //    t = tMax;
+            //    Point = P0 + Pd * t;
+            //}
+            //else if (uw < 0 && 1 - Math.Abs(uw) < 0.001)// && tMin * tMax > 0)
+            //{
+            //    t = tMin;
+            //    Point = P0 + Pd * t;
+            //}
             Vektor q = Point - Peak;
             Vektor q0 = q - DirNom * (q * DirNom);
             //q0.Normalize();
@@ -279,7 +295,7 @@ namespace RayTracerLib
             //// TED MAME DVA KUZELE, Z NICHZ MUSIME VYBRAT JEN TEN SPRAVNEJ
             // pro nej plati, ze bod pruniku lezi v kladne polorovine:
             double qw = q * DirNom;
-            if (qw <= 0) return toReturn;
+            if (qw < 0.0) return toReturn;
 
             SolidPoint sp = new SolidPoint();
             sp.Color = this.Material.Color;
