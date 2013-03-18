@@ -35,7 +35,7 @@ namespace _3dEditor
             this.labelCompanyName.Text = String.Format("Author: {0}", AssemblyCompany);
             this.textBoxDescription.Text = AssemblyDescription;
 
-            this.labelReleaseDate.Text = String.Format("Release Date: {0}", "May 2011");
+            this.labelReleaseDate.Text = String.Format("Release Date: {0}", "April 2013");
         }
 
         #region Assembly Attribute Accessors

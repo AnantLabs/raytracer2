@@ -1894,7 +1894,7 @@
 		<col def="S72">ISComponentSubFolder_</col>
 		<row><td>_deditor.primary_output</td><td>_dEditor.Primary_output</td><td>3dEditor.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;3dEditor&gt;|Built</td><td>3</td><td/></row>
 		<row><td>editorlib.primary_output</td><td>EditorLib.Primary_output</td><td>EditorLib.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;EditorLib&gt;|Built</td><td>3</td><td/></row>
-		<row><td>icon.ico</td><td>ISX_DEFAULTCOMPONENT</td><td>icon.ico</td><td>0</td><td/><td/><td/><td>1</td><td>D:\My Works\VisualStudio apps\3dEditor\3dEditor\bin\Release\Images\icon.ico</td><td>1</td><td/></row>
+		<row><td>icon.ico</td><td>ISX_DEFAULTCOMPONENT</td><td>icon.ico</td><td>0</td><td/><td/><td/><td>1</td><td>D:\My Works\VisualStudio apps\3dEditor\3dEditor\Images\icon.ico</td><td>1</td><td/></row>
 		<row><td>mathematics.primary_output</td><td>Mathematics.Primary_output</td><td>Mathematics.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Mathematics&gt;|Built</td><td>3</td><td/></row>
 		<row><td>raytracerlib.primary_output</td><td>RayTracerLib.Primary_output</td><td>RayTracerLib.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;RayTracerLib&gt;|Built</td><td>3</td><td/></row>
 	</table>
@@ -2791,7 +2791,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Ondrej Bahounek</td><td>0</td><td/><td>2040649808</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Ondrej Bahounek</td><td>0</td><td/><td>-1851679913</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>2040635247</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>2040635247</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION35</td><td>1033</td><td>Microsoft .NET Framework 3.5 needs to be installed for this installation to continue.</td><td>0</td><td/><td>2040609424</td></row>
@@ -3896,8 +3896,8 @@
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>2040635247</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>2040635247</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td/><td>0</td><td/><td>2040637295</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>http://www.facebook.com/ondra.bahounek</td><td>0</td><td/><td>2040606962</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>Ondrej Bahounek</td><td>0</td><td/><td>2040649808</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>http://www.OndrejBahounek.com</td><td>0</td><td/><td>-1851679913</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>Ondrej Bahounek</td><td>0</td><td/><td>-1851679913</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td/><td>0</td><td/><td>2040650352</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td/><td>0</td><td/><td>2040652400</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>2040635247</td></row>
@@ -4009,7 +4009,7 @@
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>D:\My Works\VisualStudio apps\3dEditor\3dEditor\bin\Release\icon.ico</td><td>0</td></row>
 		<row><td>UNINST_Uninstall_R_C7ECEDF3902C48BC93A66B801A5B9528.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2012SpringLE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
-		<row><td>_Built_A82476B687C247A9A98605103745EA08.exe</td><td/><td>D:\My Works\VisualStudio apps\3dEditor\3dEditor\bin\Release\Images\icon.ico</td><td>0</td></row>
+		<row><td>_Built_ED662CA7A4EB4844B561D640AADE3B20.exe</td><td/><td>D:\My Works\VisualStudio apps\3dEditor\3dEditor\Images\icon.ico</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4691,7 +4691,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
 		<row><td>UNINST_Uninstall_Raytracer_3D_Editor_</td><td>raytracer_3d_editor_</td><td>##IDS_SHORTCUT_DISPLAY_NAME3##</td><td>NewComponent1</td><td>[SystemFolder]msiexec.exe</td><td>/x {2379EC6E-E7B3-491A-9BFD-38BE514CD215}</td><td/><td/><td>UNINST_Uninstall_R_C7ECEDF3902C48BC93A66B801A5B9528.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>_Built</td><td>raytracer_3d_editor_</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>_dEditor.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_A82476B687C247A9A98605103745EA08.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built</td><td>raytracer_3d_editor_</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>_dEditor.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_ED662CA7A4EB4844B561D640AADE3B20.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">
