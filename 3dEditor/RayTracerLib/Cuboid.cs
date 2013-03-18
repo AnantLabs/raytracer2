@@ -299,9 +299,15 @@ namespace RayTracerLib
             {
                 Cube cube = (Cube)item;
                 double r = cube.Size / 2;
-                double u = Math.Sqrt(r * r + r * r);
-                double d = Math.Sqrt(r * r + u * u);        // vzdalenost stredu krychle od jednoho rohu - polovicni uhlopricka // Pythagorova veta
-                cluster = new Cuboid(cube.Center, d * 2);
+                double s = cube.Size;
+                //double u = Math.Sqrt(r * r + r * r);
+                //double d = Math.Sqrt(r * r + u * u);        // vzdalenost stredu krychle od jednoho rohu - polovicni uhlopricka // Pythagorova veta
+                //cluster = new Cuboid(cube.Center, d * 2);
+
+
+                double u = Math.Sqrt(s * s +s * s);
+                double d = Math.Sqrt(s * s + u * u);        // vzdalenost stredu krychle od jednoho rohu - polovicni uhlopricka // Pythagorova veta
+                cluster = new Cuboid(cube.Center, d );
             }
             else if (item is Cylinder)
             {
