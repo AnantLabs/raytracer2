@@ -155,7 +155,7 @@ namespace _3dEditor
             _rayTracer.RScene = new Scene();
             Sphere sph1 = new Sphere(new Vektor(0.5, -1.5, -1.5), 1, new Colour(1, 0.5, 0.1, 1));
             Sphere sph2 = new Sphere(new Vektor(-2, -1, -10), 1.5);
-            Cube cube1 = new Cube(new Vektor(0.1, 0.7, -3), new Vektor(1, 1, 1), 1);
+            Cube cube1 = new Cube(new Vektor(0, 0, 0), new Vektor(1, 0, 0), 1);
             //Cube cube2 = new Cube(new Vektor(1.6, -0.1, -5.2), new Vektor(1, 1, 1), 1);
             Cube cube2 = new Cube(new Vektor(0, 0, 0), new Vektor(1, 1, 1), 1);
             cube2.Material.Color = Colour.ColourCreate(Color.Gold);
@@ -173,19 +173,19 @@ namespace _3dEditor
             _rayTracer.RScene.SceneObjects.Clear();
 
             _rayTracer.RScene.Lights[0].Coord = new Vektor(-4.2, 2.1, 0.6);
-            _rayTracer.RScene.Lights[1].Coord = new Vektor(5.5, -0.4, 2.2);
+            _rayTracer.RScene.Lights[1].Coord = new Vektor(0, 0, -5);
             _rayTracer.RCamera.Source = new Vektor(0, 0, -10);
             _rayTracer.RCamera.SetNormAndUp(new Vektor(0, 0, 1), new Vektor(0, 1, 0));
             //_rayTracer.RScene.SceneObjects.Add(sph1);
             //_rayTracer.RScene.SceneObjects.Add(sph2);
-            //_rayTracer.RScene.SceneObjects.Add(cube1);
+            _rayTracer.RScene.SceneObjects.Add(cube1);
             //_rayTracer.RScene.SceneObjects.Add(cube2);
             //_rayTracer.RScene.SceneObjects.Add(tr1);
             //_rayTracer.RScene.SceneObjects.Add(cone2);
             //_rayTracer.RScene.SceneObjects.Add(cone3);
             //_rayTracer.RScene.SceneObjects.Add(cone4);
             //_rayTracer.RScene.SceneObjects.Add(cone5);
-            _rayTracer.RScene.SceneObjects.Add(plane1);
+            //_rayTracer.RScene.SceneObjects.Add(plane1);
             //_rayTracer.RScene.SceneObjects.Add(cyl);
             //sph2.IsActive = false;
 
@@ -194,7 +194,7 @@ namespace _3dEditor
             
 
             CustomObject custom = CustomObject.CreateCube();
-            _rayTracer.RScene.SceneObjects.Add(custom);
+            //_rayTracer.RScene.SceneObjects.Add(custom);
 
             CustomObject planeCustom = CustomObject.CreatePlane();
             //_rayTracer.RScene.SceneObjects.Add(planeCustom);

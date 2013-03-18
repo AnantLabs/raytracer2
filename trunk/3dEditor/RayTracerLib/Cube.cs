@@ -20,10 +20,29 @@ namespace RayTracerLib
         public Vektor Dir { get; private set; }
         [DataMember]
         public Vektor Center { get; private set; }
+        /// <summary>
+        /// delka cele steny
+        /// </summary>
         [DataMember]
         public double Size { get; private set; }
 
 
+        private Vektor MinPoint = new Vektor();
+        private Vektor MaxPoint = new Vektor();
+
+        public double Xmin { get { return MinPoint.X; } private set { MinPoint.X = value; } }
+        public double Ymin { get { return MinPoint.Y; } private set { MinPoint.Y = value; } }
+        public double Zmin { get { return MinPoint.Z; } private set { MinPoint.Z = value; } }
+
+        public double Xmax { get { return MaxPoint.X; } private set { MaxPoint.X = value; } }
+        public double Ymax { get { return MaxPoint.Y; } private set { MaxPoint.Y = value; } }
+        public double Zmax { get { return MaxPoint.Z; } private set { MaxPoint.Z = value; } }
+
+        [DataMember]
+        public double[] Degs { get; set; }
+        /// <summary>
+        /// polomer delky steny
+        /// </summary>
         private double R;
 
         /// <summary>
@@ -46,6 +65,10 @@ namespace RayTracerLib
         /// </summary>
         private List<Plane> PlanesOpp;
 
+        /// <summary>
+        /// predspocitane inverzni matice
+        /// </summary>
+        private Matrix3D _transpRot, _transpShift;
 
         public Cube() : this(new Vektor(0, 0, 0), new Vektor(0, 0, 1), 1) { }
 
@@ -54,12 +77,74 @@ namespace RayTracerLib
             SetLabelPrefix("cube");
             IsActive = true;
             this.Material = new Material();
-            SetValues(center, dir, size);
+            SetValues(center, size, 0, 0, 0);
+            Dir = Vektor.ZeroVektor;
         }
 
 
+        public void SetValues(Vektor center, double size, double rotX, double rotY, double rotZ)
+        {
+            if (size <= MyMath.EPSILON) throw new Exception("Cube can not have negative side length");
+            Center = new Vektor(center);
+            Size = size;
+            R = size / 2;
 
+            Xmin = -R;// center.X - R;
+            Xmax = R;//center.X + R;
+            Ymin = -R;// center.Y - R;
+            Ymax = R;// center.Y + R;
+            Zmin = -R; // center.Z - R;
+            Zmax = R;// center.Z + R;
+
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(Center);
+            _transpShift = _ShiftMatrix.GetOppositeShiftMatrix();
+            Degs = new double[3] { rotX, rotY, rotZ };
+            //Degs[0] = Degs[0] % 90;
+            //Degs[1] = Degs[1] % 90;
+            //Degs[2] = Degs[2] % 90;
+            //if (Degs[0] < 0) Degs[0] += 90;
+            //if (Degs[1] < 0) Degs[1] += 90;
+            //if (Degs[2] < 0) Degs[2] += 90;
+
+            // rotace z kvaternionu je opacne orientovana, proto minuska
+            _RotatMatrix = Matrix3D.NewRotateByDegrees(Degs[0], Degs[1], Degs[2]);
+            _transpRot = _RotatMatrix.Transpose();
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+        }
         public void SetValues(Vektor center, Vektor dir, double size)
+        {
+            if (size <= MyMath.EPSILON) throw new Exception("Cube can not have negative side length");
+            Center = new Vektor(center);
+            Size = size;
+            R = size / 2;
+            Dir = new Vektor(dir);
+
+            Xmin = -R;// center.X - R;
+            Xmax = R;//center.X + R;
+            Ymin = -R;// center.Y - R;
+            Ymax = R;// center.Y + R;
+            Zmin = -R; // center.Z - R;
+            Zmax = R;// center.Z + R;
+
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(Center);
+            _transpShift = _ShiftMatrix.GetOppositeShiftMatrix();
+            //Vektor yAxe = new Vektor(1, 1, 0);
+            //Quaternion q = new Quaternion(yAxe, new Vektor(dir));
+            //double[] degss = q.ToEulerDegs();
+            //Degs = q.ToEulerDegs();
+            //degss[0] = degss[0] % 180;
+            //degss[1] = degss[1] % 180;
+            //degss[2] = degss[2] % 180;
+            //if (degss[0] < 0) degss[0] += 180;
+            //if (degss[1] < 0) degss[1] += 180;
+            //if (degss[2] < 0) degss[2] += 180;
+
+            //// rotace z kvaternionu je opacne orientovana, proto minuska
+            //_RotatMatrix = Matrix3D.NewRotateByDegrees(-Degs[0], -Degs[1], -Degs[2]);
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+        }
+
+        public void SetValues2(Vektor center, Vektor dir, double size)
         {
             Center = new Vektor(center);
             Size = size;
@@ -185,6 +270,164 @@ namespace RayTracerLib
 
             Interlocked.Increment(ref DefaultShape.TotalTested);
 
+            //Matrix3D transpRot = _RotatMatrix.Transpose();
+            //Matrix3D transpShift = _ShiftMatrix.GetOppositeShiftMatrix();
+            Vektor p0 = _transpShift.Transform2NewPoint(P0);
+            p0 = _transpRot.Transform2NewPoint(p0);
+            Vektor pd = _transpRot.Transform2NewPoint(Pd);
+            pd.Normalize();
+
+
+            byte osaFar = 0;
+            byte osaNear = 0;
+
+            double tNear = Double.MinValue;
+            double tFar = Double.MaxValue;
+            double t1, t2;
+            double temp;
+
+
+            /////////////////////////////
+            // osa X:
+            /////////////////////////////
+            if (pd.X == 0 && (p0.X < Xmin || p0.X > Xmax))
+                return false;
+
+            if (pd.X != 0)
+            {
+                t1 = (Xmin - p0.X) / pd.X;
+                t2 = (Xmax - p0.X) / pd.X;
+
+                // vymenime t1 a t2
+                if (t1 > t2)
+                {
+                    temp = t1;
+                    t1 = t2;
+                    t2 = temp;
+                }
+
+                if (t1 > tNear)
+                {
+                    osaNear = 1;
+                    tNear = t1;
+                }
+
+                if (t2 < tFar)
+                {
+                    osaFar = 1;
+                    tFar = t2;
+                }
+
+                if (tNear > tFar || tFar < MyMath.EPSILON)
+                    return false;
+            }
+            /////////////////////////////
+            // osa Y:
+            /////////////////////////////
+            if (pd.Y == 0 && (p0.Y < Ymin || p0.Y > Ymax))
+                return false;
+
+            if (pd.Y != 0)
+            {
+                t1 = (Ymin - p0.Y) / pd.Y;
+                t2 = (Ymax - p0.Y) / pd.Y;
+                Vektor normY = new Vektor(0, -1, 0);
+                if (t1 > t2)
+                {
+                    temp = t1;
+                    t1 = t2;
+                    t2 = temp;
+                }
+
+                if (t1 > tNear)
+                {
+                    osaNear = 2;
+                    tNear = t1;
+                }
+
+                if (t2 < tFar)
+                {
+                    osaFar = 2;
+                    tFar = t2;
+                }
+
+                if (tNear > tFar || tFar < MyMath.EPSILON)
+                    return false;
+            }
+
+            /////////////////////////////
+            // osa Z:
+            /////////////////////////////
+            if (pd.Z == 0 && (p0.Z < Zmin || p0.Z > Zmax))
+                return false;
+
+            if (pd.Z != 0)
+            {
+
+                t1 = (Zmin - p0.Z) / pd.Z;
+                t2 = (Zmax - p0.Z) / pd.Z;
+                if (t1 > t2)
+                {
+                    temp = t1;
+                    t1 = t2;
+                    t2 = temp;
+                }
+
+                if (t1 > tNear)
+                {
+                    osaNear = 3;
+                    tNear = t1;
+                }
+
+                if (t2 < tFar)
+                {
+                    osaFar = 3;
+                    tFar = t2;
+                }
+
+                if (tNear > tFar || tFar < MyMath.EPSILON)
+                    return false;
+            }
+            Vektor norm = Vektor.ZeroVektor;
+            
+            Vektor point = p0 + pd * tNear;
+            if (Math.Abs(point.X - MinPoint.X) < MyMath.EPSILON)
+                norm.X = -1;
+            else if (Math.Abs(point.Y - MinPoint.Y) < MyMath.EPSILON)
+                norm.Y = -1;
+            else if (Math.Abs(point.Z - MinPoint.Z) < MyMath.EPSILON)
+                norm.Z = -1;
+            else if (Math.Abs(point.X - MaxPoint.X) < MyMath.EPSILON)
+                norm.X = 1;
+            else if (Math.Abs(point.Y - MaxPoint.Y) < MyMath.EPSILON)
+                norm.Y = 1;
+            else if (Math.Abs(point.Z - MaxPoint.Z) < MyMath.EPSILON)
+                norm.Z = 1;
+
+
+            SolidPoint sp = new SolidPoint();
+            sp.Color = this.Material.Color;
+            //_ShiftMatrix.TransformPoint(point);
+            //_RotatMatrix.TransformPoint(point);
+            _localMatrix.TransformPoint(point);
+            sp.Coord = point;
+            //Vektor size = point - P0;
+            //double len = size.Size();
+            sp.T = tNear;
+            sp.Normal = _RotatMatrix.Transform2NewPoint(norm);
+            sp.Normal.Normalize();
+            sp.Shape = this;
+            sp.Material = this.Material;
+            InterPoint.Add(sp);
+            return true;
+        }
+        public bool Intersects_OLD(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
+        {
+            if (!IsActive)
+                return false;
+
+            Interlocked.Increment(ref DefaultShape.TotalTested);
+
             // 1) spocitani pruniku s prvni dvojici sten
             // rovina jedne podstavy: C*Norm = D
             // vime: C .. stred roviny
@@ -272,7 +515,7 @@ namespace RayTracerLib
         {
             Matrix3D newRot = Matrix3D.NewRotateByDegrees(degAroundX, degAroundY, degAroundZ);
 
-            Vektor yAxe = new Vektor(0, 1, 0);
+            Vektor yAxe = new Vektor(1, 1, 0);
             newRot.TransformPoint(yAxe);
 
             // 1) pretransformovat vsechny vektory do puvodniho (zakladniho) tvaru
@@ -286,12 +529,14 @@ namespace RayTracerLib
             _localMatrix = _RotatMatrix * _ShiftMatrix;
 
             // 3) prenastavit objekt podle nove matice
-            this.SetValues(this.Center, yAxe, this.Size);
+            //this.SetValues(this.Center, yAxe, this.Size);
+            this.SetValues(this.Center, this.Size, degAroundX, degAroundY, degAroundZ);
         }
 
         public override DefaultShape FromDeserial()
         {
             Cube cube = new Cube(this.Center, this.Dir, this.Size);
+            cube.SetValues(this.Center, this.Size, this.Degs[0], this.Degs[1], this.Degs[2]);
             cube.Label = this.Label;
             cube.Material = this.Material;
             cube.IsActive = this.IsActive;

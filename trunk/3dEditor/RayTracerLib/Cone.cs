@@ -40,6 +40,10 @@ namespace RayTracerLib
         [DataMember]
         public double Height { get; private set; }
 
+        [DataMember]
+        double[] Degs { get; set; }
+
+
         private Vektor DirNom;
         private double S;
         Plane Bottom;
@@ -97,17 +101,39 @@ namespace RayTracerLib
             this.S = old.S;
         }
 
+        public void SetValues(Vektor peak, double rad, double height, double degX, double degY, double degZ)
+        {
+            Peak = peak;
 
+            Rad = rad;
+            Height = height;
+            _RotatMatrix = Matrix3D.NewRotateByDegrees(degX, degY, degZ);
+
+            Dir = new Vektor(0, 1, 0);
+            //_RotatMatrix.TransformPoint(Dir);
+            this.DirNom = new Vektor(Dir);
+            DirNom.Normalize();
+
+            Center = Peak + DirNom * height;
+            double tt = Center.Size();
+            double T = Rad / Height;
+            S = 1 + T * T;
+
+            Bottom = new Plane(DirNom, -(Center * DirNom), this.Material);
+
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(peak.X, peak.Y, peak.Z);
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+        }
         /// <summary>
         /// prenastaveni kuzele
         /// </summary>
-        /// <param name="c">vrchol kuzele</param>
+        /// <param name="peak">vrchol kuzele</param>
         /// <param name="dir">osa kuzele (nemusi byt normalizovana)</param>
         /// <param name="rad">polomer podstavy</param>
         /// <param name="height">vyska kuzele</param>
-        public void SetValues(Vektor c, Vektor dir, double rad, double height)
+        public void SetValues(Vektor peak, Vektor dir, double rad, double height)
         {
-            Peak = c;
+            Peak = peak;
             
             Rad = rad;
             Height = height;
@@ -130,7 +156,7 @@ namespace RayTracerLib
 
             Bottom = new Plane(DirNom, -(Center * DirNom), this.Material);
 
-            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(c.X, c.Y, c.Z);
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(peak.X, peak.Y, peak.Z);
 
             Vektor yAxe = new Vektor(0, 1, 0);
             Quaternion q = new Quaternion(yAxe, new Vektor(dir));
@@ -139,48 +165,10 @@ namespace RayTracerLib
 
             // rotace z kvaternionu je opacne orientovana, proto minuska
             Matrix3D matCr = Matrix3D.NewRotateByDegrees(-degss[0], -degss[1], -degss[2]);
+            
+            double[] degss3 = matCr.GetAnglesFromMatrix();
             _RotatMatrix = matCr;
             _localMatrix = _RotatMatrix * _ShiftMatrix;
-
-            //_ShiftMatrix = Matrix3D.PosunutiNewMatrix(c.X, c.Y, c.Z);
-
-            //Vektor yAxe = new Vektor(0, 1, 0);
-
-            //Quaternion q2 = new Quaternion(DirNom, yAxe);
-            //q2.Transpose();
-            //double[] degs2 = q2.ToEulerDegs();
-            //Matrix3D m2 = q2.Matrix();
-            //degs2 = m2.GetAnglesFromMatrix();
-            //Vektor p2 = m2.Transform2NewPoint(yAxe);
-            //p2 = q2.Rotate(DirNom);
-            //p2 = q2.Rotate(yAxe);
-
-            //Vektor crossProd = DirNom.CrossProduct(yAxe);
-            //double theta = Math.Acos(DirNom * yAxe);
-            //Quaternion quatern = new Quaternion(crossProd, MyMath.Radians2Deg(theta));
-            //double[] degss = quatern.ToEulerDegs();
-            //Matrix3D matQrt = quatern.Matrix();
-            //Vektor pointTest = matQrt.Transform2NewPoint(DirNom);
-            //pointTest = quatern.Rotate(DirNom);
-            //pointTest = quatern.Rotate(yAxe);
-
-            //matQrt = matQrt.Transpose();
-            //pointTest = matQrt.Transform2NewPoint(yAxe);
-
-            //Matrix3D matCr = Matrix3D.NewRotateByDegrees(-degss[0], -degss[1], -degss[2]);
-            //pointTest = matCr.Transform2NewPoint(DirNom);
-            ////matCr = matCr.Transpose();
-            //pointTest = matCr.Transform2NewPoint(yAxe);
-
-            ////matCr = matCr.Transpose();
-            //_RotatMatrix = matCr;
-            ////_RotatMatrix = q2.Matrix();
-            //double[] degss2 = _RotatMatrix.GetAnglesFromMatrix();
-            //degss2 = matCr.GetAnglesFromMatrix();
-
-
-            //_localMatrix = _RotatMatrix * _ShiftMatrix;
-
         }
 
         private void SetValues(Vektor peak, Matrix3D rotatMatrix, double rad, double height)
@@ -207,6 +195,111 @@ namespace RayTracerLib
         }
 
         public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
+        {
+            if (!IsActive) return false;
+
+            Interlocked.Increment(ref DefaultShape.TotalTested);
+
+            bool toReturn = false;
+            /////////////////////////////////////////
+            // 1) prunik paprsku s podstavou
+
+            List<SolidPoint> BasePoints = new List<SolidPoint>();
+            Bottom.Intersects(P0, Pd, ref BasePoints);
+
+            double planeT = 0.0;
+            foreach (SolidPoint sps in BasePoints)
+            {
+                if (sps.T < MyMath.EPSILON) continue;
+                if (MyMath.Distance2Points(sps.Coord, Center) <= this.Rad)
+                {
+                    sps.Shape = this;
+                    sps.Material = this.Material;
+                    InterPoint.Add(sps);
+                    planeT = sps.T;
+                    toReturn = true;
+                }
+            }
+
+
+            /////////////////////////////////////////
+            // 2) prunik paprsku s plastem
+
+            Vektor p = P0 - Peak;
+
+            double pp = p * p;
+            double pu = p * Pd;
+            double uu = Pd * Pd;
+            double uw = Pd * DirNom;
+            double pw = p * DirNom;
+
+            double a = uu - S * uw * uw;
+            double b = 2 * (pu - S * pw * uw);
+            double c = pp - S * pw * pw;
+
+            double discr = b * b - 4 * a * c;
+
+            if (discr < 0.0) return toReturn;
+
+            double discrSqrt = Math.Sqrt(discr);
+            double t1 = (-b - discrSqrt) / (2 * a);
+            double t2 = (-b + discrSqrt) / (2 * a);
+
+            // vybereme mensi t, ktere je kladne
+            double tMin = Math.Min(t1, t2);
+            double tMax = Math.Max(t1, t2);
+
+            double t = tMin;
+            if (tMin < MyMath.EPSILON)
+                t = tMax;
+            if (t < MyMath.EPSILON)
+                return toReturn;
+            Vektor Point = P0 + Pd * t;
+
+            if (1 - Math.Abs(uu) < MyMath.EPSILON)//( uw > 0 && 1 - Math.Abs(uw) < 0.001))
+            {
+                t = tMax;
+                if (planeT > 0)
+                    if (tMax - planeT > 0)
+                    {
+                        t = tMin;
+                    }
+
+                Point = P0 + Pd * t;
+            }
+            if (1 - Math.Abs(uw) > 0.0628 && tMin > 0)//0.0628
+            {
+                    t = tMin;
+                    Point = P0 + Pd * t;
+            }
+            Vektor q = Point - Peak;
+            Vektor q0 = q - DirNom * (q * DirNom);
+            
+            //q0.Normalize();
+            Vektor qt = Vektor.CrossProduct(DirNom, q0);
+            Vektor len = DirNom * (q * DirNom);
+            double leng = len.Size();
+            if (leng > Height) return toReturn;
+            //qt.Normalize();
+            Vektor n = Vektor.CrossProduct(qt, q);
+            n.Normalize();
+            //// TED MAME DVA KUZELE, Z NICHZ MUSIME VYBRAT JEN TEN SPRAVNEJ
+            // pro nej plati, ze bod pruniku lezi v kladne polorovine:
+            double qw = q * DirNom;
+            if (qw < 0.0 || t < MyMath.EPSILON) return toReturn;
+
+            SolidPoint sp = new SolidPoint();
+            sp.Color = this.Material.Color;
+            sp.Coord = Point;
+            sp.T = t;
+            sp.Normal = n;
+            sp.Shape = this;
+            sp.Material = this.Material;
+
+            InterPoint.Add(sp);
+            return true;
+        }
+        public bool Intersects2(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
         {
             if (!IsActive) return false;
 
@@ -329,7 +422,7 @@ namespace RayTracerLib
         {
             Matrix3D newRot = Matrix3D.NewRotateByDegrees(degX, degY, degZ);
 
-            Vektor yAxe = new Vektor(0, 1, 0);
+            Vektor yAxe = new Vektor(0,1, 0);
             newRot.TransformPoint(yAxe);
 
             // 1) pretransformovat vsechny vektory do puvodniho (zakladniho) tvaru
@@ -341,9 +434,11 @@ namespace RayTracerLib
             // 2) nastavit novou matici
             this._RotatMatrix = newRot;
             _localMatrix = _RotatMatrix * _ShiftMatrix;
+            double[] degss2 = _RotatMatrix.GetAnglesFromMatrix();
 
             // 3) prenastavit objekt podle nove matice
             this.SetValues(this.Peak, yAxe, this.Rad, this.Height);
+            //this.SetValues(this.Peak, this.Rad, this.Height, degX, degY, degZ);
         }
 
         public override DefaultShape FromDeserial()
@@ -353,6 +448,7 @@ namespace RayTracerLib
             c.IsActive = this.IsActive;
             c.Material = this.Material;
             return c;
-        }
+        }
+
     }
 }
