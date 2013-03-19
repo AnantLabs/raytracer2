@@ -122,7 +122,7 @@ namespace RayTracerLib
             Interlocked.Increment(ref DefaultShape.TotalTested);
 
             Vektor normal = DirNom;
-            //Pd.Normalize();
+            Pd.Normalize();
 
             double Vd = normal * Pd;
 
