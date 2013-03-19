@@ -200,6 +200,8 @@ namespace RayTracerLib
 
             Interlocked.Increment(ref DefaultShape.TotalTested);
 
+            //Pd.Normalize();
+
             bool toReturn = false;
             /////////////////////////////////////////
             // 1) prunik paprsku s podstavou
