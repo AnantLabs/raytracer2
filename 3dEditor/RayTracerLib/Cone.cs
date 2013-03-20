@@ -200,7 +200,7 @@ namespace RayTracerLib
 
             Interlocked.Increment(ref DefaultShape.TotalTested);
 
-            //Pd.Normalize();
+            Pd.Normalize();
 
             bool toReturn = false;
             /////////////////////////////////////////
@@ -258,21 +258,27 @@ namespace RayTracerLib
                 return toReturn;
             Vektor Point = P0 + Pd * t;
 
-            if (1 - Math.Abs(uu) < MyMath.EPSILON)//( uw > 0 && 1 - Math.Abs(uw) < 0.001))
+            //if (1 - Math.Abs(uu) < MyMath.EPSILON)//( uw > 0 && 1 - Math.Abs(uw) < 0.001))
+            //{
+            //    t = tMax;
+            //    if (planeT > 0)
+            //        if (tMax - planeT > 0)
+            //        {
+            //            t = tMin;
+            //        }
+
+            //    Point = P0 + Pd * t;
+            //}
+            //if (1 - Math.Abs(uw) > 0.0628 && tMin > 0)//0.0628
+            //{
+            //    t = tMin;
+            //    Point = P0 + Pd * t;
+            //}
+
+            if ( uw > 0 && 1 - Math.Abs(uw) < 0.001)
             {
                 t = tMax;
-                if (planeT > 0)
-                    if (tMax - planeT > 0)
-                    {
-                        t = tMin;
-                    }
-
                 Point = P0 + Pd * t;
-            }
-            if (1 - Math.Abs(uw) > 0.0628 && tMin > 0)//0.0628
-            {
-                    t = tMin;
-                    Point = P0 + Pd * t;
             }
             Vektor q = Point - Peak;
             Vektor q0 = q - DirNom * (q * DirNom);
