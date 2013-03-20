@@ -139,6 +139,8 @@ namespace RayTracerLib
 
             Vektor u = A - P0; // vektor z P0 do C
 
+            //Pd.Normalize();
+
             double n_v = Norm * Pd;
             if (Math.Abs(n_v) < MyMath.EPSILON) return false; // rovnobezne, nebo splyvaji
             double n_u = Norm * u;
