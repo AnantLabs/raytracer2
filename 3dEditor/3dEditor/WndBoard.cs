@@ -157,7 +157,7 @@ namespace _3dEditor
             _editHelp = new EditHelper();
             
 
-            this.MouseWheel += new MouseEventHandler(onBoard_MouseWheel);
+            this.MouseWheel += new MouseEventHandler(onMouseWheel);
             //_grid = new List<Line3D>((int)Math.Pow(_GRID_SIZE_INIT + 1, 3));
             _objectsToDraw = new List<DrawingObject>(30);
 
@@ -282,7 +282,7 @@ namespace _3dEditor
             Redraw();
         }
 
-        void onBoard_MouseWheel(object sender, MouseEventArgs e)
+        void onMouseWheel(object sender, MouseEventArgs e)
         {
             this.drawItemFlowLayout1.Visible = false;
             if (!this.pictureBoard.ClientRectangle.Contains(e.Location))
@@ -292,8 +292,8 @@ namespace _3dEditor
             else
             {
                 _zoom -= _ZOOM_INCREMENT;
-                if (_zoom < 10)
-                    _zoom = 10;
+                if (_zoom < 5)
+                    _zoom = 5;
             }
         }
 
@@ -308,12 +308,14 @@ namespace _3dEditor
             if (_AllowPaint)
             this.Redraw(_g);
         }
+        
         private void Redraw(Graphics g)
         {
             _editHelp.ClearAllClickableObjects();
 
             if (this.WindowState == FormWindowState.Minimized) return;
 
+            int drawedCount = 0;
             _editorBmp = new Bitmap(pictureBoard.Width, pictureBoard.Height);
             g = Graphics.FromImage(_editorBmp);
             g.SmoothingMode = SmoothingMode.AntiAlias;      // ANTIALIASING!!!
@@ -338,7 +340,8 @@ namespace _3dEditor
 
                     if (defSpape.IsActive == false)
                         continue;
-
+                    if (drawedCount > 100) break;
+                    drawedCount++;
                     Color color = defSpape.Material.Color.SystemColor();
 
                     if (obj == _Selected)
@@ -1911,6 +1914,7 @@ namespace _3dEditor
                 wndScene.AddItem(drobj);
             }
         }
+        int _maximumObjects = 30;
         
         /// <summary>
         /// Prida scenu do editoru. I do vsech oken celeho editoru.
@@ -1922,8 +1926,11 @@ namespace _3dEditor
             wndScene.BlinkActivate = false;
             _currentScene = scene;
             this._objectsToDraw.Clear();
+            int i = 0;
             foreach (DefaultShape shape in scene.SceneObjects)
             {
+                if (i > _maximumObjects) break;
+                i++;
                 // prida novy objekt ze sveta raytraceru do sveta editoru
                 AddRaytrObject(shape);
             }

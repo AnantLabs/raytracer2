@@ -104,10 +104,16 @@ namespace RayTracerLib
             MaxZ = Math.Max(maxZ, minZ);
         }
 
-        public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
+        public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint, bool isForLight, double lightDist)
         {
             if (!IsActive)
                 return false;
+
+            if (isForLight && InterPoint.Count > 0)
+            {
+                foreach (SolidPoint solp in InterPoint)
+                    if (lightDist > solp.T) return true;
+            }
             Interlocked.Increment(ref DefaultShape.TotalTested);
 
             Vektor normal = new Vektor(Normal);

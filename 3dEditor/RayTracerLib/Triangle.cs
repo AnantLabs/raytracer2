@@ -132,14 +132,22 @@ namespace RayTracerLib
             _invDelitel = 1 / (_dot00 * _dot11 - _dot01 * _dot01);
         }
 
-        public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
+        public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint, bool isForLight, double lightDist)
         {
-            if (!IsActive) return false;
+            if (!IsActive)
+                return false;
+
+            if (isForLight && InterPoint.Count > 0)
+            {
+                foreach (SolidPoint solp in InterPoint)
+                    if (lightDist > solp.T) return true;
+            }
+
             Interlocked.Increment(ref DefaultShape.TotalTested);
 
             Vektor u = A - P0; // vektor z P0 do C
 
-            //Pd.Normalize();
+            Pd.Normalize();
 
             double n_v = Norm * Pd;
             if (Math.Abs(n_v) < MyMath.EPSILON) return false; // rovnobezne, nebo splyvaji

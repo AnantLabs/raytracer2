@@ -13,13 +13,13 @@ namespace RayTracerLib
         {
             DefaultShapes = defaultShapes;
         }
-        public bool Intersection(Mathematics.Vektor P0, Mathematics.Vektor Pd, ref List<SolidPoint> intersPts)
+        public bool Intersection(Mathematics.Vektor P0, Mathematics.Vektor Pd, ref List<SolidPoint> intersPts, bool isForLight, double lightDist)
         {
             bool isInters = false;
             foreach (DefaultShape df in DefaultShapes)
             {
                 if (df is Plane) continue;
-                isInters = df.Intersects(P0, Pd, ref intersPts) || isInters;
+                isInters = df.Intersects(P0, Pd, ref intersPts, isForLight, lightDist) || isInters;
             }
             return isInters;
         }

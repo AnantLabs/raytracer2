@@ -194,9 +194,16 @@ namespace RayTracerLib
             //_localMatrix.TransformPoint(this.Center);
         }
 
-        public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
+        public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint, bool isForLight, double lightDist)
         {
-            if (!IsActive) return false;
+            if (!IsActive)
+                return false;
+
+            if (isForLight && InterPoint.Count > 0)
+            {
+                foreach (SolidPoint solp in InterPoint)
+                    if (lightDist > solp.T) return true;
+            }
 
             Interlocked.Increment(ref DefaultShape.TotalTested);
 
@@ -207,7 +214,7 @@ namespace RayTracerLib
             // 1) prunik paprsku s podstavou
 
             List<SolidPoint> BasePoints = new List<SolidPoint>();
-            Bottom.Intersects(P0, Pd, ref BasePoints);
+            Bottom.Intersects(P0, Pd, ref BasePoints, isForLight, lightDist);
 
             double planeT = 0.0;
             foreach (SolidPoint sps in BasePoints)
@@ -318,7 +325,7 @@ namespace RayTracerLib
             // 1) prunik paprsku s podstavou
             
             List<SolidPoint> BasePoints = new List<SolidPoint>();
-            Bottom.Intersects(P0, Pd, ref BasePoints);
+            Bottom.Intersects(P0, Pd, ref BasePoints, false, 0);
             
             foreach (SolidPoint sps in BasePoints)
             {

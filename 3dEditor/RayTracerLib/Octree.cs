@@ -138,7 +138,7 @@ namespace RayTracerLib
             return (this.Points.Count == 0);
         }
 
-        public bool Intersection(Vektor P0, Vektor Pd, ref List<SolidPoint> intersPts)
+        public bool Intersection(Vektor P0, Vektor Pd, ref List<SolidPoint> intersPts, bool isForLight, double lightDist)
         {
             //if (root == null) return false;
             if (Points.Count  == 0) return false;
@@ -156,14 +156,14 @@ namespace RayTracerLib
                 {
                     if (child != null)
                     {
-                        isInters = child.Intersection(P0, Pd, ref intersPts) || isInters;
+                        isInters = child.Intersection(P0, Pd, ref intersPts, isForLight, lightDist) || isInters;
                     }
                 }
             else
             {
                 foreach (BoundingVolume bv in Points)
                 {
-                    isInters = bv.Item.Intersects(P0, Pd, ref intersPts) || isInters;
+                    isInters = bv.Item.Intersects(P0, Pd, ref intersPts, isForLight, lightDist) || isInters;
                 }
             }
             return isInters;
@@ -189,9 +189,9 @@ namespace RayTracerLib
             Root.RecreateBoundingVolumes();
         }
 
-        public bool Intersection(Vektor P0, Vektor Pd, ref List<SolidPoint> intersPts)
+        public bool Intersection(Vektor P0, Vektor Pd, ref List<SolidPoint> intersPts, bool isForLight, double lightDist)
         {
-            return this.Root.Intersection(P0, Pd, ref intersPts);
+            return this.Root.Intersection(P0, Pd, ref intersPts, isForLight, lightDist);
         }
 
 

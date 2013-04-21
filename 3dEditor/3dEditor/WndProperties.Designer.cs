@@ -1117,11 +1117,6 @@
             0,
             65536});
             this.numAnimElipseA.Location = new System.Drawing.Point(96, 45);
-            this.numAnimElipseA.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
             this.numAnimElipseA.Name = "numAnimElipseA";
             this.numAnimElipseA.Size = new System.Drawing.Size(61, 20);
             this.numAnimElipseA.TabIndex = 27;
@@ -1183,11 +1178,6 @@
             0,
             65536});
             this.numAnimElipseB.Location = new System.Drawing.Point(183, 45);
-            this.numAnimElipseB.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
             this.numAnimElipseB.Name = "numAnimElipseB";
             this.numAnimElipseB.Size = new System.Drawing.Size(61, 20);
             this.numAnimElipseB.TabIndex = 25;
@@ -1552,7 +1542,7 @@
             // 
             // numSphN
             // 
-            this.numSphN.DecimalPlaces = 1;
+            this.numSphN.DecimalPlaces = 3;
             this.numSphN.Increment = new decimal(new int[] {
             1,
             0,
@@ -1587,7 +1577,7 @@
             // 
             // numSphKt
             // 
-            this.numSphKt.DecimalPlaces = 1;
+            this.numSphKt.DecimalPlaces = 3;
             this.numSphKt.Increment = new decimal(new int[] {
             1,
             0,
@@ -1726,7 +1716,7 @@
             // 
             // numSphKa
             // 
-            this.numSphKa.DecimalPlaces = 1;
+            this.numSphKa.DecimalPlaces = 3;
             this.numSphKa.Increment = new decimal(new int[] {
             1,
             0,
@@ -1761,7 +1751,7 @@
             // 
             // numSphKd
             // 
-            this.numSphKd.DecimalPlaces = 1;
+            this.numSphKd.DecimalPlaces = 3;
             this.numSphKd.Increment = new decimal(new int[] {
             1,
             0,
@@ -1796,7 +1786,7 @@
             // 
             // numSphKs
             // 
-            this.numSphKs.DecimalPlaces = 1;
+            this.numSphKs.DecimalPlaces = 3;
             this.numSphKs.Increment = new decimal(new int[] {
             1,
             0,
@@ -1875,7 +1865,7 @@
             1,
             0,
             0,
-            0});
+            65536});
             this.numericKouleRadius.Name = "numericKouleRadius";
             this.numericKouleRadius.Size = new System.Drawing.Size(61, 20);
             this.numericKouleRadius.TabIndex = 92;
@@ -2634,7 +2624,7 @@
             this.checkBoxLightIsSoft.TabIndex = 39;
             this.checkBoxLightIsSoft.Text = "Soft light";
             this.checkBoxLightIsSoft.UseVisualStyleBackColor = false;
-            this.checkBoxLightIsSoft.CheckedChanged += new System.EventHandler(this.actionLightSet);
+            this.checkBoxLightIsSoft.CheckedChanged += new System.EventHandler(this.OnLightSoftCheckedChang);
             // 
             // label23
             // 
@@ -3708,7 +3698,7 @@
             // 
             // numBoxN
             // 
-            this.numBoxN.DecimalPlaces = 1;
+            this.numBoxN.DecimalPlaces = 3;
             this.numBoxN.Increment = new decimal(new int[] {
             1,
             0,
@@ -4397,7 +4387,7 @@
             // 
             // numPlaneN
             // 
-            this.numPlaneN.DecimalPlaces = 1;
+            this.numPlaneN.DecimalPlaces = 3;
             this.numPlaneN.Increment = new decimal(new int[] {
             1,
             0,
@@ -5051,7 +5041,7 @@
             // 
             // numCylN
             // 
-            this.numCylN.DecimalPlaces = 1;
+            this.numCylN.DecimalPlaces = 3;
             this.numCylN.Increment = new decimal(new int[] {
             1,
             0,
@@ -5704,7 +5694,7 @@
             // 
             // numTriangN
             // 
-            this.numTriangN.DecimalPlaces = 1;
+            this.numTriangN.DecimalPlaces = 3;
             this.numTriangN.Increment = new decimal(new int[] {
             1,
             0,
@@ -6522,7 +6512,7 @@
             // 
             // numericConeN
             // 
-            this.numericConeN.DecimalPlaces = 1;
+            this.numericConeN.DecimalPlaces = 3;
             this.numericConeN.Increment = new decimal(new int[] {
             1,
             0,
@@ -7283,7 +7273,7 @@
             // 
             // numCustomN
             // 
-            this.numCustomN.DecimalPlaces = 1;
+            this.numCustomN.DecimalPlaces = 3;
             this.numCustomN.Increment = new decimal(new int[] {
             1,
             0,
@@ -7685,6 +7675,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1188, 778);
+            this.Controls.Add(this.panelLight);
             this.Controls.Add(this.panelImage);
             this.Controls.Add(this.panelTriangle);
             this.Controls.Add(this.panelSphere);
@@ -7692,7 +7683,6 @@
             this.Controls.Add(this.panelAnimace);
             this.Controls.Add(this.panelRovina);
             this.Controls.Add(this.panelCamera);
-            this.Controls.Add(this.panelLight);
             this.Controls.Add(this.panelCustomObj);
             this.Controls.Add(this.panelCylindr);
             this.Controls.Add(this.panelBox);

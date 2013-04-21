@@ -326,9 +326,6 @@
     <EmbeddedResource Include="Images\About\add.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Images\About\draw.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Images\About\anim.png" />
   </ItemGroup>
   <ItemGroup>
@@ -348,6 +345,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\About\animBoard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\About\draw.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

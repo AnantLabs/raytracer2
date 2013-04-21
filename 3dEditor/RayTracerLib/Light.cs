@@ -133,15 +133,17 @@ namespace RayTracerLib
             if (sign <= MyMath.EPSILON)
                 return false;
 
-            // zjistime, zda lezi ve smeru paprsku dalsi bod sceny
-            SolidPoint sp = s.GetIntersectPoint(point.Coord, dir);
+            Vektor keSvetlu = Vektor.ToDirectionVektor(point.Coord, Coord); // paprsek od daneho bodu ke svetlu
+            double keSvetluSize = keSvetlu.Size();  
+
+            // zjistime, zda lezi ve smeru paprsku dalsi bod sceny -- true znamena optimalizaci - pocita se jen prvni prusecik
+            SolidPoint sp = s.GetIntersectPoint(point.Coord, dir, true, keSvetluSize);
 
             // kdyz ne, osvetlime bod
             if (sp == null)
                 return true;
 
-            Vektor keSvetlu = Vektor.ToDirectionVektor(point.Coord, Coord); // paprsek od daneho bodu ke svetlu
-            double keSvetluSize = keSvetlu.Size();                          // vzdalenost ke svetlu
+                        // vzdalenost ke svetlu
             Vektor kBoduPruniku = sp.Coord - point.Coord;                   // paprsek k bodu pruniku
             double kBoduPrunikuSize = kBoduPruniku.Size();                  // vzdalenost k bodu pruniku
 
@@ -166,6 +168,7 @@ namespace RayTracerLib
 
             // smer paprsku ze zkoumaneho bodu do stredu svetla
             Vektor dir = Vektor.ToDirectionVektor(point.Coord, Coord);
+            double lightDist = dir.Size();
 
             dir.Normalize();
             Vektor normal = new Vektor(point.Normal);
@@ -179,7 +182,7 @@ namespace RayTracerLib
                 return false;
 
             // zjistime, zda lezi ve smeru paprsku dalsi bod sceny
-            SolidPoint sp = scene.GetIntersectPoint(point.Coord, dir);
+            SolidPoint sp = scene.GetIntersectPoint(point.Coord, dir, true, lightDist);
 
             // kdyz ne, osvetlime bod
             if (sp == null)
@@ -231,65 +234,65 @@ namespace RayTracerLib
                 }
             }
 
-            else if (sp.Shape.GetType() == typeof(Plane))
-            {
-                Plane plane = (Plane)sp.Shape;
-                double dist;
-                Vektor C = plane.GetNearestPoint(sp.Coord, out dist);
+            //else if (sp.Shape.GetType() == typeof(Plane))
+            //{
+            //    Plane plane = (Plane)sp.Shape;
+            //    double dist;
+            //    Vektor C = plane.GetNearestPoint(sp.Coord, out dist);
 
-                C = (C - plane.Pocatek) * this.SoftEpsilon;
-                double citatel = plane.Normal * dir;
-                double jmenovatel = plane.Normal.Size() * dir.Size();
-                double cos = citatel / jmenovatel;
-                double coss = Math.Acos(cos);
-                // 1)
-                double t0 = (C - point.Coord) * dir;
-                //if (t0 < 0)
-                //    return false;
-                //if (t0 < 0)
-                //    t0 = -t0;
-                //if (t0 < 0)
-                //{
-                //    vystupLight = new Light(this);
-                //    return true;
-                //}
-                // 2)
-                double len1 = (point.Coord - C).Size();
-                double len2 = (point.Coord - this.Coord).Size();
-                double D = this.SoftEpsilon;
-                double b = Vektor.Size(Coord - C);
-                //t0 = coss;
-                //t0 = 
-                //double b = coss;
-                b = D * t0 / b;
-                //b = coss;
-                //if (b < 0)
-                //{
-                //    return false;
-                //}
-                //b = coss;
-                // 3)
-                double d = Vektor.Size(dir * t0 - C + point.Coord) + 0.5;
+            //    C = (C - plane.Pocatek) * this.SoftEpsilon;
+            //    double citatel = plane.Normal * dir;
+            //    double jmenovatel = plane.Normal.Size() * dir.Size();
+            //    double cos = citatel / jmenovatel;
+            //    double coss = Math.Acos(cos);
+            //    // 1)
+            //    double t0 = (C - point.Coord) * dir;
+            //    //if (t0 < 0)
+            //    //    return false;
+            //    //if (t0 < 0)
+            //    //    t0 = -t0;
+            //    //if (t0 < 0)
+            //    //{
+            //    //    vystupLight = new Light(this);
+            //    //    return true;
+            //    //}
+            //    // 2)
+            //    double len1 = (point.Coord - C).Size();
+            //    double len2 = (point.Coord - this.Coord).Size();
+            //    double D = this.SoftEpsilon;
+            //    double b = Vektor.Size(Coord - C);
+            //    //t0 = coss;
+            //    //t0 = 
+            //    //double b = coss;
+            //    b = D * t0 / b;
+            //    //b = coss;
+            //    //if (b < 0)
+            //    //{
+            //    //    return false;
+            //    //}
+            //    //b = coss;
+            //    // 3)
+            //    double d = Vektor.Size(dir * t0 - C + point.Coord) + 0.5;
 
-                if ((d > dist) && (d < dist + b))
-                {
-                    double tau = (d - dist) / b;
-                    double s = sshadowFunc(tau);
-                    Colour color = new Colour(this.Color *  (s));
-                    vystupLight = new Light(this.Coord, color);
-                    return true;
-                }
-                else if (d < dist)
-                {
-                    return false;
-                }
-                else if (d > dist + b)
-                {
-                    return false;
-                    //vystupLight = new Light(this);
-                    //return true; 
-                }
-            }
+            //    if ((d > dist) && (d < dist + b))
+            //    {
+            //        double tau = (d - dist) / b;
+            //        double s = sshadowFunc(tau);
+            //        Colour color = new Colour(this.Color *  (s));
+            //        vystupLight = new Light(this.Coord, color);
+            //        return true;
+            //    }
+            //    else if (d < dist)
+            //    {
+            //        return false;
+            //    }
+            //    else if (d > dist + b)
+            //    {
+            //        return false;
+            //        //vystupLight = new Light(this);
+            //        //return true; 
+            //    }
+            //}
 
             else if (sp.Shape.GetType() == typeof(Cylinder))
             {
@@ -352,7 +355,7 @@ namespace RayTracerLib
 
             // smer paprsku ze zkoumaneho bodu do stredu svetla
             Vektor dir = Vektor.ToDirectionVektor(point.Coord, Coord);
-
+            double lightDist = dir.Size();
             dir.Normalize();
             Vektor normal = new Vektor(point.Normal);
             normal.Normalize();
@@ -365,7 +368,7 @@ namespace RayTracerLib
                 return false;
 
             // zjistime, zda lezi ve smeru paprsku dalsi bod sceny
-            SolidPoint sp = scene.GetIntersectPoint(point.Coord, dir);
+            SolidPoint sp = scene.GetIntersectPoint(point.Coord, dir, true, lightDist);
 
             // kdyz ne, osvetlime bod
             if (sp == null)
@@ -512,6 +515,8 @@ namespace RayTracerLib
         public static Light FromDeserial(Light light)
         {
             Light l = new Light(light.Coord, light.Color);
+            l.SetSoftLights(light.SoftNumSize, light.SoftEpsilon, light.IsSinglePass);
+            l.IsSoftLight = light.IsSoftLight;
             l.Label = light.Label;
             return l;
         }

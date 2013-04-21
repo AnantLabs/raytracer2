@@ -87,6 +87,12 @@ namespace RayTracerLib
             SetValues(center, direction, radius, heigh);
         }
 
+        public Cylinder(Vektor center, Vektor direction, double radius, double heigh, bool nolabel)
+        {
+            IsActive = true;
+            this.Material = new Material();
+            SetValues(center, direction, radius, heigh);
+        }
         public Cylinder(Cylinder old)
             : base(old)
         {
@@ -152,11 +158,16 @@ namespace RayTracerLib
 
         }
 
-        public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
+        public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint, bool isForLight, double lightDist)
         {
             if (!IsActive)
                 return false;
 
+            if (isForLight && InterPoint.Count > 0)
+            {
+                foreach (SolidPoint solp in InterPoint)
+                    if (lightDist > solp.T) return true;
+            }
             Interlocked.Increment(ref DefaultShape.TotalTested);
 
             // 1) spocitani pruniku s podstavami
@@ -175,7 +186,7 @@ namespace RayTracerLib
                 _plane1 = new Plane(Norm1, -D1, this.Material);
             }
             List<SolidPoint> BasePoints = new List<SolidPoint>();
-            _plane1.Intersects(P0, Pd, ref BasePoints);
+            _plane1.Intersects(P0, Pd, ref BasePoints, isForLight, lightDist);
             foreach (SolidPoint sps in BasePoints)
             {
                 if (MyMath.Distance2Points(sps.Coord, _c1) <= this.Rad)
@@ -196,7 +207,7 @@ namespace RayTracerLib
                 _plane2 = new Plane(Norm2, -D2, this.Material);
             }
             BasePoints.Clear();
-            _plane2.Intersects(P0, Pd, ref BasePoints);
+            _plane2.Intersects(P0, Pd, ref BasePoints, isForLight, lightDist);
 
             foreach (SolidPoint sps in BasePoints)
             {
@@ -324,8 +335,9 @@ namespace RayTracerLib
 
         public override DefaultShape FromDeserial()
         {
-            Cylinder cyl = new Cylinder(this.Center, this.Dir, this.Rad, this.Height);
-            cyl.Label = this.Label;
+            Cylinder cyl = new Cylinder(this.Center, this.Dir, this.Rad, this.Height, true);
+            if (this.Label != null)
+                cyl.Label = this.Label;
             cyl.IsActive = this.IsActive;
             cyl.Material = this.Material;
             return cyl;

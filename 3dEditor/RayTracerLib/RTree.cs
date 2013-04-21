@@ -44,9 +44,9 @@ namespace RayTracerLib
             this.Root = STR3DPack(cuboids);
         }
 
-        public bool Intersection(Vektor P0, Vektor Pd, ref List<SolidPoint> intersPts)
+        public bool Intersection(Vektor P0, Vektor Pd, ref List<SolidPoint> intersPts, bool isForLight, double lightDist)
         {
-            return TestIntersection(this.Root, P0, Pd, ref intersPts);
+            return TestIntersection(this.Root, P0, Pd, ref intersPts, isForLight, lightDist);
         }
 
         /// <summary>
@@ -59,9 +59,9 @@ namespace RayTracerLib
         /// <param name="Pd">smer paprsku</param>
         /// <param name="intersPts">seznam pruseciku paprsku s objekty</param>
         /// <returns>true, kdyz paprsek protne uzel a jeho prislusny objekt</returns>
-        public bool TestIntersection(Vektor P0, Vektor Pd, ref List<SolidPoint> intersPts)
+        public bool TestIntersection(Vektor P0, Vektor Pd, ref List<SolidPoint> intersPts, bool isForLight, double lightDist)
         {
-            return TestIntersection(this.Root, P0, Pd, ref intersPts);
+            return TestIntersection(this.Root, P0, Pd, ref intersPts, isForLight, lightDist);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace RayTracerLib
         /// <param name="Pd">smer paprsku</param>
         /// <param name="intersPts">seznam pruseciku paprsku s objekty</param>
         /// <returns>true, kdyz paprsek protne uzel a jeho prislusny objekt</returns>
-        public bool TestIntersection(RtreeNode root, Vektor P0, Vektor Pd, ref List<SolidPoint> intersPts)
+        public bool TestIntersection(RtreeNode root, Vektor P0, Vektor Pd, ref List<SolidPoint> intersPts, bool isForLight, double lightDist)
         {
             if (root == null) return false;
 
@@ -93,7 +93,7 @@ namespace RayTracerLib
             // je-li uzel list, je vetsi pravdepodobnost, ze paprsek protina objekt, 
             // proto rovnou testujeme objekt uvnitr cuboidu
             if (root.IsLeaf)                            // je-li uzel list, otestujeme, zda paprsek protina prirazeny objekt
-                return root.DataItem.Intersects(P0, Pd, ref intersPts);
+                return root.DataItem.Intersects(P0, Pd, ref intersPts, isForLight, lightDist);
 
 
             /// UZEL NENI LIST
@@ -106,7 +106,7 @@ namespace RayTracerLib
             foreach (RtreeNode child in root.ChildList) // neni-li uzel list, zavolame rekurzivne na vsechny potomky uzlu
             {
                 if (child == null) continue;
-                isInters = TestIntersection(child, P0, Pd, ref intersPts) || isInters;
+                isInters = TestIntersection(child, P0, Pd, ref intersPts, isForLight, lightDist) || isInters;
             }
             return isInters;
         }
@@ -137,8 +137,8 @@ namespace RayTracerLib
 
                         //RtreeNode node = new RtreeNode(slabs[i][j][k]);
                         RtreeNode node = slabs[i][j][k].CurrentNode;
-                        if (!parent.TryAddChild(node))
-                        {
+                        if (!parent.TryAddChild(node)) 
+                        {  // je-li rodic plnej, pridame ho do seznamu a vytvorime novy uzel
                             nodeList.Add(parent);
                             parent = new RtreeNode();
                             parent.TryAddChild(node);
@@ -158,7 +158,18 @@ namespace RayTracerLib
                 }
                 return STR3DPack(nextLevCubs.ToArray());
             }
-            else if (nodeList.Count == 1) return nodeList[0];
+            else if (nodeList.Count == 1)
+            {
+                int notnull = 0;
+                foreach (RtreeNode n in nodeList[0].ChildList)
+                {
+                    if (n != null)
+                        notnull++;
+                }
+                if (notnull == 1)
+                    return nodeList[0].ChildList[0];
+                else return nodeList[0];
+            }
             else return null;
         }
 
@@ -169,7 +180,7 @@ namespace RayTracerLib
             int L = (int)Math.Ceiling((double)N / C);   // s ... pocet uzlu potrebnych k ulozeni vsech zaznamu
             int SlabsCount = (int)Math.Ceiling(Math.Pow(L, 1.0 / dim));     // pocet rezu v aktualni dimenzi
 
-            int slabSize = (int)Math.Ceiling(Math.Pow(L, (dim - 1.0) / dim));  // pocet vsech zaznamu v aktualni dimenzi
+            int slabSize = (int)Math.Ceiling(Math.Pow(L, (dim - 1.0) / dim));  // pocet zaznamu v jednom rezu
             slabSize = slabSize * C;
 
             Cuboid.CompareOrder = Cuboid.CuboidComparerType.Xorder;
@@ -199,7 +210,7 @@ namespace RayTracerLib
             int L = (int)Math.Ceiling((double)N / C);   // s ... pocet uzlu potrebnych k ulozeni vsech zaznamu
             int SlabsCount = (int)Math.Ceiling(Math.Pow(L, 1.0 / dim));     // pocet rezu v aktualni dimenzi
 
-            int slabSize = (int)Math.Ceiling(Math.Pow(L, (dim - 1.0) / dim));  // pocet vsech zaznamu v aktualni dimenzi
+            int slabSize = (int)Math.Ceiling(Math.Pow(L, (dim - 1.0) / dim));  // pocet zaznamu v jednom rezu
             slabSize = slabSize * C;
 
             Cuboid.CompareOrder = Cuboid.CuboidComparerType.Yorder;

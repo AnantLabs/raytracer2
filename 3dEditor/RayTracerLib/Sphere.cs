@@ -38,6 +38,16 @@ namespace RayTracerLib
             : this(new Vektor(0, 0, 0), 1) { }
 
 
+        public Sphere(Vektor origin, double r, bool nolabel)
+        {
+            IsActive = true;
+            Origin = new Vektor(origin);
+            R = r;
+            this.Material = new Material();
+            _RotatMatrix = Matrix3D.Identity;
+            _ShiftMatrix = Matrix3D.PosunutiNewMatrix(Origin);
+            _localMatrix = _RotatMatrix * _ShiftMatrix;
+        }
         public Sphere(Vektor origin, double r)
         {
             SetLabelPrefix("sphere");
@@ -77,10 +87,16 @@ namespace RayTracerLib
         /// <param name="P1">smerovy vektor paprsku</param>
         /// <param name="InterPoint">pripadny vysledny bod pruniku</param>
         /// <returns>true, kdyz existuje bod pruniku s paprskem</returns>
-        public override bool Intersects(Vektor P0, Vektor P1, ref List<SolidPoint> InterPoint)
+        public override bool Intersects(Vektor P0, Vektor P1, ref List<SolidPoint> InterPoint, bool isForLight, double lightDist)
         {
             if (!IsActive)
                 return false;
+
+            if (isForLight && InterPoint.Count > 0)
+            {
+                foreach (SolidPoint solp in InterPoint)
+                    if (lightDist > solp.T) return true;
+            }
 
             Interlocked.Increment(ref DefaultShape.TotalTested);
 
@@ -180,8 +196,9 @@ namespace RayTracerLib
 
         public override DefaultShape FromDeserial()
         {
-            Sphere sph = new Sphere(this.Origin, this.R);
-            sph.Label = this.Label;
+            Sphere sph = new Sphere(this.Origin, this.R, true);
+            if (this.Label != null)
+                sph.Label = this.Label;
             sph.Material = this.Material;
             sph.IsActive = this.IsActive;
             return sph;

@@ -93,6 +93,11 @@ namespace RayTracerLib
             do
             {
                 counter++;
+                
+                if (counter == 1000)
+                {
+                    labelPrefix = labelPrefix.Substring(0, labelPrefix.Length - 1);
+                }
                 label = labelPrefix + counter;
             }
             while (labels.Contains(label));

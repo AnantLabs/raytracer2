@@ -167,7 +167,7 @@ namespace RayTracerLib
                 return color;
 
             // zjistime, zda paprsek protina nejaky objekt
-            SolidPoint sp = RScene.GetIntersectPoint(P0, Pd);
+            SolidPoint sp = RScene.GetIntersectPoint(P0, Pd, false,0);
 
             if (sp == null)     // paprsek nic neprotina -> bude pouze barva pozadi
             {
@@ -211,7 +211,7 @@ namespace RayTracerLib
         private Colour DoRayTracing(int depth, Vektor P0, Vektor P1)
         {
             // zjistime, zda paprsek protina nejaky objekt
-            SolidPoint sp = RScene.GetIntersectPoint(P0, P1);
+            SolidPoint sp = RScene.GetIntersectPoint(P0, P1, false, 0);
 
             Colour barvaVysled;
 

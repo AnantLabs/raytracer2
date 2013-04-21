@@ -54,7 +54,7 @@ namespace RayTracerLib
         public Plane() : this(new Vektor(0, 1, 0), 1) { }
         public Plane(Vektor normal, double d)
         {
-            SetLabelPrefix("plane");
+            //SetLabelPrefix("plane");
             IsActive = true;
             this.SetValues(normal, d);
         }
@@ -114,10 +114,16 @@ namespace RayTracerLib
         /// <param name="Pd"></param>
         /// <param name="InterPoint"></param>
         /// <returns></returns>
-        public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
+        public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint, bool isForLight, double lightDist)
         {
             if (!IsActive)
                 return false;
+
+            if (isForLight && InterPoint.Count > 0)
+            {
+                foreach (SolidPoint solp in InterPoint)
+                    if (lightDist > solp.T) return true;
+            }
 
             Interlocked.Increment(ref DefaultShape.TotalTested);
 
@@ -137,7 +143,7 @@ namespace RayTracerLib
             double t = V0 / Vd;
 
             // paprsek protina rovinu zezadu
-            if (t <= 0.0)
+            if (t <MyMath.EPSILON)
                 return false;
 
             Vektor Bounds = P0 + Pd * t;

@@ -320,6 +320,26 @@ namespace Mathematics
             return new PointF((float)X, (float)Y);
         }
 
+        /// <summary>
+        /// Perspektivni promitani
+        /// </summary>
+        public PointF To2D1(int scale, int zoom, Point centerPoint)
+        {
+            double maxZ = 20.0;
+            double zz = Z;
+            if (-Z > maxZ)
+                zz = -maxZ + 1;
+            Matrix3D matr = new Matrix3D(new Vektor(zoom, 0, 0, 0), new Vektor(0, zoom, 0, 0), new Vektor(0, 0, 0, 0), new Vektor(0, 0, 1.0/maxZ, 1));
+            Vektor vec = new Vektor(X , Y , zz , ZZ);
+            matr.TransformPoint(vec);
+            PointF point = new PointF((float)(vec.X / vec.ZZ), (float)(vec.Y / vec.ZZ));
+            point.X = point.X  + centerPoint.X;
+            point.Y = point.Y  + centerPoint.Y;
+            return point;
+        }
+        /// <summary>
+        /// ortogonalni promitani
+        /// </summary>
         public PointF To2D(int scale, int zoom, Point centerPoint)
         {
             PointF point = new PointF((float)X, (float)Y);
@@ -329,7 +349,6 @@ namespace Mathematics
             point.Y = point.Y * scale / divide + centerPoint.Y;
             return point;
         }
-
         public static Vektor To3D_From2D(PointF p2d, double z, int scale, int zoom, Point centerPoint)
         {
             Vektor point = new Vektor(p2d.X, p2d.Y, 0);

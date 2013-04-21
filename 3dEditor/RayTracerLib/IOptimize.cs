@@ -8,6 +8,6 @@ namespace RayTracerLib
 {
     public interface IOptimize
     {
-        bool Intersection(Vektor P0, Vektor Pd, ref List<SolidPoint> intersPts);
+        bool Intersection(Vektor P0, Vektor Pd, ref List<SolidPoint> intersPts, bool isForLight, double lightDist);
     }
 }

@@ -174,14 +174,21 @@ namespace RayTracerLib
             }
         }
 
-        public override bool Intersects(Mathematics.Vektor P0, Mathematics.Vektor Pd, ref List<SolidPoint> InterPoint)
+        public override bool Intersects(Mathematics.Vektor P0, Mathematics.Vektor Pd, ref List<SolidPoint> InterPoint, bool isForLight, double lightDist)
         {
-            if (!IsActive) return false;
+            if (!IsActive)
+                return false;
+
+            if (isForLight && InterPoint.Count > 0)
+            {
+                foreach (SolidPoint solp in InterPoint)
+                    if (lightDist > solp.T) return true;
+            }
 
             bool result = false;
             foreach (Triangle tr in FaceList)
             {
-                bool res = tr.Intersects(P0, Pd, ref InterPoint);
+                bool res = tr.Intersects(P0, Pd, ref InterPoint, isForLight, lightDist);
                 if (!result && res) result = true;
             }
             return result;
