@@ -57,10 +57,17 @@ namespace RayTracerLib
             ExtentMax = new Vektor(Center.X + pulext, Center.Y + pulext, Center.Z + pulext);
         }
 
-        public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
+        public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint, bool isForLight, double lightDist)
         {
             if (!IsActive)
                 return false;
+
+            if (isForLight && InterPoint.Count > 0)
+            {
+                foreach (SolidPoint solp in InterPoint)
+                    if (lightDist > solp.T) return true;
+            }
+
             Interlocked.Increment(ref DefaultShape.TotalTested);
 
             // pro kazdou osu overime prunik s paprskem

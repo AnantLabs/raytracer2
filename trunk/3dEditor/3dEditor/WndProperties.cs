@@ -1506,12 +1506,14 @@ namespace _3dEditor
         {
             NumericUpDown num = (NumericUpDown)sender;
             this.trackBarLightNum.Value = (int)num.Value;
+            actionLightSet(sender, e);
         }
 
         private void OnNumericLightEpsChanged(object sender, EventArgs e)
         {
             NumericUpDown num = (NumericUpDown)sender;
             this.trackBarLightEps.Value = (int)(num.Value * 100 / 5);
+            actionLightSet(sender, e);
         }
 
         private void OnLightSoftCheckedChang(object sender, EventArgs e)
@@ -1519,6 +1521,7 @@ namespace _3dEditor
             CheckBox ch = (CheckBox)sender;
             this.panelLightSoft.Visible = ch.Checked;
             this.panelSoftPasses.Visible = ch.Checked;
+            actionLightSet(sender, e);
         }
         #endregion
 

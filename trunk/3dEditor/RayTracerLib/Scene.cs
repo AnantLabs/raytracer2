@@ -270,7 +270,7 @@ namespace RayTracerLib
         /// <param name="P0">pocatek paprsku</param>
         /// <param name="P1">smerovy vektro paprsku</param>
         /// <returns>nejblizsi bod, ktery protne paprsek a ma byt tedy vykreslen</returns>
-        public SolidPoint GetIntersectPoint(Vektor P0, Vektor P1)
+        public SolidPoint GetIntersectPoint(Vektor P0, Vektor P1, bool isForLight, double lightDist)
         {
             if (P0 == null || P1 == null)
                 return null;
@@ -284,13 +284,13 @@ namespace RayTracerLib
             //{
                 //if (R_Tree == null) this.SetRtree();
                 //R_Tree.TestIntersection(P0, P1, ref interSolids);
-                Optimaliz.Optimizer.Intersection(P0, P1, ref interSolids);
+                Optimaliz.Optimizer.Intersection(P0, P1, ref interSolids, isForLight, lightDist);
 
                 // rovina se do RStromu nepridava - nutno overit zlvast vsechny roviny
                 foreach (DefaultShape obj in this.SceneObjects)
                 {
                     if (obj is Plane)
-                        obj.Intersects(P0, P1, ref interSolids);
+                        obj.Intersects(P0, P1, ref interSolids, isForLight, lightDist);
                 }
             //}
             //else
@@ -332,7 +332,7 @@ namespace RayTracerLib
             if (IsOptimizing)
             {
                 //R_Tree.TestIntersection(P0, P1, ref interSolids);
-                Optimaliz.Optimizer.Intersection(P0, P1, ref interSolids);
+                Optimaliz.Optimizer.Intersection(P0, P1, ref interSolids, false, 0);
                 if (interSolids.Count == 0)
                 {
 
@@ -341,7 +341,7 @@ namespace RayTracerLib
                     {
                         if (obj is Plane)
                         {
-                            isIntersected = obj.Intersects(P0, P1, ref interSolids);
+                            isIntersected = obj.Intersects(P0, P1, ref interSolids, false, 0);
                             if (isIntersected) break;
                         }
                     }
@@ -352,7 +352,7 @@ namespace RayTracerLib
                 // pro kazdy objekt ve scene otestujeme, zda je protnut paprskem a zjistime body pruniku
                 foreach (DefaultShape obj in this.SceneObjects)
                 {
-                    isIntersected = obj.Intersects(P0, P1, ref interSolids);
+                    isIntersected = obj.Intersects(P0, P1, ref interSolids, false, 0);
                     if (isIntersected) break;
                 }
             }
@@ -851,6 +851,7 @@ namespace RayTracerLib
 
 
         
+        
         public ulong GetTotalIntersections()
         {
             return totalInters;
@@ -891,6 +892,230 @@ namespace RayTracerLib
                 }
             
             return scene;
+        }
+
+        public void SetDefaultSceneSphericCube()
+        {
+            BgColor = new Colour(0.8, 0.8, 0.8, 1);
+
+            double size = 28;
+
+            Camera cam = new Camera();
+            cam.Source = new Vektor(-size-30, size+30, size+30);
+            cam.SetNormAndUp(new Vektor(1, -1, -1), new Vektor(0, -1, 0));
+            this.Camera = cam;
+
+            Lights = new List<Light>(5);
+            Light light1 = new Light(new Vektor(5, 5, 5), new Colour(1, 1, 1, 1));
+            Light light2 = new Light(new Vektor(7, 15, 8), new Colour(0.9, 0.9, 0, 1));
+            Lights.Add(light1);
+            Lights.Add(light2);
+
+            this.SceneObjects = new List<DefaultShape>();
+            Material mat = new Material();
+            mat.Color = new Colour(0.2, 0.4, 0.1, 1);
+
+            double inc = 4;
+
+            mat = new Material();
+            mat.Color = new Colour(0.1, 0.1, 0.8, 1);
+            mat.Kd = 1;
+            mat.Ka = 1;
+            double pos = 0.8;
+            for (double i = -size; i <= size; i += inc)
+                for (double j = -size; j <= size; j += inc)
+                    for (double k = -size; k <= size; k += inc)
+                    {
+                        Vektor orig = new Vektor(i, j, k);
+                        Sphere sph = new Sphere(orig, 0.4, true);
+                        sph.Material = mat;
+                        SceneObjects.Add(sph);
+                    }
+        }
+        public void SetDefaultSceneXYZ()
+        {
+            BgColor = new Colour(0.8, 0.8, 0.8, 1);
+
+            double size = 50;
+
+            Camera cam = new Camera();
+            cam.Source = new Vektor(-size, 0, 0);
+            cam.SetNormAndUp(new Vektor(1, 0, 0), new Vektor(0, -1, 0));
+            this.Camera = cam;
+
+            Lights = new List<Light>(5);
+            Light light1 = new Light(new Vektor(5, 5, 5), new Colour(1, 1, 1, 1));
+            Light light2 = new Light(new Vektor(7, 15, 8), new Colour(0.9, 0.9, 0, 1));
+            Lights.Add(light1);
+            Lights.Add(light2);
+
+            this.SceneObjects = new List<DefaultShape>();
+            Material mat = new Material();
+            mat.Color = new Colour(0.2, 0.4, 0.1, 1);
+            
+            double inc = 1;
+
+            mat = new Material();
+            mat.Color = new Colour(0.15, 0.15, 1, 1);
+            double pos = 0.8;
+            double R = 0.5;
+            for (double i = -size; i <= size; i += inc)
+            {
+                Vektor orig = new Vektor(i, -pos, -pos);
+                Vektor dir = new Vektor(1, 0, 0);
+                Cylinder cyl = new Cylinder(orig, dir, R, 0.4, true);
+                cyl.Material = mat;
+                SceneObjects.Add(cyl);
+
+                orig = new Vektor(i, -pos, pos);
+                dir = new Vektor(1, 0, 0);
+                cyl = new Cylinder(orig, dir, R, 0.4, true);
+                cyl.Material = mat;
+                SceneObjects.Add(cyl);
+
+                orig = new Vektor(i, pos, -pos);
+                dir = new Vektor(1, 0, 0);
+                cyl = new Cylinder(orig, dir, R, 0.4, true);
+                cyl.Material = mat;
+                SceneObjects.Add(cyl);
+
+                orig = new Vektor(i, pos, pos);
+                dir = new Vektor(1, 0, 0);
+                cyl = new Cylinder(orig, dir, R, 0.4, true);
+                cyl.Material = mat;
+                SceneObjects.Add(cyl);
+            }
+
+            mat = new Material();
+            mat.Color = new Colour(0.9, 0.9, 0.1, 1);
+            for (double i = -size; i <= size; i += inc)
+            {
+                Vektor orig = new Vektor(-pos, i, -pos);
+                Vektor dir = new Vektor(0, 1, 0);
+                Cylinder cyl = new Cylinder(orig, dir, R, 0.4, true);
+                cyl.Material = mat;
+                SceneObjects.Add(cyl);
+
+                orig = new Vektor(-pos,i, pos);
+                dir = new Vektor(0, 1, 0);
+                cyl = new Cylinder(orig, dir, R, 0.4, true);
+                cyl.Material = mat;
+                SceneObjects.Add(cyl);
+
+                orig = new Vektor(pos,i, -pos);
+                dir = new Vektor(0, 1, 0);
+                cyl = new Cylinder(orig, dir, R, 0.4, true);
+                cyl.Material = mat;
+                SceneObjects.Add(cyl);
+
+                orig = new Vektor(pos, i, pos);
+                dir = new Vektor(0, 1, 0);
+                cyl = new Cylinder(orig, dir, R, 0.4, true);
+                cyl.Material = mat;
+                SceneObjects.Add(cyl);
+            }
+
+            mat = new Material();
+            mat.Color = new Colour(0.4, 0.9, 0.1, 1);
+            for (double i = -size; i <= size; i += inc)
+            {
+                Vektor orig = new Vektor(-pos, -pos, i);
+                Vektor dir = new Vektor(0, 0, 1);
+                Cylinder cyl = new Cylinder(orig, dir, R, 0.4, true);
+                cyl.Material = mat;
+                SceneObjects.Add(cyl);
+
+                orig = new Vektor(-pos,  pos,i);
+                dir = new Vektor(0, 0, 1);
+                cyl = new Cylinder(orig, dir, R, 0.4, true);
+                cyl.Material = mat;
+                SceneObjects.Add(cyl);
+
+                orig = new Vektor(pos,  -pos,i);
+                dir = new Vektor(0, 0, 1);
+                cyl = new Cylinder(orig, dir, R, 0.4, true);
+                cyl.Material = mat;
+                SceneObjects.Add(cyl);
+
+                orig = new Vektor(pos,  pos,i);
+                dir = new Vektor(0, 0, 1);
+                cyl = new Cylinder(orig, dir, R, 0.4, true);
+                cyl.Material = mat;
+                SceneObjects.Add(cyl);
+            }
+
+            mat = new Material();
+            mat.Color = new Colour(1, 0.1, 0.3, 1);
+            for (double i = -size; i <= size; i += inc)
+            {
+                Vektor orig = new Vektor(i, i, 0);
+                Vektor dir = new Vektor(i, i, 0);
+                Cylinder cyl = new Cylinder(orig, dir, R, 0.4, true);
+                cyl.Material = mat;
+                SceneObjects.Add(cyl);
+
+            }
+        }
+        public void SetDefaultSceneAxes()
+        {
+            BgColor = new Colour(0.8, 0.8, 0.8, 1);
+
+            Camera cam = new Camera();
+            cam.Source = new Vektor(70, 70, 70);
+            cam.SetNormAndUp(new Vektor(-1, -1, -1), new Vektor(0, -1, 0));
+            this.Camera = cam;
+
+            Lights = new List<Light>(5);
+            Light light1 = new Light(new Vektor(5, 5, 5), new Colour(1, 1, 1, 1));
+            Light light2 = new Light(new Vektor(7, 15, 8), new Colour(0.9, 0.9, 0, 1));
+            Lights.Add(light1);
+            Lights.Add(light2);
+
+            double R = 0.5;
+            double H = 0.4;
+            this.SceneObjects = new List<DefaultShape>();
+            Material mat = new Material();
+            mat.Color = new Colour(0.2, 0.4, 0.1, 1);
+            double size = 50;
+            double inc = 1;
+            for (double i = 1; i <= size; i += inc)
+                for (double j = 1; j <= size; j += inc)
+                {
+                    Vektor orig = new Vektor(i, j, 0);
+                    Vektor dir = new Vektor(0, 0, 1);
+
+                    Cylinder cyl = new Cylinder(orig, dir, R, H, true);
+                    cyl.Material = mat;
+                    SceneObjects.Add(cyl);
+                }
+
+            mat = new Material();
+            mat.Color = new Colour(0.9, 0.1, 0.5, 1);
+            for (double i = 1; i <= size; i += inc)
+                for (double j = 1; j <= size; j += inc)
+                {
+                    Vektor orig = new Vektor(i, 0, j);
+                    Vektor dir = new Vektor(0, 1, 0);
+
+                    Cylinder cyl = new Cylinder(orig, dir, R, H, true);
+                    cyl.Material = mat;
+                    SceneObjects.Add(cyl);
+                }
+
+            mat = new Material();
+            mat.Color = new Colour(0.1, 0.0, 0.9, 1);
+            for (double i = 1; i <= size; i += inc)
+                for (double j = 1; j <= size; j += inc)
+                {
+                    Vektor orig = new Vektor(0, i, j);
+                    Vektor dir = new Vektor(1, 0, 0);
+
+                    Cylinder cyl = new Cylinder(orig, dir, R, H, true);
+                    cyl.Material = mat;
+                    SceneObjects.Add(cyl);
+                }
+
+
         }
     }
 }

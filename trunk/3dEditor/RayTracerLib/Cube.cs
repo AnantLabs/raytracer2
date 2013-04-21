@@ -263,10 +263,16 @@ namespace RayTracerLib
             return true;
         }
 
-        public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint)
+        public override bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint, bool isForLight, double lightDist)
         {
             if (!IsActive)
                 return false;
+
+            if (isForLight && InterPoint.Count > 0)
+            {
+                foreach (SolidPoint solp in InterPoint)
+                    if (lightDist > solp.T) return true;
+            }
 
             Interlocked.Increment(ref DefaultShape.TotalTested);
 
@@ -414,7 +420,7 @@ namespace RayTracerLib
             //Vektor size = point - P0;
             //double len = size.Size();
             sp.T = tNear;
-            sp.Normal = _RotatMatrix.Transform2NewPoint(norm);
+            sp.Normal = _transpRot.Transform2NewPoint(norm);
             sp.Normal.Normalize();
             sp.Shape = this;
             sp.Material = this.Material;
@@ -442,7 +448,7 @@ namespace RayTracerLib
             foreach (Plane wall in Planes)
             {
                 BasePoints = new List<SolidPoint>();
-                if (wall.Intersects(P0, Pd, ref BasePoints))
+                if (wall.Intersects(P0, Pd, ref BasePoints, false, 0))
                     foreach (SolidPoint sps in BasePoints)
                     {
 
@@ -463,7 +469,7 @@ namespace RayTracerLib
             foreach (Plane wall in PlanesOpp)
             {
                 BasePoints = new List<SolidPoint>();
-                if (wall.Intersects(P0, Pd, ref BasePoints))
+                if (wall.Intersects(P0, Pd, ref BasePoints, false,0))
                     foreach (SolidPoint sps in BasePoints)
                     {
 

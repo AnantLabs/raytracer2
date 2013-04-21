@@ -199,9 +199,13 @@ namespace _3dEditor
             CustomObject planeCustom = CustomObject.CreatePlane();
             //_rayTracer.RScene.SceneObjects.Add(planeCustom);
 
+            //_rayTracer.RScene.SetDefaultSceneSphericCube();
+            _rayTracer.RScene.SetDefaultSceneAxes();
+            _rayTracer.RCamera = _rayTracer.RScene.Camera;
             this._WndBoard.AddRaytrScene(_rayTracer.RScene);
 
             RayImage img = new RayImage(1, new Colour(0.8, 0.1, 0.5, 0), false);
+            img.BackgroundColor = _rayTracer.RScene.BgColor;
             this._WndScene.AddItem(img);
             _WndScene.ShowNode(img);
 

@@ -47,6 +47,7 @@ namespace _3dEditor
         long _totalTestedObjects;
         long _totalTestedCubes;
 
+        long _totalObjects = 0;
         public DrawingBoard(ParentEditor parent)
         {
             _parentEdit = parent;
@@ -95,7 +96,7 @@ namespace _3dEditor
             }
             else if (ts.TotalMinutes > 1)
             {
-                time = String.Format("{0}m, {1}s, {2}ms", ts.Minutes.ToString(), secs.ToString(), ms.ToString());
+                time = String.Format("{0}m, {1}s, {2}ms", ts.Minutes.ToString(), ts.Seconds.ToString(), ms.ToString());
             }
             else
             {
@@ -370,10 +371,17 @@ namespace _3dEditor
             _IsShowedAboutBox = false;
             _childAboutBox = null;
         }
+
         public bool _IsShowedAboutBox;
         AboutBoxInfo _childAboutBox;
         private void infoDrawingBoard_Click(object sender, EventArgs e)
         {
+            if (_totalObjects == 0)
+                foreach (DefaultShape ds in this._rayTracer.RScene.SceneObjects)
+                {
+                    if (ds.IsActive) _totalObjects++;
+                }
+
             if (_IsShowedAboutBox)
             {
                 _childAboutBox.Location = new Point(this.Location.X + 30, this.Location.Y + 60);
@@ -386,7 +394,7 @@ namespace _3dEditor
             ulong numInters = _rayTracer.RScene.GetTotalIntersections();
             _childAboutBox = new AboutBoxInfo();
             _childAboutBox.Location = new Point(this.Location.X + 30, this.Location.Y + 60);
-            _childAboutBox.Set(this, _rayImg.MaxRecurse, _rayImg.IsAntialiasing, _rayImg.OptimizType.ToString(), _rayImg.CurrentSize, this._timeDuration, this._totalTestedObjects, this._totalTestedCubes);
+            _childAboutBox.Set(this, _rayImg.MaxRecurse, _rayImg.IsAntialiasing, _rayImg.OptimizType.ToString(), _rayImg.CurrentSize, this._timeDuration, _totalObjects, this._totalTestedObjects, this._totalTestedCubes);
             _IsShowedAboutBox = true;
             _childAboutBox.Show();
         }

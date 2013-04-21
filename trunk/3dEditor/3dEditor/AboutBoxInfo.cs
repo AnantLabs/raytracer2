@@ -20,7 +20,7 @@ namespace _3dEditor
         }
 
         DrawingBoard _parent;
-        public void Set(DrawingBoard parent, int recurse, bool isAntialias, String optimaliz, Size size,TimeSpan time, long totalTestedObjs, long totalTestedCubes)
+        public void Set(DrawingBoard parent, int recurse, bool isAntialias, String optimaliz, Size size,TimeSpan time, long objectsCount, long totalTestedObjs, long totalTestedCubes)
         {
             _parent = parent;
             this.labelTime.Text += GetStringTime(time);
@@ -29,7 +29,7 @@ namespace _3dEditor
             this.labelRecurse.Text += recurse.ToString();
             this.labelSize.Text += size.Width.ToString() + " x " + size.Height.ToString();
 
-
+            this.labelTotalObjects.Text += GetFormatString(objectsCount);
             this.labelTotalObjInters.Text += GetFormatString(totalTestedObjs);
             if (totalTestedCubes > 0)
             {

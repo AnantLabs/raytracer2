@@ -257,14 +257,14 @@ namespace RayTracerLib
             
         }
 
-        public bool Intersection(Vektor P0, Vektor Pd, ref List<SolidPoint> intersPts)
+        public bool Intersection(Vektor P0, Vektor Pd, ref List<SolidPoint> intersPts, bool isForLight, double lightDist)
         {
             List<DefaultShape> defList = new List<DefaultShape>();
             Root.Intersection(P0, Pd, ref intersPts, ref defList);
             bool isInters = false;
             foreach (DefaultShape ds in defList)
             {
-                isInters = ds.Intersects(P0, Pd, ref intersPts) || isInters;
+                isInters = ds.Intersects(P0, Pd, ref intersPts, isForLight, lightDist) || isInters;
             }
             return isInters;
         }

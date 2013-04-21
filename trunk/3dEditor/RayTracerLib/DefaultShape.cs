@@ -60,7 +60,7 @@ namespace RayTracerLib
         /// <param name="Pd">smerovy vektor paprsku</param>
         /// <param name="InterPoint">pripadny vysledny bod pruniku</param>
         /// <returns>true, kdyz existuje bod pruniku s paprskem</returns>
-        public abstract bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint);
+        public abstract bool Intersects(Vektor P0, Vektor Pd, ref List<SolidPoint> InterPoint, bool isForLight, double lightDist);
 
         /// <summary>
         /// Moves the object according to given differences
