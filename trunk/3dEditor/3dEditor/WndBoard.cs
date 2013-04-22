@@ -278,6 +278,8 @@ namespace _3dEditor
             //this.numericUpDown2.Value = (int)degreesY;
             //this.numericUpDown3.Value = (int)degreesZ;
 
+            toolComboViewsProjection.SelectedIndex = 0;
+
             pictureBoard.Focus();
             Redraw();
         }
@@ -1624,10 +1626,18 @@ namespace _3dEditor
                 Matrix3D m2 = q.Matrix();
                 
                 m = m1 * m2;
-                if (up == new Vektor(0, 1, 0) && dirNorm == new Vektor(0,0,1))
+                if (up == new Vektor(0, 1, 0))
                 {
-                    Matrix3D matAdd = Matrix3D.NewRotateByDegrees(0, 0, 180);
-                    m = m * matAdd;
+                    if (dirNorm == new Vektor(0, 0, 1))
+                    {
+                        Matrix3D matAdd = Matrix3D.NewRotateByDegrees(0, 0, 180);
+                        m = m * matAdd;
+                    }
+                    else if (dirNorm == new Vektor(0, 0, -1))
+                    {
+                        Matrix3D matAdd = Matrix3D.NewRotateByDegrees(0, 180, 180);
+                        m = m * matAdd;
+                    }
                 }
             }
             else if (obj.Caption == EditHelper.CAMERAVIEW2_string)
@@ -2151,6 +2161,17 @@ namespace _3dEditor
         private void onBoardActiate(object sender, EventArgs e)
         {
             toolStrip1.Refresh();
+        }
+
+        private void OnChangedComboProjection(object sender, EventArgs e)
+        {
+            if (_currentScene == null) return;
+            ToolStripComboBox c = sender as ToolStripComboBox;
+            EditHelper.Projection = c.SelectedIndex == 0 ? EditHelper.ProjectionType.ORTO : EditHelper.ProjectionType.PERSP;
+            if (EditHelper.Projection == EditHelper.ProjectionType.ORTO)
+                Vektor.To2DProj = Vektor.To2D_Orto;
+            else
+                Vektor.To2DProj = Vektor.To2D_Persp;
         }
     }
 }

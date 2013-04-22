@@ -245,7 +245,7 @@ namespace RayTracerLib
             //odrazBarva.G *= _ScaleRecurse;
             //odrazBarva.B *= _ScaleRecurse;
 
-            double scale = Math.Pow(_Absorb, depth - 1);
+            double scale = Math.Pow(_Absorb, depth);
             odrazBarva.R *= scale;
             odrazBarva.G *= scale;
             odrazBarva.B *= scale;

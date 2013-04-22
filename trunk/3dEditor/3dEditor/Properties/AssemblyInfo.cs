@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Raytracer 3D Editor")]
-[assembly: AssemblyDescription("3D editor for raytracing")]
+[assembly: AssemblyTitle("RayTracer 3D Editor")]
+[assembly: AssemblyDescription("3D editor for ray-tracing created as a diploma thesis at Palacký University Olomouc, Department of Informatics.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Ondrej Bahounek")]
-[assembly: AssemblyProduct("Raytracer 3D Editor")]
-[assembly: AssemblyCopyright("Copyright © OndrejBahounek 2013")]
+[assembly: AssemblyCompany("Ondřej Bahounek")]
+[assembly: AssemblyProduct("RayTracer 3D Editor")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.0.0")]
-[assembly: AssemblyFileVersion("2.0.0.0")]
+[assembly: AssemblyVersion("2.0")]
+[assembly: AssemblyFileVersion("2.0")]

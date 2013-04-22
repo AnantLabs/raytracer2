@@ -152,10 +152,9 @@ namespace _3dEditor
         private void InitRayTracer()
         {
             _rayTracer = new RayTracing();
-            _rayTracer.RScene = new Scene();
-            Sphere sph1 = new Sphere(new Vektor(0.5, -1.5, -1.5), 1, new Colour(1, 0.5, 0.1, 1));
+            Sphere sph1 = new Sphere(new Vektor(0, 0, 0), 1);// new Colour(1, 0.5, 0.1, 1));
             Sphere sph2 = new Sphere(new Vektor(-2, -1, -10), 1.5);
-            Cube cube1 = new Cube(new Vektor(0, 0, 0), new Vektor(1, 0, 0), 1);
+            Cube cube1 = new Cube(new Vektor(-2, 1, -3), new Vektor(1, 1, 1), 1);
             //Cube cube2 = new Cube(new Vektor(1.6, -0.1, -5.2), new Vektor(1, 1, 1), 1);
             Cube cube2 = new Cube(new Vektor(0, 0, 0), new Vektor(1, 1, 1), 1);
             cube2.Material.Color = Colour.ColourCreate(Color.Gold);
@@ -167,18 +166,18 @@ namespace _3dEditor
             Cone cone1 = new Cone();
             Cone cone2 = new Cone(new Vektor(-3, 0, -3), new Vektor(1, 0, 0), 0.6, 3);
             Cone cone3 = new Cone(new Vektor(3, 0, -3), new Vektor(-1, 0, 0), 0.6, 3);
-            Cone cone4 = new Cone(new Vektor(0, 3, -3), new Vektor(0.0001, -1, 0), 0.8, 3);
+            Cone cone4 = new Cone(new Vektor(0, 3, -3), new Vektor(0, -1, 0), 0.8, 3);
             Cone cone5 = new Cone(new Vektor(0, -3, -3), new Vektor(0, 1, 0), 0.8, 3);
 
             _rayTracer.RScene.SceneObjects.Clear();
 
-            _rayTracer.RScene.Lights[0].Coord = new Vektor(-4.2, 2.1, 0.6);
-            _rayTracer.RScene.Lights[1].Coord = new Vektor(0, 0, -5);
-            _rayTracer.RCamera.Source = new Vektor(0, 0, -10);
-            _rayTracer.RCamera.SetNormAndUp(new Vektor(0, 0, 1), new Vektor(0, 1, 0));
+            _rayTracer.RScene.Lights[0].Coord = new Vektor(4.2, 2.1, 0.6);
+            _rayTracer.RScene.Lights[1].Coord = new Vektor(0, 4, 5);
+            _rayTracer.RCamera.Source = new Vektor(0, 0, 5);
+            _rayTracer.RCamera.SetNormAndUp(new Vektor(0, 0, -1), new Vektor(0, 1, 0));
             //_rayTracer.RScene.SceneObjects.Add(sph1);
-            //_rayTracer.RScene.SceneObjects.Add(sph2);
-            _rayTracer.RScene.SceneObjects.Add(cube1);
+            _rayTracer.RScene.SceneObjects.Add(sph1);
+            //_rayTracer.RScene.SceneObjects.Add(cube1);
             //_rayTracer.RScene.SceneObjects.Add(cube2);
             //_rayTracer.RScene.SceneObjects.Add(tr1);
             //_rayTracer.RScene.SceneObjects.Add(cone2);
@@ -194,14 +193,14 @@ namespace _3dEditor
             
 
             CustomObject custom = CustomObject.CreateCube();
-            //_rayTracer.RScene.SceneObjects.Add(custom);
+            _rayTracer.RScene.SceneObjects.Add(custom);
 
             CustomObject planeCustom = CustomObject.CreatePlane();
             //_rayTracer.RScene.SceneObjects.Add(planeCustom);
 
             //_rayTracer.RScene.SetDefaultSceneSphericCube();
-            _rayTracer.RScene.SetDefaultSceneAxes();
-            _rayTracer.RCamera = _rayTracer.RScene.Camera;
+            //_rayTracer.RScene.SetDefaultSceneAxes();
+            //_rayTracer.RCamera = _rayTracer.RScene.Camera;
             this._WndBoard.AddRaytrScene(_rayTracer.RScene);
 
             RayImage img = new RayImage(1, new Colour(0.8, 0.1, 0.5, 0), false);
@@ -289,14 +288,37 @@ namespace _3dEditor
         private void onDrawClick(object sender, EventArgs e)
         {
             _WndBoard.InitForRaytracer();
-            RayImage img = _WndScene.GetSelectedImage();
-            _rayTracer.SetRayImage(img);
+            RayImage img = new RayImage(_WndScene.GetSelectedImage());
+            //_rayTracer.SetRayImage(img);
+            RayTracing raytr = new RayTracing(_rayTracer);
+            raytr.SetRayImage(img);
             DrawingBoard form = new DrawingBoard(this);
             DefaultShape.TotalTested = 0;
             form.Size = new Size(img.CurrentSize.Width + RayImage.SizeWidthExtent, img.CurrentSize.Height + RayImage.SizeHeightExtent);
-            form.Set(new RayTracing(_rayTracer), new RayImage(img));
+            form.Set(raytr, img);
             GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);
             form.Show();
+        }
+
+        private void onAnimeClick(object sender, EventArgs e)
+        {
+            _WndBoard.InitForRaytracer();
+
+            RayImage rayImg = new RayImage(_WndScene.GetSelectedImage());
+
+            RayTracing raytr = new RayTracing(_rayTracer);
+            raytr.SetRayImage(rayImg);
+
+            DrawingAnimation drAnim = _WndScene.GetSelectedAnimation();
+            Animation anim = new Animation((Animation)drAnim.ModelObject);
+
+            DefaultShape.TotalTested = 0;
+
+            AnimBoard animForm = new AnimBoard(raytr, rayImg, anim, this);
+
+            this.toolStripAnimate.Enabled = false;
+            animForm.FormClosed += animForm_FormClosed;
+            animForm.Show();
         }
 
         public void AddRaytrObject(object obj)
@@ -562,26 +584,7 @@ namespace _3dEditor
             //this.MdiChildren[2].Invalidate();
         }
 
-        private void onAnimeClick(object sender, EventArgs e)
-        {
-            _WndBoard.InitForRaytracer();
-            
-            RayImage rayImg = new RayImage(_WndScene.GetSelectedImage());
 
-            RayTracing raytr = new RayTracing(_rayTracer);
-            raytr.RScene.SetBeforeRayTr(rayImg);
-
-            DrawingAnimation drAnim = _WndScene.GetSelectedAnimation();
-            Animation anim = new Animation((Animation)drAnim.ModelObject);
-
-            DefaultShape.TotalTested = 0;
-
-            AnimBoard animForm = new AnimBoard(raytr, rayImg,anim , this);
-            
-            this.toolStripAnimate.Enabled = false;
-            animForm.FormClosed += animForm_FormClosed;
-            animForm.Show();
-        }
 
         /// <summary>
         /// po zavreni formulare animace se opet povoli tlacitko animace

@@ -321,6 +321,43 @@ namespace Mathematics
         }
 
         /// <summary>
+        /// Delegat na projekci
+        /// </summary>
+        /// <param name="vector">bod, ktery je promitan</param>
+        /// <param name="scale"></param>
+        /// <param name="zoom"></param>
+        /// <param name="centerPoint"></param>
+        public delegate PointF DelegateTo2D(Vektor vector, int scale, int zoom, Point centerPoint);
+        public static DelegateTo2D To2DProj = new DelegateTo2D(To2D_Orto);
+
+        public static PointF To2D_Persp(Vektor vector, int scale, int zoom, Point centerPoint)
+        {
+            double maxZ = 30.0;
+            double zz = vector.Z;
+            if (-vector.Z > maxZ)
+                zz = -maxZ + 1;
+            else if (vector.Z > maxZ)
+                zz = maxZ - 1;
+            Matrix3D matr = new Matrix3D(new Vektor(zoom, 0, 0, 0), new Vektor(0, zoom, 0, 0), new Vektor(0, 0, 0, 0), new Vektor(0, 0, 1.0 / maxZ, 1));
+            Vektor vec = new Vektor(vector.X, vector.Y, zz, vector.ZZ);
+            matr.TransformPoint(vec);
+            PointF point = new PointF((float)(vec.X / vec.ZZ), (float)(vec.Y / vec.ZZ));
+            point.X = point.X + centerPoint.X;
+            point.Y = point.Y + centerPoint.Y;
+            return point;
+        }
+
+        public static PointF To2D_Orto(Vektor vector, int scale, int zoom, Point centerPoint)
+        {
+            PointF point = new PointF((float)vector.X, (float)vector.Y);
+            float zFloat = (float)vector.Z;
+            float divide = (zFloat + scale) / zoom;
+            float temp = scale / divide;
+            point.X = point.X * temp + centerPoint.X;
+            point.Y = point.Y * temp + centerPoint.Y;
+            return point;
+        }
+        /// <summary>
         /// Perspektivni promitani
         /// </summary>
         public PointF To2D1(int scale, int zoom, Point centerPoint)
@@ -342,12 +379,7 @@ namespace Mathematics
         /// </summary>
         public PointF To2D(int scale, int zoom, Point centerPoint)
         {
-            PointF point = new PointF((float)X, (float)Y);
-            float zFloat = (float)Z;
-            float divide = (zFloat + scale) / zoom;
-            point.X = point.X * scale / divide + centerPoint.X;
-            point.Y = point.Y * scale / divide + centerPoint.Y;
-            return point;
+            return To2DProj(this, scale, zoom, centerPoint);
         }
         public static Vektor To3D_From2D(PointF p2d, double z, int scale, int zoom, Point centerPoint)
         {

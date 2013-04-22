@@ -40,10 +40,6 @@ namespace RayTracerLib
         [DataMember]
         public double Height { get; private set; }
 
-        [DataMember]
-        double[] Degs { get; set; }
-
-
         private Vektor DirNom;
         private double S;
         Plane Bottom;
@@ -95,10 +91,13 @@ namespace RayTracerLib
             this.Peak = new Vektor(old.Peak);
             this.Center = new Vektor(old.Center);
             this.DirNom = new Vektor(old.DirNom);
+            this.Dir = new Vektor(old.Dir);
             this.Height = old.Height;
             this.Material = new Material(old.Material);
             this.Rad = old.Rad;
             this.S = old.S;
+            Bottom = new Plane(old.Bottom);
+            SetValues(Peak, Dir, Rad, Height);
         }
 
         public void SetValues(Vektor peak, double rad, double height, double degX, double degY, double degZ)
@@ -159,6 +158,9 @@ namespace RayTracerLib
             _ShiftMatrix = Matrix3D.PosunutiNewMatrix(peak.X, peak.Y, peak.Z);
 
             Vektor yAxe = new Vektor(0, 1, 0);
+            if (dir == new Vektor(0,-1,0))
+                dir.X = 0.0001;
+
             Quaternion q = new Quaternion(yAxe, new Vektor(dir));
             //q.Transpose();
             double[] degss = q.ToEulerDegs();

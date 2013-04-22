@@ -30,6 +30,9 @@ namespace EditorLib
             public override string ToString() { return Caption; }
         }
 
+        public enum ProjectionType { ORTO, PERSP }
+        public static ProjectionType Projection;
+
         public int MagnifCoef { get; set; }
         public int Zoom { get; set; }
 

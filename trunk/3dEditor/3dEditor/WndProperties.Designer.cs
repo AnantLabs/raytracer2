@@ -457,7 +457,6 @@
             this.numCustomRotZ = new System.Windows.Forms.NumericUpDown();
             this.numCustomRotY = new System.Windows.Forms.NumericUpDown();
             this.numCustomRotX = new System.Windows.Forms.NumericUpDown();
-            this.button1 = new System.Windows.Forms.Button();
             this.chbCustFilled = new System.Windows.Forms.CheckBox();
             this.txtbCustomLabel = new System.Windows.Forms.TextBox();
             this.label150 = new System.Windows.Forms.Label();
@@ -7067,7 +7066,6 @@
             this.panelCustomObj.Controls.Add(this.numCustomRotZ);
             this.panelCustomObj.Controls.Add(this.numCustomRotY);
             this.panelCustomObj.Controls.Add(this.numCustomRotX);
-            this.panelCustomObj.Controls.Add(this.button1);
             this.panelCustomObj.Controls.Add(this.chbCustFilled);
             this.panelCustomObj.Controls.Add(this.txtbCustomLabel);
             this.panelCustomObj.Controls.Add(this.label150);
@@ -7227,21 +7225,11 @@
             this.numCustomRotX.TabIndex = 224;
             this.numCustomRotX.ValueChanged += new System.EventHandler(this.actionCustRotate);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(27, 88);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(61, 23);
-            this.button1.TabIndex = 223;
-            this.button1.Text = "Reset";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.CustomReset);
-            // 
             // chbCustFilled
             // 
             this.chbCustFilled.AutoSize = true;
             this.chbCustFilled.BackColor = System.Drawing.Color.Transparent;
-            this.chbCustFilled.Location = new System.Drawing.Point(97, 92);
+            this.chbCustFilled.Location = new System.Drawing.Point(21, 92);
             this.chbCustFilled.Name = "chbCustFilled";
             this.chbCustFilled.Size = new System.Drawing.Size(80, 17);
             this.chbCustFilled.TabIndex = 222;
@@ -7683,9 +7671,9 @@
             this.Controls.Add(this.panelAnimace);
             this.Controls.Add(this.panelRovina);
             this.Controls.Add(this.panelCamera);
-            this.Controls.Add(this.panelCustomObj);
             this.Controls.Add(this.panelCylindr);
             this.Controls.Add(this.panelBox);
+            this.Controls.Add(this.panelCustomObj);
             this.Name = "WndProperties";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
@@ -8332,7 +8320,6 @@
         private System.Windows.Forms.Label label222;
         private System.Windows.Forms.Label label223;
         private System.Windows.Forms.CheckBox chbCustFilled;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnTriangDelete;
         private System.Windows.Forms.Button btnTriangDivide;
         private System.Windows.Forms.Label label211;
