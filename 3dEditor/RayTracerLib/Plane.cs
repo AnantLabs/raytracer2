@@ -54,17 +54,23 @@ namespace RayTracerLib
         public Plane() : this(new Vektor(0, 1, 0), 1) { }
         public Plane(Vektor normal, double d)
         {
-            //SetLabelPrefix("plane");
+            SetLabelPrefix("plane");
             IsActive = true;
             this.SetValues(normal, d);
         }
 
-        public Plane(Vektor normal, double d, Colour c) : this(normal, d)
+        public Plane(Vektor normal, double d, bool nolabel)
+        {
+            IsActive = true;
+            this.SetValues(normal, d);
+        }
+
+        public Plane(Vektor normal, double d, Colour c) : this(normal, d, true)
         {
             Material.Color = new Colour(c);
         }
 
-        public Plane(Vektor normal, double d, Material m) : this (normal, d)
+        public Plane(Vektor normal, double d, Material m) : this (normal, d, true)
         {
             Material = new Material(m);
         }
@@ -323,8 +329,9 @@ namespace RayTracerLib
 
         public override DefaultShape FromDeserial()
         {
-            Plane p = new Plane(this.Normal, this.D);
-            p.Label = this.Label;
+            Plane p = new Plane(this.Normal, this.D, true);
+            if (this.Label != null)
+                p.Label = this.Label;
             p.Material = this.Material;
             p.IsActive = this.IsActive;
             return p;

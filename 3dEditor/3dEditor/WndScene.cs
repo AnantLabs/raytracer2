@@ -19,8 +19,7 @@ namespace _3dEditor
         enum TreeNodeTypes
         {
             Objects, Lights, Camera, Images, Animations, // top level nodes
-            Spheres, Planes, Cubes, Cylinders, Triangles,
-            Cones,
+            Spheres, Planes, Cubes, Cylinders, Cones,
             Custom
         }
 
@@ -63,8 +62,6 @@ namespace _3dEditor
             nodeCubes.Tag = TreeNodeTypes.Cubes;
             TreeNode nodeCyls = new TreeNode(TreeNodeTypes.Cylinders.ToString());
             nodeCyls.Tag = TreeNodeTypes.Cylinders;
-            TreeNode nodeTriangs = new TreeNode(TreeNodeTypes.Triangles.ToString());
-            nodeTriangs.Tag = TreeNodeTypes.Triangles;
             TreeNode nodeCones = new TreeNode(TreeNodeTypes.Cones.ToString());
             nodeCones.Tag = TreeNodeTypes.Cones;
             TreeNode nodeCustoms = new TreeNode(TreeNodeTypes.Custom.ToString());
@@ -75,7 +72,6 @@ namespace _3dEditor
             nodeObjects.Nodes.Add(nodeCubes);
             nodeObjects.Nodes.Add(nodeCyls);
             nodeObjects.Nodes.Add(nodeCones);
-            nodeObjects.Nodes.Add(nodeTriangs);
             nodeObjects.Nodes.Add(nodeCustoms);
 
             TreeNode nodeLights = new TreeNode(TreeNodeTypes.Lights.ToString());
@@ -106,9 +102,8 @@ namespace _3dEditor
 
             TreeNodeTypes rootTyp = typ;
             if (typ == TreeNodeTypes.Cubes || typ == TreeNodeTypes.Spheres ||
-                typ == TreeNodeTypes.Planes || typ == TreeNodeTypes.Cylinders ||
-                typ == TreeNodeTypes.Triangles || typ == TreeNodeTypes.Cones ||
-                typ == TreeNodeTypes.Custom)
+                typ == TreeNodeTypes.Planes || typ == TreeNodeTypes.Cylinders || 
+                typ == TreeNodeTypes.Cones || typ == TreeNodeTypes.Custom)
                 rootTyp = TreeNodeTypes.Objects;
 
             foreach (TreeNode node in treeView1.Nodes)
@@ -255,10 +250,6 @@ namespace _3dEditor
             else if (drawObj.GetType() == typeof(DrawingCylinder))
             {
                 this.AddItem(drawObj, TreeNodeTypes.Cylinders);
-            }
-            else if (drawObj.GetType() == typeof(DrawingTriangle))
-            {
-                this.AddItem(drawObj, TreeNodeTypes.Triangles);
             }
             else if (drawObj.GetType() == typeof(DrawingCustom))
             {

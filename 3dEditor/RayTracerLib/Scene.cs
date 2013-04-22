@@ -123,12 +123,23 @@ namespace RayTracerLib
                     Plane p = new Plane((Plane)ds);
                     SceneObjects.Add(p);
                 }
+                else if (ds.GetType() == typeof(Cone))
+                {
+                    Cone cone = new Cone((Cone)ds);
+                    SceneObjects.Add(cone);
+                }
+                else if (ds.GetType() == typeof(CustomObject))
+                {
+                    CustomObject cust = new CustomObject((CustomObject)ds);
+                    SceneObjects.Add(cust);
+                }
                 else
                 {
                     SceneObjects.Add(ds);
                 }
             }
             Optimaliz = old.Optimaliz;
+            IsOptimizing = old.IsOptimizing;
         }
 
         /// <summary>
@@ -223,7 +234,7 @@ namespace RayTracerLib
         public void SetDefaultColors()
         {
             AmbientColor = new Colour(0.25, 0.25, 0.25, 1);
-            BgColor = new Colour(0.2, 0.2, 0.2, 1);
+            BgColor = new Colour(0.8, 0.8, 0.8, 1);
         }
 
         /// <summary>
@@ -875,7 +886,7 @@ namespace RayTracerLib
             if (sc2.Lights != null)
                 foreach (Light l in sc2.Lights)
                 {
-                    if (!LabeledShape.IsAvailable(l.Label))
+                    if (l.Label != null && !LabeledShape.IsAvailable(l.Label))
                         l.Label = l.GetUniqueName();
                     scene.Lights.Add(l);
                 }
@@ -883,7 +894,7 @@ namespace RayTracerLib
             if (sc2.SceneObjects != null)
                 foreach (DefaultShape ds in sc2.SceneObjects)
                 {
-                    if (!LabeledShape.IsAvailable(ds.Label))
+                    if (ds.Label != null && !LabeledShape.IsAvailable(ds.Label))
                     {
                         string nlabel = ds.GetUniqueName();
                         ds.Label = nlabel;

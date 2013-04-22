@@ -48,7 +48,7 @@
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.pictureBoard = new System.Windows.Forms.PictureBox();
-            this.drawItemFlowLayout1 = new _3dEditor.MenuDrawItemFlowLayout();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolsComboViewAngle = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -56,7 +56,10 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripBtnLights = new System.Windows.Forms.ToolStripButton();
             this.toolStripBtnCamera = new System.Windows.Forms.ToolStripButton();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.toolComboViewsProjection = new System.Windows.Forms.ToolStripComboBox();
+            this.drawItemFlowLayout1 = new _3dEditor.MenuDrawItemFlowLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStripContainer2.ContentPanel.SuspendLayout();
             this.toolStripContainer2.TopToolStripPanel.SuspendLayout();
@@ -310,18 +313,27 @@
             this.pictureBoard.MouseMove += new System.Windows.Forms.MouseEventHandler(this.onPicMouseMove);
             this.pictureBoard.MouseUp += new System.Windows.Forms.MouseEventHandler(this.onPicMouseUp);
             // 
-            // drawItemFlowLayout1
+            // toolStrip1
             // 
-            this.drawItemFlowLayout1.AutoSize = true;
-            this.drawItemFlowLayout1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.drawItemFlowLayout1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.drawItemFlowLayout1.Location = new System.Drawing.Point(333, 80);
-            this.drawItemFlowLayout1.MaximumSize = new System.Drawing.Size(400, 500);
-            this.drawItemFlowLayout1.MinimumSize = new System.Drawing.Size(100, 30);
-            this.drawItemFlowLayout1.Name = "drawItemFlowLayout1";
-            this.drawItemFlowLayout1.Size = new System.Drawing.Size(100, 30);
-            this.drawItemFlowLayout1.TabIndex = 3;
-            this.drawItemFlowLayout1.Visible = false;
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel1,
+            this.toolsComboViewAngle,
+            this.toolStripSeparator4,
+            this.toolBtnAxes,
+            this.toolStripSeparator1,
+            this.toolStripBtnLights,
+            this.toolStripBtnCamera,
+            this.toolStripSeparator2,
+            this.toolStripLabel2,
+            this.toolComboViewsProjection});
+            this.toolStrip1.Location = new System.Drawing.Point(3, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.toolStrip1.Size = new System.Drawing.Size(581, 25);
+            this.toolStrip1.TabIndex = 0;
+            this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.Paint += new System.Windows.Forms.PaintEventHandler(this.onToolStripPaint);
             // 
             // toolStripLabel1
             // 
@@ -392,24 +404,40 @@
             this.toolStripBtnCamera.Text = "Show Camera";
             this.toolStripBtnCamera.Click += new System.EventHandler(this.onShowCamera);
             // 
-            // toolStrip1
+            // toolStripSeparator2
             // 
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel1,
-            this.toolsComboViewAngle,
-            this.toolStripSeparator4,
-            this.toolBtnAxes,
-            this.toolStripSeparator1,
-            this.toolStripBtnLights,
-            this.toolStripBtnCamera});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(386, 25);
-            this.toolStrip1.TabIndex = 0;
-            this.toolStrip1.Text = "toolStrip1";
-            this.toolStrip1.Paint += new System.Windows.Forms.PaintEventHandler(this.onToolStripPaint);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(64, 22);
+            this.toolStripLabel2.Text = "Projection:";
+            // 
+            // toolComboViewsProjection
+            // 
+            this.toolComboViewsProjection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolComboViewsProjection.Items.AddRange(new object[] {
+            "Orthogonal",
+            "Perspective"});
+            this.toolComboViewsProjection.Name = "toolComboViewsProjection";
+            this.toolComboViewsProjection.Size = new System.Drawing.Size(121, 25);
+            this.toolComboViewsProjection.ToolTipText = "Select projection";
+            this.toolComboViewsProjection.SelectedIndexChanged += new System.EventHandler(this.OnChangedComboProjection);
+            // 
+            // drawItemFlowLayout1
+            // 
+            this.drawItemFlowLayout1.AutoSize = true;
+            this.drawItemFlowLayout1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.drawItemFlowLayout1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.drawItemFlowLayout1.Location = new System.Drawing.Point(333, 80);
+            this.drawItemFlowLayout1.MaximumSize = new System.Drawing.Size(400, 500);
+            this.drawItemFlowLayout1.MinimumSize = new System.Drawing.Size(100, 30);
+            this.drawItemFlowLayout1.Name = "drawItemFlowLayout1";
+            this.drawItemFlowLayout1.Size = new System.Drawing.Size(100, 30);
+            this.drawItemFlowLayout1.TabIndex = 3;
+            this.drawItemFlowLayout1.Visible = false;
             // 
             // WndBoard
             // 
@@ -476,5 +504,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolStripBtnLights;
         private System.Windows.Forms.ToolStripButton toolStripBtnCamera;
+        private System.Windows.Forms.ToolStripComboBox toolComboViewsProjection;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
     }
 }

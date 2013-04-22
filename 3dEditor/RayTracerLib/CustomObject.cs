@@ -28,12 +28,19 @@ namespace RayTracerLib
         public CustomObject() : this(CustomObject.CreateCube()) { }
         public CustomObject(CustomObject old):base(old)
         {
-            this.VertexList = old.VertexList;
-            this.FaceList = old.FaceList;
-            _ShiftMatrix = old._ShiftMatrix;
-            _RotatMatrix = old._RotatMatrix;
-            _localMatrix = old._localMatrix;
-            this.Material = old.Material;
+            IsActive = old.IsActive;
+            if (old.VertexList != null)
+                this.VertexList = new List<Vertex>(old.VertexList);
+            if (old.FaceList != null)
+                this.FaceList = new List<Triangle>(old.FaceList);
+            if (old._ShiftMatrix != null)
+                _ShiftMatrix = new Matrix3D(old._ShiftMatrix);
+            if (old._RotatMatrix != null)
+                _RotatMatrix = new Matrix3D(old._RotatMatrix);
+            if (old._localMatrix != null)
+                _localMatrix = new Matrix3D(old._localMatrix);
+            if (old.Material != null)
+                this.Material = new Material(old.Material);
         }
         /// <summary>
         /// zadani objektu pres body a seznamem indexu
@@ -290,7 +297,7 @@ namespace RayTracerLib
                 0,2,3,
             };
             CustomObject plane = new CustomObject(vecs.ToArray(), faces);
-            plane.SetCenter(new Vektor(0, -1, 0));
+            plane.SetCenter(new Vektor(0, -0.1, 1));
             return plane;
         }
 

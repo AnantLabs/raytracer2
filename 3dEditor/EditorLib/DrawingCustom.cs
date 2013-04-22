@@ -130,7 +130,7 @@ namespace EditorLib
             if (_ShiftMatrix == null)
                 _ShiftMatrix = Matrix3D.Identity;
             if (_origShigMatrix == null)
-                _origShigMatrix = Matrix3D.Identity;
+                _origShigMatrix = Matrix3D.PosunutiNewMatrix(Center);
             _localMatrix = _RotatMatrix * _ShiftMatrix;
         }
 
@@ -179,11 +179,11 @@ namespace EditorLib
             Matrix3D transpRot = _RotatMatrix.Transpose();
             Matrix3D transpShift = _origShigMatrix.GetOppositeShiftMatrix();
 
-            _origShigMatrix.TransformPoints(Points);    // posunuti na pocatecni pozici
+            transpShift.TransformPoints(Points);    // posunuti na pocatecni pozici
             transpRot.TransformPoints(Points);          // rotace na zakladni pozici
 
             this._RotatMatrix = newRot;
-            _localMatrix = _RotatMatrix * transpShift;  // rotace o novy uhel a posunuti na posledni pozici
+            _localMatrix = _RotatMatrix * _origShigMatrix;  // rotace o novy uhel a posunuti na posledni pozici
             _localMatrix.TransformPoints(Points);
         }
 

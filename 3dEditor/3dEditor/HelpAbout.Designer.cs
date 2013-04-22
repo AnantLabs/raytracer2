@@ -59,11 +59,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.richTextBox7 = new System.Windows.Forms.RichTextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label10 = new System.Windows.Forms.Label();
-            this.richTextBox9 = new System.Windows.Forms.RichTextBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.richTextBox8 = new System.Windows.Forms.RichTextBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
             this.richTextBox6 = new System.Windows.Forms.RichTextBox();
             this.tabProperties = new System.Windows.Forms.TabControl();
@@ -81,11 +76,19 @@
             this.tabPage11 = new System.Windows.Forms.TabPage();
             this.label3 = new System.Windows.Forms.Label();
             this.richTextBox3 = new System.Windows.Forms.RichTextBox();
-            this.tabScene = new System.Windows.Forms.TabControl();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.label12 = new System.Windows.Forms.Label();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.richTextBox14 = new System.Windows.Forms.RichTextBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.richTextBox10 = new System.Windows.Forms.RichTextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.tabScene = new System.Windows.Forms.TabControl();
+            this.richTextBox15 = new System.Windows.Forms.RichTextBox();
+            this.richTextBox13 = new System.Windows.Forms.RichTextBox();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -101,8 +104,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.tabProperties.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.tabMenu.SuspendLayout();
@@ -110,9 +111,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabPage11.SuspendLayout();
-            this.tabScene.SuspendLayout();
+            this.tabPage9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            this.tabScene.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -131,11 +135,11 @@
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.Controls.Add(this.tabAbout);
+            this.splitContainer1.Panel2.Controls.Add(this.tabScene);
             this.splitContainer1.Panel2.Controls.Add(this.tabBoard);
             this.splitContainer1.Panel2.Controls.Add(this.tabProperties);
             this.splitContainer1.Panel2.Controls.Add(this.tabMenu);
-            this.splitContainer1.Panel2.Controls.Add(this.tabScene);
-            this.splitContainer1.Size = new System.Drawing.Size(761, 702);
+            this.splitContainer1.Size = new System.Drawing.Size(757, 465);
             this.splitContainer1.SplitterDistance = 104;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -152,7 +156,7 @@
             this.toolStripMenuItem3});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(104, 702);
+            this.menuStrip1.Size = new System.Drawing.Size(104, 465);
             this.menuStrip1.Stretch = false;
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
@@ -259,9 +263,10 @@
             // labelProductName
             // 
             this.labelProductName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelProductName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelProductName.Location = new System.Drawing.Point(306, 0);
             this.labelProductName.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
-            this.labelProductName.MaximumSize = new System.Drawing.Size(0, 17);
+            this.labelProductName.MaximumSize = new System.Drawing.Size(0, 25);
             this.labelProductName.Name = "labelProductName";
             this.labelProductName.Size = new System.Drawing.Size(206, 11);
             this.labelProductName.TabIndex = 19;
@@ -271,9 +276,10 @@
             // labelVersion
             // 
             this.labelVersion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelVersion.Location = new System.Drawing.Point(306, 11);
             this.labelVersion.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
-            this.labelVersion.MaximumSize = new System.Drawing.Size(0, 17);
+            this.labelVersion.MaximumSize = new System.Drawing.Size(0, 25);
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(206, 11);
             this.labelVersion.TabIndex = 0;
@@ -283,9 +289,10 @@
             // labelCompanyName
             // 
             this.labelCompanyName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelCompanyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelCompanyName.Location = new System.Drawing.Point(306, 33);
             this.labelCompanyName.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
-            this.labelCompanyName.MaximumSize = new System.Drawing.Size(0, 17);
+            this.labelCompanyName.MaximumSize = new System.Drawing.Size(0, 25);
             this.labelCompanyName.Name = "labelCompanyName";
             this.labelCompanyName.Size = new System.Drawing.Size(206, 13);
             this.labelCompanyName.TabIndex = 22;
@@ -295,6 +302,7 @@
             // textBoxDescription
             // 
             this.textBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxDescription.Location = new System.Drawing.Point(306, 49);
             this.textBoxDescription.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.textBoxDescription.Multiline = true;
@@ -310,6 +318,7 @@
             // 
             this.labelReleaseDate.AutoSize = true;
             this.labelReleaseDate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelReleaseDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelReleaseDate.Location = new System.Drawing.Point(306, 22);
             this.labelReleaseDate.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
             this.labelReleaseDate.Name = "labelReleaseDate";
@@ -449,7 +458,7 @@
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
             this.pictureBox3.Location = new System.Drawing.Point(9, 302);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(436, 385);
+            this.pictureBox3.Size = new System.Drawing.Size(436, 386);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox3.TabIndex = 2;
             this.pictureBox3.TabStop = false;
@@ -481,11 +490,6 @@
             // tabPage3
             // 
             this.tabPage3.AutoScroll = true;
-            this.tabPage3.Controls.Add(this.label10);
-            this.tabPage3.Controls.Add(this.richTextBox9);
-            this.tabPage3.Controls.Add(this.pictureBox6);
-            this.tabPage3.Controls.Add(this.richTextBox8);
-            this.tabPage3.Controls.Add(this.pictureBox4);
             this.tabPage3.Controls.Add(this.label6);
             this.tabPage3.Controls.Add(this.richTextBox6);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -495,66 +499,6 @@
             this.tabPage3.TabIndex = 6;
             this.tabPage3.Text = "Board Controlls";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label10.Location = new System.Drawing.Point(6, 844);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(217, 24);
-            this.label10.TabIndex = 6;
-            this.label10.Text = "Custom transformation";
-            // 
-            // richTextBox9
-            // 
-            this.richTextBox9.BackColor = System.Drawing.SystemColors.Window;
-            this.richTextBox9.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.richTextBox9.Location = new System.Drawing.Point(9, 1134);
-            this.richTextBox9.Margin = new System.Windows.Forms.Padding(10);
-            this.richTextBox9.Name = "richTextBox9";
-            this.richTextBox9.ReadOnly = true;
-            this.richTextBox9.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.richTextBox9.Size = new System.Drawing.Size(569, 147);
-            this.richTextBox9.TabIndex = 5;
-            this.richTextBox9.Text = resources.GetString("richTextBox9.Text");
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
-            this.pictureBox6.Location = new System.Drawing.Point(9, 880);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(407, 235);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox6.TabIndex = 4;
-            this.pictureBox6.TabStop = false;
-            // 
-            // richTextBox8
-            // 
-            this.richTextBox8.BackColor = System.Drawing.SystemColors.Window;
-            this.richTextBox8.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.richTextBox8.Location = new System.Drawing.Point(13, 646);
-            this.richTextBox8.Margin = new System.Windows.Forms.Padding(10);
-            this.richTextBox8.Name = "richTextBox8";
-            this.richTextBox8.ReadOnly = true;
-            this.richTextBox8.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.richTextBox8.Size = new System.Drawing.Size(569, 217);
-            this.richTextBox8.TabIndex = 3;
-            this.richTextBox8.Text = resources.GetString("richTextBox8.Text");
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(9, 301);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(541, 334);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox4.TabIndex = 2;
-            this.pictureBox4.TabStop = false;
             // 
             // label6
             // 
@@ -760,14 +704,79 @@
             this.richTextBox3.TabIndex = 0;
             this.richTextBox3.Text = "Saves scene to extern file in XML format";
             // 
-            // tabScene
+            // tabPage9
             // 
-            this.tabScene.Controls.Add(this.tabPage5);
-            this.tabScene.Location = new System.Drawing.Point(13, 261);
-            this.tabScene.Name = "tabScene";
-            this.tabScene.SelectedIndex = 0;
-            this.tabScene.Size = new System.Drawing.Size(629, 118);
-            this.tabScene.TabIndex = 2;
+            this.tabPage9.AutoScroll = true;
+            this.tabPage9.Controls.Add(this.richTextBox15);
+            this.tabPage9.Controls.Add(this.label11);
+            this.tabPage9.Controls.Add(this.richTextBox13);
+            this.tabPage9.Controls.Add(this.richTextBox14);
+            this.tabPage9.Controls.Add(this.pictureBox8);
+            this.tabPage9.Controls.Add(this.pictureBox9);
+            this.tabPage9.Controls.Add(this.label12);
+            this.tabPage9.Location = new System.Drawing.Point(4, 22);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage9.Size = new System.Drawing.Size(621, 109);
+            this.tabPage9.TabIndex = 9;
+            this.tabPage9.Text = "Objects";
+            this.tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label12.Location = new System.Drawing.Point(9, 21);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(81, 24);
+            this.label12.TabIndex = 1;
+            this.label12.Text = "Objects";
+            // 
+            // pictureBox9
+            // 
+            this.pictureBox9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
+            this.pictureBox9.Location = new System.Drawing.Point(13, 136);
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.Size = new System.Drawing.Size(541, 334);
+            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox9.TabIndex = 2;
+            this.pictureBox9.TabStop = false;
+            // 
+            // richTextBox14
+            // 
+            this.richTextBox14.BackColor = System.Drawing.SystemColors.Window;
+            this.richTextBox14.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.richTextBox14.Location = new System.Drawing.Point(13, 480);
+            this.richTextBox14.Margin = new System.Windows.Forms.Padding(10);
+            this.richTextBox14.Name = "richTextBox14";
+            this.richTextBox14.ReadOnly = true;
+            this.richTextBox14.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.richTextBox14.Size = new System.Drawing.Size(569, 199);
+            this.richTextBox14.TabIndex = 3;
+            this.richTextBox14.Text = resources.GetString("richTextBox14.Text");
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
+            this.pictureBox8.Location = new System.Drawing.Point(13, 712);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(407, 235);
+            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox8.TabIndex = 4;
+            this.pictureBox8.TabStop = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label11.Location = new System.Drawing.Point(10, 674);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(217, 24);
+            this.label11.TabIndex = 6;
+            this.label11.Text = "Custom transformation";
             // 
             // tabPage5
             // 
@@ -783,26 +792,6 @@
             this.tabPage5.Text = "Scene";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
-            this.pictureBox5.Location = new System.Drawing.Point(19, 239);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(429, 476);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox5.TabIndex = 2;
-            this.pictureBox5.TabStop = false;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label7.Location = new System.Drawing.Point(9, 21);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(70, 24);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Scene";
-            // 
             // richTextBox10
             // 
             this.richTextBox10.BackColor = System.Drawing.SystemColors.Window;
@@ -817,19 +806,80 @@
             this.richTextBox10.TabIndex = 0;
             this.richTextBox10.Text = resources.GetString("richTextBox10.Text");
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label7.Location = new System.Drawing.Point(9, 21);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(70, 24);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Scene";
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
+            this.pictureBox5.Location = new System.Drawing.Point(19, 239);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(429, 476);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox5.TabIndex = 2;
+            this.pictureBox5.TabStop = false;
+            // 
+            // tabScene
+            // 
+            this.tabScene.Controls.Add(this.tabPage5);
+            this.tabScene.Controls.Add(this.tabPage9);
+            this.tabScene.Location = new System.Drawing.Point(12, 244);
+            this.tabScene.Name = "tabScene";
+            this.tabScene.SelectedIndex = 0;
+            this.tabScene.Size = new System.Drawing.Size(629, 135);
+            this.tabScene.TabIndex = 2;
+            // 
+            // richTextBox15
+            // 
+            this.richTextBox15.BackColor = System.Drawing.SystemColors.Window;
+            this.richTextBox15.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.richTextBox15.Location = new System.Drawing.Point(13, 63);
+            this.richTextBox15.Margin = new System.Windows.Forms.Padding(10);
+            this.richTextBox15.Name = "richTextBox15";
+            this.richTextBox15.ReadOnly = true;
+            this.richTextBox15.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.richTextBox15.Size = new System.Drawing.Size(569, 68);
+            this.richTextBox15.TabIndex = 7;
+            this.richTextBox15.Text = "To the scene can be placed objects, such as sphere, cone, cube, cylinder, plane, " +
+    "custom object and light.\n\nEach object has its own unique label (except objects i" +
+    "n very large scenes).";
+            // 
+            // richTextBox13
+            // 
+            this.richTextBox13.BackColor = System.Drawing.SystemColors.Window;
+            this.richTextBox13.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.richTextBox13.Location = new System.Drawing.Point(14, 965);
+            this.richTextBox13.Margin = new System.Windows.Forms.Padding(10);
+            this.richTextBox13.Name = "richTextBox13";
+            this.richTextBox13.ReadOnly = true;
+            this.richTextBox13.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.richTextBox13.Size = new System.Drawing.Size(569, 147);
+            this.richTextBox13.TabIndex = 5;
+            this.richTextBox13.Text = resources.GetString("richTextBox13.Text");
+            // 
             // Help
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(761, 702);
+            this.ClientSize = new System.Drawing.Size(757, 465);
             this.Controls.Add(this.splitContainer1);
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(660, 480);
             this.Name = "Help";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "HelpAbout";
+            this.Text = "About";
             this.TopMost = true;
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -852,8 +902,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.tabProperties.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
@@ -865,10 +913,14 @@
             this.tabPage2.PerformLayout();
             this.tabPage11.ResumeLayout(false);
             this.tabPage11.PerformLayout();
-            this.tabScene.ResumeLayout(false);
+            this.tabPage9.ResumeLayout(false);
+            this.tabPage9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            this.tabScene.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -886,7 +938,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.TabControl tabAbout;
         private System.Windows.Forms.TabControl tabProperties;
-        private System.Windows.Forms.TabControl tabScene;
         private System.Windows.Forms.TabControl tabBoard;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox richTextBox1;
@@ -907,13 +958,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.RichTextBox richTextBox7;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.RichTextBox richTextBox6;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.RichTextBox richTextBox10;
-        private System.Windows.Forms.RichTextBox richTextBox8;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.RichTextBox richTextBox11;
@@ -926,12 +972,21 @@
         private System.Windows.Forms.Label labelCompanyName;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Label labelReleaseDate;
-        private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.PictureBox pictureBox6;
-        private System.Windows.Forms.RichTextBox richTextBox9;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.RichTextBox richTextBox12;
         private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.TabControl tabScene;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.RichTextBox richTextBox10;
+        private System.Windows.Forms.TabPage tabPage9;
+        private System.Windows.Forms.RichTextBox richTextBox15;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.RichTextBox richTextBox14;
+        private System.Windows.Forms.PictureBox pictureBox8;
+        private System.Windows.Forms.PictureBox pictureBox9;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.RichTextBox richTextBox13;
 
     }
 }
