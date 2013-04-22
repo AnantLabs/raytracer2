@@ -542,7 +542,8 @@ namespace RayTracerLib
         public override DefaultShape FromDeserial()
         {
             Cube cube = new Cube(this.Center, this.Dir, this.Size);
-            cube.SetValues(this.Center, this.Size, this.Degs[0], this.Degs[1], this.Degs[2]);
+            if (this.Degs != null)
+                cube.SetValues(this.Center, this.Size, this.Degs[0], this.Degs[1], this.Degs[2]);
             cube.Label = this.Label;
             cube.Material = this.Material;
             cube.IsActive = this.IsActive;

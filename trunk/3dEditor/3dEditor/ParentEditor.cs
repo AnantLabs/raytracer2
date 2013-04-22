@@ -300,6 +300,14 @@ namespace _3dEditor
             form.Show();
         }
 
+        private void CheckAnimPath(Animation anim)
+        {
+            if (!Directory.Exists(Path.GetDirectoryName(anim.FileFullPath)))
+            {
+                anim.FileFullPath = _WndProperties.AnimFileSelect();
+            }
+            
+        }
         private void onAnimeClick(object sender, EventArgs e)
         {
             _WndBoard.InitForRaytracer();
@@ -311,6 +319,7 @@ namespace _3dEditor
 
             DrawingAnimation drAnim = _WndScene.GetSelectedAnimation();
             Animation anim = new Animation((Animation)drAnim.ModelObject);
+            CheckAnimPath(anim);
 
             DefaultShape.TotalTested = 0;
 
@@ -574,7 +583,12 @@ namespace _3dEditor
         public bool _IsClosing;
         private void BeforeClose(object sender, FormClosingEventArgs e)
         {
-
+            DialogResult result = MessageBoxShow("Are you sure you want to close this application?", "Confirm exit",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == System.Windows.Forms.DialogResult.No)
+            {
+                e.Cancel = true;
+            }
         }
 
         private void onClientSizeChange(object sender, EventArgs e)

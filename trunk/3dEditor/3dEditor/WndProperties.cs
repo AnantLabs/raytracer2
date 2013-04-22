@@ -1654,7 +1654,7 @@ namespace _3dEditor
                 anim.AnimType = AnimationType.BothImagesAndVideo;
         }
 
-        private void OnFileAnimSelect(object sender, EventArgs e)
+        public String AnimFileSelect()
         {
             _WndBoard.AllowPaint(false);
             if (this.saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -1663,6 +1663,11 @@ namespace _3dEditor
                 this.textBAnimFile.Text = GetRealFullPath(filename);
             }
             _WndBoard.AllowPaint(true);
+            return this.textBAnimFile.Text;
+        }
+        private void OnFileAnimSelect(object sender, EventArgs e)
+        {
+            AnimFileSelect();
         }
 
         private string GetRealFullPath(string text)
