@@ -193,7 +193,7 @@ namespace _3dEditor
             
 
             CustomObject custom = CustomObject.CreateCube();
-            _rayTracer.RScene.SceneObjects.Add(custom);
+            //_rayTracer.RScene.SceneObjects.Add(custom);
 
             CustomObject planeCustom = CustomObject.CreatePlane();
             //_rayTracer.RScene.SceneObjects.Add(planeCustom);
