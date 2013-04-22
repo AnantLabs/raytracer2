@@ -1628,12 +1628,12 @@ namespace _3dEditor
                 m = m1 * m2;
                 if (up == new Vektor(0, 1, 0))
                 {
-                    if (dirNorm == new Vektor(0, 0, 1))
+                    if (dirNorm.Z >0)// == new Vektor(0, 0, 1))
                     {
                         Matrix3D matAdd = Matrix3D.NewRotateByDegrees(0, 0, 180);
                         m = m * matAdd;
                     }
-                    else if (dirNorm == new Vektor(0, 0, -1))
+                    else if (dirNorm.Z < 0)// == new Vektor(0, 0, -1))
                     {
                         Matrix3D matAdd = Matrix3D.NewRotateByDegrees(0, 180, 180);
                         m = m * matAdd;

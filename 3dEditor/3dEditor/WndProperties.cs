@@ -560,6 +560,7 @@ namespace _3dEditor
             this.comboResolution.SelectedIndex = img.IndexPictureSize;
             SetImgComboVisibility();
 
+            _permissionToModify = false;
             this.numericRecurs.Value = (decimal)MyMath.Clamp(img.MaxRecurse, -1, 100);
             this.checkAntialias.Checked = img.IsAntialiasing;
             this.checkOptimize.Checked = img.IsOptimalizing;
@@ -582,11 +583,13 @@ namespace _3dEditor
                     this.imgRadioOptOctTree.Checked = true;
                 else if (img.OptimizType == Optimalizer.OptimizeType.RTREE)
                     this.imgRadioOptAABBTree.Checked = true;
+                else this.imgRadioOptKdtree.Checked = true;
             }
             else
             {
                 this.panelOptimGroup.Visible = false;
             }
+            _permissionToModify = true;
         }
 
         private GroupBox CreateOptimizeGroup()
@@ -2269,6 +2272,8 @@ namespace _3dEditor
 
         private void actionImageOptimCheckChange(object sender, EventArgs e)
         {
+            if (!_permissionToModify) return;
+
             CheckBox chb = sender as CheckBox;
             panelOptimGroup.Visible = chb.Checked;
             RayImage img = _currentlyDisplayed as RayImage;
