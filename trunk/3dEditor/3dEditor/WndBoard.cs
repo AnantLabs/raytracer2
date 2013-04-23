@@ -321,6 +321,7 @@ namespace _3dEditor
             _editorBmp = new Bitmap(pictureBoard.Width, pictureBoard.Height);
             g = Graphics.FromImage(_editorBmp);
             g.SmoothingMode = SmoothingMode.AntiAlias;      // ANTIALIASING!!!
+            
 
             // ================================ DRAWING:
             // =========================================
@@ -342,7 +343,7 @@ namespace _3dEditor
 
                     if (defSpape.IsActive == false)
                         continue;
-                    if (drawedCount > 100) break;
+                    if (drawedCount > 60) break;
                     drawedCount++;
                     Color color = defSpape.Material.Color.SystemColor();
 
@@ -777,6 +778,7 @@ namespace _3dEditor
                     if (_showCamera == false)       // neni-li zaskrtnuta volba zobrazeni kamery, konec
                         continue;
 
+
                     DrawingCamera drCam = (DrawingCamera)obj;
                     Camera cam = (Camera)drCam.ModelObject;
                     EditorObject editorObject = new EditorObject(drCam);
@@ -918,7 +920,6 @@ namespace _3dEditor
 
                 }
             }
-
             pictureBoard.Image = _editorBmp;
 
             // ///////////////////////////////////////////////////////////////
@@ -967,7 +968,7 @@ namespace _3dEditor
                 _updateAll = false;
             }
 
-
+            
             //DrawShit();
         }
 
