@@ -341,6 +341,10 @@ namespace Mathematics
             Matrix3D matr = new Matrix3D(new Vektor(zoom, 0, 0, 0), new Vektor(0, zoom, 0, 0), new Vektor(0, 0, 0, 0), new Vektor(0, 0, 1.0 / maxZ, 1));
             Vektor vec = new Vektor(vector.X, vector.Y, zz, vector.ZZ);
             matr.TransformPoint(vec);
+            if (vec.ZZ == 0.0)
+            {
+                vec.ZZ = 0.01;
+            }
             PointF point = new PointF((float)(vec.X / vec.ZZ), (float)(vec.Y / vec.ZZ));
             point.X = point.X + centerPoint.X;
             point.Y = point.Y + centerPoint.Y;
