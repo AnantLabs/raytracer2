@@ -317,7 +317,6 @@ namespace _3dEditor
 
             if (this.WindowState == FormWindowState.Minimized) return;
 
-            int drawedCount = 0;
             _editorBmp = new Bitmap(pictureBoard.Width, pictureBoard.Height);
             g = Graphics.FromImage(_editorBmp);
             g.SmoothingMode = SmoothingMode.AntiAlias;      // ANTIALIASING!!!
@@ -343,8 +342,7 @@ namespace _3dEditor
 
                     if (defSpape.IsActive == false)
                         continue;
-                    if (drawedCount > 60) break;
-                    drawedCount++;
+
                     Color color = defSpape.Material.Color.SystemColor();
 
                     if (obj == _Selected)
@@ -1925,7 +1923,10 @@ namespace _3dEditor
                 wndScene.AddItem(drobj);
             }
         }
-        int _maximumObjects = 30;
+        /// <summary>
+        /// maximalni povoleny pocet objektu ve scene
+        /// </summary>
+        int _maximumObjects = 40;
         
         /// <summary>
         /// Prida scenu do editoru. I do vsech oken celeho editoru.
@@ -1940,10 +1941,11 @@ namespace _3dEditor
             int i = 0;
             foreach (DefaultShape shape in scene.SceneObjects)
             {
-                if (i > _maximumObjects) break;
+                if (i >= _maximumObjects) break;
                 i++;
                 // prida novy objekt ze sveta raytraceru do sveta editoru
                 AddRaytrObject(shape);
+                if (shape is Sphere) i++;  // koule je za dva objekty
             }
 
             foreach (Light l in scene.Lights)
