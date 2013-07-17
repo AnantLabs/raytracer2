@@ -34,6 +34,10 @@ Among the advanced photorealistic rendering methods belong various optimization 
   * Phong interpolation
   * Ellipsis
 
+=== Technology: ===
+  * Programming language: C# .NET Framework 3.5
+  * Environment: MS Visual Studio 2012 
+
 ----
 
 *[http://raytracer2.googlecode.com/files/diploma%20presentation.pdf diploma thesis presentation]*
