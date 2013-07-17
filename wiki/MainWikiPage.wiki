@@ -14,7 +14,7 @@ Among the advanced photorealistic rendering methods belong various optimization 
 
 == Details ==
 
-Main topics of study:
+=== Key words: ===
   * 3D Editor
   * Rayt-racing
   * Dropped shadows
