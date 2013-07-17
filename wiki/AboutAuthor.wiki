@@ -6,7 +6,7 @@
 [http://raytracer2.googlecode.com/files/Ondra.png]
 
 
-  * *Name: Ondrej Bahounek
+  * *Name: Mgr. Ondrej Bahounek
 ----
   * Country: Czech Republic
   * Email: stamperes@gmail.com*
