@@ -31,7 +31,7 @@ Among the advanced photorealistic rendering methods belong various optimization 
   * Quaternions
   * Barycentric coordinates
   * Homogenous coordinates
-  * Afine transformations
+  * Affine transformations
   * Phong interpolation
   * Ellipsis
 
