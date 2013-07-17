@@ -42,7 +42,7 @@ Among the advanced photorealistic rendering methods belong various optimization 
 
 *[http://raytracer2.googlecode.com/files/diploma%20presentation.pdf diploma thesis presentation]*
 
-*[http://raytracer2.googlecode.com/files/diplomka.pdf diploma thesis full text]*
+*[http://raytracer2.googlecode.com/files/diploma%20thesis.pdf diploma thesis full text]*
 
 *[http://raytracer2.googlecode.com/files/setup.exe setup file]*
 
