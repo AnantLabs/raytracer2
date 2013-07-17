@@ -33,7 +33,7 @@ Among the advanced photorealistic rendering methods belong various optimization 
   * Homogenous coordinates
   * Affine transformations
   * Phong interpolation
-  * Ellipsis
+  * Ellipse
 
 === Technology: ===
   * Programming language: C# .NET Framework 3.5
