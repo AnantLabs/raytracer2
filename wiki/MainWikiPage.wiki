@@ -23,7 +23,7 @@ Among the advanced photorealistic rendering methods belong various optimization 
   * Phong shading
   * Antialiasing
   * Animation
-  * Sphere, Cube, Plane, Cylinder, Cone
+  * Sphere, Cube, Plane, Cylinder, Cone, Triangle
   * Optimization
   * Bounding volume
   * Grid, R-tree, Kd-tree, Octree
