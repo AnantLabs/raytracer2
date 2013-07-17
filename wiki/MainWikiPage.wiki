@@ -3,7 +3,7 @@
 
 = Project RayTracer2 =
 
-*Author: [http://code.google.com/p/raytracer2/wiki/AboutAuthor Ondrej Bahounek]*
+*Author: [http://code.google.com/p/raytracer2/wiki/AboutAuthor Mgr. Ondrej Bahounek]*
 
 *Project leader: Mgr. Eduard Bartl, Ph.D.*
 
