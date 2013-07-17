@@ -3,27 +3,44 @@
 
 = Project RayTracer2 =
 
-*Author: [http://code.google.com/p/raytracer2/wiki/AboutAuthor Ondra Bahounek]*
+*Author: [http://code.google.com/p/raytracer2/wiki/AboutAuthor Ondrej Bahounek]*
 
 *Project leader: Mgr. Eduard Bartl, Ph.D.*
 
-Last edit: 26.3.2012
+_This project is a continuation of bachelor's work_
 
-
-=== This project is a continuation of bachelor's work. ===
+=== Abstract ===
+Among the advanced photorealistic rendering methods belong various optimization techniques of ray-tracing. The most efficient and algorithmically interesting techniques are primarily based on the principle of hierarchy of accelerating structures, which this work aims to explore and compare. Attention is given to the differences between methods of dividing space (eg kd-tree) from methods dividing objects (using eg R-tree). However, optimization of calculations of ray intersections with objects or optimization of drop shadows were also researched. For presentation of results and the construction of scenes was created rendering program with a three dimensional editor.
 
 == Details ==
 
 Main topics of study:
   * 3D Editor
-  * Raytracing
+  * Rayt-racing
   * Dropped shadows
   * Soft shadows
   * Illumination models
   * Phong shading
   * Antialiasing
   * Animation
-  * Spheres, Cubes, Planes, Cylinders
+  * Sphere, Cube, Plane, Cylinder, Cone
+  * Optimization
+  * Bounding volume
+  * Grid, R-tree, Kd-tree, Octree
+  * Euler angles, quaternions
+  * Barycentric coordinates
+  * Homogenous coordinates
+  * Afine transformations
+  * Phong interpolation
+  * Ellipsis
+
+----
+
+*[http://raytracer2.googlecode.com/files/diploma%20presentation.pdf diploma thesis presentation]*
+
+*[http://raytracer2.googlecode.com/files/diplomka.pdf diploma thesis full text]*
+
+*[http://raytracer2.googlecode.com/files/setup.exe setup file]*
 
 <g:plusone size="medium"></g:plusone>
 ----
