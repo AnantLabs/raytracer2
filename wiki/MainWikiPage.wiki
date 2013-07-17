@@ -27,7 +27,8 @@ Among the advanced photorealistic rendering methods belong various optimization 
   * Optimization
   * Bounding volume
   * Grid, R-tree, Kd-tree, Octree
-  * Euler angles, quaternions
+  * Euler angles
+  * Quaternions
   * Barycentric coordinates
   * Homogenous coordinates
   * Afine transformations
