@@ -50,6 +50,7 @@ Among the advanced photorealistic rendering methods belong various optimization 
 *[http://app.box.com/s/le876gpedx60bozdmcna results directory]*
 
 ----
+
 <wiki:gadget url="http://www.ohloh.net/p/587292/widgets/project_basic_stats.xml" width="380" height="250" border="1"/>
 
 <wiki:gadget url="http://www.ohloh.net/p/587292/widgets/project_languages.xml" border="1" width="380" height="250" border="0"/>
